@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @item.description %>
+</p>
+
+<p>
+  <strong>Purchase date:</strong>
+  <%= @item.purchase_date %>
+</p>
+
+<p>
+  <strong>Entry date:</strong>
+  <%= @item.entry_date %>
+</p>
+
+<p>
+  <strong>Last check:</strong>
+  <%= @item.last_check %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @item.status %>
+</p>
+
+<p>
+  <strong>Old number:</strong>
+  <%= @item.old_number %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
