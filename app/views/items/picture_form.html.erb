@@ -1,0 +1,5 @@
+<%= image_tag @item.picture.url %>
+<%= form_for @item, url: picture_url(@item), html: {multipart: true} do |f| %>
+  <%= f.file_field :picture %>
+  <%= f.submit %>
+<%end%>

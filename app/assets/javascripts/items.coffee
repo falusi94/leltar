@@ -21,6 +21,14 @@ class MoreLinkCell extends Backgrid.UriCell
     this.delegateEvents()
     this
 
+class ImageCell extends Backgrid.Cell
+  render: () ->
+    this.$el.empty()
+    uri = this.model.get(this.column.get('name'))
+    this.$el.html('<img src="'+uri+'"/>')
+    this.delegateEvents()
+    this
+
 columns = [
   {
     name: 'id'
@@ -57,6 +65,11 @@ columns = [
     name: 'old_number'
     label: 'Old number'
     cell: 'integer'
+  },
+  {
+    name: 'thumb'
+    label: ''
+    cell: ImageCell
   },
   {
     name: 'id'

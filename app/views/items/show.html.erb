@@ -1,44 +1,48 @@
 <p id="notice"><%= notice %></p>
+<div id="details-container" class="col-md-4">
+  <p>
+    <strong>Name:</strong>
+    <%= @item.name %>
+  </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @item.name %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <%= @item.description %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @item.description %>
-</p>
+  <p>
+    <strong>Group:</strong>
+    <%= @item.group %>
+  </p>
 
-<p>
-  <strong>Group:</strong>
-  <%= @item.group %>
-</p>
+  <p>
+    <strong>Purchase date:</strong>
+    <%= @item.purchase_date %>
+  </p>
 
-<p>
-  <strong>Purchase date:</strong>
-  <%= @item.purchase_date %>
-</p>
+  <p>
+    <strong>Entry date:</strong>
+    <%= @item.entry_date %>
+  </p>
 
-<p>
-  <strong>Entry date:</strong>
-  <%= @item.entry_date %>
-</p>
+  <p>
+    <strong>Last check:</strong>
+    <%= @item.last_check %>
+  </p>
 
-<p>
-  <strong>Last check:</strong>
-  <%= @item.last_check %>
-</p>
+  <p>
+    <strong>Status:</strong>
+    <%= @item.status %>
+  </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @item.status %>
-</p>
+  <p>
+    <strong>Old number:</strong>
+    <%= @item.old_number %>
+  </p>
 
-<p>
-  <strong>Old number:</strong>
-  <%= @item.old_number %>
-</p>
-
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+  <%= link_to 'Edit', edit_item_path(@item) %> |
+  <%= link_to 'Back', items_path %>
+</div>
+<div id="image-cell" class="col-md-8">
+  <%= image_tag @item.picture.url(:medium) %>
+</div>

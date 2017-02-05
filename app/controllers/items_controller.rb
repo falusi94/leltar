@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :picture_get, :picture_post, :picture_form]
 
   # GET /items
   # GET /items.json
@@ -61,6 +61,26 @@ class ItemsController < ApplicationController
     end
   end
 
+  def picture_get
+    redirect_to @item.picture.url
+  end
+
+  def picture_post
+    respond_to do |format|
+      if @item.update(picture_params)
+        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        format.json { render :show, status: :ok, location: @item }
+      else
+        format.html { render :edit }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def picture_form
+    render layout: false
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
@@ -70,5 +90,9 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:name, :description, :purchase_date, :entry_date, :last_check, :status, :old_number, :group)
+    end
+
+    def picture_params
+      params.require(:item).permit(:picture)
     end
 end
