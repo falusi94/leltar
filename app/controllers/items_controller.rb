@@ -4,7 +4,16 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    respond_to do |format|
+      format.json do
+        if params[:filter]
+          @items = Item.filter(params[:filter])
+        else
+          @items = Item.all
+        end
+      end
+      format.html { @filter = params[:filter] }
+    end
   end
 
   # GET /items/1

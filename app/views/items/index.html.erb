@@ -1,6 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Items</h1>
+<div id='filter-container'>
+  Filter:
+  <input type='text', id='filter-field'/>
+  <button id='filter'>Filter</button>
+</div>
 <div id='grid-container'></div>
+<%if @filter%>
+  <script>
+    window.itemFilter = "<%=@filter%>"
+  </script>
+<%end%>
 
 <%= link_to 'New Item', new_item_path %>

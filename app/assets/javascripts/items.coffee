@@ -80,21 +80,41 @@ columns = [
 
 ]
 
+loadData = () ->
+    if window.itemFilter
+      window.collection.fetch(data: {filter: window.itemFilter})
+      $('#filter-field').val(window.itemFilter)
+    else
+      window.collection.fetch()
+
+setFilter = () ->
+  window.itemFilter = $('#filter-field').val()
+  loadData()
+
+
+
 ready =  () ->
   gridContainer = $('#grid-container')
   if gridContainer.length > 0
     collection = new ItemCollection
+    window.collection = collection
     grid = new Backgrid.Grid {
      columns: columns
      collection: collection
     }
     gridContainer.html(grid.render().el)
-
-    collection.fetch()
-
     collection.on 'change', (model, options) ->
       model.save()
+
+    $('#filter-field').keypress (e) ->
+      if e.which == 13
+        setFilter()
+
+    $('#filter').click () ->
+      setFilter()
+    
     grid.$el.addClass('table-striped')
+    loadData()
 
 $(document).on('turbolinks:load', ready)
 
