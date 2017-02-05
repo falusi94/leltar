@@ -39,7 +39,12 @@ columns = [
     cell: 'string'
   },
   {
-    name: 'purchase'
+    name: 'group'
+    label: 'Group'
+    cell: 'string'
+  },
+  {
+    name: 'purchase_date'
     label: 'Purchase'
     cell: 'date'
   },
@@ -76,10 +81,7 @@ ready =  () ->
 
     collection.on 'change', (model, options) ->
       model.save()
+    grid.$el.addClass('table-striped')
 
 $(document).on('turbolinks:load', ready)
-
-
-
-
 
