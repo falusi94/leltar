@@ -43,6 +43,7 @@ gem 'rails-backbone'
 gem 'backbone-paginator-rails'
 gem 'backgridjs-rails'
 gem 'paperclip', "~> 5.0.0"
+gem 'paper_trail'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

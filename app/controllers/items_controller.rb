@@ -10,6 +10,9 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    if params[:version_idx]
+      @item = @item.versions[params[:version_idx].to_i].reify
+    end
   end
 
   # GET /items/new
