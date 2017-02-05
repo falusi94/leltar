@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170108171541) do
     t.integer  "old_number"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "group"
   end
 
 end
