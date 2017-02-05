@@ -13,9 +13,13 @@ ItemCollection = Backbone.PageableCollection.extend {
 }
 
 class MoreLinkCell extends Backgrid.UriCell
-
-
-window.collection = new ItemCollection
+  getUri: (id) -> '/items/'+id
+  render: () ->
+    this.$el.empty()
+    uri = this.getUri(this.model.get(this.column.get('name')))
+    this.$el.html('<a href="'+uri+'">More</a>')
+    this.delegateEvents()
+    this
 
 columns = [
   {
@@ -58,16 +62,24 @@ columns = [
 
 ]
 
-window.grid = new Backgrid.Grid {
- columns: columns
- collection: window.collection
-}
+ready =  () ->
+  gridContainer = $('#grid-container')
+  if gridContainer.length > 0
+    collection = new ItemCollection
+    grid = new Backgrid.Grid {
+     columns: columns
+     collection: collection
+    }
+    gridContainer.append(grid.render().el)
 
-$ () ->
+    collection.fetch()
 
-  $('#grid-container').append(window.grid.render().el)
+    collection.on 'change', (model, options) ->
+      model.save()
 
-  window.collection.fetch()
+$(document).on('turbolinks:load', ready)
+
+
 
 
 
