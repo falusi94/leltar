@@ -88,7 +88,7 @@ ready =  () ->
      columns: columns
      collection: collection
     }
-    gridContainer.append(grid.render().el)
+    gridContainer.html(grid.render().el)
 
     collection.fetch()
 

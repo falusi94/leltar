@@ -68,10 +68,10 @@ class ItemsController < ApplicationController
   def picture_post
     respond_to do |format|
       if @item.update(picture_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        format.html { redirect_to edit_item_path(@item) }
         format.json { render :show, status: :ok, location: @item }
       else
-        format.html { render :edit }
+        format.html { redirect_to edit_item_path(@item) }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
@@ -89,7 +89,7 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :description, :purchase_date, :entry_date, :last_check, :status, :old_number, :group)
+      params.require(:item).permit(:name, :description, :purchase_date, :entry_date, :last_check, :status, :old_number, :group, :picture)
     end
 
     def picture_params
