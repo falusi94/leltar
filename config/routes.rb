@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get '/', to: 'items#index'
+  get 'session/new'
+
+  post 'session/create'
+
+  post 'session/destroy'
+
+  resources :users
   resources :items
   get 'item/index'
 

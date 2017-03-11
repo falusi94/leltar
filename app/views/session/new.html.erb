@@ -1,0 +1,12 @@
+<h1>Login</h1>
+<div class="notice"><%=@notice%></div>
+<%= form_for(:session, url: 'create') do |f| %>
+  <% if @redirect %>
+    <%= f.hidden_field :redirect, value: @redirect %>
+  <% end %>
+  <%=f.label :email %>
+  <%=f.text_field :email%>
+  <%=f.label :password %>
+  <%=f.password_field :password%>
+  <%=f.submit "Login" %>
+<%end%>

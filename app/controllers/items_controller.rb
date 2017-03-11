@@ -4,23 +4,27 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    respond_to do |format|
-      format.json do
-        if params[:filter]
-          @items = Item.filter(params[:filter])
-        else
-          @items = Item.all
+    require_read('all') do
+      respond_to do |format|
+        format.json do
+          if params[:filter]
+            @items = Item.filter(params[:filter])
+          else
+            @items = Item.all
+          end
         end
+        format.html { @filter = params[:filter] }
       end
-      format.html { @filter = params[:filter] }
     end
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
-    if params[:version_idx]
-      @item = @item.versions[params[:version_idx].to_i].reify
+    require_read('group:'+@item.group) do
+      if params[:version_idx]
+        @item = @item.versions[params[:version_idx].to_i].reify
+      end
     end
   end
 
@@ -37,14 +41,15 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
-
-    respond_to do |format|
-      if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
-        format.json { render :show, status: :created, location: @item }
-      else
-        format.html { render :new }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+    require_write('group:'+@item.group) do
+      respond_to do |format|
+        if @item.save
+          format.html { redirect_to @item, notice: 'Item was successfully created.' }
+          format.json { render :show, status: :created, location: @item }
+        else
+          format.html { render :new }
+          format.json { render json: @item.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -52,13 +57,15 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
-    respond_to do |format|
-      if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @item }
-      else
-        format.html { render :edit }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+    require_write('group:'+@item.group) do
+      respond_to do |format|
+        if @item.update(item_params)
+          format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+          format.json { render :show, status: :ok, location: @item }
+        else
+          format.html { render :edit }
+          format.json { render json: @item.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -66,10 +73,12 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @item.destroy
-    respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
-      format.json { head :no_content }
+    require_write('group:'+@item.group) do
+      @item.destroy
+      respond_to do |format|
+        format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -78,13 +87,15 @@ class ItemsController < ApplicationController
   end
 
   def picture_post
-    respond_to do |format|
-      if @item.update(picture_params)
-        format.html { redirect_to edit_item_path(@item) }
-        format.json { render :show, status: :ok, location: @item }
-      else
-        format.html { redirect_to edit_item_path(@item) }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+    require_write('group:'+@item.group) do
+      respond_to do |format|
+        if @item.update(picture_params)
+          format.html { redirect_to edit_item_path(@item) }
+          format.json { render :show, status: :ok, location: @item }
+        else
+          format.html { redirect_to edit_item_path(@item) }
+          format.json { render json: @item.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
