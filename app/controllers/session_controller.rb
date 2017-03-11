@@ -23,6 +23,8 @@ class SessionController < ApplicationController
   end
 
   def destroy
+    log_out
+    redirect_to controller: 'session', action: 'new'
   end
 
   def smart_redirect

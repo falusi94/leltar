@@ -16,6 +16,10 @@
         <% if current_user.admin %>
           <a href="<%=users_path%>">Felhasznalok</a>
         <% end %>
+        <span class="header-right">
+          <%= link_to "Profil", user_path(current_user)%>
+          <%= link_to "Kijelentkezes", '/session/destroy', method: 'post'%>
+        </span>
       <% end %>
     </div>
     <div class="container">
