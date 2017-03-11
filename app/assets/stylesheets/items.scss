@@ -17,3 +17,24 @@ th {
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
      background-color: #b5cdf2;
 }
+
+th.description {
+  width: 40%;
+  max-width: 40%;
+}
+
+td {
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+table.backgrid {
+  table-layout: fixed;
+ width: 100%;
+ margin: 0;
+}
+
+#main-container {
+  width: 95% !important;
+}

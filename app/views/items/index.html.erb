@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Items</h1>
+<h1>
+  <% if @group %>
+    <%=@group%> eszkozei
+  <% else %>
+    Osszes eszkoz
+  <% end %>
+</h1>
 <div id='filter-container'>
   Filter:
   <input type='text', id='filter-field'/>
