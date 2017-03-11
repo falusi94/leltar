@@ -4,13 +4,21 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    require_read('all') do
+    if params[:group]
+      access = 'group:'+params[:group]
+    else
+      access = 'all'
+    end
+    require_read(access) do
       respond_to do |format|
         format.json do
           if params[:filter]
             @items = Item.filter(params[:filter])
           else
             @items = Item.all
+          end
+          if params[:group]
+            @items = @items.where(group: params[:group])
           end
         end
         format.html { @filter = params[:filter] }
@@ -102,6 +110,33 @@ class ItemsController < ApplicationController
 
   def picture_form
     render layout: false
+  end
+
+  def group_index
+    if current_user.can_read?('all')
+      @groups = Item.groups 
+    else
+      @groups = current_user.read_groups 
+    end
+  end
+
+  def group_show
+    require_read('group:'+params[:grp]) do
+      respond_to do |format|
+        format.json do
+          if params[:filter]
+            @items = Item.filter(params[:filter]).where(group: params[:grp])
+          else
+            @items = Item.where(group: params[:grp])
+          end
+          render :index
+        end
+        format.html do 
+          @group = params[:grp]
+          render :index 
+        end
+      end
+    end
   end
 
   private

@@ -7,10 +7,13 @@
   <button id='filter'>Filter</button>
 </div>
 <div id='grid-container'></div>
-<%if @filter%>
   <script>
-    window.itemFilter = "<%=@filter%>"
-  </script>
+<%if @filter%>
+window.itemFilter = "<%=@filter%>"
 <%end%>
+<%if @group%>
+window.group = "<%=@group%>"
+<%end%>
+  </script>
 
 <%= link_to 'New Item', new_item_path %>

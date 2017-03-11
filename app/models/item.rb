@@ -22,4 +22,8 @@ class Item < ApplicationRecord
     end
     res
   end
+  
+  def self.groups
+    Item.select('group').group('group').map { |x| x.group }
+  end
 end

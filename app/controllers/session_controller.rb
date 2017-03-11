@@ -25,6 +25,19 @@ class SessionController < ApplicationController
   def destroy
   end
 
+  def smart_redirect
+    if current_user.can_read?('all')
+      redirect_to controller: 'items', action: 'index'
+    else
+      groups = current_user.read_groups
+      if groups.size != 1
+        redirect_to controller: 'items', action: 'group_index'
+      else
+        redirect_to controller: 'items', action: 'group_show', grp: groups[0]
+      end
+    end
+  end
+
   def session_params
     params.require(:session).permit(:email, :password, :redirect)
   end

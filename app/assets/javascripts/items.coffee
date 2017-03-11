@@ -81,11 +81,13 @@ columns = [
 ]
 
 loadData = () ->
-    if window.itemFilter
-      window.collection.fetch(data: {filter: window.itemFilter})
-      $('#filter-field').val(window.itemFilter)
-    else
-      window.collection.fetch()
+  reqParams = {}
+  if window.itemFilter
+    reqParams.filter = window.itemFilter
+  if window.group
+    reqParams.group = window.group
+    $('#filter-field').val(window.itemFilter)
+  window.collection.fetch(data: reqParams)
 
 setFilter = () ->
   window.itemFilter = $('#filter-field').val()
