@@ -9,10 +9,14 @@
 <div id='grid-container'></div>
   <script>
 <%if @filter%>
-window.itemFilter = "<%=@filter%>"
+  window.itemFilter = "<%=@filter%>"
+<% else %>
+  window.itemFilter = null
 <%end%>
 <%if @group%>
 window.group = "<%=@group%>"
+<% else %>
+  window.group = null
 <%end%>
   </script>
 
