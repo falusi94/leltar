@@ -38,3 +38,8 @@ table.backgrid {
 #main-container {
   width: 95% !important;
 }
+
+#details-container p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

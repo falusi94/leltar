@@ -38,6 +38,7 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
+    require_write('all')
     @item = Item.new
   end
 
