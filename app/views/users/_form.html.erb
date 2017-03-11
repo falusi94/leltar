@@ -13,7 +13,11 @@
 
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <% if current_user.admin %>
+      <%= f.text_field :name %>
+    <% else %>
+      <%= user.name %>
+    <% end %>
   </div>
 
   <div class="field">
@@ -31,22 +35,24 @@
     <%= f.password_field :password_confirmation %>
   </div>
 
-  <div class="field">
-    <%= f.label :read_rights %>
-    <%= f.text_field :read_rights %>
-  </div>
+  <% if current_user.admin %>
+    <div class="field">
+      <%= f.label :read_rights %>
+      <%= f.text_field :read_rights %>
+    </div>
 
-  <div class="field">
-    <%= f.label :write_rights %>
-    <%= f.text_field :write_rights %>
-  </div>
+    <div class="field">
+      <%= f.label :write_rights %>
+      <%= f.text_field :write_rights %>
+    </div>
 
-  <div class="field">
-    <%= f.label :admin %>
-    <%= f.check_box :admin %>
-  </div>
+    <div class="field">
+      <%= f.label :admin %>
+      <%= f.check_box :admin %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <%end%>
 <% end %>

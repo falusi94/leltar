@@ -6,7 +6,7 @@ module SessionManagement
   def log_out
     session[:user_id] = nil
   end
-
+  
   def current_user
     @current_user ||= session[:user_id] && User.find(session[:user_id])
   end
@@ -23,7 +23,9 @@ module SessionManagement
 
   def require_read(object)
     if current_user.can_read?(object)
-      yield
+      if block_given?
+        yield
+      end
     else
       render status: 401, inline: "Unathorized"
     end
@@ -31,10 +33,25 @@ module SessionManagement
 
   def require_write(object)
     if current_user.can_write?(object)
-      yield
+      if block_given?
+        yield
+      end
     else
       render status: 401, inline: "Unathorized"
     end
   end
 
+  def require_admin
+    if current_user.admin
+      if block_given?
+        yield
+      end
+    else
+      render status: 401, inline: "Unathorized"
+    end
+  end
+
+  def self.included(klass)
+    klass.helper_method :current_user, :logged_in?
+  end
 end

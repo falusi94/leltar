@@ -11,8 +11,12 @@
   <body>
     <div class=header>
       <a href="/">SCH Leltár</a>
-      <a href="/groups">Korok</a>
-      <a href="<%=users_path%>">Felhasznalok</a>
+      <% if logged_in? %>
+        <a href="/groups">Korok</a>
+        <% if current_user.admin %>
+          <a href="<%=users_path%>">Felhasznalok</a>
+        <% end %>
+      <% end %>
     </div>
     <div class="container">
       <%= yield %>
