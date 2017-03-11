@@ -9,8 +9,8 @@
   </head>
 
   <body>
-    <div class=header>
-      <a href="/">SCH Leltár</a>
+    <div class="header">
+      <a href="/" class="title">SCH Leltár</a>
       <% if logged_in? %>
         <a href="/groups">Korok</a>
         <% if current_user.admin %>
@@ -22,7 +22,7 @@
         </span>
       <% end %>
     </div>
-    <div class="container">
+    <div id="main-container" class="container">
       <%= yield %>
     </div>
   </body>
