@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  include ItemsHelper
   before_action :set_item, only: [:show, :edit, :update, :destroy, :picture_get, :picture_post, :picture_form]
 
   # GET /items
@@ -12,14 +13,11 @@ class ItemsController < ApplicationController
     require_read(access) do
       respond_to do |format|
         format.json do
-          if params[:filter]
-            @items = Item.filter(params[:filter])
-          else
-            @items = Item.all
-          end
-          if params[:group]
-            @items = @items.where(group: params[:group])
-          end
+          set_items
+        end
+        format.csv do
+          set_items
+          render text: generate_csv(@items)
         end
         format.html { @filter = params[:filter] }
       end
@@ -121,29 +119,21 @@ class ItemsController < ApplicationController
     end
   end
 
-  def group_show
-    require_read('group:'+params[:grp]) do
-      respond_to do |format|
-        format.json do
-          if params[:filter]
-            @items = Item.filter(params[:filter]).where(group: params[:grp])
-          else
-            @items = Item.where(group: params[:grp])
-          end
-          render :index
-        end
-        format.html do 
-          @group = params[:grp]
-          render :index 
-        end
-      end
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
       @item = Item.find(params[:id])
+    end
+
+    def set_items
+      if params[:filter]
+        @items = Item.filter(params[:filter])
+      else
+        @items = Item.all
+      end
+      if params[:group]
+        @items = @items.where(group: params[:group])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

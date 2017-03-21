@@ -5,6 +5,11 @@ class Item < ApplicationRecord
     default_url: ActionController::Base.helpers.asset_path("no_photo.gif")
   validates_attachment_content_type :picture, content_type: /\Aimage\/.*\z/
 
+  def to_a
+    [self.id, self.name, self.description, self.group, self.purchase_date, 
+     self.entry_date, self.last_check, self.status, self.old_number]
+  end
+
   def self.filter(query)
     qs = query.split
     res = Item.all
