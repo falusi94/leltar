@@ -14,8 +14,16 @@
 </div>
 <div id='csv-link-contrainer'>
   <%= link_to "Letoltes CSV-ben", csv_link %>
+</div>
+<div class='pagination-container'>
+  <a class='page-link first-page-link'>&lt;&lt;</a>
+  <a class='page-link prev-page-link'>&lt;</a>
+  <span class='page-num'></span>
+  <a class='page-link next-page-link'>&gt;</a>
+  <a class='page-link last-page-link'>&gt;&gt;</a>
+</div>
 <div id='grid-container'></div>
-  <script>
+<script>
 <%if @filter%>
   window.itemFilter = "<%=@filter%>"
 <% else %>
@@ -26,7 +34,7 @@ window.group = "<%=@group%>"
 <% else %>
   window.group = null
 <%end%>
-  </script>
-  <% if current_user.can_write?('all') %>
-    <%= link_to 'New Item', new_item_path %>A
-  <% end %>
+</script>
+<% if current_user.can_write?('all') %>
+  <%= link_to 'New Item', new_item_path %>A
+<% end %>

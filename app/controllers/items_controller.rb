@@ -149,6 +149,7 @@ class ItemsController < ApplicationController
           @items = []
         end
       end
+      @items = paginate(@items)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -157,6 +158,15 @@ class ItemsController < ApplicationController
     end
 
     def picture_params
-      params.require(:item).permit(:picture)
+      params.requir(:item).permit(:picture)
+    end
+
+    def paginate(ary)
+      if !ary.is_a?(Array)
+        ary = ary.to_a
+      end
+      page_index = params[:page].to_i - 1 
+      page_size = params[:per_page].to_i
+      ary.slice(page_index*page_size, page_size)
     end
 end

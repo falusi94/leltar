@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'groups/:group', to: 'items#index'
   resources :groups, only: [:index, :edit, :create, :destroy, :update, :new]
+  get 'groups/:group', to: 'items#index'
   get '/', to: 'session#smart_redirect'
   get 'session/new'
 

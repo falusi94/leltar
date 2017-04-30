@@ -112,6 +112,19 @@ ready =  () ->
 
     $('#filter').click () ->
       setFilter()
+
+    $('.first-page-link').click () ->
+      collection.getFirstPage()
+    $('.prev-page-link').click () ->
+      collection.getPreviousPage()
+    $('.next-page-link').click () ->
+      collection.getNextPage()
+    $('.last-page-link').click () ->
+      collection.getLastPage()
+    $('.page-num').text(collection.state.currentPage)
+    collection.on 'pageable:state:change', () ->
+      console.log('asd')
+      $('.page-num').text(collection.state.currentPage)
     
     grid.$el.addClass('table-striped')
     loadData()
