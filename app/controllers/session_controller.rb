@@ -28,7 +28,9 @@ class SessionController < ApplicationController
   end
 
   def smart_redirect
-    if current_user.can_read?('all')
+    if !current_user
+      redirect_to controller: 'session', action: 'new'
+    elsif current_user.can_read?('all')
       redirect_to controller: 'items', action: 'index'
     else
       groups = current_user.read_groups

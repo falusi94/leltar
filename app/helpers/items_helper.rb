@@ -8,6 +8,18 @@ module ItemsHelper
     "<a href=\"/items/#{id}/versions/#{v.index}\">#{v.created_at}</a>".html_safe
   end
 
+  def csv_link
+    res = if @group
+      "/groups/#{@group}.csv"
+    else
+      "/items.csv"
+    end
+    if @filter
+      res += "?filter=#{@filter}"
+    end
+    res
+  end
+
   def generate_csv(items)
     CSV::generate do |csv|
       headers = ['id','Megnevezes', 'Leiras', 'Kor', 

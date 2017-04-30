@@ -24,7 +24,11 @@
   
   <div class="field">
     <%= f.label :group %>
-    <%= f.text_field :group %>
+    <% if @item.group %>
+      <%= f.text_field :group, value: @item.group.name %>
+    <% else %>
+      <%= f.text_field :group %>
+    <% end %>
   </div>
 
   <div class="field">

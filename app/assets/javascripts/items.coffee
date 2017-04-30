@@ -93,8 +93,6 @@ setFilter = () ->
   window.itemFilter = $('#filter-field').val()
   loadData()
 
-
-
 ready =  () ->
   gridContainer = $('#grid-container')
   if gridContainer.length > 0

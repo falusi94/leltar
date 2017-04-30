@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'groups/:group', to: 'items#index'
+  resources :groups, only: [:index, :edit, :create, :destroy, :update, :new]
   get '/', to: 'session#smart_redirect'
   get 'session/new'
 
@@ -21,8 +23,6 @@ Rails.application.routes.draw do
   patch 'items/:id/picture', to: 'items#picture_post'
   get 'items/:id/picture/form', to: 'items#picture_form'
   get 'items/:id/versions/:version_idx', to: 'items#show'
-  get 'groups', to: 'items#group_index'
-  get 'groups/:group', to: 'items#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
