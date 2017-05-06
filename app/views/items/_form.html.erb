@@ -24,11 +24,7 @@
   
   <div class="field">
     <%= f.label :group %>
-    <% if @item.group %>
-      <%= f.text_field :group, value: @item.group.name %>
-    <% else %>
-      <%= f.text_field :group %>
-    <% end %>
+    <%= f.select :group, Group.all.map { |g| g.name } %>
   </div>
 
   <div class="field">
@@ -48,7 +44,7 @@
 
   <div class="field">
     <%= f.label :status %>
-    <%= f.text_field :status %>
+    <%= f.select :status, Item::VALID_STATUS %>
   </div>
 
   <div class="field">
