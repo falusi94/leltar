@@ -97,6 +97,21 @@ class ItemsController < ApplicationController
     end
   end
 
+  def update_all
+    require_write('all') do
+      items_in = params.permit(items: [:name, :description, :purchase_date, :entry_date, :last_check, :status, :old_number, :group, :id])
+      items_in[:items].each do |item_json|
+        item = Item.find_by_id(item_json[:id])
+        if item
+          item.update(item_json)
+        else
+          item = Item.new(item_json)
+        end
+        item.save
+      end
+    end
+  end
+
   def picture_get
     redirect_to @item.picture.url
   end
@@ -165,8 +180,12 @@ class ItemsController < ApplicationController
       if !ary.is_a?(Array)
         ary = ary.to_a
       end
-      page_index = params[:page].to_i - 1 
-      page_size = params[:per_page].to_i
-      ary.slice(page_index*page_size, page_size)
+      if params[:page]
+        page_index = params[:page].to_i - 1 
+        page_size = params[:per_page].to_i
+        ary.slice(page_index*page_size, page_size)
+      else
+        ary
+      end
     end
 end

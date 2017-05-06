@@ -6,11 +6,19 @@ Item = Backbone.Model.extend {
 
 }
 
-ItemCollection = Backbone.PageableCollection.extend {
+class ItemCollection extends Backbone.PageableCollection
   model: Item
-  mode: 'server'
   url: '/items'
-}
+  constructor: (pagemode) ->
+    if pagemode == 'check'
+      @mode = 'client'
+    else
+      @mode = 'server'
+    this.state.pagesize = 2
+    super()
+  toJSON: ->
+    {items: super()}
+
 
 class MoreLinkCell extends Backgrid.UriCell
   getUri: (id) -> '/items/'+id
@@ -27,6 +35,17 @@ class ImageCell extends Backgrid.Cell
     uri = this.model.get(this.column.get('name'))
     this.$el.html('<img src="'+uri+'"/>')
     this.delegateEvents()
+    this
+
+class CheckCell extends Backgrid.Cell
+  render: () ->
+    this.$el.empty()
+    checkbox = $('<input type="checkbox">')
+    this.$el.html(checkbox)
+    this.delegateEvents()
+    self = this
+    checkbox.click () ->
+     self.model.set('checked', this.checked)
     this
 
 columns = [
@@ -77,7 +96,56 @@ columns = [
     cell: MoreLinkCell
     editable: false
   },
+]
 
+checkPageColumns = [
+  {
+    name: 'id'
+    label: 'ID'
+    cell: 'integer'
+    editable: false
+  },
+  {
+    name: 'name'
+    label: 'Name'
+    cell: 'string'
+  },
+  {
+    name: 'description'
+    label: 'Description'
+    cell: 'string'
+  },
+  {
+    name: 'group'
+    label: 'Group'
+    cell: 'string'
+  },
+  {
+    name: 'purchase_date'
+    label: 'Purchase'
+    cell: 'date'
+  },
+  {
+    name: 'last_check'
+    label: 'Last check'
+    cell: 'date'
+  },
+  {
+    name: 'old_number'
+    label: 'Old number'
+    cell: 'integer'
+  },
+  {
+    name: 'thumb'
+    label: ''
+    cell: ImageCell
+  },
+  {
+    name: 'id'
+    label: ''
+    cell: CheckCell
+    editable: false
+  },
 ]
 
 loadData = () ->
@@ -93,25 +161,72 @@ setFilter = () ->
   window.itemFilter = $('#filter-field').val()
   loadData()
 
+pagemodeToggle = () ->
+  if window.checkpage
+    window.checkpage = false
+  else
+    window.checkpage = true
+  ready()
+
+
+checkmodeSave = (collection) ->
+  today = new Date().toJSON().slice(0,10)
+  collection.each (model, ix, collection) ->
+    if model.get('checked')
+      model.set('last_check', today)
+  window.checkpage = false
+  error = () ->
+    $('.error-message').text('Hiba tortent, van internet?')
+    $('.error-message').show()
+  Backbone.sync('update', collection, {error: error, success: ready})
+
 ready =  () ->
   gridContainer = $('#grid-container')
   if gridContainer.length > 0
-    collection = new ItemCollection
+    if window.checkpage
+      pagemode = 'check'
+    else
+      pagemode = 'default'
+    collection = new ItemCollection(pagemode)
     window.collection = collection
-    grid = new Backgrid.Grid {
-     columns: columns
-     collection: collection
-    }
+    if pagemode == 'default'
+      grid = new Backgrid.Grid {
+       columns: columns
+       collection: collection
+      }
+    else
+      grid = new Backgrid.Grid {
+       columns: checkPageColumns
+       collection: collection
+      }
     gridContainer.html(grid.render().el)
-    collection.on 'change', (model, options) ->
-      model.save()
-
-    $('#filter-field').keypress (e) ->
-      if e.which == 13
+    $('.error-message').hide()
+    if pagemode == 'default'
+      collection.on 'change', (model, options) ->
+        model.save()
+      #first deregister all previous event bindings
+      $('#filter').off('click')
+      $('#filter-field').off('keypress')
+      $('#filter-field').keypress (e) ->
+        if e.which == 13
+          setFilter()
+      $('#filter').click () ->
         setFilter()
+      $('#filter-container').show()
+      $('.pagemode-toggle').text('Checkmode')
+      $('.save-changes').hide()
+    else if pagemode == 'check'
+      $('#filter-container').hide()
+      $('.pagemode-toggle').text('Discard changes')
+      $('.save-changes').show()
 
-    $('#filter').click () ->
-      setFilter()
+    #deregister possible old events
+    $('.first-page-link').off('click')
+    $('.prev-page-link').off('click')
+    $('.next-page-link').off('click')
+    $('.last-page-link').off('click')
+    $('.pagemode-toggle').off('click')
+    $('.save-changes').off('click')
 
     $('.first-page-link').click () ->
       collection.getFirstPage()
@@ -121,6 +236,11 @@ ready =  () ->
       collection.getNextPage()
     $('.last-page-link').click () ->
       collection.getLastPage()
+    $('.pagemode-toggle').click pagemodeToggle
+    $('.save-changes').click () ->
+      checkmodeSave(collection)
+
+    #pagenumber handling
     $('.page-num').text(collection.state.currentPage)
     collection.on 'pageable:state:change', () ->
       console.log('asd')
