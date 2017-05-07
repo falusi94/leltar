@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
       if params[:version_idx]
         @item = @item.versions[params[:version_idx].to_i].reify
       end
-    end
+    en
   end
 
   # GET /items/new
@@ -132,14 +132,6 @@ class ItemsController < ApplicationController
 
   def picture_form
     render layout: false
-  end
-
-  def group_index
-    if current_user.can_read?('all')
-      @groups = Item.groups 
-    else
-      @groups = current_user.read_groups 
-    end
   end
 
   private
