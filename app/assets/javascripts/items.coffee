@@ -1,9 +1,8 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-
 Item = Backbone.Model.extend {
-
+  
 }
 
 class ItemCollection extends Backbone.PageableCollection
@@ -52,6 +51,9 @@ class CheckCell extends Backgrid.Cell
      self.model.set('checked', this.checked)
     this
 
+class StatusCell extends Backgrid.SelectCell
+  optionValues: [['OK', 'OK'], ['Selejtezésre vár', 'Selejtezésre vár'], ['Selejtezve', 'Selejtezve'], ['Utána kell járni', 'Utána kell járni'], ['Elveszett', 'Elveszett']]
+
 columns = [
   {
     name: 'id'
@@ -73,6 +75,7 @@ columns = [
     name: 'group'
     label: 'Group'
     cell: 'string'
+    editable: false
   },
   {
     name: 'purchase_date'
@@ -87,7 +90,7 @@ columns = [
   {
     name: 'status'
     label: 'Status'
-    cell: 'string'
+    cell: StatusCell
   },
   {
     name: 'old_number'
@@ -129,6 +132,7 @@ checkPageColumns = [
     name: 'group'
     label: 'Group'
     cell: 'string'
+    editable: false
   },
   {
     name: 'purchase_date'
