@@ -34,6 +34,7 @@ class ImageCell extends Backgrid.Cell
     this.$el.empty()
     uri = this.model.get(this.column.get('name'))
     this.$el.html('<img src="'+uri+'"/>')
+    this.$el.addClass('image-cell')
     this.delegateEvents()
     this
 
@@ -81,6 +82,11 @@ columns = [
     cell: 'date'
   },
   {
+    name: 'status'
+    label: 'Status'
+    cell: 'string'
+  },
+  {
     name: 'old_number'
     label: 'Old number'
     cell: 'integer'
@@ -89,6 +95,7 @@ columns = [
     name: 'thumb'
     label: ''
     cell: ImageCell
+    editable: false
   },
   {
     name: 'id'
@@ -131,6 +138,11 @@ checkPageColumns = [
     cell: 'date'
   },
   {
+    name: 'status'
+    label: 'Status'
+    cell: 'string'
+  },
+  {
     name: 'old_number'
     label: 'Old number'
     cell: 'integer'
@@ -139,6 +151,7 @@ checkPageColumns = [
     name: 'thumb'
     label: ''
     cell: ImageCell
+    editable: false
   },
   {
     name: 'id'
@@ -201,12 +214,19 @@ ready =  () ->
       }
     gridContainer.html(grid.render().el)
     $('.error-message').hide()
+    $('.first-page-link').off('click')
+    $('.prev-page-link').off('click')
+    $('.next-page-link').off('click')
+    $('.last-page-link').off('click')
+    $('.pagemode-toggle').off('click')
+    $('.save-changes').off('click')
+    $('#filter').off('click')
+    $('#filter-field').off('keypress')
+    $('.new-item-link').off('click')
     if pagemode == 'default'
       collection.on 'change', (model, options) ->
         model.save()
       #first deregister all previous event bindings
-      $('#filter').off('click')
-      $('#filter-field').off('keypress')
       $('#filter-field').keypress (e) ->
         if e.which == 13
           setFilter()
@@ -219,14 +239,11 @@ ready =  () ->
       $('#filter-container').hide()
       $('.pagemode-toggle').text('Discard changes')
       $('.save-changes').show()
+      $('.new-item-link').click () ->
+        collection.add(new Item)
+        false
 
     #deregister possible old events
-    $('.first-page-link').off('click')
-    $('.prev-page-link').off('click')
-    $('.next-page-link').off('click')
-    $('.last-page-link').off('click')
-    $('.pagemode-toggle').off('click')
-    $('.save-changes').off('click')
 
     $('.first-page-link').click () ->
       collection.getFirstPage()

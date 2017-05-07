@@ -41,5 +41,5 @@ window.group = "<%=@group%>"
 <%end%>
 </script>
 <% if current_user.can_write?('all') %>
-  <%= link_to 'New Item', new_item_path %>A
+  <%= link_to 'New Item', new_item_path, class: 'new-item-link' %>
 <% end %>

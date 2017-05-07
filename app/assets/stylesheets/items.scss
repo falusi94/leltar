@@ -29,6 +29,15 @@ td {
   text-overflow: ellipsis;
 }
 
+td.image-cell {
+  padding: 10px;
+}
+
+td.image-cell img {
+  object-position: center;
+  object-fit: none;
+}
+
 table.backgrid {
   table-layout: fixed;
  width: 100%;
