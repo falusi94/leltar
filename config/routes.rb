@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get 'item/update'
   put '/items', to: 'items#update_all'
+  post '/items_csv', to: 'items#upload_csv'
 
   get 'items/:id/picture', to: 'items#picture_get'
   post 'items/:id/picture', to: 'items#picture_post'

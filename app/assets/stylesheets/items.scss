@@ -1,12 +1,12 @@
 // Place all the styles related to the Items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-thead {
+.backgrid thead {
   border-style: solid;
   border-width: 0 0 2px 0;
   padding-bottom: 0px;
 }
-th {
+.backgrid th {
   padding-left: 5px;
   padding-right: 5px;
   padding-bottom: 0px;
@@ -18,12 +18,12 @@ th {
      background-color: #b5cdf2;
 }
 
-th.description {
+.backgrid th.description {
   width: 40%;
   max-width: 40%;
 }
 
-td {
+.backgrid td {
   max-width: 40%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -32,13 +32,13 @@ td {
   border-color: #ddd;
 }
 
-td.image-cell {
+.backgrid td.image-cell {
   padding: 0;
   width: 100px;
   position: relative;
 }
 
-td.image-cell img {
+.backgrid td.image-cell img {
   position: absolute;
   top: -9999px;
   bottom: -9999px;
@@ -52,21 +52,21 @@ table.backgrid {
  width: 100%;
  margin: 0;
 }
-tbody tr {
+.backgrid tbody tr {
   height: 100px;
 }
 
-td input {
+.backgrid td input {
   width: 95%;
 }
 
-.uri-cell a {
+.backgrid .uri-cell a {
   margin: auto;
   display: block;
   text-align: center;
 }
 
-.uri-cell a:hover {
+.backgrid .uri-cell a:hover {
   background: inherit;
   color: initial;
 }

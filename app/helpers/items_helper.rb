@@ -22,9 +22,9 @@ module ItemsHelper
 
   def generate_csv(items)
     CSV::generate do |csv|
-      headers = ['id','Megnevezes', 'Leiras', 'Kor', 
-                 'Beszerzes', 'Bevitel', 'Utolso ellenorzes', 
-                 'Statusz', 'Regi szam']
+      headers = ['id','name', 'description', 'group', 
+                 'purchase_date', 'entry_date', 'last_check', 
+                 'status', 'old_number']
       csv << CSV::Row.new(headers, headers, true)
       items.each do |item|
         csv << CSV::Row.new(headers, item.to_a)

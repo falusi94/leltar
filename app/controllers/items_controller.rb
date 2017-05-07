@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
       if params[:version_idx]
         @item = @item.versions[params[:version_idx].to_i].reify
       end
-    en
+    end
   end
 
   # GET /items/new
@@ -112,6 +112,17 @@ class ItemsController < ApplicationController
     end
   end
 
+  def upload_csv
+    require_write('all') do
+      if params[:csv_file]
+        Item.csv_update(params[:csv_file].read.force_encoding('UTF-8'))
+        redirect_to '/items'
+      else
+        render inline: 'Unprocessable entity', status: :unprocessable_entity
+      end
+    end
+  end
+
   def picture_get
     redirect_to @item.picture.url
   end
@@ -166,7 +177,7 @@ class ItemsController < ApplicationController
     end
 
     def picture_params
-      params.requir(:item).permit(:picture)
+      params.require(:item).permit(:picture)
     end
 
     def paginate(ary)

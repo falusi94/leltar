@@ -132,7 +132,6 @@ checkPageColumns = [
     name: 'group'
     label: 'Group'
     cell: 'string'
-    editable: false
   },
   {
     name: 'purchase_date'
