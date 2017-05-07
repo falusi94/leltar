@@ -14,10 +14,13 @@ class ItemCollection extends Backbone.PageableCollection
       @mode = 'client'
     else
       @mode = 'server'
-    this.state.pagesize = 2
     super()
   toJSON: ->
     {items: super()}
+  parse: (json) ->
+    this.state.totalRecords = json.count
+    this._checkState(this.state)
+    super(json.items)
 
 
 class MoreLinkCell extends Backgrid.UriCell
@@ -247,21 +250,24 @@ ready =  () ->
 
     $('.first-page-link').click () ->
       collection.getFirstPage()
+      $('.page-num').text(collection.state.currentPage)
     $('.prev-page-link').click () ->
-      collection.getPreviousPage()
+      if collection.hasPreviousPage()
+        collection.getPreviousPage()
+      $('.page-num').text(collection.state.currentPage)
     $('.next-page-link').click () ->
-      collection.getNextPage()
+      if collection.hasNextPage()
+        collection.getNextPage()
+      $('.page-num').text(collection.state.currentPage)
     $('.last-page-link').click () ->
       collection.getLastPage()
+      $('.page-num').text(collection.state.currentPage)
     $('.pagemode-toggle').click pagemodeToggle
     $('.save-changes').click () ->
       checkmodeSave(collection)
 
     #pagenumber handling
     $('.page-num').text(collection.state.currentPage)
-    collection.on 'pageable:state:change', () ->
-      console.log('asd')
-      $('.page-num').text(collection.state.currentPage)
     
     grid.$el.addClass('table-striped')
     loadData()

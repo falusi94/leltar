@@ -164,6 +164,7 @@ class ItemsController < ApplicationController
           @items = []
         end
       end
+      @item_count = @items.size
       @items = paginate(@items)
     end
 
