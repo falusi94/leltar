@@ -1,7 +1,7 @@
 require 'csv'
 module ItemsHelper
-  def picture_url(item)
-    "/items/#{item.id}/picture"
+  def picture_new_url(item)
+    "/items/#{item.id}/photos"
   end
 
   def version_link(id, v)

@@ -200,6 +200,16 @@ checkmodeSave = (collection) ->
   Backbone.sync('update', collection, {error: error, success: ready})
 
 ready =  () ->
+  #handle image delete links
+  $('.photo-delete').click () ->
+    id = $(this).data('photo-id')
+    console.log('deleting photo '+id)
+    $.ajax '/photos/'+id, {
+      method: 'delete',
+      success: ->
+        location.reload()
+    }
+  #handle backgrid
   gridContainer = $('#grid-container')
   if gridContainer.length > 0
     if window.checkpage

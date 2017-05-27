@@ -1,5 +1,16 @@
-<%= image_tag @item.picture.url, class: 'img-responsive' %>
-<%= form_for @item, url: picture_url(@item), html: {multipart: true} do |f| %>
-  <%= f.file_field :picture %>
-  <%= f.submit %>
-<%end%>
+<% if @item.photos.size > 0 %>
+  <% @item.photos.each do |photo| %>
+    <div class="photo-container">
+      <%= image_tag photo.url, class: 'img-responsive' %>
+      <a class="photo-delete" data-photo-id="<%=photo.id%>">Kep torlese</a>
+    </div>
+  <% end %>
+<% else %>
+  Nincs még kép
+<% end %>
+<%= form_tag '/photos', method: "POST", multipart: true do %>
+  Uj kep feltoltese
+  <input type="hidden" name="item_id", value="<%=@item.id%>"/>
+  <input type="file" name="file"/>
+  <input type="submit" value="Feltoltes"/>
+<% end %>

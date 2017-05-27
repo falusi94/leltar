@@ -46,7 +46,9 @@
     <%= link_to 'Back', items_path %>
   </div>
   <div id="image-cell" class="col-md-8">
-    <%= image_tag @item.picture.url(:medium), class: 'img-responsive' %>
+    <% @item.photos.each do |photo| %>
+      <%= image_tag photo.url, class: 'img-responsive' %>
+    <% end %>
   </div>
 </div>
 <div class="row">

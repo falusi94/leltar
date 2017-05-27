@@ -124,7 +124,17 @@ class ItemsController < ApplicationController
   end
 
   def picture_get
-    redirect_to @item.picture.url
+    ix = params[:photo_no]
+    if ix
+      ix = ix.to_i
+    else
+      ix = 0
+    end
+    if @item.photos.size > ix
+      redirect_to @item.photos[ix].url
+    else
+      render inline: 'Nincs ilyen kep', status: 404
+    end
   end
 
   def picture_post

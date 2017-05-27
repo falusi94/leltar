@@ -3,11 +3,8 @@ class Item < ApplicationRecord
   VALID_STATUS = ['OK', 'Selejtezésre vár', 'Selejtezve', 'Utána kell járni', 'Elveszett']
 
   has_paper_trail
-  has_attached_file :picture,
-    styles: {thumb: '100x100', medium: '500x500'}, 
-    default_url: ActionController::Base.helpers.asset_path("no_photo.gif")
   belongs_to :group
-  validates_attachment_content_type :picture, content_type: /\Aimage\/.*\z/
+  has_many :photos
   validates :name, length: {minimum: 5, too_short: 'Tul rovid nev'}
   validates :description, length: {maximum: 300, too_long: 'Tul hosszu leiras'}
   validates :group, presence: true, allow_nil: false
@@ -38,6 +35,10 @@ class Item < ApplicationRecord
       data['group'] = group
     end
     super
+  end
+
+  def picture_path(ix = 0)
+    "/items/#{self.id}/photos/#{ix}"
   end
 
   def self.filter(query)
