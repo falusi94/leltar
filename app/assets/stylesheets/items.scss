@@ -83,3 +83,44 @@ table.backgrid {
 .page-link {
   padding: 0px, 5px, 0px, 5px;
 }
+
+#csv-link-container a {
+  font-weight: bold ;
+}
+
+#csv-link-container a:visited {
+    color: black;
+}
+
+#csv-link-container a:visited:hover {
+    color: white;
+}
+
+.pagemode-container a {
+  font-weight: bold ;
+}
+
+#left-container {
+  float: left;
+  margin-right: 50px;
+  margin-bottom: 30px;
+}
+
+#right-container {
+  float: left;
+  margin-bottom: 30px;
+}
+
+.csv-file{
+  margin: 5px 0 5px 0;
+}
+
+a.new-item-link {
+  font-weight: bold;
+  font-size: 14pt;
+  margin-left: 20px;
+}
+
+#grid-container {
+  margin-bottom: 20px;
+}
