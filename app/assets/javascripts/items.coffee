@@ -63,38 +63,37 @@ columns = [
   },
   {
     name: 'name'
-    label: 'Name'
+    label: 'Név'
     cell: 'string'
   },
   {
     name: 'description'
-    label: 'Description'
+    label: 'Leírás'
     cell: 'string'
   },
   {
     name: 'group'
-    label: 'Group'
+    label: 'Kör'
     cell: 'string'
-    editable: false
   },
   {
     name: 'purchase_date'
-    label: 'Purchase'
+    label: 'Beszerzés'
     cell: 'date'
   },
   {
     name: 'last_check'
-    label: 'Last check'
+    label: 'Utolsó ellenőrzés'
     cell: 'date'
   },
   {
     name: 'status'
-    label: 'Status'
-    cell: StatusCell
+    label: 'Státusz'
+    cell: 'string'
   },
   {
     name: 'old_number'
-    label: 'Old number'
+    label: 'Leltári szám'
     cell: 'integer'
   },
   {
@@ -120,37 +119,37 @@ checkPageColumns = [
   },
   {
     name: 'name'
-    label: 'Name'
+    label: 'Név'
     cell: 'string'
   },
   {
     name: 'description'
-    label: 'Description'
+    label: 'Leírás'
     cell: 'string'
   },
   {
     name: 'group'
-    label: 'Group'
+    label: 'Kör'
     cell: 'string'
   },
   {
     name: 'purchase_date'
-    label: 'Purchase'
+    label: 'Beszerzés'
     cell: 'date'
   },
   {
     name: 'last_check'
-    label: 'Last check'
+    label: 'Utolsó ellenőrzés'
     cell: 'date'
   },
   {
     name: 'status'
-    label: 'Status'
+    label: 'Státusz'
     cell: 'string'
   },
   {
     name: 'old_number'
-    label: 'Old number'
+    label: 'Leltári szám'
     cell: 'integer'
   },
   {
@@ -249,11 +248,11 @@ ready =  () ->
       $('#filter').click () ->
         setFilter()
       $('#filter-container').show()
-      $('.pagemode-toggle').text('Checkmode')
+      $('.pagemode-toggle').text('Leltározás')
       $('.save-changes').hide()
     else if pagemode == 'check'
       $('#filter-container').hide()
-      $('.pagemode-toggle').text('Discard changes')
+      $('.pagemode-toggle').text('Változtatások törlése')
       $('.save-changes').show()
       $('.new-item-link').click () ->
         collection.add(new Item)

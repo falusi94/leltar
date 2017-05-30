@@ -4,9 +4,9 @@
   <% if @redirect %>
     <%= f.hidden_field :redirect, value: @redirect %>
   <% end %>
-  <%=f.label :email %>
+  <%=f.label 'Email cím' %>
   <%=f.text_field :email%>
-  <%=f.label :password %>
+  <%=f.label 'Jelszó' %>
   <%=f.password_field :password%>
-  <%=f.submit "Login" %>
+  <%=f.submit "Bejelentkezés" %>
 <%end%>

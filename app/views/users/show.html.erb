@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Név:</strong>
   <%= @user.name %>
 </p>
 
@@ -11,12 +11,12 @@
 </p>
 
 <p>
-  <strong>Read rights:</strong>
+  <strong>Olvasási jogok:</strong>
   <%= @user.read_rights %>
 </p>
 
 <p>
-  <strong>Write rights:</strong>
+  <strong>Írási jogok:</strong>
   <%= @user.write_rights %>
 </p>
 
@@ -25,5 +25,5 @@
   <%= @user.admin %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Szerkesztés', edit_user_path(@user) %> |
+<%= link_to 'Vissza', users_path %>

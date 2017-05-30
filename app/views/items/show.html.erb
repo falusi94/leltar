@@ -2,48 +2,48 @@
 <div class="row">
   <div id="details-container" class="col-md-4">
     <p>
-      <strong>Name:</strong>
+      <strong>Név:</strong>
       <%= @item.name %>
     </p>
 
     <p>
-      <strong>Description:</strong>
+      <strong>Leírás:</strong>
       <%= @item.description %>
     </p>
 
     <p>
-      <strong>Group:</strong>
+      <strong>Kör:</strong>
       <%= @item.group.name%>
     </p>
 
     <p>
-      <strong>Purchase date:</strong>
+      <strong>Beszerzés dátuma:</strong>
       <%= @item.purchase_date %>
     </p>
 
     <p>
-      <strong>Entry date:</strong>
+      <strong>Felvitel dátuma:</strong>
       <%= @item.entry_date %>
     </p>
 
     <p>
-      <strong>Last check:</strong>
+      <strong>Utolsó ellenőrzés:</strong>
       <%= @item.last_check %>
     </p>
 
     <p>
-      <strong>Status:</strong>
+      <strong>Státusz:</strong>
       <%= @item.status %>
     </p>
 
     <p>
-      <strong>Old number:</strong>
+      <strong>Leltári szám:</strong>
       <%= @item.old_number %>
     </p>
     <% if current_user.can_write?("group:#{@item.group}") %>
-    <%= link_to 'Edit', edit_item_path(@item) %> |
+    <%= link_to 'Szerkesztés', edit_item_path(@item) %> |
     <% end %>
-    <%= link_to 'Back', items_path %>
+    <%= link_to 'Vissza', items_path %>
   </div>
   <div id="image-cell" class="col-md-8">
     <% @item.photos.each do |photo| %>
@@ -53,8 +53,8 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h3>Versions</h3>
-    <a href="/items/<%=@item.id%>">Current</a>
+    <h3>Verziók</h3>
+    <a href="/items/<%=@item.id%>">Mostani</a>
     <%@item.versions.each do |v|%>
       <div class="item-version">
         <%= version_link(@item.id, v) %>

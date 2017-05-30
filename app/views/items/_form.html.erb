@@ -13,48 +13,48 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
+    <%= f.label 'Név' %>
     <%= f.text_field :name %>
   </div>
 
   <div class="field">
-    <%= f.label :description %>
+    <%= f.label 'Leírás' %>
     <%= f.text_area :description %>
   </div>
   
   <div class="field">
-    <%= f.label :group %>
+    <%= f.label 'Kör' %>
     <%= f.select :group, Group.all.map { |g| g.name } %>
   </div>
 
   <div class="field">
-    <%= f.label :purchase_date %>
+    <%= f.label 'Beszerzés dátuma' %>
     <%= f.date_select :purchase_date %>
   </div>
 
   <div class="field">
-    <%= f.label :entry_date %>
+    <%= f.label 'Felvitel dátuma' %>
     <%= f.date_select :entry_date %>
   </div>
 
   <div class="field">
-    <%= f.label :last_check %>
+    <%= f.label 'Utolsó ellenőrzés' %>
     <%= f.date_select :last_check %>
   </div>
 
   <div class="field">
-    <%= f.label :status %>
+    <%= f.label 'Státusz' %>
     <%= f.select :status, Item::VALID_STATUS %>
   </div>
 
   <div class="field">
-    <%= f.label :old_number %>
+    <%= f.label 'Leltári szám' %>
     <%= f.number_field :old_number %>
   </div>
 
   <%if image_uploader%>
     <div class="field">
-      <%= f.label :picture %>
+      <%= f.label 'Kép' %>
       <%= f.file_field :picture%>
     </div>
   <%end%>

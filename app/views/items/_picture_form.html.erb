@@ -9,7 +9,7 @@
   Nincs még kép
 <% end %>
 <%= form_tag '/photos', method: "POST", multipart: true do %>
-  Uj kep feltoltese
+  Új kép feltöltése
   <input type="hidden" name="item_id", value="<%=@item.id%>"/>
   <input type="file" name="file"/>
   <input type="submit" value="Feltoltes"/>

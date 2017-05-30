@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
+    <%= f.label 'Név' %>
     <% if current_user.admin %>
       <%= f.text_field :name %>
     <% else %>
@@ -26,23 +26,23 @@
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label 'Jelszó' %>
     <%= f.password_field :password %>
   </div>
   
   <div class="field">
-    <%= f.label :password_confirmation %>
+    <%= f.label 'Jelszó megerősítése' %>
     <%= f.password_field :password_confirmation %>
   </div>
 
   <% if current_user.admin %>
     <div class="field">
-      <%= f.label :read_rights %>
+      <%= f.label 'Olvasási jogok' %>
       <%= f.text_field :read_rights %>
     </div>
 
     <div class="field">
-      <%= f.label :write_rights %>
+      <%= f.label 'Írási jogok' %>
       <%= f.text_field :write_rights %>
     </div>
 
