@@ -38,7 +38,9 @@
 
     - name: Install packages
       apt: pkg={{item}} state=installed update_cache=yes
-      with_items: [tmux, mc, nano, vim, git, ruby, ruby-dev, bundler, build-essential, gcc, zlib1g-dev, libsqlite3-dev]
+      with_items: [tmux, mc, nano, vim, git, ruby, ruby-dev, bundler,
+        build-essential, gcc, zlib1g-dev, libsqlite3-dev, postgresql,
+        postgresql-server-dev-all, imagemagick]
       become: yes
 
     - file:
@@ -71,6 +73,18 @@
 
     - name: Run bundle install
       shell: bundle install --path vendor/bundle
+      become: yes
+      become_user: rails
+      args:
+        chdir: /home/rails/leltar
+    
+    - name: Create DB user
+      shell: createuser rails --createdb 
+      become: yes
+      become_user: postgres
+    
+    - name: DB setup
+      shell: bundle exec rake db:setup
       become: yes
       become_user: rails
       args:
