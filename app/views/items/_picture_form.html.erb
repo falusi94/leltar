@@ -1,14 +1,14 @@
 <% if @item.photos.size > 0 %>
   <% @item.photos.each do |photo| %>
-    <div class="photo-container">
-      <%= image_tag photo.url, class: 'img-responsive' %>
-      <a class="photo-delete" data-photo-id="<%=photo.id%>">Kep torlese</a>
+    <div class="img-frame">
+      <%= image_tag photo.url, class: 'img-responsive img-item' %>
+      <a class="photo-delete" data-photo-id="<%=photo.id%>">X</a>
     </div>
   <% end %>
 <% else %>
   Nincs még kép
 <% end %>
-<%= form_tag '/photos', method: "POST", multipart: true do %>
+<%= form_tag '/photos', method: "POST", multipart: true, class: 'img-frame img-upload' do %>
   Új kép feltöltése
   <input type="hidden" name="item_id", value="<%=@item.id%>"/>
   <input type="file" name="file"/>

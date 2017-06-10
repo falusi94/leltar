@@ -41,13 +41,17 @@
       <%= @item.old_number %>
     </p>
     <% if current_user.can_write?("group:#{@item.group}") %>
-    <%= link_to 'Szerkesztés', edit_item_path(@item) %> |
+      <%= link_to 'Szerkesztés', edit_item_path(@item) %> |
     <% end %>
     <%= link_to 'Vissza', items_path %>
   </div>
   <div id="image-cell" class="col-md-8">
     <% @item.photos.each do |photo| %>
-      <%= image_tag photo.url, class: 'img-responsive' %>
+      <div class='img-frame'>
+        <a href='<%=photo.url%>'>
+          <%= image_tag photo.url(:medium), class: 'img-responsive img-item' %>
+        </a>
+      </div>
     <% end %>
   </div>
 </div>

@@ -124,3 +124,40 @@ a.new-item-link {
 #grid-container {
   margin-bottom: 20px;
 }
+
+.img-frame {
+  position: relative;
+  padding: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ddd;
+  background: white;
+  margin: 3px;
+  float: left;
+}
+
+img.img-item{
+  height: 40vh;
+  display: inline;
+}
+
+form.img-upload{
+  clear: both;
+  float: none;
+}
+
+a.photo-delete{
+  position: absolute;
+  font-weight: bold;
+  right: 5px;
+  top: 5px;
+  padding-top: 5px;
+  padding-right: 5px;
+  font-size: 20px;
+}
+
+a.photo-delete:hover{
+  background: transparent;
+  color: red;
+  text-decoration: none;
+}
