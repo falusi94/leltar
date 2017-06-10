@@ -84,7 +84,7 @@
       become_user: postgres
     
     - name: DB setup
-      shell: bundle exec rake db:setup
+      shell: RAILS_ENV=production bundle exec rake db:setup
       become: yes
       become_user: rails
       args:
