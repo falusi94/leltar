@@ -70,13 +70,17 @@ class Item < ApplicationRecord
     header = rows[0]
     Rails.logger.debug "headers: "+ header.inspect
     id_col = header.find_index('id')
+    attributes = Item.new.attributes
     rows.drop(1).each do |row|
       doc = Hash.new
+      Rails.logger.debug "row: #{row.inspect}"
       row.each_index do |i|
-        if header[i] != 'id'
+        if header[i] != 'id' && (attributes.include?(header[i]) || header[i] == 'group')
           doc.store(header[i], row[i])
+          Rails.logger.debug "stored #{header[i]}: #{row[i].inspect}"
         end
       end
+      Rails.logger.debug "item: #{doc.inspect}"
       
       begin
         id = id_col && Integer(row[id_col])
@@ -92,6 +96,8 @@ class Item < ApplicationRecord
       end
 
       item.update(doc)
+      item.valid?
+      Rails.logger.debug "Errors: #{item.errors.full_messages.inspect}"
       item.save
     end
   end
