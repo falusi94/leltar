@@ -1,0 +1,89 @@
+
+---
+- hosts: leltar_web
+  remote_user: root
+  tasks:
+    - name: Update sudoers
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: "^%sudo"
+        line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+      become: yes
+
+    - name: Add rails user
+      user: name="rails" state=present shell=/bin/bash
+      become: yes
+
+    - name: Add admin
+      user: name="leltar_admin" state=present shell=/bin/bash groups="sudo" 
+      become: yes
+
+    - file:
+        path: /home/leltar_admin/.ssh
+        owner: leltar_admin
+        state: directory
+        mode: 0755
+      become: yes
+      become_user: leltar_admin
+
+    - name: Register public key
+      copy:
+        dest: /home/leltar_admin/.ssh/authorized_keys
+        src: publickey #maybe make this default to ~/.ssh/id_rsa.pub
+        owner: leltar_admin
+        mode: 0600
+      become: yes
+      become_user: leltar_admin
+
+    - name: Install packages
+      apt: pkg={{item}} state=installed update_cache=yes
+      with_items: [tmux, mc, nano, vim, git, ruby, ruby-dev, bundler, build-essential, gcc, zlib1g-dev, libsqlite3-dev]
+      become: yes
+
+    - file:
+        path: /home/rails/.ssh
+        owner: rails
+        state: directory
+        mode: 0755
+      become: yes
+      become_user: rails
+
+    - name: Transfer private key for git
+      copy:
+       src: git_key
+       dest: /home/rails/.ssh/id_rsa
+       mode: 0600
+      become: yes
+      become_user: rails
+
+    - name: Create app directory
+      file: path=/home/rails/leltar state=directory owner=rails
+      become: yes
+
+    - name: Get web app
+      git: 
+        repo: "git@git.sch.bme.hu:laci37/leltar.git" 
+        dest: /home/rails/leltar
+        accept_hostkey: true
+      become: yes
+      become_user: rails
+
+    - name: Run bundle install
+      shell: bundle install --path vendor/bundle
+      become: yes
+      become_user: rails
+      args:
+        chdir: /home/rails/leltar
+
+    - name: Copy service file
+      copy:
+        dest: /lib/systemd/system
+        src: leltar.service
+      become: yes
+
+    - name: Start service
+      service:
+        name: leltar
+        state: started
+      become: yes
