@@ -12,7 +12,13 @@ class Item < ApplicationRecord
 
   def initialize(params = {})
     params[:group] = Group.by_name(params[:group])
+    #save picture to create new Photo after initializing with super
+    pic = params[:picture]
+    params.delete :picture
     super(params)
+    if pic
+      self.photos = [Photo.new(file: pic)]
+    end
   end
 
   def to_a
