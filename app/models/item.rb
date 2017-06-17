@@ -5,7 +5,7 @@ class Item < ApplicationRecord
   has_paper_trail
   belongs_to :group
   has_many :photos
-  validates :name, length: {minimum: 5, too_short: 'Tul rovid nev'}
+  validates :name, length: {minimum: 2, too_short: 'Tul rovid nev'}
   validates :description, length: {maximum: 300, too_long: 'Tul hosszu leiras'}
   validates :group, presence: true, allow_nil: false
   validates :status, inclusion: {in: VALID_STATUS}
