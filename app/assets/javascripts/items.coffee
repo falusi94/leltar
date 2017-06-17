@@ -14,12 +14,21 @@ class ItemCollection extends Backbone.PageableCollection
     else
       @mode = 'server'
     super()
+    @filter = null
+    @group = null
   toJSON: ->
     {items: super()}
   parse: (json) ->
     this.state.totalRecords = json.count
     this._checkState(this.state)
     super(json.items)
+  queryParams: {
+    currentPage: 'page',
+    pageSize: 'per_page',
+    filter: -> this.filter,
+    group: -> this.group,
+    totalPages: 'total_pages',
+  }
 
 
 class MoreLinkCell extends Backgrid.UriCell
@@ -167,13 +176,12 @@ checkPageColumns = [
 ]
 
 loadData = () ->
-  reqParams = {}
   if window.itemFilter
-    reqParams.filter = window.itemFilter
+    window.collection.filter = window.itemFilter
   if window.group
-    reqParams.group = window.group
+    window.collection.group = window.group
     $('#filter-field').val(window.itemFilter)
-  window.collection.fetch(data: reqParams)
+  window.collection.fetch()
 
 setFilter = () ->
   window.itemFilter = $('#filter-field').val()
