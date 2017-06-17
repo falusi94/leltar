@@ -115,8 +115,12 @@ class ItemsController < ApplicationController
   def upload_csv
     require_write('all') do
       if params[:csv_file]
-        Item.csv_update(params[:csv_file].read.force_encoding('UTF-8'))
-        redirect_to '/items'
+        @bad_items = Item.csv_update(params[:csv_file].read.force_encoding('UTF-8'))
+        if @bad_items.size > 0
+          render :csv_errors
+        else
+          redirect_to '/items'
+        end
       else
         render inline: 'Unprocessable entity', status: :unprocessable_entity
       end

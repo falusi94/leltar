@@ -65,12 +65,14 @@ class Item < ApplicationRecord
     res
   end
 
+  #Applies updates received in a CSV file, returns items where the update failed
   def self.csv_update(text)
     rows = CSV.parse text
     header = rows[0]
     Rails.logger.debug "headers: "+ header.inspect
     id_col = header.find_index('id')
     attributes = Item.new.attributes
+    bad_items = []
     rows.drop(1).each do |row|
       doc = Hash.new
       Rails.logger.debug "row: #{row.inspect}"
@@ -96,9 +98,12 @@ class Item < ApplicationRecord
       end
 
       item.update(doc)
-      item.valid?
-      Rails.logger.debug "Errors: #{item.errors.full_messages.inspect}"
+      if ! item.valid?
+        Rails.logger.debug "Errors: #{item.errors.full_messages.inspect}"
+        bad_items.push(item)
+      end
       item.save
     end
+    bad_items
   end
 end

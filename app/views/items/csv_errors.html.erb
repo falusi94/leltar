@@ -1,0 +1,17 @@
+<h1>CSV Import hibák</h1>
+
+<% @bad_items.each do |item| %>
+  <div>
+    <h3>
+      <%= item.name %>
+      <% if item.old_number %>
+        (<%= item.old_number %>)
+      <%end%>
+    </h3>
+    <%item.errors.full_messages.each do |msg| %>
+      <p>
+        <%=msg%>
+      </p>
+    <%end%>
+  </div>
+<%end%>
