@@ -16,6 +16,7 @@ class ItemCollection extends Backbone.PageableCollection
     super()
     @filter = null
     @group = null
+    this.state.pageSize = 50
   toJSON: ->
     {items: super()}
   parse: (json) ->
@@ -98,7 +99,7 @@ columns = [
   {
     name: 'status'
     label: 'Státusz'
-    cell: 'string'
+    cell: StatusCell
   },
   {
     name: 'old_number'
@@ -154,7 +155,7 @@ checkPageColumns = [
   {
     name: 'status'
     label: 'Státusz'
-    cell: 'string'
+    cell: StatusCell
   },
   {
     name: 'old_number'
