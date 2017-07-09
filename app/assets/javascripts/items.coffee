@@ -182,8 +182,13 @@ loadData = () ->
   if window.group
     window.collection.group = window.group
     $('#filter-field').val(window.itemFilter)
-  window.collection.fetch()
-
+  $('.loading-container').show()
+  $('#grid-container').hide()
+  window.collection.fetch {
+    success: ->
+      $('.loading-container').hide()
+      $('#grid-container').show()
+  }
 setFilter = () ->
   window.itemFilter = $('#filter-field').val()
   loadData()

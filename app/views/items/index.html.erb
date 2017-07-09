@@ -39,6 +39,9 @@
   <a class='page-link next-page-link'>&gt;</a>
   <a class='page-link last-page-link'>&gt;&gt;</a>
 </div>
+<div class='loading-container'>
+  <%= image_tag '/loading.gif' %>
+</div>
 <div id='grid-container'></div>
 <% if current_user.can_write?('all') %>
     <%= link_to 'Új eszköz', new_item_path, class: 'new-item-link' %>

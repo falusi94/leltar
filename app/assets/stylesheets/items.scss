@@ -107,6 +107,7 @@ table.backgrid {
 }
 
 #right-container {
+  display: none;
   float: left;
   margin-bottom: 30px;
 }
@@ -160,4 +161,13 @@ a.photo-delete:hover{
   background: transparent;
   color: red;
   text-decoration: none;
+}
+
+.loading-container{
+  margin: 0 auto 0 auto;
+}
+
+.loading-container img{
+  display: block;
+  margin: 0 auto 0 auto;
 }
