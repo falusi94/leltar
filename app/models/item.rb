@@ -54,7 +54,7 @@ class Item < ApplicationRecord
       tok = q.split(':')
       if tok.length==1
         pattern = "%#{tok[0]}%"
-        res = res.where('"name" LIKE ? OR "description" LIKE ? OR "group" LIKE ?',  pattern, pattern, pattern)
+        res = res.where('"name" LIKE ? OR "description" LIKE ?',  pattern, pattern)
       elsif tok.length>1
         field = tok[0]
         if %w(group name description).include?(field)
