@@ -48,12 +48,12 @@
 <% end %>
 <script>
 <%if @filter%>
-  window.itemFilter = "<%=@filter%>"
+  window.itemFilter = "<%=@filter.html_safe%>"
 <% else %>
   window.itemFilter = null
 <%end%>
 <%if @group%>
-window.group = "<%=@group%>"
+window.group = "<%=@group.html_safe%>"
 <% else %>
   window.group = null
 <%end%>
