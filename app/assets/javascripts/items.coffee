@@ -188,6 +188,8 @@ loadData = () ->
     success: ->
       $('.loading-container').hide()
       $('#grid-container').show()
+    error: () ->
+      alert('Hiba tortent az adatok betoltese kozben')
   }
 setFilter = () ->
   window.itemFilter = $('#filter-field').val()
@@ -222,6 +224,8 @@ ready =  () ->
         method: 'delete',
         success: ->
           location.reload()
+        error: ->
+          alert('Ajax hiba')
       }
   #handle backgrid
   gridContainer = $('#grid-container')
