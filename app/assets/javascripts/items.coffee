@@ -54,6 +54,8 @@ class CheckCell extends Backgrid.Cell
   render: () ->
     this.$el.empty()
     checkbox = $('<input type="checkbox">')
+    if this.model.get('checked')
+      checkbox.prop('checked', true)
     this.$el.html(checkbox)
     this.delegateEvents()
     self = this
