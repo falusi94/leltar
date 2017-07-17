@@ -207,14 +207,15 @@ pagemodeToggle = () ->
 
 checkmodeSave = (collection) ->
   today = new Date().toJSON().slice(0,10)
-  collection.each (model, ix, collection) ->
+  collection.fullCollection.each (model, ix, collection) ->
     if model.get('checked')
       model.set('last_check', today)
   window.checkpage = false
   error = () ->
     $('.error-message').text('Hiba tortent, van internet?')
     $('.error-message').show()
-  Backbone.sync('update', collection, {error: error, success: ready})
+  collection.fullCollection.toJSON = collection.toJSON #stupid monkeypatch to make full collection behave like we want it to
+  Backbone.sync('update', collection.fullCollection, {error: error, success: ready})
 
 ready =  () ->
   #handle image delete links
