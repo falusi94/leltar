@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   post 'session/create'
 
-  post 'session/destroy'
+  post 'session/destroy', as: :logout
 
   resources :users
   resources :items

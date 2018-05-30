@@ -1,27 +1,15 @@
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <title>Leltar</title>
-      <%= csrf_meta_tags %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leltar</title>
+    <%= csrf_meta_tags %>
 
-      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    </head>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
 
-    <body>
-      <div class="header">
-        <a href="/" class="title">SCH Leltár</a>
-        <% if logged_in? %>
-          <a href="/groups">Körök</a>
-          <% if current_user.admin %>
-          <a href="<%=users_path%>">Felhasznalók</a>
-        <% end %>
-        <span class="header-right">
-          <%= link_to "Profil", user_path(current_user)%>
-          <%= link_to "Kijelentkezés", '/session/destroy', method: 'post'%>
-        </span>
-      <% end %>
-    </div>
+  <body class="uk-margin-remove">
+    <%= render 'navbar' %>
     <div id="main-container" class="container">
       <%= yield %>
     </div>
