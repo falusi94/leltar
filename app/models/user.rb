@@ -1,14 +1,17 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :rights
 
   def can_read?(object)
-    allowed = read_rights.split(' ')
-    allowed.include?('all') || allowed.include?(object)
+    return true if admin
+    return true if rights.any? { |right| right.group.id == object }
+    false
   end
 
   def can_write?(object)
-    allowed = write_rights.split(' ')
-    allowed.include?('all') || allowed.include?(object)
+    return true if admin
+    return true if rights.any? { |right| right.group.id == object && right.write }
+    false
   end
 
   def read_groups
