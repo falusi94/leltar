@@ -1,0 +1,30 @@
+<li class="uk-margin-remove uk-grid-collapse" style="height:120px" uk-grid>
+  <div class="uk-width-expand">
+    <div class="uk-width-1-1">
+      <h3>
+        <%= link_to item.name, item_path(item) %>
+        <span class="uk-text-muted">
+          (<%= item.group.name %>)
+        </span>
+      </h3>
+    </div>
+
+    <div class="uk-width-1-1 uk-clearfix uk-margin-top">
+      <div class="uk-float-left">
+        <%= item.description %>
+      </div>
+      <div class="uk-float-right">
+        Vásárolva: <%= item.purchase_date %>
+      </div>
+      <div class="uk-float-right uk-margin-right">
+        Ellenőrizve: <%= item.last_check %>
+      </div>
+    </div>
+  </div>
+
+  <div class="uk-width-1-6">
+    <% if item.photos.any? %>
+      <%= image_tag item.photos.last.url, style:'height:110px' %>
+    <% end %>
+  </div>
+</li>
