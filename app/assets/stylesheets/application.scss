@@ -11,46 +11,4 @@
  * It is generally better to create a new file per style scope.
  *
  */
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "scaffolds";
-@import "items";
-
-body {
- margin: 0;
- background: #eee;
-}
-
-.header {
- background: #094ebc;
- padding: 10px;
-}
-
-.header a {
- color: white;
- font-weight: bold;
- margin-right: 10px;
- border-style: solid;
- border-color: white;
- border-width: 0 2px 0 2px;
- padding: 0 2px 0 2px;
-}
-
-.header a.title {
- font-size: 14pt;
- margin-right: 30px;
- border-style: none;
-}
-
-.header .header-right {
- float: right;
-}
-
-#main-container {
-  margin: 10px;
-  padding: 0;
-}
-
-h1 {
- margin-bottom: 40px;
-}
+@import "uikit.min";

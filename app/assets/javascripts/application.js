@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
 //= require underscore
@@ -19,3 +18,4 @@
 //= require backgrid
 //= require backbone.paginator
 //= require_tree .
+//= require uikit.min
