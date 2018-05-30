@@ -1,0 +1,11 @@
+<% if errors.any? %>
+  <div id="uk-alert">
+    <a class="uk-alert-close" uk-close></a>
+    <h2><%= errors.count %>hiba történt mentés során</h2>
+    <ul class="uk-list uk-list-bullet">
+      <% errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
