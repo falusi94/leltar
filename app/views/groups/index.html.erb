@@ -1,26 +1,28 @@
-<p id="notice"><%= notice %></p>
+<div class="uk-container">
+  <div class="uk-clearfix">
+    <div class="uk-float-left">
+      <h1>Körök</h1>
+    </div>
+    <div class="uk-float-right uk-padding-small">
+      <% if current_user.admin %>
+        <%= link_to 'Új kör', new_group_path, class: 'uk-link-muted' %>
+      <% end %>
+    </div>
+  </div>
 
-<h1>Körök</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Név</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <ul class="uk-list uk-list-divider">
     <% @groups.each do |group| %>
-      <tr>
-        <td><%= link_to group.name, group_items_path(group) %></td>
-        <td><%= link_to 'Szerkesztés', edit_group_path(group) %></td>
-        <td><%= link_to 'Törlés', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <li class="uk-clearfix">
+        <div class="uk-float-left">
+          <h3>
+            <%= link_to group.name, group_items_path(group) %>
+          </h3>
+        </div>
+        <div class="uk-float-right">
+          <%= link_to 'Szerkesztés', edit_group_path(group) %>
+          <%= link_to 'Törlés', group, method: :delete, data: { confirm: 'Biztosan törölni szeretnéd?' } %>
+        </div>
+      </li>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'Új kör', new_group_path %>
+  </ul>
+</div>

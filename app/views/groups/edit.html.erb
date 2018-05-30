@@ -1,6 +1,15 @@
-<h1>Kör szerkesztése</h1>
+<div class="uk-container">
+  <div class="uk-clearfix">
+    <div class="uk-float-left">
+      <h1>"<%= @group.name %>" szerkesztése</h1>
+    </div>
+    <div class="uk-float-right uk-padding-small">
+      <%= link_to 'Vissza', groups_path, class: 'uk-link-muted' %>
+    </div>
+  </div>
 
-<%= render 'form', group: @group %>
+  <div class="uk-align-center uk-width-2-3">
+    <%= render 'form', group: @group %>
+  </div>
 
-
-<%= link_to 'Vissza', groups_path %>
+</div>
