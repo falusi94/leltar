@@ -1,7 +1,15 @@
-<h1>Új tétel</h1>
+<div class="uk-container">
+  <div class="uk-clearfix">
+    <div class="uk-float-left">
+      <h1>Új tétel</h1>
+    </div>
+    <div class="uk-float-right uk-padding-small">
+      <%= link_to 'Összes tétel', items_path, class: 'uk-margin-left uk-link-muted' %>
+    </div>
+  </div>
 
-<div class="col-md-12">
-  <%= render 'form', item: @item, image_uploader: true %>
+    <div class="uk-align-center uk-width-2-3">
+      <%= render 'form', item: @item, image_uploader: true %>
+    </div>
+
 </div>
-
-<%= link_to 'Vissza', items_path %>

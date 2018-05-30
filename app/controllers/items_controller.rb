@@ -5,24 +5,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    if params[:group]
-      access = 'group:'+params[:group]
-      @group = params[:group]
-    else
-      access = 'all'
-    end
-    require_read(access) do
-      respond_to do |format|
-        format.json do
-          set_items
-        end
-        format.csv do
-          set_items
-          render text: generate_csv(@items)
-        end
-        format.html { @filter = params[:filter] }
-      end
-    end
+    @items = Item.all
   end
 
   # GET /items/1
@@ -61,7 +44,7 @@ class ItemsController < ApplicationController
           end
         end
       end
-    else 
+    else
       respond_to do |format|
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }
@@ -199,7 +182,7 @@ class ItemsController < ApplicationController
         ary = ary.to_a
       end
       if params[:page]
-        page_index = params[:page].to_i - 1 
+        page_index = params[:page].to_i - 1
         page_size = params[:per_page].to_i
         ary.slice(page_index*page_size, page_size)
       else

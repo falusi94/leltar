@@ -1,66 +1,74 @@
-<% html_attrs = if image_uploader then {multipart: true} else nil end %>
-<%= form_for item, html: html_attrs do |f| %>
-  <% if item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+<%= form_for item, html: {class: 'uk-form-horizontal', multipart: true} do |f| %>
 
-      <ul>
-      <% item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= render 'alert', errors: item.errors %>
+
+  <div class="uk-margin">
+    <%= f.label :name, 'Név', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :name, class: 'uk-input uk-form-small' %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label 'Név' %>
-    <%= f.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= f.label 'Leírás' %>
-    <%= f.text_area :description %>
-  </div>
-  
-  <div class="field">
-    <%= f.label 'Kör' %>
-    <%= f.select :group, Group.all.map { |g| g.name } %>
+  <div class="uk-margin">
+    <%= f.label :description, 'Leírás', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :description, class: 'uk-input uk-form-small' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label 'Beszerzés dátuma' %>
-    <%= f.date_select :purchase_date %>
+  <div class="uk-margin">
+    <%= f.label :group, 'Kör', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.select :group, Group.all.map { |g| g.name }, {}, {class: 'uk-select uk-form-small'} %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label 'Felvitel dátuma' %>
-    <%= f.date_select :entry_date %>
+  <div class="uk-margin">
+    <%= f.label :purchase_date, 'Beszerzés dátuma', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.date_select :purchase_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label 'Utolsó ellenőrzés' %>
-    <%= f.date_select :last_check %>
+  <div class="uk-margin">
+    <%= f.label :entry_date, 'Felvitel dátuma', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.date_select :entry_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label 'Státusz' %>
-    <%= f.select :status, Item::VALID_STATUS %>
+  <div class="uk-margin">
+    <%= f.label :last_check, 'Utolsó dátuma', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.date_select :last_check, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label 'Leltári szám' %>
-    <%= f.number_field :old_number %>
+  <div class="uk-margin">
+    <%= f.label :status, 'Státusz', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.select :status, Item::VALID_STATUS, {}, {class: 'uk-select uk-form-small'} %>
+    </div>
   </div>
 
-  <%if image_uploader%>
-    <div class="field">
-      <%= f.label 'Kép' %>
-      <%= f.file_field :picture%>
+  <div class="uk-margin">
+    <%= f.label :old_number, 'Leltári szám', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :old_number, class: 'uk-input uk-form-small' %>
+    </div>
+  </div>
+
+  <%if image_uploader %>
+    <div class="uk-margin">
+      <%= f.label :picture, 'Kép', class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.file_field :picture %>
+      </div>
     </div>
   <%end%>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="uk-width-1-1">
+    <%= f.submit 'Mentés', class: 'uk-button uk-button-primary uk-align-center' %>
   </div>
 
 <% end %>

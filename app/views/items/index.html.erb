@@ -1,60 +1,47 @@
-<p id="notice"><%= notice %></p>
+<div class="uk-container">
+  <div class="uk-clearfix">
+    <div class="uk-float-left">
+      <h1>Eszközök</h1>
+    </div>
+    <div class="uk-float-right uk-padding-small">
+      <% if current_user.admin %>
+        <%= link_to 'Új eszköz', new_item_path, class: 'uk-link-muted' %>
+      <% end %>
+    </div>
+  </div>
 
-<h1 class='page-title'>
-  <% if @group %>
-    <%=@group%> eszközei
-  <% else %>
-    Összes eszköz
-  <% end %>
-</h1>
-<div id='left-container'>
-  <div id='filter-container'>
-    Szűrő:
-    <input type='text', id='filter-field'/>
-    <button id='filter'>Szűrés</button>
-  </div>
-  <div id='csv-link-container'>
-    <%= link_to "Letöltés CSV-ben", csv_link %>
-  </div>
-  <div class='pagemode-container'>
-    <a class='pagemode-toggle'>Leltározás</a>
-    <a class='save-changes'>Változtatások mentése</a>
-    <div class='error-message'></div>
-  </div>
-</div>
-<% if current_user.can_write?('all') %>
-  <div id='right-container'>
-    <%= form_tag({action: :upload_csv}, multipart: true) do %>
-      CSV fájl feltöltése
-      <%= file_field_tag 'csv_file', class: 'csv-file' %>
-      <%= submit_tag "Feltöltés" %>
+  <ul class="uk-list uk-list-divider">
+    <% @items.each do |item| %>
+      <li class="uk-margin-remove uk-grid-collapse" style="height:120px" uk-grid>
+        <div class="uk-width-expand">
+          <div class="uk-width-1-1">
+            <h3>
+              <%= link_to item.name, item_path(item) %>
+              <span class="uk-text-muted">
+                (<%= item.group.name %>)
+              </span>
+            </h3>
+          </div>
+
+          <div class="uk-width-1-1 uk-clearfix uk-margin-top">
+            <div class="uk-float-left">
+              <%= item.description %>
+            </div>
+            <div class="uk-float-right">
+              Vásárolva: <%= item.purchase_date %>
+            </div>
+            <div class="uk-float-right uk-margin-right">
+              Ellenőrizve: <%= item.last_check %>
+            </div>
+          </div>
+        </div>
+
+        <div class="uk-width-1-6">
+          <% if item.photos.any? %>
+            <%= image_tag item.photos.last.url, style:'height:110px' %>
+          <% end %>
+        </div>
+      </li>
     <% end %>
-  </div>
-<% end %>
-<div style='clear:both'></div>
-<div class='pagination-container'>
-  <a class='page-link first-page-link'>&lt;&lt;</a>
-  <a class='page-link prev-page-link'>&lt;</a>
-  <span class='page-num'></span>
-  <a class='page-link next-page-link'>&gt;</a>
-  <a class='page-link last-page-link'>&gt;&gt;</a>
+  </ul>
 </div>
-<div class='loading-container'>
-  <%= image_tag '/loading.gif' %>
-</div>
-<div id='grid-container'></div>
-<% if current_user.can_write?('all') %>
-    <%= link_to 'Új eszköz', new_item_path, class: 'new-item-link' %>
-<% end %>
-<script>
-<%if @filter%>
-  window.itemFilter = "<%=@filter.html_safe%>"
-<% else %>
-  window.itemFilter = null
-<%end%>
-<%if @group%>
-window.group = "<%=@group.html_safe%>"
-<% else %>
-  window.group = null
-<%end%>
-</script>

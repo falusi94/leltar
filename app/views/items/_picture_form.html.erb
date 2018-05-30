@@ -1,16 +1,36 @@
-<% if @item.photos.size > 0 %>
-  <% @item.photos.each do |photo| %>
-    <div class="img-frame">
-      <%= image_tag photo.url, class: 'img-responsive img-item' %>
-      <a class="photo-delete" data-photo-id="<%=photo.id%>">X</a>
-    </div>
-  <% end %>
+<% if @item.photos.any? %>
+  <ul class="uk-list">
+    <% @item.photos.each do |photo| %>
+    <li>
+      <div class="uk-inline">
+        <%= image_tag photo.url %>
+
+        <div class="uk-overlay uk-position-top">
+          <div class="uk-position-right">
+            <a class="uk-icon-link photo-delete uk-overlay-default uk-padding-small"
+              data-photo-id="<%=photo.id%>" uk-icon="trash"></a>
+          </div>
+        </div>
+      </div>
+    </li>
+    <% end %>
+  </ul>
 <% else %>
-  Nincs még kép
+  <div class="uk-text-center uk-margin">
+    Nincs még kép
+  </div>
 <% end %>
-<%= form_tag '/photos', method: "POST", multipart: true, class: 'img-frame img-upload' do %>
-  Új kép feltöltése
-  <input type="hidden" name="item_id", value="<%=@item.id%>"/>
-  <input type="file" name="file"/>
-  <input type="submit" value="Feltoltes"/>
+
+<%= form_tag '/photos', method: "POST", multipart: true, class: 'uk-form-horizontal' do |f| %>
+  <%= hidden_field_tag :item_id, @item.id %>
+
+  <div class="uk-margin">
+    <%= label_tag :file, 'Új kép feltöltése', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= file_field_tag :file %>
+    </div>
+  </div>
+  <div class="uk-width-1-1">
+    <%= submit_tag 'Feltöltés', class: 'uk-button uk-button-primary uk-align-center' %>
+  </div>
 <% end %>
