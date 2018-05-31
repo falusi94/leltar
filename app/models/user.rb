@@ -2,15 +2,15 @@ class User < ApplicationRecord
   has_secure_password
   has_many :rights
 
-  def can_read?(object)
+  def can_read?(group_id)
     return true if admin
-    return true if rights.any? { |right| right.group.id == object }
+    return true if rights.any? { |right| right.group.id == group_id }
     false
   end
 
-  def can_write?(object)
+  def can_write?(group_id)
     return true if admin
-    return true if rights.any? { |right| right.group.id == object && right.write }
+    return true if rights.any? { |right| right.group.id == group_id && right.write }
     false
   end
 
