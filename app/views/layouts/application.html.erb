@@ -13,5 +13,18 @@
     <div id="main-container" class="container">
       <%= yield %>
     </div>
+
+    <% if flash.alert %>
+      <script>
+        UIkit.notification("<%= flash.alert %>", {status:'danger'});
+      </script>
+    <% end %>
+
+    <% if flash.notice %>
+      <script>
+        UIkit.notification("<%= flash.notice %>", {status:'success'});
+      </script>
+    <% end %>
+
   </body>
 </html>

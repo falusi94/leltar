@@ -13,7 +13,7 @@ class SessionController < ApplicationController
       session[:user_id] = user.id
       return redirect_to redirect_url
     end
-    redirect_to login_path, redirect: redirect_url, notice: 'Hibás bejelentkezési adatok'
+    redirect_to login_path, redirect: redirect_url, alert: 'Hibás bejelentkezési adatok'
   end
 
   def destroy
