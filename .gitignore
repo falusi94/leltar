@@ -30,3 +30,5 @@
 /vagrant/leltar.service
 /vagrant/publickey
 /vagrant/.vagrant
+
+.env
