@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'groups/:group', to: 'items#index'
   put 'groups/:group', to: 'items#update_all'
   get '/', to: 'session#smart_redirect'
-  get 'session/new'
+  get 'session/new', as: :login
 
   post 'session/create'
 

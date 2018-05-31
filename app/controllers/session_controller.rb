@@ -10,7 +10,7 @@ class SessionController < ApplicationController
     redirect_url = session_params[:redirect] || '/'
     if user
       if user.authenticate(session_params[:password])
-        log_in(user)
+        session[:user_id] = user.id
         redirect_to redirect_url
       else
         redirect_to controller: 'session', action: 'new',
@@ -23,7 +23,7 @@ class SessionController < ApplicationController
   end
 
   def destroy
-    log_out
+    reset_session
     redirect_to controller: 'session', action: 'new'
   end
 

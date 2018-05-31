@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  include SessionManagement
   protect_from_forgery with: :exception
   before_action :require_login
 
@@ -18,4 +17,14 @@ class ApplicationController < ActionController::Base
   def require_admin
     return unauthorized_page unless current_user.admin
   end
+
+  def current_user
+    @current_user ||= User.find(session[:user_id])
+  end
+  helper_method :current_user
+
+  def require_login
+    redirect_to login_path, redirect: request.original_fullpath unless session[:user_id]
+  end
+
 end
