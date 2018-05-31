@@ -72,14 +72,6 @@ class ItemsController < ApplicationController
       @item = Item.find(params[:id])
     end
 
-    def set_groups
-      if current_user.admin
-        @groups = Group.all
-      else
-        @groups = Group.can_write(current_user.id)
-      end
-    end
-
     def require_group_write
       return unauthorized_page unless current_user.can_write?(@item.group_id)
     end
