@@ -4,6 +4,7 @@ class GroupsController < ApplicationController
 
   def index
     set_groups
+    @groups = @groups.page(params[:page])
   end
 
   def show
