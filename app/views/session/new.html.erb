@@ -1,12 +1,32 @@
-<h1>Login</h1>
-<div class="notice"><%=@notice%></div>
-<%= form_for(:session, url: 'create') do |f| %>
-  <% if @redirect %>
-    <%= f.hidden_field :redirect, value: @redirect %>
-  <% end %>
-  <%=f.label 'Email cím' %>
-  <%=f.text_field :email%>
-  <%=f.label 'Jelszó' %>
-  <%=f.password_field :password%>
-  <%=f.submit "Bejelentkezés" %>
-<%end%>
+<div class="uk-container">
+  <h1>Bejelentkezés</h1>
+
+  <div class="uk-align-center uk-width-2-3">
+    <%= form_for :session, url: 'create', html: {class: 'uk-form-horizontal'} do |f| %>
+      <% if @redirect %>
+        <%= f.hidden_field :redirect, value: @redirect %>
+      <% end %>
+
+      <div class="uk-margin">
+        <%= f.label :email, 'Email', class: 'uk-form-label' %>
+        <div class="uk-form-controls">
+          <%= f.text_field :email, class: 'uk-input uk-form-small' %>
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <%= f.label :password, 'Jelszó', class: 'uk-form-label' %>
+        <div class="uk-form-controls">
+          <%= f.password_field :password, class: 'uk-input uk-form-small' %>
+        </div>
+      </div>
+
+      <div class="uk-width-1-1">
+        <%= f.submit 'Bejelentkezés', class: 'uk-button uk-button-primary uk-align-center' %>
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>
