@@ -1,58 +1,53 @@
-<%= form_for(user) do |f| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= form_for user, html: {class: 'uk-form-horizontal'} do |f| %>
 
-      <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= render 'alert', errors: user.errors %>
+
+  <div class="uk-margin">
+    <%= f.label :name, 'Név', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :name, class: "uk-input uk-form-small #{'uk-disabled' unless current_user.admin }" %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label 'Név' %>
-    <% if current_user.admin %>
-      <%= f.text_field :name %>
-    <% else %>
-      <%= user.name %>
-    <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
+  <div class="uk-margin">
+    <%= f.label :email, 'Email', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :email, class: 'uk-input uk-form-small' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label 'Jelszó' %>
-    <%= f.password_field :password %>
+  <div class="uk-margin">
+    <%= f.label :email, 'Email', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :email, class: 'uk-input uk-form-small' %>
+    </div>
   </div>
-  
-  <div class="field">
-    <%= f.label 'Jelszó megerősítése' %>
-    <%= f.password_field :password_confirmation %>
+
+  <div class="uk-margin">
+    <%= f.label :password, 'Jelszó', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :password, class: 'uk-input uk-form-small' %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :password_confirmation, 'Jelszó megerősítés', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :password_confirmation, class: 'uk-input uk-form-small' %>
+    </div>
   </div>
 
   <% if current_user.admin %>
-    <div class="field">
-      <%= f.label 'Olvasási jogok' %>
-      <%= f.text_field :read_rights %>
+    <div class="uk-margin">
+      <%= f.label :admin, 'Admin', class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.check_box :admin, class: 'uk-checkbox' %>
+      </div>
     </div>
+  <% end %>
 
-    <div class="field">
-      <%= f.label 'Írási jogok' %>
-      <%= f.text_field :write_rights %>
-    </div>
+  <div class="uk-width-1-1">
+    <%= f.submit 'Mentés', class: 'uk-button uk-button-primary uk-align-center' %>
+  </div>
 
-    <div class="field">
-      <%= f.label :admin %>
-      <%= f.check_box :admin %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <%end%>
 <% end %>

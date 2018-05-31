@@ -1,5 +1,17 @@
-<h1>Felhasználó szerkesztése</h1>
+<div class="uk-container">
+  <div class="uk-clearfix">
+    <div class="uk-float-left">
+      <h1>Felhasználó szerkesztése</h1>
+    </div>
+    <div class="uk-float-right uk-padding-small">
+      <% if current_user.admin %>
+        <%= link_to 'Vissza', users_path, class: 'uk-link-muted' %>
+      <% end %>
+    </div>
+  </div>
 
-<%= render 'form', user: @user %>
+  <div class="uk-align-center uk-width-2-3">
+    <%= render 'form', user: @user %>
+  </div>
 
-<%= link_to 'Vissza', users_path %>
+</div>
