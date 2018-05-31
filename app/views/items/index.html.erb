@@ -10,6 +10,12 @@
     </div>
   </div>
 
+  <div class="uk-clearfix">
+    <div class="uk-float-right">
+      <%= paginate @items %>
+    </div>
+  </div>
+
   <ul class="uk-list uk-list-divider">
     <% @items.each do |item| %>
       <%= render 'item', item: item %>

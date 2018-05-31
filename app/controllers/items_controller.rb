@@ -6,10 +6,11 @@ class ItemsController < ApplicationController
 
   def index
     if current_user.admin
-      @items = Item.all
+      @items = Item.all.page(params[:page])
     else
       # This should be optimized
       @items = Item.select { |item| current_user.can_read?(item.group_id) }
+                   .page(params[:page])
     end
   end
 
