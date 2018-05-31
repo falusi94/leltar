@@ -17,23 +17,16 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :email, 'Email', class: 'uk-form-label' %>
-    <div class="uk-form-controls">
-      <%= f.text_field :email, class: 'uk-input uk-form-small' %>
-    </div>
-  </div>
-
-  <div class="uk-margin">
     <%= f.label :password, 'Jelszó', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.text_field :password, class: 'uk-input uk-form-small' %>
+      <%= f.password_field :password, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-margin">
     <%= f.label :password_confirmation, 'Jelszó megerősítés', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.text_field :password_confirmation, class: 'uk-input uk-form-small' %>
+      <%= f.password_field :password_confirmation, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
