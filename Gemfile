@@ -41,7 +41,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'json'
 gem 'rails-backbone'
-gem 'backbone-paginator-rails'
+gem 'kaminari'
 gem 'backgridjs-rails'
 gem 'paperclip', "~> 5.0.0"
 gem 'paper_trail'
@@ -60,6 +60,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

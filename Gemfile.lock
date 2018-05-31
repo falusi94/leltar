@@ -41,7 +41,6 @@ GEM
     arel (7.1.4)
     autoprefixer-rails (6.7.2)
       execjs
-    backbone-paginator-rails (2.0.2)
     backgridjs-rails (0.3.5)
       rails (>= 3.2.11)
     backup (3.4.0)
@@ -52,6 +51,8 @@ GEM
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -86,6 +87,18 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.0.3)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     libv8 (3.16.14.19)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -200,17 +213,18 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  backbone-paginator-rails
   backgridjs-rails
   backup
   bcrypt (~> 3.1.7)
   better_errors
+  binding_of_caller
   bootstrap-sass (~> 3.3.6)
   byebug
   coffee-rails (~> 4.2)
   jbuilder (~> 2.5)
   jquery-rails
   json
+  kaminari
   listen (~> 3.0.5)
   paper_trail
   paperclip (~> 5.0.0)
