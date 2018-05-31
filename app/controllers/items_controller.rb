@@ -7,12 +7,13 @@ class ItemsController < ApplicationController
   def index
     if params[:group_id]
       group = Group.find(params[:group_id])
-      @items = group.items.page(params[:page])
+      @items = group.items.order(:name).page(params[:page])
     elsif current_user.admin
-      @items = Item.all.page(params[:page])
+      @items = Item.all.order(:name).page(params[:page])
     else
       # This should be optimized
       @items = Item.select { |item| current_user.can_read?(item.group_id) }
+                   .order(:name)
                    .page(params[:page])
     end
   end
