@@ -8,5 +8,6 @@ class PhotosController < ApplicationController
   def destroy
     photo = Photo.find(params[:id])
     photo.destroy
+    head :ok
   end
 end
