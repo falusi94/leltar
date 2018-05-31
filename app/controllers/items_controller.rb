@@ -5,7 +5,10 @@ class ItemsController < ApplicationController
   before_action :require_group_write, only: [:edit, :update, :destroy, :picture_post]
 
   def index
-    if current_user.admin
+    if params[:group_id]
+      group = Group.find(params[:group_id])
+      @items = group.items.page(params[:page])
+    elsif current_user.admin
       @items = Item.all.page(params[:page])
     else
       # This should be optimized

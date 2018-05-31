@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   post 'photos', to: 'photos#create'
   delete 'photos/:id', to: 'photos#destroy'
 
-  resources :groups, only: [:index, :edit, :create, :destroy, :update, :new]
-  get 'groups/:group', to: 'items#index'
-  put 'groups/:group', to: 'items#update_all'
+  resources :groups, except: [:show]
+  get '/groups/:group_id/items', to: 'items#index', as: :group_items
+
   get '/', to: 'session#smart_redirect'
   get 'session/new', as: :login
 
