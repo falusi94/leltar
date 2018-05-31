@@ -1,28 +1,30 @@
-<nav class="uk-navbar-container" uk-navbar>
-  <div class="uk-navbar-left">
-    <a class="uk-navbar-item uk-logo" href="/">SCH leltár</a>
-    <ul class="uk-navbar-nav">
-      <li>
-        <%= link_to 'Körök', groups_path %>
-      </li>
-      <% if current_user.admin %>
-      <li>
-        <%= link_to 'Felhasznalók', users_path %>
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
+  <nav class="uk-navbar-container main-navbar uk-light uk-sticky" uk-navbar>
+    <div class="uk-navbar-left">
+      <a class="uk-navbar-item uk-logo" href="/">SCH leltár</a>
+      <ul class="uk-navbar-nav">
+        <li>
+          <%= link_to 'Körök', groups_path %>
+        </li>
+        <% if current_user.admin %>
+        <li>
+          <%= link_to 'Felhasznalók', users_path %>
 
-      </li>
-      <% end %>
-    </ul>
-  </div>
+        </li>
+        <% end %>
+      </ul>
+    </div>
 
-  <div class="uk-navbar-right">
-    <ul class="uk-navbar-nav">
-      <li>
-        <%= link_to 'Profilom', edit_user_path(current_user)%>
-      </li>
-      <li>
-        <%= link_to 'Kijelentkezés', logout_path, method: :post %>
-      </li>
-    </ul>
+    <div class="uk-navbar-right">
+      <ul class="uk-navbar-nav">
+        <li>
+          <%= link_to 'Profilom', edit_user_path(current_user)%>
+        </li>
+        <li>
+          <%= link_to 'Kijelentkezés', logout_path, method: :post %>
+        </li>
+      </ul>
 
-  </div>
-</nav>
+    </div>
+  </nav>
+</div>
