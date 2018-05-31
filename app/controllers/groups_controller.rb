@@ -19,14 +19,14 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    return redirect_to @group, notice: 'Sikeresen létrehozva' if @group.save
+    return redirect_to group_items_path(@group), notice: 'Sikeresen létrehozva' if @group.save
 
     render :new
   end
 
   def update
     if @group.update(group_params)
-      return redirect_to @group, notice: 'Sikeresen módosítva'
+      return redirect_to groups_path, notice: 'Sikeresen módosítva'
     end
       render :edit
   end
