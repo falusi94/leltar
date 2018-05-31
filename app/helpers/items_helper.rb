@@ -1,4 +1,3 @@
-require 'csv'
 module ItemsHelper
   def picture_new_url(item)
     "/items/#{item.id}/photos"
@@ -14,21 +13,7 @@ module ItemsHelper
     else
       "/items.csv"
     end
-    if @filter
-      res += "?filter=#{@filter}"
-    end
     res
   end
 
-  def generate_csv(items)
-    CSV::generate do |csv|
-      headers = ['id','name', 'description', 'group', 
-                 'purchase_date', 'entry_date', 'last_check', 
-                 'status', 'old_number']
-      csv << CSV::Row.new(headers, headers, true)
-      items.each do |item|
-        csv << CSV::Row.new(headers, item.to_a)
-      end
-    end
-  end
 end
