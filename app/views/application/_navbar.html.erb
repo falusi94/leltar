@@ -17,7 +17,7 @@
   <div class="uk-navbar-right">
     <ul class="uk-navbar-nav">
       <li>
-        <%= link_to 'Profilom', user_path(current_user)%>
+        <%= link_to 'Profilom', edit_user_path(current_user)%>
       </li>
       <li>
         <%= link_to 'Kijelentkezés', logout_path, method: :post %>
