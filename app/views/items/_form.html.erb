@@ -19,7 +19,7 @@
   <div class="uk-margin">
     <%= f.label :group, 'Kör', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.select :group, Group.all.map { |g| g.name }, {}, {class: 'uk-select uk-form-small'} %>
+      <%= f.select :group, @groups.map { |g| g.name }, {}, {class: 'uk-select uk-form-small'} %>
     </div>
   </div>
 
