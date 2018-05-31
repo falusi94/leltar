@@ -1,5 +1,12 @@
 ---
 hu:
+  views:
+    pagination:
+      first: Első
+      last: Utolsó
+      previous: Előző
+      next: Következő
+      truncate: ...
   activerecord:
     errors:
       messages:
