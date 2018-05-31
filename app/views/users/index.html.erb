@@ -8,6 +8,12 @@
     </div>
   </div>
 
+  <div class="uk-clearfix">
+    <div class="uk-float-right">
+      <%= paginate @users %>
+    </div>
+  </div>
+
   <ul class="uk-list uk-list-divider">
     <% @users.each do |user| %>
       <li class="uk-clearfix">
