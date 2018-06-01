@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :groups, except: [:show]
   get '/groups/:group_id/items', to: 'items#index', as: :group_items
+  get '/groups/:group_id/items/new', to: 'items#new', as: :new_group_item
 
   get '/', to: 'session#smart_redirect'
   get 'session/new', as: :login

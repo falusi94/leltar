@@ -1,11 +1,19 @@
 <div class="uk-container">
   <div class="uk-clearfix">
     <div class="uk-float-left">
-      <h1>Eszközök</h1>
+      <% if @group %>
+        <h1>"<%= @group.name %>" eszközei</h1>
+      <% elsif %>
+        <h1>Eszközök</h1>
+      <% end %>
     </div>
     <div class="uk-float-right uk-padding-small">
       <% if current_user.admin %>
-        <%= link_to 'Új eszköz', new_item_path, class: 'uk-link-muted' %>
+        <% if @group %>
+          <%= link_to 'Új eszköz', new_group_item_path, class: 'uk-link-muted' %>
+        <% elsif %>
+          <%= link_to 'Új eszköz', new_item_path, class: 'uk-link-muted' %>
+        <% end %>
       <% end %>
     </div>
   </div>

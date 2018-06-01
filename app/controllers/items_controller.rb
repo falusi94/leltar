@@ -6,8 +6,8 @@ class ItemsController < ApplicationController
 
   def index
     if params[:group_id]
-      group = Group.find(params[:group_id])
-      @items = group.items.order(:name).page(params[:page])
+      @group = Group.find(params[:group_id])
+      @items = @group.items.order(:name).page(params[:page])
     elsif current_user.admin
       @items = Item.all.order(:name).page(params[:page])
     else
@@ -25,6 +25,11 @@ class ItemsController < ApplicationController
   def new
     return unauthorized_page if @groups.empty?
     @item = Item.new
+    if params[:group_id]
+      @item.group = Group.find(params[:group_id])
+    else
+      @item.group = @groups[0]
+    end
   end
 
   def edit
