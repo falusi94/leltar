@@ -24,7 +24,7 @@ class SessionController < ApplicationController
   def smart_redirect
     return redirect_to items_path if current_user.admin
 
-    groups = current_user.groups
+    groups = current_user.read_groups
     return unauthorized_page if groups.size == 0
     return redirect_to items_path if groups.size > 1
     redirect_to items_path, group_id: groups[0].id

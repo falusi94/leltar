@@ -7,11 +7,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_groups
-    if current_user.admin
-      @groups = Group.all.order(:name)
-    else
-      @groups = Group.order(:name).can_read(current_user.id)
-    end
+    @groups = current_user.read_groups.order(:name)
+    @write_groups = current_user.write_groups
   end
 
   def require_admin

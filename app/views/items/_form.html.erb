@@ -19,7 +19,7 @@
   <div class="uk-margin">
     <%= f.label :group_id, 'Kör', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <% options = options_from_collection_for_select(@groups, :id, :name, @item.group.id) %>
+      <% options = options_from_collection_for_select(@write_groups, :id, :name, @item.group.id) %>
       <%= f.select :group_id, options, {}, {class: 'uk-select uk-form-small'} %>
     </div>
   </div>

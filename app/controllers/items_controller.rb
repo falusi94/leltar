@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
       @items = Item.search(query, page: params[:page], per_page: 25, order: :name)
     else
       @items = Item.search(query, page: params[:page], per_page: 25, order: :name,
-                           where: {group_id: current_user.groups.ids})
+                           where: {group_id: current_user.read_groups.ids})
     end
     @items = ItemDecorator.decorate_collection(@items)
   end

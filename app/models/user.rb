@@ -5,13 +5,15 @@ class User < ApplicationRecord
 
   def can_read?(group_id)
     return true if admin
-    return true if rights.any? { |right| right.group.id == group_id }
+    return true if rights.any? { |right| right.group_id.nil? }
+    return true if rights.any? { |right| right.group_id == group_id }
     false
   end
 
   def can_write?(group_id)
     return true if admin
-    return true if rights.any? { |right| right.group.id == group_id && right.write }
+    return true if rights.any? { |right| right.group_id.nil? && right.write }
+    return true if rights.any? { |right| right.group_id == group_id && right.write }
     false
   end
 
@@ -19,6 +21,20 @@ class User < ApplicationRecord
     return true if admin
     return true if rights.any? { |right| right.write }
     false
+  end
+
+  def read_groups
+    return Group.all if admin
+    return Group.all if rights.any? { |right| right.group_id.nil? }
+    groups
+  end
+
+  def write_groups
+    return Group.all if admin
+    return Group.all if rights.any? { |right| right.group_id.nil? && right.write }
+    Group.select do |group|
+      rights.any? { |right| right.group_id == group.id && right.write }
+    end
   end
 
   def User.digest(string)
