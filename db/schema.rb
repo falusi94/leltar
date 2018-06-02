@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180530193941) do
+ActiveRecord::Schema.define(version: 20180601002110) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -27,9 +30,10 @@ ActiveRecord::Schema.define(version: 20180530193941) do
     t.string   "status"
     t.integer  "old_number"
     t.integer  "group_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["group_id"], name: "index_items_on_group_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "state",         default: 0
+    t.index ["group_id"], name: "index_items_on_group_id", using: :btree
   end
 
   create_table "photos", force: :cascade do |t|
@@ -40,7 +44,7 @@ ActiveRecord::Schema.define(version: 20180530193941) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.integer  "item_id"
-    t.index ["item_id"], name: "index_photos_on_item_id"
+    t.index ["item_id"], name: "index_photos_on_item_id", using: :btree
   end
 
   create_table "rights", force: :cascade do |t|
@@ -60,17 +64,17 @@ ActiveRecord::Schema.define(version: 20180530193941) do
     t.boolean  "admin"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",                     null: false
-    t.integer  "item_id",                       null: false
-    t.string   "event",                         null: false
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
     t.string   "whodunnit"
-    t.text     "object",     limit: 1073741823
+    t.text     "object"
     t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
 end

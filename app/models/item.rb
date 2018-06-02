@@ -1,6 +1,8 @@
 require 'csv'
 class Item < ApplicationRecord
   VALID_STATUS = ['OK', 'Selejtezésre vár', 'Selejtezve', 'Utána kell járni', 'Elveszett']
+  enum state: [ :ok, :waiting_for_repair, :need_as_part, :waiting_for_scrapping,
+                :scrapped, :not_found, :at_group_member, :lost ]
 
   has_paper_trail
   belongs_to :group
