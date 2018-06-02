@@ -5,16 +5,18 @@ class ItemsController < ApplicationController
   before_action :require_group_write, only: [:edit, :update, :destroy, :picture_post]
 
   def index
+    query = params[:query]
+    query ||= '*'
+    @search_path = request.path
     if params[:group_id]
       @group = Group.find(params[:group_id])
-      @items = @group.items.order(:name).page(params[:page])
+      @items = Item.search(query, page: params[:page], per_page: 25,
+                           order: :name, where: {group_id: params[:group_id]})
     elsif current_user.admin
-      @items = Item.all.order(:name).page(params[:page])
+      @items = Item.search(query, page: params[:page], per_page: 25, order: :name)
     else
-      # This should be optimized
-      @items = Item.select { |item| current_user.can_read?(item.group_id) }
-                   .order(:name)
-                   .page(params[:page])
+      @items = Item.search(query, page: params[:page], per_page: 25, order: :name,
+                           where: {group_id: current_user.groups.ids})
     end
   end
 

@@ -1,0 +1,12 @@
+<div class="uk-navbar-center">
+  <div class="uk-navbar-item">
+    <%= form_tag @search_path, method: :get, class: 'uk-form uk-width-1-1' do %>
+      <%= text_field_tag :query, params[:query], placeholder: 'Keresés',
+                         class: 'uk-input uk-width-1-1' %>
+      <%= button_tag class: 'uk-button uk-button-secondary' do %>
+        <%= content_tag(:span, '', 'uk-icon' => 'icon: search') %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

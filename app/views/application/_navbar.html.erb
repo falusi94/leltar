@@ -9,11 +9,12 @@
         <% if current_user.admin %>
         <li>
           <%= link_to 'Felhasznalók', users_path %>
-
         </li>
         <% end %>
       </ul>
     </div>
+
+    <%= render 'search' %>
 
     <div class="uk-navbar-right">
       <ul class="uk-navbar-nav">
