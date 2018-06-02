@@ -1,6 +1,7 @@
 require 'csv'
 class Item < ApplicationRecord
   searchkick
+  scope :search_import, -> { includes(:group) }
 
   VALID_STATUS = ['OK', 'Selejtezésre vár', 'Selejtezve', 'Utána kell járni', 'Elveszett']
   enum state: [ :ok, :waiting_for_repair, :need_as_part, :waiting_for_scrapping,
@@ -13,6 +14,17 @@ class Item < ApplicationRecord
   validates :description, length: {maximum: 300, too_long: 'Tul hosszu leiras'}
   validates :group, presence: true, allow_nil: false
   validates :status, inclusion: {in: VALID_STATUS}
+
+  def search_data
+    {
+      name: name,
+      description: description,
+      state: state,
+      old_number: old_number,
+      group_name: group.name,
+      group_id: group_id
+    }
+  end
 
   def initialize(params = {})
     params[:group] = Group.by_name(params[:group])
