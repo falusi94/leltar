@@ -39,9 +39,10 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :status, 'Státusz', class: 'uk-form-label' %>
+    <%= f.label :state, 'Státusz', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.select :status, Item::VALID_STATUS, {}, {class: 'uk-select uk-form-small'} %>
+      <%= f.select :state, Item.states.keys.map { |k| [k.humanize, k] },
+                   {}, {class: 'uk-select uk-form-small'} %>
     </div>
   </div>
 

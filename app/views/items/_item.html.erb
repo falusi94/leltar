@@ -1,7 +1,11 @@
 <li class="uk-margin-remove uk-grid-collapse" style="min-height:110px" uk-grid>
   <div class="uk-width-expand">
     <div class="uk-width-1-1">
-      <h3><%= item.compact_name %></h3>
+      <h3 class="uk-margin-remove"><%= item.compact_name %></h3>
+    </div>
+
+    <div class="uk-width-1-1 uk-text-muted uk-text-small">
+      <%= item.state.humanize %>
     </div>
 
     <div class="uk-width-1-1 uk-grid-collapse" uk-grid>
