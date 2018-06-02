@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy, :picture_get, :picture_post, :picture_form]
+  before_action :set_item, except: [:index, :new, :create]
   before_action :set_groups, only: [:new, :edit, :create, :update]
   before_action :require_group_read, only: [:show]
   before_action :require_group_write, only: [:edit, :update, :destroy, :picture_post]
@@ -91,7 +91,7 @@ class ItemsController < ApplicationController
     end
 
     def require_group_read
-      return unauthorized_page unless current_user.can_write?(@item.group_id)
+      return unauthorized_page unless current_user.can_read?(@item.group_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

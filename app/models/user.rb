@@ -15,6 +15,12 @@ class User < ApplicationRecord
     false
   end
 
+  def can_edit_groups?
+    return true if admin
+    return true if rights.any? { |right| right.write }
+    false
+  end
+
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
