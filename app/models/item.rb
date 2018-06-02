@@ -12,9 +12,12 @@ class Item < ApplicationRecord
   has_paper_trail
   belongs_to :group
   has_many :photos
+
   validates :name, length: {minimum: 2, too_short: 'Túl rövid név'}
   validates :description, length: {maximum: 300, too_long: 'Túl hosszú leírás'}
   validates :group, presence: true, allow_nil: false
+  validates :purchase_date, presence: true, allow_nil: false
+  validate :purchase_date_cannot_be_in_future
 
   def search_data
     {
@@ -42,8 +45,8 @@ class Item < ApplicationRecord
      self.entry_date, self.last_check, self.state, self.old_number]
   end
 
-  def validate_purchase_date
-    if purchase_date.present? && purchase_date > Date.today
+  def purchase_date_cannot_be_in_future
+    if purchase_date > Date.today
       errors.add(:purchase_date, 'Jövőbeni beszerzési dátum')
     end
   end
