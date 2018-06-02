@@ -48,6 +48,7 @@ gem 'paper_trail'
 gem 'backup'
 gem 'dotenv-rails'
 gem 'searchkick'
+gem 'draper'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
