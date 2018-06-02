@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 
   def index
     set_groups
-    @groups = @groups.order(:name).page(params[:page])
+    @groups = @groups.order(:name).page(params[:page]).decorate
   end
 
   def show

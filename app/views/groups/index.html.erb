@@ -4,9 +4,7 @@
       <h1>Körök</h1>
     </div>
     <div class="uk-float-right uk-padding-small">
-      <% if current_user.admin %>
-        <%= link_to 'Új kör', new_group_path, class: 'uk-link-muted' %>
-      <% end %>
+      <%= new_group_button %>
     </div>
   </div>
 
@@ -18,15 +16,15 @@
 
   <ul class="uk-list uk-list-divider">
     <% @groups.each do |group| %>
-      <li class="uk-clearfix">
+      <li class="uk-clearfix uk-margin-remove-top">
         <div class="uk-float-left">
           <h3>
             <%= link_to group.name, group_items_path(group_id: group.id) %>
           </h3>
         </div>
         <div class="uk-float-right">
-          <%= link_to 'Szerkesztés', edit_group_path(group) %>
-          <%= link_to 'Törlés', group, method: :delete, data: { confirm: 'Biztosan törölni szeretnéd?' } %>
+          <%= group.edit_group_button %>
+          <%= group.delete_group_button %>
         </div>
       </li>
     <% end %>
