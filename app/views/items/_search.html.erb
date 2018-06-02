@@ -1,8 +1,8 @@
 <div class="uk-navbar-center">
   <div class="uk-navbar-item">
-    <%= form_tag @search_path, method: :get, class: 'uk-form uk-width-1-1' do %>
+    <%= form_tag @search_path, method: :get, class: 'uk-form uk-width-1-1', id: 'search-form' do %>
       <%= text_field_tag :query, params[:query], placeholder: 'Keresés',
-                         class: 'uk-input uk-width-1-1' %>
+                         class: 'uk-input uk-width-1-1', autofocus: ''  %>
       <%= button_tag class: 'uk-button uk-button-secondary' do %>
         <%= content_tag(:span, '', 'uk-icon' => 'icon: search') %>
       <% end %>
