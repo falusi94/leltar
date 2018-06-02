@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
 
   def set_groups
     if current_user.admin
-      @groups = Group.all
+      @groups = Group.all.order(:name)
     else
-      @groups = Group.can_write(current_user.id)
+      @groups = Group.order(:name).can_read(current_user.id)
     end
   end
 

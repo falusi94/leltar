@@ -17,9 +17,10 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :group, 'Kör', class: 'uk-form-label' %>
+    <%= f.label :group_id, 'Kör', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.select :group, @groups.map { |g| g.name }, { selected: @item.group.name }, {class: 'uk-select uk-form-small'} %>
+      <% options = options_from_collection_for_select(@groups, :id, :name, @item.group.id) %>
+      <%= f.select :group_id, options, {}, {class: 'uk-select uk-form-small'} %>
     </div>
   </div>
 

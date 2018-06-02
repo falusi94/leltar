@@ -41,13 +41,17 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    if @item.validate && current_user.can_write?(@item.group)
-      return redirect_to @item, notice: 'Sikeres létrehozás' if @item.save
+    unless current_user.can_write?(item_params[:group_id].to_i)
+      return redirect_to :back, alert: 'Nincs jogosultságod!'
     end
+    return redirect_to @item, notice: 'Sikeres létrehozás' if @item.save
     render :new
   end
 
   def update
+    unless current_user.can_write?(item_params[:group_id].to_i)
+      return redirect_to :back, alert: 'Nincs jogosultságod!'
+    end
     return redirect_to @item, notice: 'Sikeres módosítás' if @item.update(item_params)
     render :edit
   end
@@ -96,7 +100,7 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :description, :purchase_date, :entry_date, :last_check, :status, :old_number, :group, :picture)
+      params.require(:item).permit(:name, :description, :purchase_date, :entry_date, :last_check, :status, :old_number, :group_id, :picture)
     end
 
     def picture_params

@@ -4,7 +4,8 @@ class GroupsController < ApplicationController
 
   def index
     set_groups
-    @groups = @groups.order(:name).page(params[:page]).decorate
+    @groups = Kaminari.paginate_array(@groups).page(params[:page])
+    @groups = GroupDecorator.decorate_collection(@groups)
   end
 
   def show
