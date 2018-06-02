@@ -18,10 +18,12 @@ class ItemsController < ApplicationController
       @items = Item.search(query, page: params[:page], per_page: 25, order: :name,
                            where: {group_id: current_user.groups.ids})
     end
+    @items = ItemDecorator.decorate_collection(@items)
   end
 
   def show
     @item = @item.versions[params[:version_idx].to_i].reify if params[:version_idx]
+    @item = ItemDecorator.decorate(@item)
   end
 
   def new

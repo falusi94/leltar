@@ -1,30 +1,21 @@
-<li class="uk-margin-remove uk-grid-collapse" style="height:120px" uk-grid>
+<li class="uk-margin-remove uk-grid-collapse" style="min-height:110px" uk-grid>
   <div class="uk-width-expand">
     <div class="uk-width-1-1">
-      <h3>
-        <%= link_to item.name, item_path(item) %>
-        <span class="uk-text-muted">
-          (<%= item.group.name %>)
-        </span>
-      </h3>
+      <h3><%= item.compact_name %></h3>
     </div>
 
-    <div class="uk-width-1-1 uk-clearfix uk-margin-top">
-      <div class="uk-float-left">
+    <div class="uk-width-1-1 uk-grid-collapse" uk-grid>
+      <div class="uk-width-expand">
         <%= item.description %>
       </div>
-      <div class="uk-float-right">
-        Vásárolva: <%= item.purchase_date %>
-      </div>
-      <div class="uk-float-right uk-margin-right">
-        Ellenőrizve: <%= item.last_check %>
+      <div style="width: 200px">
+        <div>Vásárolva: <%= item.purchase_date %></div>
+        <div>Ellenőrizve: <%= item.last_check %></div>
       </div>
     </div>
   </div>
 
-  <div class="uk-width-1-6">
-    <% if item.photos.any? %>
-      <%= image_tag item.photos.last.url, style:'height:110px' %>
-    <% end %>
+  <div style="width: 110px">
+    <%= item.photo %>
   </div>
 </li>

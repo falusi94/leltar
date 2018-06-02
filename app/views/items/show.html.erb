@@ -4,10 +4,8 @@
       <h1><%= @item.name %></h1>
     </div>
     <div class="uk-float-right uk-padding-small">
-      <%= link_to 'Vissza', items_path, class: 'uk-link-muted' %>
-      <% if current_user.can_write?("group:#{@item.group.id}") %>
-        <%= link_to 'Szerkesztés', edit_item_path(@item), class: 'uk-margin-left uk-link-muted' %>
-      <% end %>
+      <%= link_to 'Vissza', items_path, class: 'uk-button uk-button-default uk-button-small' %>
+      <%= @item.edit_button %>
     </div>
   </div>
 
