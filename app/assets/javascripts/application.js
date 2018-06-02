@@ -13,10 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require underscore
-//= require backbone
-//= require backgrid
-//= require backbone.paginator
 //= require_tree .
 //= require uikit.min
 //= require uikit-icons.min

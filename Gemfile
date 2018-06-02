@@ -38,16 +38,26 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-#my gems
+# Json
 gem 'json'
-gem 'rails-backbone'
+
+# Kaminari for paginating
 gem 'kaminari'
-gem 'backgridjs-rails'
+
+# paperclip for file saving
 gem 'paperclip', "~> 5.0.0"
+
+# paper_trail for versioning
 gem 'paper_trail'
 gem 'backup'
+
+# dotenv to reach .env
 gem 'dotenv-rails'
+
+# searchkick for easy elastic search integration
 gem 'searchkick'
+
+# Draper for decorating models
 gem 'draper'
 
 group :development, :test do
