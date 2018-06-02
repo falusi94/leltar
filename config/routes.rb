@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   # Items routes
   resources :items
+  post 'items/{:id}/check', to: 'items#update_last_check', as: :check_item
 
   put 'items', to: 'items#update_all'
   post 'items_csv', to: 'import#upload_csv'

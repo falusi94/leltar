@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_item, except: [:index, :new, :create]
   before_action :set_groups, only: [:new, :edit, :create, :update]
   before_action :require_group_read, only: [:show]
-  before_action :require_group_write, only: [:edit, :update, :destroy, :picture_post]
+  before_action :require_group_write, only: [:edit, :update, :destroy, :picture_post, :update_last_check]
 
   def index
     query = params[:query]
@@ -56,6 +56,12 @@ class ItemsController < ApplicationController
     render :edit
   end
 
+  def update_last_check
+    @item.last_check = DateTime.now
+    @item.save
+    redirect_to @item
+  end
+
   def destroy
     @item.destroy
     redirect_to items_url, notice: 'Sikeres törlés'
@@ -100,7 +106,7 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :description, :purchase_date, :entry_date, :last_check, :status, :old_number, :group_id, :picture)
+      params.require(:item).permit(:name, :description, :purchase_date, :entry_date, :status, :old_number, :group_id, :picture)
     end
 
     def picture_params

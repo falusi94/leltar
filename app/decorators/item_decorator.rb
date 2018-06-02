@@ -25,4 +25,11 @@ class ItemDecorator < ApplicationDecorator
             class: 'uk-button uk-button-secondary uk-button-small')
   end
 
+  def check_form
+    return unless current_user.can_write?(group.id)
+    form_tag check_item_path, method: :post, class: 'uk-form' do
+      submit_tag('Rendben van!', class: 'uk-button uk-button-primary')
+    end
+  end
+
 end

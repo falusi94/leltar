@@ -39,13 +39,6 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :last_check, 'Utolsó dátuma', class: 'uk-form-label' %>
-    <div class="uk-form-controls">
-      <%= f.date_select :last_check, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
-    </div>
-  </div>
-
-  <div class="uk-margin">
     <%= f.label :status, 'Státusz', class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.select :status, Item::VALID_STATUS, {}, {class: 'uk-select uk-form-small'} %>
