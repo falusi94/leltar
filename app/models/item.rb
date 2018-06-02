@@ -27,7 +27,6 @@ class Item < ApplicationRecord
   end
 
   def initialize(params = {})
-    params[:group] = Group.by_name(params[:group])
     #save picture to create new Photo after initializing with super
     pic = params[:picture]
     params.delete :picture
@@ -46,17 +45,6 @@ class Item < ApplicationRecord
     if purchase_date.present? && purchase_date > Date.today
       errors.add(:purchase_date, 'Jovobeni beszerzesi datum')
     end
-  end
-
-  def update(data)
-    if data[:group]
-      group = Group.by_name(data[:group])
-      data[:group] = group
-    elsif data['group']
-      group = Group.by_name(data['group'])
-      data['group'] = group
-    end
-    super
   end
 
   def picture_path(ix = 0)
