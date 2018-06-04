@@ -16,7 +16,7 @@ class Item < ApplicationRecord
   validates :name, length: {minimum: 2, too_short: 'Túl rövid név'}
   validates :description, length: {maximum: 300, too_long: 'Túl hosszú leírás'}
   validates :group, presence: true, allow_nil: false
-  validates :purchase_date, presence: true, allow_nil: false
+  #validates :purchase_date, presence: true, allow_nil: false
   validate :purchase_date_cannot_be_in_future
 
   def search_data
@@ -46,7 +46,7 @@ class Item < ApplicationRecord
   end
 
   def purchase_date_cannot_be_in_future
-    if purchase_date > Date.today
+    if purchase_date.present? && purchase_date > Date.today
       errors.add(:purchase_date, 'Jövőbeni beszerzési dátum')
     end
   end
