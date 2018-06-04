@@ -58,8 +58,9 @@ class ItemsController < ApplicationController
 
   def update_last_check
     @item.last_check = DateTime.now
-    @item.save
-    redirect_to @item
+    @item.state = params[:state]
+    return redirect_to @item, notice: 'Sikeres módosítás' if @item.save
+    redirect_to @item, alert: 'Hiba mentés közben'
   end
 
   def destroy

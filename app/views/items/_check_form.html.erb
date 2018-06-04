@@ -1,0 +1,14 @@
+<%= form_tag check_item_path, method: :post, class: 'uk-form' do %>
+  <h3>Státusz frissítése</h3>
+
+  <div class="uk-grid-small" uk-grid>
+    <div class="uk-width-expand">
+      <%= select_tag :state, options_for_select(Item.states.keys.map { |k| [k.humanize, k] }, @item.state),
+                   {class: 'uk-select uk-form-small'} %>
+    </div>
+    <div class="uk-width-1-5">
+      <%= submit_tag('Rendben van!', class: 'uk-button uk-button-primary uk-button-small') %>
+    </div>
+  </div>
+
+<% end %>
