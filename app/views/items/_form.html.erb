@@ -39,14 +39,6 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :state, 'Státusz', class: 'uk-form-label' %>
-    <div class="uk-form-controls">
-      <%= f.select :state, Item.states.keys.map { |k| [k.humanize, k] },
-                   {}, {class: 'uk-select uk-form-small'} %>
-    </div>
-  </div>
-
-  <div class="uk-margin">
     <%= f.label :old_number, 'Leltári szám', class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :old_number, class: 'uk-input uk-form-small' %>
@@ -58,6 +50,27 @@
     <div class="uk-form-controls">
       <%= f.select :organization, Item.organizations.keys.map { |k| [k.humanize, k] },
                    {}, {class: 'uk-select uk-form-small'} %>
+    </div>
+  </div>
+
+  <h3>Státusz frissítése</h3>
+
+  <div class="uk-text-muted uk-text-small uk-text-justify">
+    Amennyiben ez az opció be van pipálva, az eszköz státusza és az utolsó ellenőrzés dátuma is módosulni fog a mentés során, méghozzá a jelenlegi időbélyeggel.
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :state, 'Státusz', class: 'uk-form-label uk-h3' %>
+    <div class="uk-form-controls">
+      <%= f.select :state, Item.states.keys.map { |k| [k.humanize, k] },
+                   {}, {class: 'uk-select uk-form-small'} %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :update, 'Státusz frissítése', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= check_box_tag :update, 0, false, class: 'uk-checkbox' %>
     </div>
   </div>
 

@@ -52,7 +52,10 @@ class ItemsController < ApplicationController
     unless current_user.can_write?(item_params[:group_id].to_i)
       return redirect_to :back, alert: 'Nincs jogosultságod!'
     end
-    return redirect_to @item, notice: 'Sikeres módosítás' if @item.update(item_params)
+    ip = item_params
+    ip[:last_check] = DateTime.now if params[:update]
+    ip[:state] = @item.state unless params[:update]
+    return redirect_to @item, notice: 'Sikeres módosítás' if @item.update(ip)
     render :edit
   end
 
@@ -107,7 +110,7 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :description, :purchase_date, :entry_date,
+      params.require(:item).permit(:name, :description, :purchase_date, :entry_date, :update,
                                   :state, :old_number, :group_id, :picture, :organization)
     end
 
