@@ -1,10 +1,10 @@
-<h3>Kör hozzáférések</h3>
+<h3>Felhasználó hozzáférései</h3>
 
 <ul class="uk-list uk-list-divider">
-  <% group.rights.decorate.each do |right| %>
+  <% user.rights.decorate.each do |right| %>
     <li class="uk-clearfix uk-margin-remove-top">
       <div class="uk-float-left">
-        <%= link_to right.user.name, user_path(right.user), class: 'uk-link-muted' %>
+        <%= link_to right.group.name, edit_group_path(right.group), class: 'uk-link-muted' %>
       </div>
       <div class="uk-float-right">
         <%= right.type_icon %>
@@ -21,11 +21,11 @@
 <h3>Hozzáadás</h3>
 <%= form_tag rights_path, class: 'uk-form uk-margin-small-top' do %>
   <div uk-grid>
-    <%= hidden_field :group, :id %>
+    <%= hidden_field :user, :id %>
     <div class="uk-width-1-2">
-      <%= select_tag 'user[id]', options_for_select(
-                              User.select { |u| !u.can_write?(group.id) && !u.can_read?(group.id) }
-                                  .map { |u| [u.name, u.id] }),
+      <%= select_tag 'group[id]', options_for_select(
+                              Group.select { |g| !user.can_write?(g.id) && !user.can_read?(g.id) }
+                                   .map { |g| [g.name, g.id] }),
                    {class: 'uk-select uk-form-small uk-width-1-1'} %>
     </div>
     <div class="uk-width-expand">

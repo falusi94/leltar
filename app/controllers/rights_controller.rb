@@ -3,7 +3,7 @@ class RightsController < ApplicationController
 
   def create
     right = Right.new
-    right.user = User.find(params[:user])
+    right.user = User.find(params[:user][:id])
     right.group = Group.find(params[:group][:id])
     right.write = true if params[:write]
     return redirect_to :back, notice: 'Sikeres hozzáadás' if right.save
