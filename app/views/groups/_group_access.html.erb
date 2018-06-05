@@ -1,0 +1,41 @@
+<h3>Kör hozzáférések</h3>
+
+<ul class="uk-list uk-list-divider">
+  <% group.rights.decorate.each do |right| %>
+    <li class="uk-clearfix uk-margin-remove-top">
+      <div class="uk-float-left">
+        <%= link_to right.user.name, user_path(right.user), class: 'uk-link-muted' %>
+      </div>
+      <div class="uk-float-right">
+        <%= right.type_icon %>
+        <%= link_to('Szerkesztés', right, method: :patch,
+                    class: 'uk-button uk-button-small uk-button-secondary uk-margin-left') %>
+        <%= link_to('Törlés', right, method: :delete,
+                    data: { confirm: 'Biztosan törölni szeretnéd?' },
+                    class: 'uk-button uk-button-small uk-button-danger') %>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Hozzáadás</h3>
+<%= form_tag rights_path, class: 'uk-form uk-margin-small-top' do %>
+  <div uk-grid>
+    <%= hidden_field :group, :id %>
+    <div class="uk-width-1-2">
+      <%= select_tag :user, options_for_select(
+                              User.select { |u| !u.can_write?(group.id) && !u.can_read?(group.id) }
+                                  .map { |u| [u.name, u.id] }),
+                   {class: 'uk-select uk-form-small uk-width-1-1'} %>
+    </div>
+    <div class="uk-width-expand">
+      <label>
+        szerkesztési jog
+        <%= check_box_tag :write, 0, false, class: 'uk-checkbox' %>
+      </label>
+    </div>
+    <div class="uk-width-auto">
+      <%= submit_tag 'Hozzáadás', class: 'uk-button uk-button-small uk-button-primary uk-align-right' %>
+    </div>
+  </div>
+<% end %>

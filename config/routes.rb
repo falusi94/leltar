@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   # User routes
   resources :users
 
+  # Right routes
+  resources :rights, only: [:create, :update, :destroy]
+
   # Groups routes
   resources :groups, except: [:show]
   get 'groups/:group_id/items', to: 'items#index', as: :group_items
