@@ -6,16 +6,17 @@ class ItemsController < ApplicationController
 
   def index
     query = params[:query]
+    match = query.include?('!') ? :word : :word_middle
+    query = query.tr('!', '')
     query ||= '*'
     @search_path = request.path
     if params[:group_id]
-      @group = Group.find(params[:group_id])
-      @items = Item.search(query, page: params[:page], per_page: 25,
-                           order: :name, where: {group_id: params[:group_id]})
-    elsif current_user.admin
-      @items = Item.search(query, page: params[:page], per_page: 25, order: :name)
+      @items = Item.search(query, match: match, page: params[:page],
+                           per_page: 25, order: :name,
+                           where: {group_id: params[:group_id]})
     else
-      @items = Item.search(query, page: params[:page], per_page: 25, order: :name,
+      @items = Item.search(query, match: match, page: params[:page],
+                           per_page: 25, order: :name,
                            where: {group_id: current_user.read_groups.ids})
     end
     @items = ItemDecorator.decorate_collection(@items)

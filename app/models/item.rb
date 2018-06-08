@@ -1,6 +1,6 @@
 require 'csv'
 class Item < ApplicationRecord
-  searchkick
+  searchkick word_middle: [:name, :description, :state, :old_number, :group_name]
   scope :search_import, -> { includes(:group) }
 
   # This is deprecated, but for info, keep the original values
