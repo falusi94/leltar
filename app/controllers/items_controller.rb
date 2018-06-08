@@ -5,10 +5,13 @@ class ItemsController < ApplicationController
   before_action :require_group_write, only: [:edit, :update, :destroy, :picture_post, :update_last_check]
 
   def index
-    query = params[:query]
-    match = query.include?('!') ? :word : :word_middle
-    query = query.tr('!', '')
-    query ||= '*'
+    if params[:query]
+      query = params[:query]
+      match = query.include?('!') ? :word : :word_middle
+      query = query.tr('!', '')
+    else
+      query = '*'
+    end
     @search_path = request.path
     if params[:group_id]
       @items = Item.search(query, match: match, page: params[:page],
