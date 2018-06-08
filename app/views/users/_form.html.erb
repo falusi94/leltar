@@ -37,6 +37,20 @@
         <%= f.check_box :admin, class: 'uk-checkbox' %>
       </div>
     </div>
+
+    <div class="uk-margin">
+      <%= f.label :read_all_group, 'Összes kör olvasása', class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.check_box :read_all_group, class: 'uk-checkbox' %>
+      </div>
+    </div>
+
+    <div class="uk-margin">
+      <%= f.label :write_all_group, 'Összes kör írása', class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.check_box :write_all_group, class: 'uk-checkbox' %>
+      </div>
+    </div>
   <% end %>
 
   <div class="uk-width-1-1">

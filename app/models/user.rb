@@ -4,34 +4,24 @@ class User < ApplicationRecord
   has_many :groups, through: :rights
 
   def can_read?(group_id)
-    return true if admin
-    return true if rights.any? { |right| right.group_id.nil? }
-    return true if rights.any? { |right| right.group_id == group_id }
-    false
+    admin || read_all_group || rights.any? { |right| right.group_id == group_id }
   end
 
   def can_write?(group_id)
-    return true if admin
-    return true if rights.any? { |right| right.group_id.nil? && right.write }
-    return true if rights.any? { |right| right.group_id == group_id && right.write }
-    false
+    admin || write_all_group || rights.any? { |right| right.group_id == group_id && right.write }
   end
 
   def can_edit_groups?
-    return true if admin
-    return true if rights.any? { |right| right.write }
-    false
+    admin || write_all_group || rights.any? { |right| right.write }
   end
 
   def read_groups
-    return Group.all if admin
-    return Group.all if rights.any? { |right| right.group_id.nil? }
+    return Group.all if admin || read_all_group
     groups
   end
 
   def write_groups
-    return Group.all if admin
-    return Group.all if rights.any? { |right| right.group_id.nil? && right.write }
+    return Group.all if admin || write_all_group
     Group.select do |group|
       rights.any? { |right| right.group_id == group.id && right.write }
     end
