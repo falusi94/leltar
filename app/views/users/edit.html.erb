@@ -12,7 +12,10 @@
 
   <div class="uk-align-center uk-width-2-3">
     <%= render 'form', user: @user %>
-    <%= render 'user_access', user: @user %>
+
+    <% if current_user.admin %>
+      <%= render 'user_access', user: @user %>
+    <% end %>
   </div>
 
 </div>

@@ -30,7 +30,7 @@
     <h3>Felhasználó hozzáférései</h3>
 
     <ul class="uk-list uk-list-divider">
-      <% @user.rights.decorate.each do |right| %>
+      <% @user.rights.order(:group_id).decorate.each do |right| %>
         <li class="uk-clearfix">
           <div class="uk-float-left">
             <%= link_to right.group.name, edit_group_path(right.group), class: 'uk-link-muted' %>
