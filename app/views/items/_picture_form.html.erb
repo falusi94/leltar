@@ -27,7 +27,7 @@
   <div class="uk-margin">
     <%= label_tag :file, 'Új kép feltöltése', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= file_field_tag :file %>
+      <%= file_field_tag :file, accept: :'image/*' %>
     </div>
   </div>
   <div class="uk-width-1-1">
