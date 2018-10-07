@@ -16,3 +16,9 @@
 .main-navbar {
   background-color: #2452a2 !important;
 }
+
+@media only screen and (max-width : 960px) {
+  nav {
+    height: 50px !important;
+  }
+}

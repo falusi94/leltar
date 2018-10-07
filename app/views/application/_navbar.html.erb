@@ -33,9 +33,7 @@
     <div class="uk-navbar-left nav-overlay">
       <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle="target: #offcanvas-nav-primary"></a>
     </div>
-    <div class="uk-navbar-right nav-overlay">
-      <a class="uk-navbar-toggle" uk-search-icon uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
-    </div>
+    <%= render 'mobile_search' %>
     <div class="nav-overlay uk-navbar-left uk-flex-1" hidden>
       <%= render 'search' %>
       <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
