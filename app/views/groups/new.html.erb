@@ -4,11 +4,11 @@
       <h1>Új kör</h1>
     </div>
     <div class="uk-float-right uk-padding-small">
-      <%= link_to 'Vissza', groups_path, class: 'uk-button uk-button-default uk-button-small' %>
+      <%= link_to back_label, groups_path, class: 'uk-button uk-button-default uk-button-small' %>
     </div>
   </div>
 
-  <div class="uk-align-center uk-width-2-3">
+  <div class="uk-align-center uk-width-2-3@m">
     <%= render 'form', group: @group %>
   </div>
 
