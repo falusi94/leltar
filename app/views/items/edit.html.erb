@@ -1,16 +1,16 @@
 <div class="uk-container">
   <div class="uk-clearfix">
     <div class="uk-float-left">
-      <h1>Tétel szerkesztése</h1>
+      <h1 class="uk-margin-small-top">Tétel szerkesztése</h1>
     </div>
     <div class="uk-float-right uk-padding-small">
-      <%= link_to 'Vissza', @item, class: 'uk-button uk-button-default uk-button-small' %>
-      <%= link_to 'Összes tétel', items_path, class: 'uk-button uk-button-default uk-button-small' %>
+      <%= link_to back_label, @item, class: 'uk-button uk-button-default uk-button-small' %>
+      <%= link_to list_label, items_path, class: 'uk-button uk-button-default uk-button-small' %>
     </div>
   </div>
 
   <div class="uk-grid-small" uk-grid>
-    <div class="uk-grid-small uk-width-2-3">
+    <div class="uk-grid-small uk-width-2-3@m uk-width-1-1">
       <%= render 'form', item: @item, image_uploader: false %>
     </div>
     <div class="uk-width-1-3">

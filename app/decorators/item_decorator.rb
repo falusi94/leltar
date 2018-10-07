@@ -4,7 +4,7 @@ class ItemDecorator < ApplicationDecorator
 
   def photo
     return unless item.photos.any?
-    image_tag(item.photos.last.url, style:'height:100px', class: 'uk-align-right')
+    image_tag(item.photos.last.url, class: 'uk-align-right')
   end
 
   def compact_name
@@ -21,7 +21,7 @@ class ItemDecorator < ApplicationDecorator
 
   def edit_button
     return unless current_user.can_write?(group.id)
-    link_to('Szerkesztés', edit_item_path(item),
+    link_to(edit_label, edit_item_path(item),
             class: 'uk-button uk-button-secondary uk-button-small')
   end
 

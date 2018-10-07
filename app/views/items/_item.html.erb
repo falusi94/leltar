@@ -1,4 +1,7 @@
 <li class="uk-margin-remove uk-grid-collapse" style="min-height:110px" uk-grid>
+  <div class="uk-hidden@m uk-width-1-1">
+    <%= item.photo %>
+  </div>
   <div class="uk-width-expand">
     <div class="uk-width-1-1 uk-clearfix">
       <div class="uk-float-left">
@@ -24,7 +27,7 @@
     </div>
   </div>
 
-  <div style="width: 110px">
+  <div class="uk-visible@m" style="width: 110px">
     <%= item.photo %>
   </div>
 </li>
