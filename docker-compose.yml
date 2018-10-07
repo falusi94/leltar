@@ -1,0 +1,48 @@
+version: '3'
+services:
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    restart: always
+    networks:
+      - leltar_network
+  db:
+    image: postgres
+    volumes:
+      - type: volume
+        source: database-data
+        target: /var/lib/postgresql/data
+    restart: always
+    networks:
+      - leltar_network
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    environment:
+      # Add your secret key
+      - SECRET_KEY_BASE=
+      - RAILS_ENV=production
+      - ELASTICSEARCH_URL=http://elastic:changeme@elastic:9200
+      - DATABASE=leltar
+      - USER=postgres
+      - PASSWORD=
+      - HOST=db
+    restart: always
+    volumes:
+      - type: volume
+        source: public-folder
+        target: /leltar/public
+    ports:
+      - "3434:3000"
+    networks:
+      - leltar_network
+    depends_on:
+      - elastic
+      - db
+
+networks:
+  leltar_network:
+
+# Add your volumes
+volumes:
+  public-folder:
+  database-data:
