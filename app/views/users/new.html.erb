@@ -4,11 +4,11 @@
       <h1>Új felhasználó</h1>
     </div>
     <div class="uk-float-right uk-padding-small">
-      <%= link_to 'Vissza', users_path, class: 'uk-link-muted' %>
+      <%= link_to back_label, users_path, class: 'uk-button uk-button-default uk-button-small' %>
     </div>
   </div>
 
-  <div class="uk-align-center uk-width-2-3">
+  <div class="uk-align-center uk-width-2-3@m">
     <%= render 'form', user: @user %>
   </div>
 

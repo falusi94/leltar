@@ -8,9 +8,9 @@
       </div>
       <div class="uk-float-right">
         <%= right.type_icon %>
-        <%= link_to('Szerkesztés', right, method: :patch,
+        <%= link_to(edit_label, right, method: :patch,
                     class: 'uk-button uk-button-small uk-button-secondary uk-margin-left') %>
-        <%= link_to('Törlés', right, method: :delete,
+        <%= link_to(delete_label, right, method: :delete,
                     data: { confirm: 'Biztosan törölni szeretnéd?' },
                     class: 'uk-button uk-button-small uk-button-danger') %>
       </div>
@@ -22,19 +22,19 @@
 <%= form_tag rights_path, class: 'uk-form uk-margin-small-top' do %>
   <div uk-grid>
     <%= hidden_field :user, :id %>
-    <div class="uk-width-1-2">
+    <div class="uk-width-1-2@m">
       <%= select_tag 'group[id]', options_for_select(
                               Group.select { |g| !user.can_write?(g.id) && !user.can_read?(g.id) }
                                    .map { |g| [g.name, g.id] }),
                    {class: 'uk-select uk-form-small uk-width-1-1'} %>
     </div>
-    <div class="uk-width-expand">
+    <div class="uk-width-expand@m">
       <label>
         szerkesztési jog
         <%= check_box_tag :write, 0, false, class: 'uk-checkbox' %>
       </label>
     </div>
-    <div class="uk-width-auto">
+    <div class="uk-width-auto uk-align-center">
       <%= submit_tag 'Hozzáadás', class: 'uk-button uk-button-small uk-button-primary uk-align-right' %>
     </div>
   </div>
