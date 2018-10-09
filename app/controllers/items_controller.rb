@@ -1,8 +1,9 @@
 class ItemsController < ApplicationController
-  before_action :set_item, except: [:index, :new, :create]
-  before_action :set_groups, only: [:new, :edit, :create, :update]
+  before_action :set_item, except: %i[index new create]
+  before_action :set_groups, only: %i[new edit create update]
   before_action :require_group_read, only: [:show]
-  before_action :require_group_write, only: [:edit, :update, :destroy, :picture_post, :update_last_check]
+  before_action :require_group_write, only: %i[edit update destroy picture_post
+                                               update_last_check]
 
   def index
     if params[:query]
@@ -13,15 +14,11 @@ class ItemsController < ApplicationController
       query = '*'
     end
     @search_path = request.path
-    if params[:group_id]
-      @items = Item.search(query, match: match, page: params[:page],
-                           per_page: 25, order: :name,
-                           where: {group_id: params[:group_id]})
-    else
-      @items = Item.search(query, match: match, page: params[:page],
-                           per_page: 25, order: :name,
-                           where: {group_id: current_user.read_groups.ids})
-    end
+    items_for_group = params[:group_id]
+    items_for_group ||= current_user.read_groups.ids
+    @items = Item.search(query, match: match, page: params[:page],
+                                per_page: 25, order: :name,
+                                where: { group_id: items_for_group })
     @items = ItemDecorator.decorate_collection(@items)
   end
 
@@ -32,23 +29,21 @@ class ItemsController < ApplicationController
 
   def new
     return unauthorized_page if @groups.empty?
+
     @item = Item.new
-    if params[:group_id]
-      @item.group = Group.find(params[:group_id])
-    else
-      @item.group = @groups[0]
-    end
+    @item.group = params[:group_id] ? Group.find(params[:group_id]) : @groups[0]
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @item = Item.new(item_params)
     unless current_user.can_write?(item_params[:group_id].to_i)
       return redirect_to :back, alert: 'Nincs jogosultságod!'
     end
+
     return redirect_to @item, notice: 'Sikeres létrehozás' if @item.save
+
     render :new
   end
 
@@ -56,17 +51,22 @@ class ItemsController < ApplicationController
     unless current_user.can_write?(item_params[:group_id].to_i)
       return redirect_to :back, alert: 'Nincs jogosultságod!'
     end
+
     ip = item_params
     ip[:last_check] = DateTime.now if params[:update]
-    ip[:state] = @item.state unless params[:update]
+    ip[:status] = params[:status] if params[:update]
+    ip[:condition] = params[:condition] if params[:update]
     return redirect_to @item, notice: 'Sikeres módosítás' if @item.update(ip)
+
     render :edit
   end
 
   def update_last_check
     @item.last_check = DateTime.now
-    @item.state = params[:state]
+    @item.status = params[:status]
+    @item.condition = params[:condition]
     return redirect_to @item, notice: 'Sikeres módosítás' if @item.save
+
     redirect_to @item, alert: 'Hiba mentés közben'
   end
 
@@ -77,20 +77,15 @@ class ItemsController < ApplicationController
 
   def picture_get
     ix = params[:photo_no]
-    if ix
-      ix = ix.to_i
-    else
-      ix = 0
-    end
-    if @item.photos.size > ix
-      redirect_to @item.photos[ix].url
-    else
-      render inline: 'Nincs ilyen kep', status: 404
-    end
+    ix = ix ? ix.to_i : 0
+    return redirect_to @item.photos[ix].url if @item.photos.size > ix
+
+    render inline: 'Nincs ilyen kep', status: 404
   end
 
   def picture_post
     return redirect_to edit_item_path(@item) if @item.update(picture_params)
+
     redirect_to edit_item_path(@item)
   end
 
@@ -99,26 +94,28 @@ class ItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
 
-    def require_group_write
-      return unauthorized_page unless current_user.can_write?(@item.group_id)
-    end
+  def set_item
+    @item = Item.find(params[:id])
+  end
 
-    def require_group_read
-      return unauthorized_page unless current_user.can_read?(@item.group_id)
-    end
+  def require_group_write
+    return unauthorized_page unless current_user.can_write?(@item.group_id)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def item_params
-      params.require(:item).permit(:name, :description, :purchase_date, :entry_date, :update,
-                                  :state, :old_number, :group_id, :picture, :organization)
-    end
+  def require_group_read
+    return unauthorized_page unless current_user.can_read?(@item.group_id)
+  end
 
-    def picture_params
-      params.require(:item).permit(:picture)
-    end
+  def item_params
+    params.require(:item)
+          .permit(:name, :description, :purchase_date, :entry_date, :group_id,
+                  :organization, :number, :parent, :specific_name, :serial,
+                  :location, :at_who, :warranty, :comment, :inventory_number,
+                  :entry_price, :accountancy_state)
+  end
+
+  def picture_params
+    params.require(:item).permit(:picture)
+  end
 end

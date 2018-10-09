@@ -10,9 +10,16 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :description, 'Leírás', class: 'uk-form-label' %>
+    <%= f.label :specific_name, 'Specifikus név', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.text_field :description, class: 'uk-input uk-form-small' %>
+      <%= f.text_field :specific_name, class: 'uk-input uk-form-small' %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :number, 'Darabszám', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.number_field :number, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
@@ -25,23 +32,66 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :purchase_date, 'Beszerzés dátuma', class: 'uk-form-label' %>
+    <%= f.label :location, 'Lokalizáció', class: 'uk-form-label' %>
     <div class="uk-form-controls">
+      <%= f.text_field :location, class: 'uk-input uk-form-small' %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :at_who, 'Kinél található', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :at_who, class: 'uk-input uk-form-small' %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :purchase_date, 'Beszerzési dátum', class: 'uk-form-label' %>
+    <div class="uk-form-controls uk-text-right">
       <%= f.date_select :purchase_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
     </div>
   </div>
 
   <div class="uk-margin">
     <%= f.label :entry_date, 'Felvitel dátuma', class: 'uk-form-label' %>
-    <div class="uk-form-controls">
+    <div class="uk-form-controls uk-text-right">
       <%= f.date_select :entry_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :old_number, 'Leltári szám', class: 'uk-form-label' %>
+    <%= f.label :accountancy_state, 'Könyvelési állapot', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.text_field :old_number, class: 'uk-input uk-form-small' %>
+      <%= f.select :accountancy_state, Item.accountancy_states.keys.map { |k| [k.humanize, k] },
+                   {}, {class: 'uk-select uk-form-small'} %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :warranty, 'Garancia', class: 'uk-form-label' %>
+    <div class="uk-form-controls uk-text-right">
+      <%= f.date_select :warranty, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :entry_price, 'Darabszám', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.number_field :entry_price, class: 'uk-input uk-form-small' %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :serial, 'Serial', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :serial, class: 'uk-input uk-form-small' %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :inventory_number, 'Leltári szám', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :inventory_number, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
@@ -53,6 +103,20 @@
     </div>
   </div>
 
+  <div class="uk-margin">
+    <%= f.label :description, 'Leírás', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :description, class: 'uk-input uk-form-small' %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :comment, 'Megjegyzés', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.text_field :comment, class: 'uk-input uk-form-small' %>
+    </div>
+  </div>
+
   <h3>Státusz frissítése</h3>
 
   <div class="uk-text-muted uk-text-small uk-text-justify">
@@ -60,9 +124,17 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :state, 'Státusz', class: 'uk-form-label uk-h3' %>
+    <%= f.label :status, 'Státusz', class: 'uk-form-label uk-h3' %>
     <div class="uk-form-controls">
-      <%= f.select :state, Item.states.keys.map { |k| [k.humanize, k] },
+      <%= f.select :status, Item.statuses.keys.map { |k| [k.humanize, k] },
+                   {}, {class: 'uk-select uk-form-small'} %>
+    </div>
+  </div>
+
+  <div class="uk-margin">
+    <%= f.label :condition, 'Állapot', class: 'uk-form-label' %>
+    <div class="uk-form-controls">
+      <%= f.select :condition, Item.conditions.keys.map { |k| [k.humanize, k] },
                    {}, {class: 'uk-select uk-form-small'} %>
     </div>
   </div>

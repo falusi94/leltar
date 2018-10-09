@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608121351) do
+ActiveRecord::Schema.define(version: 20181006213049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,13 +27,23 @@ ActiveRecord::Schema.define(version: 20180608121351) do
     t.date     "purchase_date"
     t.date     "entry_date"
     t.date     "last_check"
-    t.string   "status"
-    t.integer  "old_number"
     t.integer  "group_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "state",         default: 0
-    t.integer  "organization",  default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "status",            default: 0
+    t.integer  "organization",      default: 0
+    t.integer  "number",            default: 1
+    t.integer  "parent"
+    t.string   "specific_name"
+    t.string   "serial"
+    t.string   "location"
+    t.string   "at_who"
+    t.integer  "condition",         default: 0
+    t.date     "warranty"
+    t.string   "comment"
+    t.string   "inventory_number"
+    t.integer  "entry_price"
+    t.integer  "accountancy_state", default: 0
     t.index ["group_id"], name: "index_items_on_group_id", using: :btree
   end
 

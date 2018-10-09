@@ -1,58 +1,46 @@
 require 'csv'
 class Item < ApplicationRecord
-  searchkick word_middle: [:name, :description, :state, :old_number, :group_name]
+  searchkick word_middle: %i[name description status specific_name serial
+                             location at_who condition inventory_number]
   scope :search_import, -> { includes(:group) }
 
-  # This is deprecated, but for info, keep the original values
-  # VALID_STATUS = ['OK', 'Selejtezésre vár', 'Selejtezve', 'Utána kell járni', 'Elveszett']
-  enum state: [ :ok, :waiting_for_repair, :need_as_part, :waiting_for_scrapping,
-                :scrapped, :not_found, :at_group_member, :lost ]
-  enum organization: [:ska, :svie]
+  enum status: %i[ok waiting_for_repair waiting_for_scrapping scrapped
+                  not_found at_group_member other], _prefix: :status
+  enum condition: %i[ok used end_of_life not_working], _prefix: :condition
+  enum organization: %i[ska svie other], _prefix: :organization
+  enum accountancy_state: %i[new invoice_turned in_register], _prefix: :accountancy_state
 
   has_paper_trail
   belongs_to :group
   has_many :photos
 
-  validates :name, length: {minimum: 2, too_short: 'Túl rövid név'}
-  validates :description, length: {maximum: 300, too_long: 'Túl hosszú leírás'}
+  validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
+  validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }
   validates :group, presence: true, allow_nil: false
-  #validates :purchase_date, presence: true, allow_nil: false
   validate :purchase_date_cannot_be_in_future
 
   def search_data
-    {
-      name: name,
-      description: description,
-      state: state,
-      old_number: old_number,
-      group_name: group.name,
-      group_id: group_id
-    }
+    { name: name, description: description, status: status, serial: serial,
+      specific_name: specific_name, location: location, at_who: at_who,
+      condition: condition, inventory_number: inventory_number,
+      group_name: group.name, group_id: group_id }
   end
 
   def initialize(params = {})
-    #save picture to create new Photo after initializing with super
+    # save picture to create new Photo after initializing with super
     pic = params[:picture]
     params.delete :picture
     super(params)
-    if pic
-      self.photos = [Photo.new(file: pic)]
-    end
-  end
-
-  def to_a
-    [self.id, self.name, self.description, self.group.name, self.purchase_date,
-     self.entry_date, self.last_check, self.state, self.old_number]
+    self.photos = [Photo.new(file: pic)] if pic
   end
 
   def purchase_date_cannot_be_in_future
-    if purchase_date.present? && purchase_date > Date.today
-      errors.add(:purchase_date, 'Jövőbeni beszerzési dátum')
-    end
+    return unless purchase_date.present? && purchase_date > Date.today
+
+    errors.add(:purchase_date, 'Jövőbeni beszerzési dátum')
   end
 
   def picture_path(ix = 0)
-    "/items/#{self.id}/photos/#{ix}"
+    "/items/#{id}/photos/#{ix}"
   end
-
 end
