@@ -1,0 +1,22 @@
+<div class="uk-container">
+  <h1>Importálás</h1>
+
+  <%= form_tag import_index_path, method: :post, class: 'uk-form' do %>
+    <div class="uk-grid-small uk-child-width-1-1">
+      <div>
+        <%= label_tag :sheet_id, 'Google spreadsheet', class: 'uk-form-label uk-h3' %>
+      </div>
+      <div class="uk-text-center">
+        https://docs.google.com/spreadsheets/d/
+        <%= text_field :sheet_id, '', class: 'uk-input uk-width-1-4 uk-form-small' %>
+        /export?format=xlsx
+      </div>
+
+      <div class="uk-width-1-5@m uk-widt-1-1 uk-align-center">
+        <%= submit_tag('Import', class: 'uk-button uk-button-primary uk-button-small uk-width-1-1') %>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>

@@ -1,3 +1,4 @@
+require 'csv'
 class ImportCsv
   #Applies updates received in a CSV file, returns items where the update failed
   def self.call(text)

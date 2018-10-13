@@ -60,6 +60,12 @@ gem 'searchkick'
 # Draper for decorating models
 gem 'draper'
 
+# Roo for importing from Google sheets
+gem 'roo', "~> 2.7.0"
+
+# For better date parsing
+gem 'chronic'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

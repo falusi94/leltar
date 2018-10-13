@@ -1,0 +1,24 @@
+<div class="uk-container">
+  <h1>Importálás - beállítások</h1>
+
+  <div class="uk-width-1-2@m uk-container">
+    <%= form_tag import_path, method: :put, class: 'uk-form uk-child-width-1-2@m uk-grid-small', 'uk-grid': '' do %>
+      <% @sheets.each do |sheet_id, sheet_name| %>
+        <div>
+          <%= label_tag :"#{sheet_id}", sheet_name, class: 'uk-form-label uk-h3' %>
+        </div>
+        <div class="uk-form-controls">
+          <% options = options_from_collection_for_select(@groups, :id, :name) %>
+          <%= select_tag :"#{sheet_id}", options, {include_blank: true, class: 'uk-select uk-form-small'} %>
+        </div>
+      <% end %>
+
+      <div class="uk-width-1-5@m uk-widt-1-1 uk-align-center">
+        <%= submit_tag('Mehet', class: 'uk-button uk-button-primary uk-button-small uk-width-1-1') %>
+      </div>
+    </div>
+
+    <% end %>
+  </div>
+
+</div>
