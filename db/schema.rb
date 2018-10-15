@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181006213049) do
+ActiveRecord::Schema.define(version: 20181015192035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20181006213049) do
     t.integer  "status",            default: 0
     t.integer  "organization",      default: 0
     t.integer  "number",            default: 1
-    t.integer  "parent"
+    t.integer  "parent_id"
     t.string   "specific_name"
     t.string   "serial"
     t.string   "location"

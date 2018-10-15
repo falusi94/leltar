@@ -18,6 +18,8 @@ class Item < ApplicationRecord
   has_paper_trail
   belongs_to :group
   has_many :photos
+  belongs_to :parent, class_name: 'Item', foreign_key: :parent_id
+  has_many :children, class_name: 'Item', foreign_key: :parent_id
 
   validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
   validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }
