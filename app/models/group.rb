@@ -4,5 +4,4 @@ class Group < ApplicationRecord
   validates :name, uniqueness: true
   has_many :items
   has_many :rights
-
 end

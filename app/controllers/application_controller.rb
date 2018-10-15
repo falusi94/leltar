@@ -23,5 +23,4 @@ class ApplicationController < ActionController::Base
   def require_login
     redirect_to login_path, redirect: request.original_fullpath unless session[:user_id]
   end
-
 end

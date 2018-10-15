@@ -16,8 +16,7 @@ class ItemsController < ApplicationController
     @search_path = request.path
     items_for_group = params[:group_id]
     items_for_group ||= current_user.read_groups.ids
-    @items = Item.search(query, match: match, page: params[:page],
-                                per_page: 25, order: :name,
+    @items = Item.search(query, match: match, page: params[:page], per_page: 25, order: :name,
                                 where: { group_id: items_for_group })
     @items = ItemDecorator.decorate_collection(@items)
   end

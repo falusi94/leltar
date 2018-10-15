@@ -22,10 +22,9 @@ class ImportController < ApplicationController
   end
 
   def upload_csv
-    return unauthorized_page unless current_user.admin
     if params[:csv_file]
       @bad_items = ImportCsv.call(params[:csv_file].read.force_encoding('UTF-8'))
-      if @bad_items.size > 0
+      if @bad_items.!empty?
         render :csv_errors
       else
         redirect_to '/items'

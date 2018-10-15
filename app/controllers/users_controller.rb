@@ -1,33 +1,32 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin, except: [:edit, :update]
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :require_admin, except: %i[edit update]
 
   def index
     @users = User.all.page(params[:page])
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @user = User.new
   end
 
   def edit
-    if @user.id != current_user.id
-      require_admin
-    end
+    require_admin if @user.id != current_user.id
   end
 
   def create
     @user = User.new(user_params)
     return redirect_to @user, notice: 'Sikeresen létrehozva' if @user.save
+
     render :new
   end
 
   def update
     require_admin if @user.id == current_user.id
     return redirect_to @user, notice: 'Sikeresen módosítva' if @user.update(user_params)
+
     render :edit
   end
 
@@ -37,15 +36,17 @@ class UsersController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    def user_params
-      if current_user.admin
-        params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin, :write_all_group, :read_all_group)
-      else
-        params.require(:user).permit(:email, :password, :password_confirmation)
-      end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    if current_user.admin
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin,
+                                   :write_all_group, :read_all_group)
+    else
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
+  end
 end

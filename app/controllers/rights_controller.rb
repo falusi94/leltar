@@ -7,13 +7,15 @@ class RightsController < ApplicationController
     right.group = Group.find(params[:group][:id])
     right.write = true if params[:write]
     return redirect_to :back, notice: 'Sikeres hozzáadás' if right.save
-    return redirect_to :back, alert: 'Hiba hozzáadás közben'
+
+    redirect_to :back, alert: 'Hiba hozzáadás közben'
   end
 
   def update
     right = Right.find(params[:id])
     right.write = !right.write
     return redirect_to :back, notice: 'Sikeres módosítás' if right.save
+
     redirect_to :back, alert: 'Hiba módosítás során'
   end
 
@@ -22,5 +24,4 @@ class RightsController < ApplicationController
     right.destroy
     redirect_to :back, notice: 'Sikeres törlés'
   end
-
 end

@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: %i[show edit update destroy]
   before_action :require_admin, except: [:index]
 
   def index
@@ -8,15 +8,13 @@ class GroupsController < ApplicationController
     @groups = GroupDecorator.decorate_collection(@groups)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @group = Group.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @group = Group.new(group_params)
@@ -26,10 +24,9 @@ class GroupsController < ApplicationController
   end
 
   def update
-    if @group.update(group_params)
-      return redirect_to groups_path, notice: 'Sikeresen módosítva'
-    end
-      render :edit
+    return redirect_to groups_path, notice: 'Sikeresen módosítva' if @group.update(group_params)
+
+    render :edit
   end
 
   def destroy
@@ -38,11 +35,12 @@ class GroupsController < ApplicationController
   end
 
   private
-    def set_group
-      @group = Group.find(params[:id])
-    end
 
-    def group_params
-      params.require(:group).permit(:name)
-    end
+  def set_group
+    @group = Group.find(params[:id])
+  end
+
+  def group_params
+    params.require(:group).permit(:name)
+  end
 end
