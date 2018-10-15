@@ -6,7 +6,7 @@
       <%= label_tag :status, 'Státusz', class: 'uk-form-label uk-h3' %>
     </div>
     <div>
-      <%= select_tag :status, options_for_select(Item.statuses.keys.map { |k| [k.humanize, k] }, @item.status),
+      <%= select_tag :status, options_for_select(Item.translated_statuses.map { |t, k| [t, k] }, @item.status),
                    {class: 'uk-select uk-form-small'} %>
     </div>
 
@@ -14,7 +14,7 @@
       <%= label_tag :condition, 'Kondíció', class: 'uk-form-label uk-h3' %>
     </div>
     <div>
-      <%= select_tag :condition, options_for_select(Item.conditions.keys.map { |k| [k.humanize, k] }, @item.condition),
+      <%= select_tag :condition, options_for_select(Item.translated_conditions.map { |t, k| [t, k] }, @item.condition),
                    {class: 'uk-select uk-form-small'} %>
     </div>
 

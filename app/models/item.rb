@@ -1,5 +1,6 @@
-require 'csv'
 class Item < ApplicationRecord
+  include TranslateEnum
+
   searchkick word_middle: %i[name description status specific_name serial
                              location at_who condition inventory_number]
   scope :search_import, -> { includes(:group) }
@@ -9,6 +10,10 @@ class Item < ApplicationRecord
   enum condition: %i[ok used end_of_life not_working], _prefix: :condition
   enum organization: %i[ska svie other], _prefix: :organization
   enum accountancy_state: %i[new invoice_turned in_register], _prefix: :accountancy_state
+
+  translate_enum :status
+  translate_enum :condition
+  translate_enum :accountancy_state
 
   has_paper_trail
   belongs_to :group

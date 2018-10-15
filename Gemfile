@@ -66,6 +66,9 @@ gem 'roo', "~> 2.7.0"
 # For better date parsing
 gem 'chronic'
 
+# translate_enum for translating enums
+gem 'translate_enum'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

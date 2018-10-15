@@ -62,7 +62,7 @@
   <div class="uk-margin">
     <%= f.label :accountancy_state, 'Könyvelési állapot', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.select :accountancy_state, Item.accountancy_states.keys.map { |k| [k.humanize, k] },
+      <%= f.select :accountancy_state, Item.translated_accountancy_states.map { |t, k| [t, k] },
                    {}, {class: 'uk-select uk-form-small'} %>
     </div>
   </div>
@@ -126,7 +126,7 @@
   <div class="uk-margin">
     <%= f.label :status, 'Státusz', class: 'uk-form-label uk-h3' %>
     <div class="uk-form-controls">
-      <%= f.select :status, Item.statuses.keys.map { |k| [k.humanize, k] },
+      <%= f.select :status, Item.translated_statuses.map { |t, k| [t, k] },
                    {}, {class: 'uk-select uk-form-small'} %>
     </div>
   </div>
@@ -134,7 +134,7 @@
   <div class="uk-margin">
     <%= f.label :condition, 'Állapot', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.select :condition, Item.conditions.keys.map { |k| [k.humanize, k] },
+      <%= f.select :condition, Item.conditions.map { |t, k| [t, k] },
                    {}, {class: 'uk-select uk-form-small'} %>
     </div>
   </div>

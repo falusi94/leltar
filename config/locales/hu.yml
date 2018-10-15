@@ -8,6 +8,25 @@ hu:
       next: Következő
       truncate: ...
   activerecord:
+    attributes:
+      item:
+        status_list:
+          ok: Rendben van
+          waiting_for_repair: Javításra vár
+          waiting_for_scrapping: Selejtezésre vár
+          scrapped: Selejtezve
+          not_found: Eltűnt
+          at_group_member: Körtagnál van
+          other: Egyéb
+        condition_list:
+          ok: Jó állapotban van
+          used: Használt
+          end_of_life: Élettartam vége
+          not_working: Nem működik
+        accountancy_state_list:
+          new: Új
+          invoice_turned: Számla leadva
+          in_register: Könyvelési nyilvántartásban
     errors:
       messages:
         record_invalid: Sikertelen validálás %{errors}
