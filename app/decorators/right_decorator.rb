@@ -4,10 +4,9 @@ class RightDecorator < ApplicationDecorator
 
   def type_icon
     if right.write
-      content_tag(:span, '', 'uk-icon': 'pencil', 'uk-tooltip': 'Szerkesztési jogosultság')
-    else
-      content_tag(:span, '', 'uk-icon': 'user', 'uk-tooltip': 'Olvasási jogosultság')
+      return content_tag(:span, '', 'uk-icon': 'pencil', 'uk-tooltip': 'Szerkesztési jogosultság')
     end
-  end
 
+    content_tag(:span, '', 'uk-icon': 'user', 'uk-tooltip': 'Olvasási jogosultság')
+  end
 end
