@@ -18,13 +18,15 @@ class Item < ApplicationRecord
   has_paper_trail
   belongs_to :group
   has_many :photos
-  belongs_to :parent, class_name: 'Item', foreign_key: :parent_id
-  has_many :children, class_name: 'Item', foreign_key: :parent_id
+  belongs_to :parent, class_name: 'Item', foreign_key: :parent_id, optional: true
+  has_many :children, class_name: 'Item', foreign_key: :parent_id, inverse_of: :parent
 
   validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
   validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }
   validates :group, presence: true, allow_nil: false
   validate :purchase_date_cannot_be_in_future
+  validate :childen_parent_from_the_same_group
+  validate :deny_family_higher_than_two
 
   def search_data
     { name: name, description: description, status: status, serial: serial,
@@ -47,7 +49,28 @@ class Item < ApplicationRecord
     errors.add(:purchase_date, 'Jövőbeni beszerzési dátum')
   end
 
+  def childen_parent_from_the_same_group
+    errors.add(:parent, 'Eltérő körök!') if child? && parent.group != group
+    return unless parent?
+
+    children.each { |child| errors.add(:child, 'Eltérő körök!') if child.group != group }
+  end
+
+  def deny_family_higher_than_two
+    return unless child? && parent?
+
+    errors.add(:parent, 'Csak két szintű szülő gyerek viszony engedélyezett!')
+  end
+
   def picture_path(ix = 0)
     "/items/#{id}/photos/#{ix}"
+  end
+
+  def child?
+    !parent.nil?
+  end
+
+  def parent?
+    !children.count.zero?
   end
 end

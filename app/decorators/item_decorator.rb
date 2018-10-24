@@ -26,4 +26,10 @@ class ItemDecorator < ApplicationDecorator
 
     render 'check_form'
   end
+
+  def parent_link
+    return 'nincs' unless child?
+
+    link_to(parent.name, item_path(parent))
+  end
 end

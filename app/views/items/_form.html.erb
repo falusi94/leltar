@@ -23,6 +23,21 @@
     </div>
   </div>
 
+  <% unless @item.parent? %>
+    <div class="uk-margin">
+      <%= f.label :parent_id, 'Szülő eszköz', class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <% options = options_from_collection_for_select(@possible_parents, :id, :compact_name, @item.parent&.id) %>
+        <%= f.select :parent_id, options, {include_blank: true}, {class: 'uk-select uk-form-small'} %>
+      </div>
+    </div>
+    <% if @item.new_record? %>
+      <div class="uk-text-muted uk-text-small">
+        Figyelem! Mivel létrehozás során nem ismert az eszköz köre, így itt minden kör lehetséges szülőeszköze listázásra kerül. Amennyiben a kettő eszköz köre eltér, validációs hiba lép fel.
+      </div>
+    <% end %>
+  <% end %>
+
   <div class="uk-margin">
     <%= f.label :group_id, class: 'uk-form-label' %>
     <div class="uk-form-controls">

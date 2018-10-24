@@ -1,0 +1,34 @@
+<ul uk-accordion class="uk-padding-small">
+  <% item.children.each do |children| %>
+  <li>
+    <a class="uk-accordion-title" href="#"><%= children.name %></a>
+    <div class="uk-accordion-content" uk-grid>
+      <% children = ItemDecorator.decorate(children) %>
+      <div class="uk-width-expand">
+        <div class="uk-width-1-1 uk-clearfix">
+          <div class="uk-float-left">
+            <h3 class="uk-margin-remove"><%= children.compact_name %></h3>
+          </div>
+          <div class="uk-float-right uk-margin-right">
+            <%= children.organization&.humanize %>
+          </div>
+        </div>
+
+        <div class="uk-width-1-1 uk-text-muted uk-text-small">
+          <%= children.translated_status %>
+        </div>
+
+        <div class="uk-width-1-1 uk-grid-collapse" uk-grid>
+          <div class="uk-width-expand">
+            <%= children.description %>
+          </div>
+          <div style="width: 200px">
+            <div><%= t(:checked) %>: <%= children.purchase_date %></div>
+            <div><%= t(:bought) %>: <%= children.last_check %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <% end %>
+</ul>

@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, except: %i[index new create]
   before_action :set_groups, only: %i[new edit create update]
+  before_action :set_possible_parents, only: %i[new edit create update]
   before_action :require_group_read, only: [:show]
   before_action :require_group_write, only: %i[edit update destroy picture_post
                                                update_last_check]
@@ -98,6 +99,12 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def set_possible_parents
+    possible_parents = @item.group.items.reject(&:child?) if @item&.group
+    possible_parents ||= Item.all.reject(&:child?)
+    @possible_parents = ItemDecorator::decorate_collection(possible_parents)
+  end
+
   def require_group_write
     return unauthorized_page unless current_user.can_write?(@item.group_id)
   end
@@ -109,7 +116,7 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item)
           .permit(:name, :description, :purchase_date, :entry_date, :group_id,
-                  :organization, :number, :parent, :specific_name, :serial,
+                  :organization, :number, :parent_id, :specific_name, :serial,
                   :location, :at_who, :warranty, :comment, :inventory_number,
                   :entry_price, :accountancy_state)
   end

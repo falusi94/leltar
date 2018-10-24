@@ -51,6 +51,7 @@ hu:
           in_register: Könyvelési nyilvántartásban
         accountancy_state: Könyvelési állapot
         at_who: Kinél van
+        child: Gyerek
         comment: Megjegyzés
         condition: Állapot
         description: Leírás
