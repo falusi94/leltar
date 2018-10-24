@@ -1,22 +1,22 @@
 module ApplicationHelper
   def back_label
-    create_label('arrow-left', 'Vissza')
+    create_label('arrow-left', t(:back))
   end
 
   def list_label
-    create_label('menu', 'Összes listázása')
+    create_label('menu', t(:list_all))
   end
 
   def edit_label
-    create_label('pencil', 'Szerkesztés')
+    create_label('pencil', t(:edit))
   end
 
   def new_label
-    create_label('plus', 'Új hozzáadása')
+    create_label('plus', t(:add))
   end
 
   def delete_label
-    create_label('trash', 'Törlés')
+    create_label('trash', t(:delete))
   end
 
   private

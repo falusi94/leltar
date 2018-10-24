@@ -10,7 +10,7 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :specific_name, 'Specifikus név', class: 'uk-form-label' %>
+    <%= f.label :specific_name, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :specific_name, class: 'uk-input uk-form-small' %>
     </div>
@@ -24,7 +24,7 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :group_id, 'Kör', class: 'uk-form-label' %>
+    <%= f.label :group_id, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <% options = options_from_collection_for_select(@write_groups, :id, :name, @item.group.id) %>
       <%= f.select :group_id, options, {}, {class: 'uk-select uk-form-small'} %>
@@ -32,35 +32,35 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :location, 'Lokalizáció', class: 'uk-form-label' %>
+    <%= f.label :location, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :location, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :at_who, 'Kinél található', class: 'uk-form-label' %>
+    <%= f.label :at_who, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :at_who, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :purchase_date, 'Beszerzési dátum', class: 'uk-form-label' %>
+    <%= f.label :purchase_date, class: 'uk-form-label' %>
     <div class="uk-form-controls uk-text-right">
       <%= f.date_select :purchase_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :entry_date, 'Felvitel dátuma', class: 'uk-form-label' %>
+    <%= f.label :entry_date, class: 'uk-form-label' %>
     <div class="uk-form-controls uk-text-right">
       <%= f.date_select :entry_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :accountancy_state, 'Könyvelési állapot', class: 'uk-form-label' %>
+    <%= f.label :accountancy_state, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.select :accountancy_state, Item.translated_accountancy_states.map { |t, k| [t, k] },
                    {}, {class: 'uk-select uk-form-small'} %>
@@ -68,35 +68,35 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :warranty, 'Garancia', class: 'uk-form-label' %>
+    <%= f.label :warranty, class: 'uk-form-label' %>
     <div class="uk-form-controls uk-text-right">
       <%= f.date_select :warranty, {}, {class: 'uk-select uk-width-1-4 uk-form-small'} %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :entry_price, 'Darabszám', class: 'uk-form-label' %>
+    <%= f.label :entry_price, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.number_field :entry_price, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :serial, 'Serial', class: 'uk-form-label' %>
+    <%= f.label :serial, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :serial, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :inventory_number, 'Leltári szám', class: 'uk-form-label' %>
+    <%= f.label :inventory_number, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :inventory_number, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :organization, 'Szervezet', class: 'uk-form-label' %>
+    <%= f.label :organization, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.select :organization, Item.organizations.keys.map { |k| [k.humanize, k] },
                    {}, {class: 'uk-select uk-form-small'} %>
@@ -104,14 +104,14 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :description, 'Leírás', class: 'uk-form-label' %>
+    <%= f.label :description, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :description, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :comment, 'Megjegyzés', class: 'uk-form-label' %>
+    <%= f.label :comment, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :comment, class: 'uk-input uk-form-small' %>
     </div>
@@ -124,7 +124,7 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :status, 'Státusz', class: 'uk-form-label uk-h3' %>
+    <%= f.label :status, class: 'uk-form-label uk-h3' %>
     <div class="uk-form-controls">
       <%= f.select :status, Item.translated_statuses.map { |t, k| [t, k] },
                    {}, {class: 'uk-select uk-form-small'} %>
@@ -132,7 +132,7 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :condition, 'Állapot', class: 'uk-form-label' %>
+    <%= f.label :condition, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.select :condition, Item.conditions.map { |t, k| [t, k] },
                    {}, {class: 'uk-select uk-form-small'} %>
@@ -140,7 +140,7 @@
   </div>
 
   <div class="uk-margin">
-    <%= f.label :update, 'Státusz frissítése', class: 'uk-form-label' %>
+    <%= f.label :update, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= check_box_tag :update, 0, false, class: 'uk-checkbox' %>
     </div>
@@ -148,7 +148,7 @@
 
   <%if image_uploader %>
     <div class="uk-margin">
-      <%= f.label :picture, 'Kép', class: 'uk-form-label' %>
+      <%= f.label :picture, class: 'uk-form-label' %>
       <div class="uk-form-controls">
         <%= f.file_field :picture %>
       </div>
@@ -156,7 +156,7 @@
   <%end%>
 
   <div class="uk-width-1-1">
-    <%= f.submit 'Mentés', class: 'uk-button uk-button-primary uk-align-center' %>
+    <%= f.submit t(:save), class: 'uk-button uk-button-primary uk-align-center' %>
   </div>
 
 <% end %>

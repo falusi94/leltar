@@ -3,28 +3,28 @@
   <%= render 'alert', errors: user.errors %>
 
   <div class="uk-margin">
-    <%= f.label :name, 'Név', class: 'uk-form-label' %>
+    <%= f.label :name, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :name, class: "uk-input uk-form-small #{'uk-disabled' unless current_user.admin }" %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :email, 'Email', class: 'uk-form-label' %>
+    <%= f.label :email, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.email_field :email, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :password, 'Jelszó', class: 'uk-form-label' %>
+    <%= f.label :password, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.password_field :password, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-margin">
-    <%= f.label :password_confirmation, 'Jelszó megerősítés', class: 'uk-form-label' %>
+    <%= f.label :password_confirmation, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.password_field :password_confirmation, class: 'uk-input uk-form-small' %>
     </div>
@@ -32,21 +32,21 @@
 
   <% if current_user.admin %>
     <div class="uk-margin">
-      <%= f.label :admin, 'Admin', class: 'uk-form-label' %>
+      <%= f.label :admin, class: 'uk-form-label' %>
       <div class="uk-form-controls">
         <%= f.check_box :admin, class: 'uk-checkbox' %>
       </div>
     </div>
 
     <div class="uk-margin">
-      <%= f.label :read_all_group, 'Összes kör olvasása', class: 'uk-form-label' %>
+      <%= f.label :read_all_group, class: 'uk-form-label' %>
       <div class="uk-form-controls">
         <%= f.check_box :read_all_group, class: 'uk-checkbox' %>
       </div>
     </div>
 
     <div class="uk-margin">
-      <%= f.label :write_all_group, 'Összes kör írása', class: 'uk-form-label' %>
+      <%= f.label :write_all_group, class: 'uk-form-label' %>
       <div class="uk-form-controls">
         <%= f.check_box :write_all_group, class: 'uk-checkbox' %>
       </div>
@@ -54,7 +54,7 @@
   <% end %>
 
   <div class="uk-width-1-1">
-    <%= f.submit 'Mentés', class: 'uk-button uk-button-primary uk-align-center' %>
+    <%= f.submit t(:save), class: 'uk-button uk-button-primary uk-align-center' %>
   </div>
 
 <% end %>

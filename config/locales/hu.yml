@@ -1,5 +1,27 @@
 ---
 hu:
+  it_is_ok: Rendben van!
+  checked: Ellenőrizve
+  bought: Vásárolva
+  save: Mentés
+  upload: Feltöltés
+  edit_thing: "\"%{thing}\" szerkesztése"
+  edit: Szerkesztés
+  new: "Új %{thing}"
+  add: Hozzáadás
+  back: Vissza
+  list_all: Összes listázása
+  delete: Törlés
+  go: Mehet
+  are_you_sure_to_delete: Biztosan törölni szeretnéd?
+  google_sheet: Google spreadsheet
+  not_found: Nem található!
+  error_during_save: Hiba mentés közben!
+  no_permission: Nincs megfelelő jogosultságod!
+  success:
+    create: Sikeres létrehozás
+    edit: Sikeres módosítás
+    delete: Sikeres törlés
   views:
     pagination:
       first: Első
@@ -27,9 +49,48 @@ hu:
           new: Új
           invoice_turned: Számla leadva
           in_register: Könyvelési nyilvántartásban
+        accountancy_state: Könyvelési állapot
+        at_who: Kinél van
+        comment: Megjegyzés
+        condition: Állapot
+        description: Leírás
+        entry_date: Bekerülési dátum
+        entry_price: Bekerülési ár
+        group_id: Kör
+        inventory_number: Leltári szám
+        last_check: Utolső ellenőrzés
+        location: Lokalizáció
+        name: Név
+        number: Darabszám
+        organization: Szervezet
+        parent: Szülő
+        purchase_date: Vásárlási dátum
+        serial: Szériaszám
+        specific_name: Specifikus név
+        status: Státusz
+        warranty: Garancia
+        update: Frissítés
+      group:
+        name: Név
+      user:
+        write_all_group: Össze kör írása
+        read_all_group: Összes kör olvasása
+        admin: Admin
+        password_confirmation: Jelszó megerősítése
+        password: Jelszó
+        email: Email
+        name: Név
     errors:
       messages:
         record_invalid: Sikertelen validálás %{errors}
+        required: kitöltése kötelező
+        blank: nem lehet üres
+        present: megadása kötelező
+        too_short: túl rövid (min. %{count})
+        too_long: túl hosszú (max. %{count})
+        taken: foglalt
+        invalid: hibás
+        not_a_number: nem szám
     models:
       group:
         one: Kör

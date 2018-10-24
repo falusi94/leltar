@@ -11,7 +11,7 @@
         <%= link_to(edit_label, right, method: :patch,
                     class: 'uk-button uk-button-small uk-button-secondary uk-margin-left') %>
         <%= link_to(delete_label, right, method: :delete,
-                    data: { confirm: 'Biztosan törölni szeretnéd?' },
+                    data: { confirm: t(:are_you_sure_to_delete) },
                     class: 'uk-button uk-button-small uk-button-danger') %>
       </div>
     </li>

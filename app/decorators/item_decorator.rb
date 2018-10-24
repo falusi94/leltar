@@ -14,10 +14,6 @@ class ItemDecorator < ApplicationDecorator
     link_to "#{item.name} #{group_tag}".html_safe, item_path(item)
   end
 
-  def edit_title
-    "#{name} szerkeszése"
-  end
-
   def edit_button
     return unless current_user.can_write?(group.id)
 

@@ -21,7 +21,7 @@
   </div>
 <% end %>
 
-<%= form_tag '/photos', method: "POST", multipart: true, class: 'uk-form-horizontal' do |f| %>
+<%= form_tag '/photos', method: :post, multipart: true, class: 'uk-form-horizontal' do |f| %>
   <%= hidden_field_tag :item_id, @item.id %>
 
   <div class="uk-margin">
@@ -31,6 +31,6 @@
     </div>
   </div>
   <div class="uk-width-1-1">
-    <%= submit_tag 'Feltöltés', class: 'uk-button uk-button-primary uk-align-center' %>
+    <%= submit_tag t(:upload), class: 'uk-button uk-button-primary uk-align-center' %>
   </div>
 <% end %>

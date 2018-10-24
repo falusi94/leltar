@@ -3,14 +3,14 @@
   <%= render 'alert', errors: group.errors %>
 
   <div class="uk-margin">
-    <%= f.label :name, 'Név', class: 'uk-form-label' %>
+    <%= f.label :name, class: 'uk-form-label' %>
     <div class="uk-form-controls">
       <%= f.text_field :name, class: 'uk-input uk-form-small' %>
     </div>
   </div>
 
   <div class="uk-width-1-1">
-    <%= f.submit 'Mentés', class: 'uk-button uk-button-primary uk-align-center' %>
+    <%= f.submit t(:save), class: 'uk-button uk-button-primary uk-align-center' %>
   </div>
 
 <% end %>

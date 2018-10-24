@@ -38,24 +38,24 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     unless current_user.can_write?(item_params[:group_id].to_i)
-      return redirect_to :back, alert: 'Nincs jogosultságod!'
+      return redirect_to :back, alert: t(:no_permission)
     end
 
-    return redirect_to @item, notice: 'Sikeres létrehozás' if @item.save
+    return redirect_to @item, notice: t('success.create') if @item.save
 
     render :new
   end
 
   def update
     unless current_user.can_write?(item_params[:group_id].to_i)
-      return redirect_to :back, alert: 'Nincs jogosultságod!'
+      return redirect_to :back, alert: t(:no_permission)
     end
 
     ip = item_params
     ip[:last_check] = DateTime.now if params[:update]
     ip[:status] = params[:status] if params[:update]
     ip[:condition] = params[:condition] if params[:update]
-    return redirect_to @item, notice: 'Sikeres módosítás' if @item.update(ip)
+    return redirect_to @item, notice: t('success.edit') if @item.update(ip)
 
     render :edit
   end
@@ -64,14 +64,14 @@ class ItemsController < ApplicationController
     @item.last_check = DateTime.now
     @item.status = params[:status]
     @item.condition = params[:condition]
-    return redirect_to @item, notice: 'Sikeres módosítás' if @item.save
+    return redirect_to @item, notice: t('success.edit') if @item.save
 
-    redirect_to @item, alert: 'Hiba mentés közben'
+    redirect_to @item, alert: t(:error_during_save)
   end
 
   def destroy
     @item.destroy
-    redirect_to items_url, notice: 'Sikeres törlés'
+    redirect_to items_url, notice: t('success.delete')
   end
 
   def picture_get
@@ -79,7 +79,7 @@ class ItemsController < ApplicationController
     ix = ix ? ix.to_i : 0
     return redirect_to @item.photos[ix].url if @item.photos.size > ix
 
-    render inline: 'Nincs ilyen kep', status: 404
+    render inline: t(:not_found), status: 404
   end
 
   def picture_post

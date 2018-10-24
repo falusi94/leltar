@@ -18,21 +18,21 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    return redirect_to @user, notice: 'Sikeresen létrehozva' if @user.save
+    return redirect_to @user, notice: t('success.create') if @user.save
 
     render :new
   end
 
   def update
     require_admin if @user.id == current_user.id
-    return redirect_to @user, notice: 'Sikeresen módosítva' if @user.update(user_params)
+    return redirect_to @user, notice: t('success.edit') if @user.update(user_params)
 
     render :edit
   end
 
   def destroy
     @user.destroy
-    redirect_to users_url, notice: 'Sikeresen törölve'
+    redirect_to users_url, notice: t('success.delete')
   end
 
   private

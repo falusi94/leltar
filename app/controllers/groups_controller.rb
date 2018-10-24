@@ -18,20 +18,20 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    return redirect_to group_items_path(@group), notice: 'Sikeresen létrehozva' if @group.save
+    return redirect_to group_items_path(@group), notice: t('success.create') if @group.save
 
     render :new
   end
 
   def update
-    return redirect_to groups_path, notice: 'Sikeresen módosítva' if @group.update(group_params)
+    return redirect_to groups_path, notice: t('success.edit') if @group.update(group_params)
 
     render :edit
   end
 
   def destroy
     @group.destroy
-    redirect_to groups_url, notice: 'Sikeres törlés'
+    redirect_to groups_url, notice: t('success.delete')
   end
 
   private

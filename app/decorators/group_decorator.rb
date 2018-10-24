@@ -12,7 +12,7 @@ class GroupDecorator < ApplicationDecorator
   def delete_group_button
     return unless current_user.admin
 
-    link_to(delete_label, group, method: :delete, data: { confirm: 'Biztosan törölni szeretnéd?' },
+    link_to(delete_label, group, method: :delete, data: { confirm: t(:are_you_sure_to_delete) },
                                  class: 'uk-button uk-button-danger')
   end
 end
