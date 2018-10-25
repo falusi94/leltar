@@ -2,9 +2,17 @@ class SearchController < ApplicationController
   before_action :require_admin
 
   def index
+    return redirect_to search_export_path(search_params) if params[:export_button]
+
     @q = Item.ransack(search_params)
     @items = @q.result(distinct: true)
     @items = ItemDecorator.decorate_collection(@items.page(params[:page]))
+  end
+
+  def export
+    @q = Item.ransack(params)
+    @items = @q.result(distinct: true)
+    send_data @items.to_csv, filename: "export-#{Date.today}.csv"
   end
 
   private

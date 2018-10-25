@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   include TranslateEnum
+  include Exportable
 
   searchkick word_middle: %i[name description status specific_name serial
                              location at_who condition inventory_number]
