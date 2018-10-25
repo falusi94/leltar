@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # Session routes
   get '/', to: 'session#smart_redirect'
 
@@ -15,10 +14,10 @@ Rails.application.routes.draw do
   resources :users
 
   # Right routes
-  resources :rights, only: [:create, :update, :destroy]
+  resources :rights, only: %i[create update destroy]
 
   # Groups routes
-  resources :groups, except: [:show]
+  resources :groups, except: %i[show]
   get 'groups/:group_id/items', to: 'items#index', as: :group_items
   get 'groups/:group_id/items/new', to: 'items#new', as: :new_group_item
 
@@ -35,8 +34,6 @@ Rails.application.routes.draw do
 
   # Import routes
   resources :import, only: %i[new edit create update]
-  #put 'items', to: 'items#update_all'
-  #post 'items_csv', to: 'import#upload_csv'
 
   # Search routes
   resources :search, only: %i[index]
