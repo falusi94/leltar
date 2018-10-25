@@ -1,0 +1,171 @@
+<%= search_form_for @q, url: search_index_path,
+    html: {class: 'uk-form-horizontal uk-grid-small uk-child-width-1-2@m uk-child-width-1-1', 'uk-grid': ''} do |f| %>
+
+  <div>
+    <%= f.label :name_cont, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :name_cont, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :specific_name_cont, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :specific_name_cont, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :description_cont, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :description_cont, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :group_id, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.select :group_id, Item.organizations.keys.map { |k| [k.humanize, k] },
+                 {include_blank: true}, {class: 'uk-select uk-form-small'} %>
+  </div>
+
+  <div>
+    <%= f.label :serial_cont, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :serial_cont, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :at_who_cont, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :at_who_cont, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :comment_cont, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :comment_cont, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :inventory_number_cont, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :inventory_number_cont, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :condition, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.select :condition, Item.organizations.keys.map { |k| [k.humanize, k] },
+                 {include_blank: true}, {class: 'uk-select uk-form-small'} %>
+  </div>
+
+  <div>
+    <%= f.label :status, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.select :status, Item.organizations.keys.map { |k| [k.humanize, k] },
+                 {include_blank: true}, {class: 'uk-select uk-form-small'} %>
+  </div>
+
+  <div>
+    <%= f.label :accountancy_state, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.select :accountancy_state, Item.organizations.keys.map { |k| [k.humanize, k] },
+                 {include_blank: true}, {class: 'uk-select uk-form-small'} %>
+  </div>
+
+  <div>
+    <%= f.label :location_cont, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :location_cont, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :organization, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.select :organization, Item.organizations.keys.map { |k| [k.humanize, k] },
+                 {include_blank: true}, {class: 'uk-select uk-form-small'} %>
+  </div>
+
+  <div>
+    <%= f.label :entry_date_lteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :entry_date_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17' %>
+  </div>
+
+  <div>
+    <%= f.label :entry_date_gteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :entry_date_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17' %>
+  </div>
+
+  <div>
+    <%= f.label :purchase_date_lteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :purchase_date_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17' %>
+  </div>
+
+  <div>
+    <%= f.label :purchase_date_gteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :purchase_date_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17' %>
+  </div>
+
+  <div>
+    <%= f.label :last_check_lteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :last_check_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17' %>
+  </div>
+
+  <div>
+    <%= f.label :last_check_gteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :last_check_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17' %>
+  </div>
+
+  <div>
+    <%= f.label :entry_price_lteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :entry_price_lteq, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :entry_price_gteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :entry_price_gteq, class: 'uk-input uk-form-small' %>
+  </div>
+
+  <div>
+    <%= f.label :warranty_lteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :warranty_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17' %>
+  </div>
+
+  <div>
+    <%= f.label :warranty_gteq, class: 'uk-text-small' %>
+  </div>
+  <div>
+    <%= f.search_field :warranty_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17' %>
+  </div>
+
+      <%= f.submit class: 'uk-button uk-button-primary uk-align-center uk-width-auto' %>
+<% end %>

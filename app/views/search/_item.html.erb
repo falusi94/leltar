@@ -1,0 +1,26 @@
+<li class="uk-margin-remove uk-grid-collapse" style="min-height:60px" uk-grid>
+  <div class="uk-width-expand">
+    <div class="uk-width-1-1 uk-clearfix">
+      <div class="uk-float-left">
+        <h3 class="uk-margin-remove"><%= item.compact_name %></h3>
+      </div>
+      <div class="uk-float-right uk-margin-right">
+        <%= item.translated_status %>
+        <%= item.organization&.humanize %>
+      </div>
+    </div>
+
+    <div class="uk-width-1-1 uk-grid-collapse" uk-grid>
+      <%= item.truncated_description %>
+    </div>
+  </div>
+
+  <% if item.parent? %>
+    <div class="uk-width-1-1">
+      <div class="uk-text-bold">
+        Gyerekek:
+      </div>
+      <%= render 'children', item: item %>
+    </div>
+  <% end %>
+</li>

@@ -37,4 +37,7 @@ Rails.application.routes.draw do
   resources :import, only: %i[new edit create update]
   #put 'items', to: 'items#update_all'
   #post 'items_csv', to: 'import#upload_csv'
+
+  # Search routes
+  resources :search, only: %i[index]
 end

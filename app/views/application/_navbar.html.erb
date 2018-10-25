@@ -11,13 +11,16 @@
         <% if current_user.admin %>
         <li>
           <a href="#" uk-icon="chevron-down">Admin</a>
-          <div class="uk-navbar-dropdown" uk-dropdown="mode: click">
+          <div class="uk-navbar-dropdown" uk-dropdown="mode: click; offset: -15">
             <ul class="uk-nav uk-navbar-dropdown-nav">
               <li>
-                <%= link_to 'Felhasznalók', users_path %>
+                <%= link_to 'Felhasználók', users_path %>
               </li>
               <li>
                 <%= link_to 'Import', new_import_path %>
+              </li>
+              <li>
+                <%= link_to 'Összetett keresés', search_index_path %>
               </li>
             </ul>
           </div>
@@ -68,12 +71,16 @@
           <%= link_to 'Körök', groups_path %>
         </li>
         <% if current_user.admin %>
-        <li>
-          <%= link_to 'Felhasznalók', users_path %>
-        </li>
-        <li>
-          <%= link_to 'Import', new_import_path %>
-        </li>
+          <li class="uk-nav-divider"></li>
+          <li>
+            <%= link_to 'Felhasznalók', users_path %>
+          </li>
+          <li>
+            <%= link_to 'Import', new_import_path %>
+          </li>
+          <li>
+            <%= link_to 'Összetett keresés', search_index_path %>
+          </li>
         <% end %>
         <li class="uk-nav-divider"></li>
         <li>

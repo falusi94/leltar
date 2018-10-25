@@ -57,6 +57,9 @@ gem 'dotenv-rails'
 # searchkick for easy elastic search integration
 gem 'searchkick'
 
+# Ransack for advanced search
+gem 'ransack'
+
 # Draper for decorating models
 gem 'draper'
 

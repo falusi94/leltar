@@ -1,0 +1,26 @@
+<div class="uk-container">
+  <h1>Keresés</h1>
+  <ul uk-accordion>
+    <li>
+      <a class="uk-accordion-title" href="#">Keresési mezők</a>
+      <div class="uk-accordion-content">
+        <div class="uk-align-center">
+          <%= render 'search_form'%>
+        </div>
+    </li>
+  </ul>
+
+  <h2>Keresés eredmények</h2>
+
+  <div class="uk-clearfix">
+    <div class="uk-float-right">
+      <%= paginate @items %>
+    </div>
+  </div>
+
+  <ul class="uk-list uk-list-divider">
+    <% @items.each do |item| %>
+      <%= render 'item', item: item %>
+    <% end %>
+  </ul>
+</div>

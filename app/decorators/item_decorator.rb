@@ -1,6 +1,7 @@
 class ItemDecorator < ApplicationDecorator
   delegate_all
   include Draper::LazyHelpers
+  decorates_finders
 
   def photo
     return unless item.photos.any?
@@ -31,5 +32,9 @@ class ItemDecorator < ApplicationDecorator
     return 'nincs' unless child?
 
     link_to(parent.name, item_path(parent))
+  end
+
+  def truncated_description
+    description&.truncate 50
   end
 end
