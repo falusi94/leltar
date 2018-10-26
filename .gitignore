@@ -23,12 +23,6 @@
 #ignore compiled assets and paperclip files
 /public/assets/*
 /public/system/*
-
-#ignore key files, etc
-/vagrant/git_key
-/vagrant/git_key.pub
-/vagrant/leltar.service
-/vagrant/publickey
-/vagrant/.vagrant
+node_modules
 
 .env
