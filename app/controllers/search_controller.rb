@@ -18,6 +18,8 @@ class SearchController < ApplicationController
   private
 
   def search_params
+    return unless params.key? :q
+
     params.require(:q)
           .permit(:name_cont, :specific_name_cont, :description_cont, :group_id, :serial_cont,
                   :at_who_cont, :comment_cont, :inventory_number_cont, :condition, :status,
