@@ -22,15 +22,15 @@ Rails.application.routes.draw do
   get 'groups/:group_id/items/new', to: 'items#new', as: :new_group_item
 
   # Items routes
-  resources :items
-  post 'items/{:id}/check', to: 'items#update_last_check', as: :check_item
-
   get 'items/:id/photos/:photo_no', to: 'items#picture_get'
   post 'items/:id/photos', to: 'items#picture_post'
   patch 'items/:id/photos', to: 'items#picture_post'
   delete 'items/:id/photos/:photo_no', to: 'items#picture_delete'
   get 'items/:id/picture/form', to: 'items#picture_form'
-  get 'items/:id/versions/:version_idx', to: 'items#show'
+  resources :items do
+    post 'check', to: 'items#update_last_check', as: :check
+    get 'versions/:version_idx', to: 'items#show', as: :version
+  end
 
   # Import routes
   resources :import, only: %i[new edit create update]

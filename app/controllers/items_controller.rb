@@ -97,13 +97,15 @@ class ItemsController < ApplicationController
   private
 
   def set_item
-    @item = Item.find(params[:id])
+    id = params[:item_id]
+    id ||= params[:id]
+    @item = Item.find(id)
   end
 
   def set_possible_parents
     possible_parents = @item.group.items.reject(&:child?) if @item&.group
     possible_parents ||= Item.all.reject(&:child?)
-    @possible_parents = ItemDecorator::decorate_collection(possible_parents)
+    @possible_parents = ItemDecorator.decorate_collection(possible_parents)
   end
 
   def require_group_write
