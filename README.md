@@ -1,29 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple inventory management system built on Ruby on Rails. It can easily manage separated faculties (called groups), search using elastic search, export using ransack, import from google sheets, and has some basic status report.
 
-Things you may want to cover:
+## System requirements
+* Tested with 2.4.2 and 2.3.7
+* PostgreSQL for production/development (maybe easily can change to other)
+* SqLite3 for tests
+* Elasticsearch for searchkick
 
-* Ruby version
-Tested with 2.4.2 and 2.3.7
+OR
 
-* System dependencies
-Need postgresql for production and development and sqlite3 for test. Needs elastic search running for searchkick.
+* docker with compose
 
-* Configuration
-Copy .env.example to .env and add parametes. For development check or update config/database.yml
+## Configuration
+For local development or any non dockerized running just .env.example to .env and add parametes. If you want to use .env in production, update the Gemfile according to, and move the dotenv gem to all environment. For development check or update config/database.yml too.
 
-* Database creation
+For the first time (and after every related modification) run elastic's reindexing:
+```ruby
+rails runner 'Item.reindex'
+rails runner 'Group.reindex'
+```
 
-* Database initialization
+## Database creation and initialization
+After proper set database just run the seeder. It gives an admin user with admin@sch.hu/foobar login.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
 
 ## Deployment instructions
-
 Easy deployment could be achieved with Docker and Docker-compose. First you need to set some variables, so open `docker-compose.yml`, then modify the following lines:
 
 ```yaml
