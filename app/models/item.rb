@@ -67,6 +67,10 @@ class Item < ApplicationRecord
     "/items/#{id}/photos/#{ix}"
   end
 
+  def exists?
+    status.in?(%i[ok waiting_for_repair at_group_member other]) || status.nil?
+  end
+
   def child?
     !parent.nil?
   end

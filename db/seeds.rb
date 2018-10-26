@@ -12,3 +12,8 @@ User.create(
   password_digest: User.digest('foobar'),
   admin: true
 )
+
+SystemAttribute.create(
+  name: 'check_from',
+  value: DateTime.now - 1.year
+)
