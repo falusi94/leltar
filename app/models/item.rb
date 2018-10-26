@@ -18,7 +18,7 @@ class Item < ApplicationRecord
 
   has_paper_trail
   belongs_to :group
-  has_many :photos
+  has_many_attached :photos
   belongs_to :parent, class_name: 'Item', foreign_key: :parent_id, optional: true
   has_many :children, class_name: 'Item', foreign_key: :parent_id, inverse_of: :parent
 
@@ -38,10 +38,10 @@ class Item < ApplicationRecord
 
   def initialize(params = {})
     # save picture to create new Photo after initializing with super
-    pic = params[:picture]
-    params.delete :picture
+    photo = params[:photo] if params
+    params.delete :photo if photo
     super(params)
-    self.photos = [Photo.new(file: pic)] if pic
+    photos.attach(photo) if photo
   end
 
   def purchase_date_cannot_be_in_future

@@ -76,24 +76,6 @@ class ItemsController < ApplicationController
     redirect_to items_url, notice: t('success.delete')
   end
 
-  def picture_get
-    ix = params[:photo_no]
-    ix = ix ? ix.to_i : 0
-    return redirect_to @item.photos[ix].url if @item.photos.size > ix
-
-    render inline: t(:not_found), status: 404
-  end
-
-  def picture_post
-    return redirect_to edit_item_path(@item) if @item.update(picture_params)
-
-    redirect_to edit_item_path(@item)
-  end
-
-  def picture_form
-    render layout: false
-  end
-
   private
 
   def set_item
@@ -108,23 +90,11 @@ class ItemsController < ApplicationController
     @possible_parents = ItemDecorator.decorate_collection(possible_parents)
   end
 
-  def require_group_write
-    return unauthorized_page unless current_user.can_write?(@item.group_id)
-  end
-
-  def require_group_read
-    return unauthorized_page unless current_user.can_read?(@item.group_id)
-  end
-
   def item_params
     params.require(:item)
           .permit(:name, :description, :purchase_date, :entry_date, :group_id,
                   :organization, :number, :parent_id, :specific_name, :serial,
                   :location, :at_who, :warranty, :comment, :inventory_number,
-                  :entry_price, :accountancy_state)
-  end
-
-  def picture_params
-    params.require(:item).permit(:picture)
+                  :entry_price, :accountancy_state, :photo)
   end
 end

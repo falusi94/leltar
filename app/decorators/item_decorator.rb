@@ -4,9 +4,10 @@ class ItemDecorator < ApplicationDecorator
   decorates_finders
 
   def photo
-    return unless item.photos.any?
+    return image_tag('no_photo.gif', class: 'uk-align-right') unless item.photos.attached?
 
-    image_tag(item.photos.last.url, class: 'uk-align-right')
+    last_photo = photos.last.variant(resize: '600x600')
+    image_tag(last_photo, class: 'uk-align-right')
   end
 
   def compact_name

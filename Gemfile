@@ -38,8 +38,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'json', '>= 2.0.0'
 # Kaminari for paginating
 gem 'kaminari'
-# paperclip for file saving
-gem 'paperclip', '~> 5.0.0'
 # paper_trail for versioning
 gem 'paper_trail'
 # searchkick for easy elastic search integration
@@ -54,6 +52,8 @@ gem 'roo', '~> 2.7.0'
 gem 'chronic'
 # translate_enum for translating enums
 gem 'translate_enum'
+# Minimagick for ActiveStorage picture resizes
+gem 'mini_magick'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

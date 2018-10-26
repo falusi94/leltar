@@ -6,10 +6,6 @@ Rails.application.routes.draw do
   post 'session/create'
   post 'session/destroy', as: :logout
 
-  # Photos routes
-  post 'photos', to: 'photos#create'
-  delete 'photos/:id', to: 'photos#destroy'
-
   # User routes
   resources :users
 
@@ -22,12 +18,9 @@ Rails.application.routes.draw do
   get 'groups/:group_id/items/new', to: 'items#new', as: :new_group_item
 
   # Items routes
-  get 'items/:id/photos/:photo_no', to: 'items#picture_get'
-  post 'items/:id/photos', to: 'items#picture_post'
-  patch 'items/:id/photos', to: 'items#picture_post'
-  delete 'items/:id/photos/:photo_no', to: 'items#picture_delete'
-  get 'items/:id/picture/form', to: 'items#picture_form'
   resources :items do
+    resources :photos, only: %i[create destroy]
+
     post 'check', to: 'items#update_last_check', as: :check
     get 'versions/:version_idx', to: 'items#show', as: :version
   end

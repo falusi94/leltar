@@ -163,9 +163,9 @@
 
   <%if image_uploader %>
     <div class="uk-margin">
-      <%= f.label :picture, class: 'uk-form-label' %>
+      <%= f.label :photo, class: 'uk-form-label' %>
       <div class="uk-form-controls">
-        <%= f.file_field :picture %>
+        <%= f.file_field :photo, accept: :'image/*' %>
       </div>
     </div>
   <%end%>

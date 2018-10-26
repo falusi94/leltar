@@ -10,89 +10,99 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181026103845) do
+ActiveRecord::Schema.define(version: 2018_10_26_232914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "groups", force: :cascade do |t|
-    t.string   "name"
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "groups", id: :serial, force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "items", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.date     "purchase_date"
-    t.date     "entry_date"
-    t.date     "last_check"
-    t.integer  "group_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.integer  "status",            default: 0
-    t.integer  "organization",      default: 0
-    t.integer  "number",            default: 1
-    t.integer  "parent_id"
-    t.string   "specific_name"
-    t.string   "serial"
-    t.string   "location"
-    t.string   "at_who"
-    t.integer  "condition",         default: 0
-    t.date     "warranty"
-    t.string   "comment"
-    t.string   "inventory_number"
-    t.integer  "entry_price"
-    t.integer  "accountancy_state", default: 0
-    t.index ["group_id"], name: "index_items_on_group_id", using: :btree
+  create_table "items", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.date "purchase_date"
+    t.date "entry_date"
+    t.date "last_check"
+    t.integer "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.integer "organization", default: 0
+    t.integer "number", default: 1
+    t.integer "parent_id"
+    t.string "specific_name"
+    t.string "serial"
+    t.string "location"
+    t.string "at_who"
+    t.integer "condition", default: 0
+    t.date "warranty"
+    t.string "comment"
+    t.string "inventory_number"
+    t.integer "entry_price"
+    t.integer "accountancy_state", default: 0
+    t.index ["group_id"], name: "index_items_on_group_id"
   end
 
-  create_table "photos", force: :cascade do |t|
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.integer  "item_id"
-    t.index ["item_id"], name: "index_photos_on_item_id", using: :btree
-  end
-
-  create_table "rights", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.boolean  "write"
+  create_table "rights", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "group_id"
+    t.boolean "write"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "system_attributes", force: :cascade do |t|
+  create_table "system_attributes", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "value"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.string   "read_rights"
-    t.string   "write_rights"
-    t.boolean  "admin"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.boolean  "read_all_group",  default: false
-    t.boolean  "write_all_group", default: false
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.string "read_rights"
+    t.string "write_rights"
+    t.boolean "admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "read_all_group", default: false
+    t.boolean "write_all_group", default: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
+  create_table "versions", id: :serial, force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
     t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
 end

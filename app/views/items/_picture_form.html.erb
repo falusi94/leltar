@@ -1,14 +1,15 @@
-<% if @item.photos.any? %>
+<% if @item.photos.attached? %>
   <ul class="uk-list">
     <% @item.photos.each do |photo| %>
     <li>
       <div class="uk-inline">
-        <%= image_tag photo.url %>
-
+        <%= image_tag photo.variant(resize: '1000x1000') %>
         <div class="uk-overlay uk-position-top">
           <div class="uk-position-right">
-            <a class="uk-icon-link photo-delete uk-overlay-default uk-padding-small"
-              data-photo-id="<%=photo.id%>" uk-icon="trash"></a>
+            <%= form_tag item_photo_path(@item, photo.id), method: :delete do %>
+            <a href="javascript:{}" onclick="this.parentElement.submit();" uk-icon="trash"
+              class="uk-icon-link photo-delete uk-overlay-default uk-padding-small"></a>
+            <% end %>
           </div>
         </div>
       </div>
@@ -21,13 +22,11 @@
   </div>
 <% end %>
 
-<%= form_tag '/photos', method: :post, multipart: true, class: 'uk-form-horizontal' do |f| %>
-  <%= hidden_field_tag :item_id, @item.id %>
-
+<%= form_tag item_photos_path(@item), method: :post, multipart: true, class: 'uk-form-horizontal' do |f| %>
   <div class="uk-margin">
-    <%= label_tag :file, 'Új kép feltöltése', class: 'uk-form-label' %>
+    <%= label_tag :photo, 'Új kép feltöltése', class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= file_field_tag :file, accept: :'image/*' %>
+      <%= file_field_tag :photo, accept: :'image/*' %>
     </div>
   </div>
   <div class="uk-width-1-1">
