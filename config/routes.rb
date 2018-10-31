@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   get '/', to: 'session#smart_redirect'
 
   get 'session/new', as: :login
-  post 'session/create'
-  post 'session/destroy', as: :logout
+  post 'session/create', as: :new_login
+  get 'session/destroy', as: :logout
 
   # User routes
   resources :users

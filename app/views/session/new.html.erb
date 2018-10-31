@@ -2,7 +2,7 @@
   <h1>Bejelentkezés</h1>
 
   <div class="uk-align-center uk-width-2-3@m">
-    <%= form_for :session, url: 'create', html: {class: 'uk-form-horizontal'} do |f| %>
+    <%= form_for :session, url: new_login_path, html: {class: 'uk-form-horizontal'} do |f| %>
       <% if @redirect %>
         <%= f.hidden_field :redirect, value: @redirect %>
       <% end %>

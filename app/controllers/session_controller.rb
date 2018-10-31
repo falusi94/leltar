@@ -9,7 +9,7 @@ class SessionController < ApplicationController
   def create
     user = User.where(email: session_params[:email]).first
     redirect_url = session_params[:redirect] || '/'
-    if user && user.authenticate(session_params[:password])
+    if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
       return redirect_to redirect_url
     end
