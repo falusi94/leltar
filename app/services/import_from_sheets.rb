@@ -31,9 +31,10 @@ class ImportFromSheets
   def import_sheet(sheet, group_id)
     success_count = 0
     error_count = 0
+    children = []
     sheet.parse.each do |row|
       at_who = lookup_at_who(row[7])
-      success = Item.create(
+      item = Item.create(
         group_id: group_id,
         name: row[0],
         specific_name: row[1],
@@ -43,14 +44,16 @@ class ImportFromSheets
         status: at_who.nil? ? lookup_status(row[5]) : :at_group_member,
         condition: lookup_condition(row[6]),
         at_who: at_who,
-        # TODO: lookup parent by serial row[8]
         warranty: lookup_warranty(row[9]),
         organization: lookup_organization(row[10]),
         comment: row[11]
       )
-      success_count += 1 if success
-      error_count += 1 unless success
+      parent_serial = row[8]
+      children.push({ parent_serial: parent_serial, item: item }) if parent_serial.present?
+      success_count += 1 if item
+      error_count += 1 unless item
     end
+    update_parents(children)
     [success_count: success_count, error_count: error_count]
   end
 
@@ -93,5 +96,12 @@ class ImportFromSheets
     return :ska if input.downcase.include? 'ska'
 
     nil
+  end
+
+  def update_parents(children)
+    children.each do |child|
+      parent = Item.find_by serial: child[:parent_serial]
+      child[:item].update parent: parent if parent
+    end
   end
 end
