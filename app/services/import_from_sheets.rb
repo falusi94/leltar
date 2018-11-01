@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'roo'
 require 'chronic'
 
@@ -15,7 +17,8 @@ class ImportFromSheets
     result = []
     @xlsx.sheets.each do |sheet_name|
       group_id = params[sheet_name.underscore]
-      return unless group_id
+      next unless group_id
+
       sheet = @xlsx.sheet sheet_name
       count = import_sheet(sheet, group_id)
       result += [count: count, sheet: sheet_name]
@@ -29,6 +32,7 @@ class ImportFromSheets
     success_count = 0
     error_count = 0
     sheet.parse.each do |row|
+      at_who = lookup_at_who(row[7])
       success = Item.create(
         group_id: group_id,
         name: row[0],
@@ -36,14 +40,13 @@ class ImportFromSheets
         description: row[2],
         serial: row[3],
         location: row[4],
-        status: lookup_status(row[5]),
+        status: at_who.nil? ? lookup_status(row[5]) : :at_group_member,
         condition: lookup_condition(row[6]),
-        # TODO need to update status
-        at_who: lookup_at_who(row[7]),
-        # TODO lookup parent by serial row[8]
+        at_who: at_who,
+        # TODO: lookup parent by serial row[8]
         warranty: lookup_warranty(row[9]),
         organization: lookup_organization(row[10]),
-        comment: row[11],
+        comment: row[11]
       )
       success_count += 1 if success
       error_count += 1 unless success
@@ -53,29 +56,30 @@ class ImportFromSheets
 
   def lookup_status(input)
     status = {
-      :ok => 'OK',
-      :waiting_for_repair => 'javításra vár',
-      :waiting_for_scrapping => 'selejtezésre vár',
-      :scrapped => 'selejtezve',
-      :not_found => 'eltűnt',
-      :at_group_member => '',
-      :other => 'egyéb probléma',
+      ok: 'OK',
+      waiting_for_repair: 'javításra vár',
+      waiting_for_scrapping: 'selejtezésre vár',
+      scrapped: 'selejtezve',
+      not_found: 'eltűnt',
+      at_group_member: '',
+      other: 'egyéb probléma'
     }.invert[input]
-    status ||= :other
+    status || :other
   end
 
   def lookup_condition(input)
     condition = {
-      :ok => 'jó állapotban van',
-      :used => 'használt',
-      :end_of_life => 'EOL',
-      :not_working => 'funkcióját nem látja el',
+      ok: 'jó állapotban van',
+      used: 'használt',
+      end_of_life: 'EOL',
+      not_working: 'funkcióját nem látja el'
     }.invert[input]
-    condition ||= :ok
+    condition || :ok
   end
 
   def lookup_at_who(input)
     return nil if input&.empty? || input&.downcase == 'nem' || input&.downcase == 'nincs'
+
     input
   end
 
@@ -87,6 +91,7 @@ class ImportFromSheets
     return nil if input.nil?
     return :svie if input.downcase.include? 'svie'
     return :ska if input.downcase.include? 'ska'
+
     nil
   end
 end
