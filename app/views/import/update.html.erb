@@ -1,0 +1,27 @@
+<div class="uk-container">
+  <h1>Eredmény</h1>
+
+  <ul uk-accordion>
+    <% @results.each do |result| %>
+      <li>
+        <a class="uk-accordion-title" href="#">
+          <%= result[:sheet] %> -
+          (<span class="uk-text-success"><%= result[:result][:success_count] %></span> /
+          <span class="uk-text-danger"><%= result[:result][:errors].count %></span>)
+        </a>
+        <div class="uk-accordion-content">
+          <% unless result[:result][:errors].empty? %>
+            <ul class="uk-list uk-list-striped">
+              <li>Név - serial</li>
+              <% result[:result][:errors].each do |error| %>
+                <li>
+                  <%= error[:name] %> - <%= error[:serial] %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

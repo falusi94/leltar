@@ -14,23 +14,23 @@ class ImportFromSheets
   end
 
   def import(params)
-    result = []
+    results = []
     @xlsx.sheets.each do |sheet_name|
       group_id = params[sheet_name.underscore]
-      next unless group_id
+      next if group_id.blank?
 
       sheet = @xlsx.sheet sheet_name
-      count = import_sheet(sheet, group_id)
-      result += [count: count, sheet: sheet_name]
+      result = import_sheet(sheet, group_id)
+      results.push(result: result, sheet: sheet_name)
     end
-    result
+    results
   end
 
   private
 
   def import_sheet(sheet, group_id)
     success_count = 0
-    error_count = 0
+    errors = []
     children = []
     sheet.parse.each do |row|
       at_who = lookup_at_who(row[7])
@@ -49,12 +49,12 @@ class ImportFromSheets
         comment: row[11]
       )
       parent_serial = row[8]
-      children.push({ parent_serial: parent_serial, item: item }) if parent_serial.present?
+      children.push(parent_serial: parent_serial, item: item) if parent_serial.present?
       success_count += 1 if item
-      error_count += 1 unless item
+      errors.push(name: row[0], serial: row[3]) unless item
     end
     update_parents(children)
-    [success_count: success_count, error_count: error_count]
+    { success_count: success_count, errors: errors }
   end
 
   def lookup_status(input)

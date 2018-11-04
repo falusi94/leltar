@@ -16,8 +16,6 @@ class ImportController < ApplicationController
 
   def update
     import_helper = ImportFromSheets.new(params[:id])
-    result = import_helper.import(params)
-
-    redirect_to new_import_path, notice: result
+    @results = import_helper.import(params)
   end
 end
