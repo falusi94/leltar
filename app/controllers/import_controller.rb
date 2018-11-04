@@ -20,17 +20,4 @@ class ImportController < ApplicationController
 
     redirect_to new_import_path, notice: result
   end
-
-  def upload_csv
-    if params[:csv_file]
-      @bad_items = ImportCsv.call(params[:csv_file].read.force_encoding('UTF-8'))
-      if @bad_items.!empty?
-        render :csv_errors
-      else
-        redirect_to '/items'
-      end
-    else
-      render inline: 'Unprocessable entity', status: :unprocessable_entity
-    end
-  end
 end
