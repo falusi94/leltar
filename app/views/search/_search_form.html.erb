@@ -23,10 +23,10 @@
   </div>
 
   <div>
-    <%= f.label :group_id, class: 'uk-text-small' %>
+    <%= f.label :group_id_eq, class: 'uk-text-small' %>
   </div>
   <div>
-    <%= f.select :group_id, Item.organizations.keys.map { |k| [k.humanize, k] },
+    <%= f.select :group_id_eq, options_from_collection_for_select(@groups, :id, :name, @q.group_id_eq),
                  {include_blank: true}, {class: 'uk-select uk-form-small'} %>
   </div>
 
@@ -59,26 +59,26 @@
   </div>
 
   <div>
-    <%= f.label :condition, class: 'uk-text-small' %>
+    <%= f.label :condition_eq, class: 'uk-text-small' %>
   </div>
   <div>
-    <%= f.select :condition, Item.organizations.keys.map { |k| [k.humanize, k] },
+    <%= f.select :condition_eq, options_from_collection_for_select(Item.translated_conditions, :third, :first, @q.condition_eq),
                  {include_blank: true}, {class: 'uk-select uk-form-small'} %>
   </div>
 
   <div>
-    <%= f.label :status, class: 'uk-text-small' %>
+    <%= f.label :status_eq, class: 'uk-text-small' %>
   </div>
   <div>
-    <%= f.select :status, Item.organizations.keys.map { |k| [k.humanize, k] },
+    <%= f.select :status_eq, options_from_collection_for_select(Item.translated_statuses, :third, :first, @q.status_eq),
                  {include_blank: true}, {class: 'uk-select uk-form-small'} %>
   </div>
 
   <div>
-    <%= f.label :accountancy_state, class: 'uk-text-small' %>
+    <%= f.label :accountancy_state_eq, class: 'uk-text-small' %>
   </div>
   <div>
-    <%= f.select :accountancy_state, Item.organizations.keys.map { |k| [k.humanize, k] },
+    <%= f.select :accountancy_state_eq, options_from_collection_for_select(Item.translated_accountancy_states, :third, :first, @q.accountancy_state_eq),
                  {include_blank: true}, {class: 'uk-select uk-form-small'} %>
   </div>
 
@@ -90,10 +90,10 @@
   </div>
 
   <div>
-    <%= f.label :organization, class: 'uk-text-small' %>
+    <%= f.label :organization_eq, class: 'uk-text-small' %>
   </div>
   <div>
-    <%= f.select :organization, Item.organizations.keys.map { |k| [k.humanize, k] },
+    <%= f.select :organization_eq, Item.organizations.keys.map { |k| [k.humanize, k] },
                  {include_blank: true}, {class: 'uk-select uk-form-small'} %>
   </div>
 
