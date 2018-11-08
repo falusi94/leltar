@@ -1,6 +1,7 @@
-from sharepoint import SharePointSite, basic_auth_opener
+from sharepoint import SharePointSite
 from urllib2 import BaseHandler, build_opener
 import os
+
 
 class CookieAuthHandler(BaseHandler):
     def __init__(self, cookies):
@@ -23,7 +24,7 @@ opener = build_opener(CookieAuthHandler(cookies))
 site = SharePointSite(site_url, opener)
 
 for sp_list in site.lists:
-    print sp_list.id, sp_list.meta['Title']
+    print(sp_list.id, sp_list.meta['Title'])
 c = 0
 for row in site.lists['{b4719275-6428-437b-92c9-284f23a2fa26}'].rows:
     try:
@@ -37,9 +38,9 @@ for row in site.lists['{b4719275-6428-437b-92c9-284f23a2fa26}'].rows:
                         outf.write(fuckingrandomshit.read())
                     fuckingrandomshit.close()
                 except:
-                    print 'Fail %s' % a.Title
+                    print('Fail %s' % a.Title)
             c += 1
     except:
-        print 'Fail'
+        print('Fail')
 
-print "Downloaded %d images" % c
+print("Downloaded %d images" % c)
