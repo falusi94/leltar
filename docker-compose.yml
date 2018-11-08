@@ -8,9 +8,7 @@ services:
   db:
     image: postgres
     volumes:
-      - type: volume
-        source: database-data
-        target: /var/lib/postgresql/data
+      - database_folder:/var/lib/postgresql/data
     restart: always
     networks:
       - leltar_network
@@ -28,9 +26,7 @@ services:
       - HOST=db
     restart: always
     volumes:
-      - type: volume
-        source: public-folder
-        target: /leltar/public
+      - public_folder:/leltar/public
     ports:
       - "3434:3000"
     networks:
@@ -44,5 +40,9 @@ networks:
 
 # Add your volumes
 volumes:
-  public-folder:
-  database-data:
+  public_folder:
+    external:
+      name:
+  database_folder:
+    external:
+      name:

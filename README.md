@@ -26,7 +26,7 @@ After proper set database just run the seeder. It gives an admin user with admin
 
 
 ## Deployment instructions
-Easy deployment could be achieved with Docker and Docker-compose. First you need to set some variables, so open `docker-compose.yml`, then modify the following lines:
+Easy deployment could be achieved with Docker and Docker-compose. I suggest to create two volumes for db data and public data, to easily find later these volumes. Then you need to set some variables, so open `docker-compose.yml`, then modify the following lines:
 
 ```yaml
 environment:
@@ -36,10 +36,12 @@ environment:
 ...
 
 # Add your volumes
-volumes:
-  public-folder:
-  database-data:
-
+public_folder:
+  external:
+    name: your_public_volume
+database_folder:
+  external:
+    name: your_db_volume
 ```
 
 Just run the following:
