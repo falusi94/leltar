@@ -13,5 +13,7 @@ RUN bundle install
 # Copy application
 COPY . .
 
+RUN echo "  secret_key_base:" "$(bundle exec rake secret)" >> config/secrets.yml
+
 # Build app and run migrations
 RUN RAILS_ENV=production bundle exec rake assets:precompile
