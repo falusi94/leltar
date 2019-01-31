@@ -128,15 +128,21 @@
   <%= render 'children', item: @item %>
   <% end %>
 
-  <h2>Verziók</h2>
-  <ul class="uk-list uk-list-divider">
+  <ul class="uk-margin-large-top" uk-accordion>
     <li>
-      <%= link_to 'Jelenlegi', item_path(@item) %>
+      <a class="uk-accordion-title uk-text-bold" href="#">Verziók (<%= @item.versions.count + 1 %>)</a>
+      <div class="uk-accordion-content">
+        <ul class="uk-list uk-list-divider">
+          <li>
+            <%= link_to 'Jelenlegi', item_path(@item) %>
+          </li>
+          <% @item.versions.each do |version| %>
+            <li>
+              <%= version_link(@item.id, version) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </li>
-    <% @item.versions.each do |version| %>
-      <li>
-        <%= version_link(@item.id, version) %>
-      </li>
-    <%end%>
   </ul>
 </div>
