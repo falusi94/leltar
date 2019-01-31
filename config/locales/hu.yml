@@ -71,6 +71,8 @@ hu:
         status: Státusz
         warranty: Garancia
         update: Frissítés
+        photo: Kép
+        invoice: Számla
       group:
         name: Név
       user:

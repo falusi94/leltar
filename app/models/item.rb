@@ -19,6 +19,7 @@ class Item < ApplicationRecord
   has_paper_trail
   belongs_to :group
   has_many_attached :photos
+  has_one_attached :invoice
   belongs_to :parent, class_name: 'Item', foreign_key: :parent_id, optional: true
   has_many :children, class_name: 'Item', foreign_key: :parent_id, inverse_of: :parent
 
