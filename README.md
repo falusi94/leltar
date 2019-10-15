@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/afb57353632e7743da3f/maintainability)](https://codeclimate.com/github/falusi94/leltar/maintainability)
+
 # README
 
 Simple inventory management system built on Ruby on Rails. It can easily manage separated faculties (called groups), search using elastic search, export using ransack, import from google sheets, and has some basic status report.
