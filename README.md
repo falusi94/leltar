@@ -42,7 +42,11 @@ database_folder:
 
 Just run the following:
 
-`docker-compose up --build`
+```shell
+# Generate secret keybase if necessary
+bundle exec rake secret
+docker-compose up --build --build-arg SECRET_KEYBASE=you_key_base
+```
 
 After the creating, while the containers are runing run the following commands:
 

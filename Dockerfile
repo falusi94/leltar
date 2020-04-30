@@ -1,4 +1,6 @@
 FROM ruby:2.3
+ARG SECRET_KEYBASE
+
 RUN apt-get update -qq &&\
     apt-get install -y build-essential libpq-dev nodejs libssl1.0-dev imagemagick apt-transport-https
 
@@ -18,8 +20,6 @@ RUN bundle install
 
 # Copy application
 COPY . .
-
-RUN echo "  secret_key_base:" "$(bundle exec rake secret)" >> config/secrets.yml
 
 # Build app and run migrations
 RUN RAILS_ENV=production bundle exec rake assets:precompile
