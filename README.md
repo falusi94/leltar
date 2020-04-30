@@ -5,7 +5,7 @@
 Simple inventory management system built on Ruby on Rails. It can easily manage separated faculties (called groups), search using elastic search, export using ransack, import from google sheets, and has some basic status report.
 
 ## System requirements
-* Tested with 2.4.2 and 2.3.7
+* Ruby 2.5.7 ([asdf-vm](https://asdf-vm.com/#/core-manage-asdf-vm) and [asdf-ruby](https://github.com/asdf-vm/asdf-ruby))
 * PostgreSQL for production/development (maybe easily can change to other)
 * SqLite3 for tests
 * Elasticsearch for searchkick
