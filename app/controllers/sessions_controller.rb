@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
-  skip_before_action :require_login, except: [:smart_redirect]
+  skip_before_action :require_login, only: %i[new create]
 
   def new
     @redirect = params[:redirect]
@@ -20,6 +22,8 @@ class SessionsController < ApplicationController
     reset_session
     redirect_to new_session_path
   end
+
+  private
 
   def session_params
     params.require(:session).permit(:email, :password, :redirect)
