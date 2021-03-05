@@ -1,5 +1,8 @@
 Metrics/LineLength:
-  Max: 99
+  Max: 120
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
 AllCops:
   Exclude:
     - 'db/**/*'
@@ -11,4 +14,4 @@ AllCops:
     - 'vendor/**/*'
     - '.git/**/*'
 Documentation:
-    Enabled: false
+  Enabled: false
