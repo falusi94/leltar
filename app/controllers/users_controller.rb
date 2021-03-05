@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :set_user, except: %i[index new create]
   before_action -> { authorize(User) }, only: %i[index new create]
@@ -17,15 +19,19 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    return redirect_to @user, notice: t('success.create') if @user.save
-
-    render :new
+    if @user.save
+      redirect_to @user, notice: t('success.create')
+    else
+      render :new
+    end
   end
 
   def update
-    return redirect_to @user, notice: t('success.edit') if @user.update(user_params)
-
-    render :edit
+    if @user.update(user_params)
+      redirect_to @user, notice: t('success.edit')
+    else
+      render :edit
+    end
   end
 
   def destroy
