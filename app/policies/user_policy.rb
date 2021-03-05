@@ -20,4 +20,12 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     user.admin
   end
+
+  def permitted_attributes
+    if user.admin
+      %i[name email password password_confirmation admin write_all_group read_all_group]
+    else
+      %i[email password password_confirmation]
+    end
+  end
 end

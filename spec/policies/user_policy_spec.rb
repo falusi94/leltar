@@ -33,4 +33,25 @@ describe UserPolicy do
       it { is_expected.to permit_action(:update)  }
     end
   end
+
+  describe 'permitted attributes' do
+    subject(:permitted_attributes) { described_class.new(current_user, 'WHATEVER').permitted_attributes }
+
+    context 'when the user is admin' do
+      let(:current_user) { build_stubbed(:admin) }
+
+      it 'includes all params' do
+        expect(permitted_attributes)
+          .to match(%i[name email password password_confirmation admin write_all_group read_all_group])
+      end
+    end
+
+    context 'when the user is not admin' do
+      let(:current_user) { build_stubbed(:user) }
+
+      it 'excludes admin params' do
+        expect(permitted_attributes).to match(%i[email password password_confirmation])
+      end
+    end
+  end
 end
