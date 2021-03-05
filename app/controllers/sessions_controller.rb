@@ -21,16 +21,6 @@ class SessionsController < ApplicationController
     redirect_to new_session_path
   end
 
-  def smart_redirect
-    return redirect_to items_path if current_user.admin
-
-    groups = current_user.read_groups
-    return unauthorized_page if groups.size.zero?
-    return redirect_to items_path if groups.size > 1
-
-    redirect_to items_path, group_id: groups[0].id
-  end
-
   def session_params
     params.require(:session).permit(:email, :password, :redirect)
   end

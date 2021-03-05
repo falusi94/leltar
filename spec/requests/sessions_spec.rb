@@ -43,18 +43,4 @@ describe 'Sessions' do
       expect(session[:user_id]).to be_blank
     end
   end
-
-  describe 'GET #smart_redirect' do
-    subject(:smart_redirect) { get '/' }
-
-    context 'when the user is admin' do
-      it 'redirects to the items page' do
-        login(create(:admin))
-
-        smart_redirect
-
-        expect(response).to redirect_to('/items')
-      end
-    end
-  end
 end

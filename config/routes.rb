@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # Session routes
-  get '/', to: 'session#smart_redirect'
+  get '/', to: 'redirect#show'
 
   resource :session, only: %i[new create] do
     get 'destroy', on: :collection, as: :destroy
