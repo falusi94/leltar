@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :unauthorized_page
+
   protect_from_forgery with: :exception
   before_action :require_login
 
