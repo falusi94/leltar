@@ -13,7 +13,7 @@ describe 'Sessions' do
   describe 'POST #create' do
     context 'when invalid params are passed' do
       it 'does not log in the user' do
-        post '/session/create', params: { session: { email: 'user@example.org', password: 'ANYTHING' } }
+        post '/session', params: { session: { email: 'user@example.org', password: 'ANYTHING' } }
 
         expect(response).to have_http_status(:found).and redirect_to('/session/new')
         follow_redirect!
@@ -26,7 +26,7 @@ describe 'Sessions' do
       it 'logs in the user' do
         user = create(:user)
 
-        post '/session/create', params: { session: { email: user.email, password: 'password' } }
+        post '/session', params: { session: { email: user.email, password: 'password' } }
 
         expect(response).to have_http_status(:found).and redirect_to('/')
         expect(session[:user_id]).to eq(user.id)

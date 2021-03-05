@@ -40,7 +40,7 @@
           <%= link_to 'Profilom', edit_user_path(current_user)%>
         </li>
         <li>
-          <%= link_to 'Kijelentkezés', logout_path, method: :post %>
+          <%= link_to 'Kijelentkezés', destroy_session_path, method: :post %>
         </li>
       </ul>
 
@@ -93,7 +93,7 @@
           <%= link_to 'Profilom', edit_user_path(current_user)%>
         </li>
         <li>
-          <%= link_to 'Kijelentkezés', logout_path, method: :post %>
+          <%= link_to 'Kijelentkezés', destroy_session_path, method: :post %>
         </li>
       </ul>
     </div>

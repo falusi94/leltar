@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   # Session routes
   get '/', to: 'session#smart_redirect'
 
-  get 'session/new', as: :login
-  post 'session/create', as: :new_login
-  get 'session/destroy', as: :logout
+  resource :session, only: %i[new create] do
+    get 'destroy', on: :collection, as: :destroy
+  end
 
   # User routes
   resources :users

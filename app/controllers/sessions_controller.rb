@@ -1,4 +1,4 @@
-class SessionController < ApplicationController
+class SessionsController < ApplicationController
   skip_before_action :require_login, except: [:smart_redirect]
 
   def new
@@ -13,12 +13,12 @@ class SessionController < ApplicationController
       session[:user_id] = user.id
       return redirect_to redirect_url
     end
-    redirect_to login_path, redirect: redirect_url, alert: 'Hibás bejelentkezési adatok'
+    redirect_to new_session_path, redirect: redirect_url, alert: 'Hibás bejelentkezési adatok'
   end
 
   def destroy
     reset_session
-    redirect_to login_path
+    redirect_to new_session_path
   end
 
   def smart_redirect

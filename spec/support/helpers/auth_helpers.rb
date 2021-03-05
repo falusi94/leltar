@@ -2,7 +2,7 @@
 
 module AuthHelpers
   def login(user = create(:user), password = 'password')
-    post '/session/create', params: { session: { email: user.email, password: password } }
+    post '/session', params: { session: { email: user.email, password: password } }
   end
 end
 
