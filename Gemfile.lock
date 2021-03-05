@@ -91,6 +91,8 @@ GEM
       multi_json
     erubi (1.8.0)
     execjs (2.7.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
     faraday (0.15.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
@@ -252,6 +254,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   dotenv-rails
   draper
+  factory_bot
   jbuilder (~> 2.5)
   json (>= 2.0.0)
   kaminari
