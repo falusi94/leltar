@@ -82,6 +82,7 @@ end
 
 group :test do
   gem 'factory_bot_rails'
+  gem 'pundit-matchers'
   gem 'rspec-rails'
 end
 
