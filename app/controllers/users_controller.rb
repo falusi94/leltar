@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
-  before_action :require_admin, except: %i[edit update]
+  before_action :set_user, except: %i[index new create]
+  before_action -> { authorize(User) }, only: %i[index new create]
+  before_action -> { authorize(@user) }, except: %i[index new create]
 
   def index
     @users = User.all.page(params[:page])
@@ -12,9 +13,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit
-    require_admin if @user.id != current_user.id
-  end
+  def edit; end
 
   def create
     @user = User.new(user_params)
@@ -24,7 +23,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    require_admin if @user.id == current_user.id
     return redirect_to @user, notice: t('success.edit') if @user.update(user_params)
 
     render :edit
