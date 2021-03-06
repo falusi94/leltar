@@ -114,9 +114,6 @@ GEM
     hashie (3.6.0)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
-    jbuilder (2.7.0)
-      activesupport (>= 4.2.0)
-      multi_json (>= 1.2)
     json (2.1.0)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
@@ -289,7 +286,6 @@ DEPENDENCIES
   dotenv-rails
   draper
   factory_bot_rails
-  jbuilder (~> 2.5)
   json (>= 2.0.0)
   kaminari
   listen (~> 3.0.5)
