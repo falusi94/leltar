@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
-  before_action :require_admin, except: [:index]
+  before_action -> { authorize(Group) }, only: %i[index new create]
+  before_action -> { authorize(@group) }, except: %i[index new create]
 
   def index
     set_groups
