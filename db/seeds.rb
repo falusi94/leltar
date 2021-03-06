@@ -8,7 +8,7 @@
 
 User.create(
   name: 'admin',
-  email: 'admin@sch.hu',
+  email: 'admin@example.org',
   password_digest: User.digest('foobar'),
   admin: true
 )

@@ -4,6 +4,8 @@
 
 Simple inventory management system built on Ruby on Rails. It can easily manage separated faculties (called groups), search using elastic search, export using ransack, import from google sheets, and has some basic status report.
 
+**Disclaimer**: this is an abandoned project w/o any vision, so I decided to get it into shape & convert it to a playground.
+
 ## System requirements
 * Ruby 2.5.7 ([asdf-vm](https://asdf-vm.com/#/core-manage-asdf-vm) and [asdf-ruby](https://github.com/asdf-vm/asdf-ruby))
 * PostgreSQL
@@ -23,7 +25,7 @@ rails runner 'Group.reindex'
 ```
 
 ## Database creation and initialization
-After proper set database just run the seeder. It gives an admin user with admin@sch.hu/foobar login.
+After proper set database just run the seeder. It gives an admin user with admin@example.org/foobar login.
 
 
 ## Deployment instructions
