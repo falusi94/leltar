@@ -1,3 +1,36 @@
+# == Schema Information
+#
+# Table name: items
+#
+#  id                :integer          not null, primary key
+#  accountancy_state :integer          default("new")
+#  at_who            :string
+#  comment           :string
+#  condition         :integer          default("ok")
+#  description       :string
+#  entry_date        :date
+#  entry_price       :integer
+#  inventory_number  :string
+#  last_check        :date
+#  location          :string
+#  name              :string
+#  number            :integer          default(1)
+#  organization      :integer          default("ska")
+#  purchase_date     :date
+#  serial            :string
+#  specific_name     :string
+#  status            :integer          default("ok")
+#  warranty          :date
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  group_id          :integer
+#  parent_id         :integer
+#
+# Indexes
+#
+#  index_items_on_group_id  (group_id)
+#
+
 class Item < ApplicationRecord
   include TranslateEnum
   include Exportable
