@@ -84,13 +84,12 @@ describe 'Users' do
 
     include_examples 'without user redirects to login'
 
-    # TODO: fix SQLite id
-    xit 'creates the user' do
+    it 'creates the user' do
       login(user)
 
       expect { create_user }.to change(User, :count).by(1)
 
-      expect(response).to have_http_status(:create)
+      expect(response).to have_http_status(:found).and redirect_to(User.last)
     end
   end
 

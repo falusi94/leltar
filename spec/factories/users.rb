@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :user do
-    sequence(:id)
     sequence(:email) { |i| "user-#{i}@example.org" }
 
     name { 'User Name' }
