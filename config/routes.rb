@@ -12,9 +12,9 @@ Rails.application.routes.draw do
   resources :rights, only: %i[create update destroy]
 
   # Groups routes
-  resources :groups, except: %i[show]
-  get 'groups/:group_id/items', to: 'items#index', as: :group_items
-  get 'groups/:group_id/items/new', to: 'items#new', as: :new_group_item
+  resources :groups, except: :show do
+    resources :items, only: %i[index new]
+  end
 
   # Items routes
   resources :items do
