@@ -6,8 +6,7 @@ Simple inventory management system built on Ruby on Rails. It can easily manage 
 
 ## System requirements
 * Ruby 2.5.7 ([asdf-vm](https://asdf-vm.com/#/core-manage-asdf-vm) and [asdf-ruby](https://github.com/asdf-vm/asdf-ruby))
-* PostgreSQL for production/development (maybe easily can change to other)
-* SqLite3 for tests
+* PostgreSQL
 * Elasticsearch for searchkick
 
 OR
