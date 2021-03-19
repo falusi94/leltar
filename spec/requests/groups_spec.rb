@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 describe 'Groups' do
-  def login_admin
-    user = create(:admin)
-    login(user)
-  end
-
   describe 'GET #index' do
     subject(:get_groups) { get '/groups' }
 
