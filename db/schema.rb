@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_06_232543) do
+ActiveRecord::Schema.define(version: 2021_03_19_114450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,21 +51,24 @@ ActiveRecord::Schema.define(version: 2021_03_06_232543) do
     t.integer "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status", default: 0
-    t.integer "organization", default: 0
     t.integer "number", default: 1
     t.integer "parent_id"
     t.string "specific_name"
     t.string "serial"
     t.string "location"
     t.string "at_who"
-    t.integer "condition", default: 0
     t.date "warranty"
     t.string "comment"
     t.string "inventory_number"
     t.integer "entry_price"
-    t.integer "accountancy_state", default: 0
+    t.string "status"
+    t.string "condition"
+    t.string "accountancy_state"
+    t.string "organization"
+    t.index ["accountancy_state"], name: "index_items_on_accountancy_state"
+    t.index ["condition"], name: "index_items_on_condition"
     t.index ["group_id"], name: "index_items_on_group_id"
+    t.index ["status"], name: "index_items_on_status"
   end
 
   create_table "rights", id: :serial, force: :cascade do |t|

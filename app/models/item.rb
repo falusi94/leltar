@@ -3,10 +3,10 @@
 # Table name: items
 #
 #  id                :integer          not null, primary key
-#  accountancy_state :integer          default("new")
+#  accountancy_state :string
 #  at_who            :string
 #  comment           :string
-#  condition         :integer          default("ok")
+#  condition         :string
 #  description       :string
 #  entry_date        :date
 #  entry_price       :integer
@@ -15,11 +15,11 @@
 #  location          :string
 #  name              :string
 #  number            :integer          default(1)
-#  organization      :integer          default("ska")
+#  organization      :string
 #  purchase_date     :date
 #  serial            :string
 #  specific_name     :string
-#  status            :integer          default("ok")
+#  status            :string
 #  warranty          :date
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -28,7 +28,10 @@
 #
 # Indexes
 #
-#  index_items_on_group_id  (group_id)
+#  index_items_on_accountancy_state  (accountancy_state)
+#  index_items_on_condition          (condition)
+#  index_items_on_group_id           (group_id)
+#  index_items_on_status             (status)
 #
 
 class Item < ApplicationRecord
@@ -39,11 +42,26 @@ class Item < ApplicationRecord
                              location at_who condition inventory_number]
   scope :search_import, -> { includes(:group) }
 
-  enum status: %i[ok waiting_for_repair waiting_for_scrapping scrapped
-                  not_found at_group_member other], _prefix: :status
-  enum condition: %i[ok used end_of_life not_working], _prefix: :condition
-  enum organization: %i[ska svie other], _prefix: :organization
-  enum accountancy_state: %i[new invoice_turned in_register], _prefix: :accountancy_state
+  enum status: {
+    ok:                    'ok',
+    waiting_for_repair:    'waiting_for_repair',
+    waiting_for_scrapping: 'waiting_for_scrapping',
+    scrapped:              'scrapped',
+    not_found:             'not_found',
+    at_group_member:       'at_group_member',
+    other:                 'other'
+  }, _prefix: :status
+  enum condition: {
+    ok:          'ok',
+    used:        'used',
+    end_of_life: 'end_of_life',
+    not_working: 'not_working'
+  }, _prefix: :condition
+  enum accountancy_state: {
+    new:            'new',
+    invoice_turned: 'invoice_turned',
+    in_register:    'in_register'
+  }, _prefix: :accountancy_state
 
   translate_enum :status
   translate_enum :condition

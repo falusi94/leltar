@@ -113,8 +113,7 @@
   <div class="uk-margin">
     <%= f.label :organization, class: 'uk-form-label' %>
     <div class="uk-form-controls">
-      <%= f.select :organization, Item.organizations.keys.map { |k| [k.humanize, k] },
-                   {}, {class: 'uk-select uk-form-small'} %>
+      <%= f.text_field :organization, class: 'uk-select uk-form-small' %>
     </div>
   </div>
 
