@@ -4,12 +4,12 @@
       <h1>Rendszerbeállítások szerkesztése</h1>
     </div>
     <div class="uk-float-right uk-padding-small">
-      <%= link_to back_label, status_index_path, class: 'uk-button uk-button-default uk-button-small' %>
+      <%= link_to back_label, system_attributes_path, class: 'uk-button uk-button-default uk-button-small' %>
     </div>
   </div>
 
   <div class="uk-align-center uk-width-2-3@m">
-    <%= form_tag update_status_path, html: {class: 'uk-form-horizontal'} do %>
+    <%= form_tag edit_system_attributes_path, html: {class: 'uk-form-horizontal'} do %>
 
       <% @system_attributes.each do |attribute| %>
         <div class="uk-margin">

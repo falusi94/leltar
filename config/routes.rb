@@ -33,7 +33,10 @@ Rails.application.routes.draw do
   get 'search/export', to: 'search#export', as: :search_export
 
   # Status routes
-  resources :status, only: %i[index]
-  get 'status/edit', to: 'status#edit', as: :edit_status
-  post 'status', to: 'status#update', as: :update_status
+  resources :status, only: :index
+
+  resources :system_attributes, only: [] do
+    get :edit, on: :collection
+    put :update, on: :collection
+  end
 end
