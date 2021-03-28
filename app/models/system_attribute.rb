@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: system_attributes
@@ -9,7 +11,9 @@
 
 class SystemAttribute < ApplicationRecord
   def self.new_session_start
-    value = where(name: :new_session_start).first&.value
-    Chronic.parse value
+    value = find_by!(name: 'new_session_start').value
+    Date.parse(value)
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
 end
