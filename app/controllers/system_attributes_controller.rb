@@ -4,19 +4,28 @@ class SystemAttributesController < ApplicationController
   before_action :require_admin
 
   def edit
-    @system_attributes = SystemAttribute.all
+    set_system_attributes
   end
 
   def update
-    success = true
-    system_params.each do |key, param|
-      success = false unless SystemAttribute.update(name: key, value: param)
+    ActiveRecord::Base.transaction do
+      system_params.each do |key, param|
+        SystemAttribute.find_by(name: key).update!(value: param)
+      end
     end
 
-    redirect_to status_index_path if success
+    redirect_to status_index_path
+  rescue ActiveRecord::RecordInvalid
+    set_system_attributes
+
+    render :edit
   end
 
   private
+
+  def set_system_attributes
+    @system_attributes = SystemAttribute.all
+  end
 
   def system_params
     system_attribute_keys = SystemAttribute.pluck(:name)
