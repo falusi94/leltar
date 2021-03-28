@@ -77,9 +77,8 @@ class Item < ApplicationRecord
   validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
   validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }
   validates :group, presence: true, allow_nil: false
-  validate :purchase_date_cannot_be_in_future
-  validate :childen_parent_from_the_same_group
-  validate :deny_family_higher_than_two
+  validate :children_from_the_same_group, :parent_from_the_same_group, :purchase_date_not_in_the_future,
+           :has_no_grandparent, :has_no_grandchild
 
   def search_data
     { name: name, description: description, status: status, serial: serial,
@@ -96,25 +95,6 @@ class Item < ApplicationRecord
     photos.attach(photo) if photo
   end
 
-  def purchase_date_cannot_be_in_future
-    return unless purchase_date.present? && purchase_date > Date.today
-
-    errors.add(:purchase_date, 'Jövőbeni beszerzési dátum')
-  end
-
-  def childen_parent_from_the_same_group
-    errors.add(:parent, 'Eltérő körök!') if child? && parent.group != group
-    return unless parent?
-
-    children.each { |child| errors.add(:child, 'Eltérő körök!') if child.group != group }
-  end
-
-  def deny_family_higher_than_two
-    return unless child? && parent?
-
-    errors.add(:parent, 'Csak két szintű szülő gyerek viszony engedélyezett!')
-  end
-
   def picture_path(ix = 0)
     "/items/#{id}/photos/#{ix}"
   end
@@ -129,5 +109,42 @@ class Item < ApplicationRecord
 
   def parent?
     !children.count.zero?
+  end
+
+  private
+
+  def children_from_the_same_group
+    return unless children.where.not(group_id: group_id).exists?
+
+    errors.add(:children, 'has to be in the same group')
+  end
+
+  def parent_from_the_same_group
+    return if parent.blank? || parent.group_id == group_id
+
+    errors.add(:parent, 'has to be in the same group')
+  end
+
+  def purchase_date_not_in_the_future
+    return if purchase_date.blank? || purchase_date < Time.zone.today
+
+    errors.add(:purchase_date, 'cannot be in the future')
+  end
+
+  def has_no_grandparent # rubocop:disable Naming/PredicateName
+    return if parent.blank? || parent.parent.blank?
+
+    errors.add(:parent, 'has parent, multi level relation is not allowed')
+  end
+
+  def has_no_grandchild # rubocop:disable Naming/PredicateName
+    children_ids = if persisted?
+                     children.pluck(:id)
+                   else
+                     children.map(&:id)
+                   end
+    return if children.none? || !self.class.exists?(parent_id: children_ids)
+
+    errors.add(:children, 'have child, multi level relation is not allowed')
   end
 end
