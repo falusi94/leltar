@@ -119,10 +119,6 @@ class Item < ApplicationRecord
     "/items/#{id}/photos/#{ix}"
   end
 
-  def exists?
-    status.in?(%i[ok waiting_for_repair at_group_member other]) || status.nil?
-  end
-
   scope :existing, lambda {
     where('items.status in (?) or items.status is null', %i[ok waiting_for_repair at_group_member other])
   }

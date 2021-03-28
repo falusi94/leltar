@@ -10,14 +10,14 @@ class Status
   end
 
   def existing_item_count
-    Item.select { |i| i.last_check && i.exists? }.count
+    Item.existing.select { |i| i.last_check }.count
   end
 
   def finished_item_count
-    Item.select { |i| i.exists? && i.last_check && i.last_check > @session_start }.count
+    Item.existing.select { |i| i.last_check && i.last_check > @session_start }.count
   end
 
   def at_member_item_count
-    Item.select { |i| i.status_at_group_member? && i.exists? }.count
+    Item.existing.select { |i| i.status_at_group_member? }.count
   end
 end
