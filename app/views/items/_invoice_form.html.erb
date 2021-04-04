@@ -16,7 +16,7 @@
   </div>
 <% end %>
 
-<%= form_tag item_invoices_path(@item), method: :post, multipart: true, class: 'uk-form-horizontal' do |f| %>
+<%= form_tag item_invoice_path(@item), method: :post, multipart: true, class: 'uk-form-horizontal' do |f| %>
   <div class="uk-margin">
     <%= label_tag :photo, 'Számla feltöltése', class: 'uk-form-label' %>
     <div class="uk-form-controls">

@@ -5,7 +5,7 @@ describe 'Invoices' do
     subject(:create_invoice) do
       file = Rack::Test::UploadedFile.new('spec/fixtures/files/dot.jpg', 'image/jpg')
 
-      post "/items/#{item.id}/invoices", params: { photo: file }
+      post "/items/#{item.id}/invoice", params: { photo: file }
     end
 
     let(:item) { create(:item) }
@@ -25,7 +25,7 @@ describe 'Invoices' do
   end
 
   describe 'delete invoice' do
-    subject(:delete_invoice) { delete "/items/#{item.id}/invoices/#{item.invoice.id}" }
+    subject(:delete_invoice) { delete "/items/#{item.id}/invoice" }
 
     let(:item) { create(:item, :with_invoice) }
 

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   # Items routes
   resources :items do
     resources :photos, only: %i[create destroy]
-    resources :invoices, only: %i[create destroy]
+    resource :invoice, only: %i[create destroy]
 
     post 'check', to: 'items#update_last_check', as: :check
     get 'versions/:version_idx', to: 'items#show', as: :version
