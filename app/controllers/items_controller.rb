@@ -2,9 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_item, except: %i[index new create]
   before_action :set_groups, only: %i[new edit create update]
   before_action :set_possible_parents, only: %i[new edit create update]
-  before_action :require_group_write, only: %i[edit update destroy picture_post
-                                               update_last_check]
-  before_action -> { authorize(@item) }, only: :show
+  before_action -> { authorize(@item) }, only: %i[show edit update destroy update_last_check]
 
   def index
     if params[:query]

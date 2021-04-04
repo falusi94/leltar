@@ -8,4 +8,7 @@ class ItemPolicy < ApplicationPolicy
   def edit?
     user.can_write?(record.group_id)
   end
+  alias update?            edit?
+  alias destory?           edit?
+  alias update_last_check? edit?
 end
