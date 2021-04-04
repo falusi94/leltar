@@ -89,14 +89,9 @@ class Item < ApplicationRecord
 
   def initialize(params = {})
     # save picture to create new Photo after initializing with super
-    photo = params[:photo] if params
-    params.delete :photo if photo
+    photo = params&.delete(:photo)
     super(params)
     photos.attach(photo) if photo
-  end
-
-  def picture_path(ix = 0)
-    "/items/#{id}/photos/#{ix}"
   end
 
   scope :existing, lambda {
@@ -104,11 +99,11 @@ class Item < ApplicationRecord
   }
 
   def child?
-    !parent.nil?
+    parent.present?
   end
 
   def parent?
-    !children.count.zero?
+    children.any?
   end
 
   private

@@ -120,4 +120,40 @@ describe Item do
       include_examples 'the record is valid'
     end
   end
+
+  describe '#parent?' do
+    context 'when it has any child' do
+      it 'returns true' do
+        item = create(:item, :with_child).reload
+
+        expect(item).to be_parent
+      end
+    end
+
+    context 'when it has no child' do
+      it 'returns false' do
+        item = create(:item)
+
+        expect(item).not_to be_parent
+      end
+    end
+  end
+
+  describe '#child?' do
+    context 'when it has parent' do
+      it 'returns true' do
+        item = create(:item, :with_parent)
+
+        expect(item).to be_child
+      end
+    end
+
+    context 'when it has no parent' do
+      it 'returns false' do
+        item = create(:item)
+
+        expect(item).not_to be_child
+      end
+    end
+  end
 end
