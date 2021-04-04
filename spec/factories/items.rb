@@ -27,5 +27,13 @@ FactoryBot.define do
         attached_file.invoice.attach(io: file, filename: 'dot.jpg', content_type: 'image/jpeg')
       end
     end
+
+    trait :with_photo do
+      after(:build) do |attached_file|
+        path = Rails.root.join('spec/fixtures/files/dot.jpg')
+        file = File.open(path)
+        attached_file.photos.attach(io: file, filename: 'dot.jpg', content_type: 'image/jpeg')
+      end
+    end
   end
 end
