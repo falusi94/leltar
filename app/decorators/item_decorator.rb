@@ -26,7 +26,7 @@ class ItemDecorator < ApplicationDecorator
   def check_form
     return unless current_user.can_write?(group.id)
 
-    render 'check_form'
+    render 'items/check_form'
   end
 
   def parent_link

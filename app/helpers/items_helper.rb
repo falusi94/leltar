@@ -18,7 +18,7 @@ module ItemsHelper
   end
 
   def version_link(id, ver)
-    link_to(ver.created_at, "/items/#{id}/versions/#{ver.index}")
+    link_to(ver.created_at, item_version_path(id, ver.index))
   end
 
   def csv_link

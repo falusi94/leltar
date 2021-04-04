@@ -23,11 +23,6 @@ class ApplicationController < ActionController::Base
     return unauthorized_page unless current_user.can_write?(@item.group_id)
   end
 
-  def require_group_read
-    @item ||= Item.find(params[:item_id])
-    return unauthorized_page unless current_user.can_read?(@item.group_id)
-  end
-
   def current_user
     @current_user ||= session[:user_id] && User.find(session[:user_id])
   end

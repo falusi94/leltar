@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resource :invoice, only: %i[create destroy]
 
     post 'check', to: 'items#update_last_check', as: :check
-    get 'versions/:version_idx', to: 'items#show', as: :version
+    resources :versions, only: :show, module: :items
   end
 
   # Import routes

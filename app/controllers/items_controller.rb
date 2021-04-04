@@ -2,9 +2,9 @@ class ItemsController < ApplicationController
   before_action :set_item, except: %i[index new create]
   before_action :set_groups, only: %i[new edit create update]
   before_action :set_possible_parents, only: %i[new edit create update]
-  before_action :require_group_read, only: [:show]
   before_action :require_group_write, only: %i[edit update destroy picture_post
                                                update_last_check]
+  before_action -> { authorize(@item) }, only: :show
 
   def index
     if params[:query]
@@ -24,7 +24,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = @item.versions[params[:version_idx].to_i].reify if params[:version_idx]
     @item = ItemDecorator.decorate(@item)
   end
 
@@ -79,9 +78,7 @@ class ItemsController < ApplicationController
   private
 
   def set_item
-    id = params[:item_id]
-    id ||= params[:id]
-    @item = Item.find(id)
+    @item = Item.find(params[:id])
   end
 
   def set_possible_parents
