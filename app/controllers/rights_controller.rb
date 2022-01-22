@@ -1,5 +1,5 @@
 class RightsController < ApplicationController
-  before_action :require_admin
+  before_action -> { authorize(Right) }
 
   def create
     right = Right.new(right_params)
