@@ -25,11 +25,11 @@ class User < ApplicationRecord
   has_many :groups, through: :rights
 
   def can_read?(group_id)
-    admin || read_all_group || rights.any? { |right| right.group_id == group_id }
+    admin || read_all_group || rights.exists?(group_id: group_id)
   end
 
   def can_write?(group_id)
-    admin || write_all_group || rights.any? { |right| right.group_id == group_id && right.write }
+    admin || write_all_group || rights.write.exists?(group_id: group_id)
   end
 
   def can_edit_groups?

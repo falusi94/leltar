@@ -13,4 +13,6 @@
 class Right < ApplicationRecord
   belongs_to :user
   belongs_to :group
+
+  scope :write, -> { where(write: true) }
 end
