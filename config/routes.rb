@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :photos, only: %i[create destroy]
     resource :invoice, only: %i[create destroy]
 
-    post 'check', to: 'items#update_last_check', as: :check
+    resource :status_check, only: :create, module: :items
     resources :versions, only: :show, module: :items
   end
 

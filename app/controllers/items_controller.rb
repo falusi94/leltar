@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_item, except: %i[index new create]
   before_action :set_groups, only: %i[new edit create update]
   before_action :set_possible_parents, only: %i[new edit create update]
-  before_action -> { authorize(@item) }, only: %i[show edit update destroy update_last_check]
+  before_action -> { authorize(@item) }, only: %i[show edit update destroy]
 
   def index
     if params[:query]
@@ -57,15 +57,6 @@ class ItemsController < ApplicationController
     return redirect_to @item, notice: t('success.edit') if @item.update(ip)
 
     render :edit
-  end
-
-  def update_last_check
-    @item.last_check = DateTime.now
-    @item.status = params[:status]
-    @item.condition = params[:condition]
-    return redirect_to @item, notice: t('success.edit') if @item.save
-
-    redirect_to @item, alert: t(:error_during_save)
   end
 
   def destroy
