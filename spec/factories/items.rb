@@ -21,18 +21,16 @@ FactoryBot.define do
     end
 
     trait :with_invoice do
-      after(:build) do |attached_file|
-        path = Rails.root.join('spec/fixtures/files/dot.jpg')
-        file = File.open(path)
-        attached_file.invoice.attach(io: file, filename: 'dot.jpg', content_type: 'image/jpeg')
+      after(:build) do |item|
+        file = File.open('spec/fixtures/files/dot.jpg')
+        item.invoice.attach(io: file, filename: 'dot.jpg', content_type: 'image/jpeg')
       end
     end
 
     trait :with_photo do
-      after(:build) do |attached_file|
-        path = Rails.root.join('spec/fixtures/files/dot.jpg')
-        file = File.open(path)
-        attached_file.photos.attach(io: file, filename: 'dot.jpg', content_type: 'image/jpeg')
+      after(:build) do |item|
+        file = File.open('spec/fixtures/files/dot.jpg')
+        item.photos.attach(io: file, filename: 'dot.jpg', content_type: 'image/jpeg')
       end
     end
   end

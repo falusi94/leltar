@@ -2,13 +2,10 @@
 
 describe 'Invoices' do
   describe 'create invoice' do
-    subject(:create_invoice) do
-      file = Rack::Test::UploadedFile.new('spec/fixtures/files/dot.jpg', 'image/jpg')
+    subject(:create_invoice) { post "/items/#{item.id}/invoice", params: { photo: photo } }
 
-      post "/items/#{item.id}/invoice", params: { photo: file }
-    end
-
-    let(:item) { create(:item) }
+    let(:photo) { fixture_file_upload('files/dot.jpg', 'image/jpg') }
+    let(:item)  { create(:item) }
 
     include_examples 'without user redirects to login'
 

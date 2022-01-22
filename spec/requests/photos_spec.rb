@@ -2,12 +2,9 @@
 
 describe 'Photos' do
   describe 'create photo' do
-    subject(:create_photo) do
-      file = Rack::Test::UploadedFile.new('spec/fixtures/files/dot.jpg', 'image/jpg')
+    subject(:create_photo) { post "/items/#{item.id}/photos", params: { photo: photo } }
 
-      post "/items/#{item.id}/photos", params: { photo: file }
-    end
-
+    let(:photo) { fixture_file_upload('files/dot.jpg', 'image/jpg') }
     let(:item) { create(:item) }
 
     include_examples 'without user redirects to login'
