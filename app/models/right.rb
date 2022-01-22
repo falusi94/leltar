@@ -9,6 +9,11 @@
 #  group_id   :integer
 #  user_id    :integer
 #
+# Foreign Keys
+#
+#  fk_rails_...  (group_id => groups.id)
+#  fk_rails_...  (user_id => users.id)
+#
 
 class Right < ApplicationRecord
   belongs_to :user
