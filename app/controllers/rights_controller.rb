@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RightsController < ApplicationController
   before_action -> { authorize(Right) }
 
@@ -12,7 +14,6 @@ class RightsController < ApplicationController
   end
 
   def update
-    right = Right.find(params[:id])
     right.write = !right.write
 
     if right.save
@@ -23,13 +24,16 @@ class RightsController < ApplicationController
   end
 
   def destroy
-    right = Right.find(params[:id])
     right.destroy
 
     redirect_back fallback_location: root_path, notice: t('success.delete')
   end
 
   private
+
+  def right
+    @right ||= Right.find(params[:id])
+  end
 
   def right_params
     params.require(:right).permit(:group_id, :user_id, :write)
