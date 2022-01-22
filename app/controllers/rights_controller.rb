@@ -2,10 +2,7 @@ class RightsController < ApplicationController
   before_action :require_admin
 
   def create
-    right = Right.new
-    right.user = User.find(params[:user][:id])
-    right.group = Group.find(params[:group][:id])
-    right.write = true if params[:write]
+    right = Right.new(right_params)
 
     if right.save
       redirect_back fallback_location: root_path, notice: t('success.create')
@@ -30,5 +27,11 @@ class RightsController < ApplicationController
     right.destroy
 
     redirect_back fallback_location: root_path, notice: t('success.delete')
+  end
+
+  private
+
+  def right_params
+    params.require(:right).permit(:group_id, :user_id, :write)
   end
 end

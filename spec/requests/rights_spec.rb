@@ -2,7 +2,7 @@
 
 describe 'Rights' do
   describe 'POST #create' do
-    subject(:create_right) { post '/rights', params: { user: { id: user.id }, group: { id: group.id } } }
+    subject(:create_right) { post '/rights', params: { right: { user_id: user.id, group_id: group.id } } }
 
     let(:group) { create(:group) }
     let(:user) { create(:user) }
