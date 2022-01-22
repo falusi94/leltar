@@ -8,9 +8,7 @@
 #  name            :string
 #  password_digest :string
 #  read_all_group  :boolean          default(FALSE)
-#  read_rights     :string
 #  write_all_group :boolean          default(FALSE)
-#  write_rights    :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
