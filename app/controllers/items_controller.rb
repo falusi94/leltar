@@ -37,7 +37,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     unless current_user.can_write?(item_params[:group_id].to_i)
-      return redirect_to :back, alert: t(:no_permission)
+      return redirect_back fallback_location: root_path, alert: t(:no_permission)
     end
 
     return redirect_to @item, notice: t('success.create') if @item.save
@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
 
   def update
     unless current_user.can_write?(item_params[:group_id].to_i)
-      return redirect_to :back, alert: t(:no_permission)
+      return redirect_back fallback_location: root_path, alert: t(:no_permission)
     end
 
     ip = item_params

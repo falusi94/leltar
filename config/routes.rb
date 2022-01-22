@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get '/', to: 'redirect#show'
+  root to: 'redirect#show'
 
   resource :session, only: %i[new create] do
     get 'destroy', on: :collection, as: :destroy

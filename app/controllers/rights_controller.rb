@@ -6,22 +6,29 @@ class RightsController < ApplicationController
     right.user = User.find(params[:user][:id])
     right.group = Group.find(params[:group][:id])
     right.write = true if params[:write]
-    return redirect_to :back, notice: t('success.create') if right.save
 
-    redirect_to :back, alert: t(:error_during_save)
+    if right.save
+      redirect_back fallback_location: root_path, notice: t('success.create')
+    else
+      redirect_back fallback_location: root_path, alert: t(:error_during_save)
+    end
   end
 
   def update
     right = Right.find(params[:id])
     right.write = !right.write
-    return redirect_to :back, notice: t('success.edit') if right.save
 
-    redirect_to :back, alert: t(:error_during_save)
+    if right.save
+      redirect_back fallback_location: root_path, notice: t('success.edit')
+    else
+      redirect_back fallback_location: root_path, alert: t(:error_during_save)
+    end
   end
 
   def destroy
     right = Right.find(params[:id])
     right.destroy
-    redirect_to :back, notice: t('success.delete')
+
+    redirect_back fallback_location: root_path, notice: t('success.delete')
   end
 end
