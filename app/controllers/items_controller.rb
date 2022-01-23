@@ -1,7 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, except: %i[index new create]
   before_action :set_groups, only: %i[new edit create update]
-  before_action :set_possible_parents, only: %i[new edit create update]
   before_action -> { authorize(@item) }, only: %i[show edit update destroy]
 
   def index
@@ -71,12 +70,6 @@ class ItemsController < ApplicationController
     scope = scope.where(group_id: params[:group_id]) if params[:group_id]
     scope = scope.includes(:group).search(params[:query], fields: fields, count: -1) if params[:query]
     scope
-  end
-
-  def set_possible_parents
-    possible_parents = @item.group.items.reject(&:child?) if @item&.group
-    possible_parents ||= Item.all.reject(&:child?)
-    @possible_parents = ItemDecorator.decorate_collection(possible_parents)
   end
 
   def item_params

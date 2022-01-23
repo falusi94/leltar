@@ -18,4 +18,16 @@ module ItemsHelper
   def version_link(id, ver)
     link_to(ver.created_at, item_version_path(id, ver.index))
   end
+
+  def parent_item_candidates
+    @parent_item_candidates ||= begin
+      items = if @item.present? && @item.group
+                @item.group.items
+              else
+                Item.all
+              end.reject(&:child?)
+      # TODO: use AR query method instead of array iteration
+      ItemDecorator.decorate_collection(items)
+    end
+  end
 end

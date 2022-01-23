@@ -16,7 +16,7 @@
     .uk-margin
       = f.label :parent_id, 'Szülő eszköz', class: 'uk-form-label'
       .uk-form-controls
-        - options = options_from_collection_for_select(@possible_parents, :id, :compact_name, @item.parent&.id)
+        - options = options_from_collection_for_select(parent_item_candidates, :id, :compact_name, @item.parent&.id)
         = f.select :parent_id, options, {include_blank: true}, {class: 'uk-select uk-form-small'}
     - if @item.new_record?
       .uk-text-muted.uk-text-small
