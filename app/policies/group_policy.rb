@@ -20,4 +20,8 @@ class GroupPolicy < ApplicationPolicy
   def destroy?
     user.admin
   end
+
+  def read_items?
+    user.admin || user.read_all_group || user.rights.exists?(group: record)
+  end
 end

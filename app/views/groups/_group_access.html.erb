@@ -24,7 +24,7 @@
     <%= f.hidden_field :group_id, value: group.id %>
     <div class="uk-width-1-2@m">
       <%= f.select :user_id,
-          options_for_select(User.select { |u| !u.can_write?(group.id) && !u.can_read?(group.id) }.map { |u| [u.name, u.id] }),
+          options_for_select(User.select { |u| !u.can_write?(group.id) && !Pundit.policy(u, group).read_items? }.map { |u| [u.name, u.id] }),
           {},
           { class: 'uk-select uk-form-small uk-width-1-1' } %>
     </div>

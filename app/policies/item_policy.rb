@@ -2,7 +2,7 @@
 
 class ItemPolicy < ApplicationPolicy
   def show?
-    user.can_read?(record.group_id)
+    Pundit.policy(user, record.group).read_items?
   end
 
   def edit?
