@@ -25,6 +25,14 @@ describe 'Search' do
           expect(body).not_to include(item.name)
         end
       end
+
+      context 'and export flag is set' do
+        it 'returns the csv' do
+          get '/search', params: { export_button: 'Export' }
+
+          expect(body).to eq(Item.to_csv)
+        end
+      end
     end
   end
 end

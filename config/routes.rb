@@ -31,7 +31,6 @@ Rails.application.routes.draw do
 
   # Search routes
   resources :search, only: %i[index]
-  get 'search/export', to: 'search#export', as: :search_export
 
   # Status routes
   resources :status, only: :index
