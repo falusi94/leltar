@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 describe GroupPolicy do
-  subject { described_class.new(current_user, user) }
+  subject { described_class.new(user, group) }
 
-  let(:user) { build_stubbed(:user) }
+  let(:group) { build_stubbed(:group) }
 
   context 'when the user is admin' do
-    let(:current_user) { build_stubbed(:admin) }
+    let(:user) { build_stubbed(:admin) }
 
     it { is_expected.to permit_action(:index)   }
     it { is_expected.to permit_action(:show)    }
@@ -17,7 +17,7 @@ describe GroupPolicy do
   end
 
   context 'when the user is not admin' do
-    let(:current_user) { build_stubbed(:user) }
+    let(:user) { build_stubbed(:user) }
 
     it { is_expected.to permit_action(:index)   }
     it { is_expected.to forbid_action(:show)    }
