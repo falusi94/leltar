@@ -1,0 +1,15 @@
+%li.uk-margin-remove.uk-grid-collapse{:style => "min-height:60px", "uk-grid" => ""}
+  .uk-width-expand
+    .uk-width-1-1.uk-clearfix
+      .uk-float-left
+        %h3.uk-margin-remove= item.compact_name
+      .uk-float-right.uk-margin-right
+        = item.translated_status
+        = item.organization&.humanize
+    .uk-width-1-1.uk-grid-collapse{"uk-grid" => ""}
+      = item.truncated_description
+  - if item.parent?
+    .uk-width-1-1
+      .uk-text-bold
+        Gyerekek:
+      = render 'items/children', item: item

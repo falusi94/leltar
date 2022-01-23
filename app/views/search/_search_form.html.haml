@@ -1,0 +1,104 @@
+= search_form_for @q, url: search_index_path,
+  html: {class: 'uk-form-horizontal uk-grid-small uk-child-width-1-2@m uk-child-width-1-1', 'uk-grid': ''} do |f|
+  %div
+    = f.label :name_cont, class: 'uk-text-small'
+  %div
+    = f.search_field :name_cont, class: 'uk-input uk-form-small'
+  %div
+    = f.label :specific_name_cont, class: 'uk-text-small'
+  %div
+    = f.search_field :specific_name_cont, class: 'uk-input uk-form-small'
+  %div
+    = f.label :description_cont, class: 'uk-text-small'
+  %div
+    = f.search_field :description_cont, class: 'uk-input uk-form-small'
+  %div
+    = f.label :group_id_eq, class: 'uk-text-small'
+  %div
+    = f.select :group_id_eq, options_from_collection_for_select(@groups, :id, :name, @q.group_id_eq),
+      {include_blank: true}, {class: 'uk-select uk-form-small'}
+  %div
+    = f.label :serial_cont, class: 'uk-text-small'
+  %div
+    = f.search_field :serial_cont, class: 'uk-input uk-form-small'
+  %div
+    = f.label :at_who_cont, class: 'uk-text-small'
+  %div
+    = f.search_field :at_who_cont, class: 'uk-input uk-form-small'
+  %div
+    = f.label :comment_cont, class: 'uk-text-small'
+  %div
+    = f.search_field :comment_cont, class: 'uk-input uk-form-small'
+  %div
+    = f.label :inventory_number_cont, class: 'uk-text-small'
+  %div
+    = f.search_field :inventory_number_cont, class: 'uk-input uk-form-small'
+  %div
+    = f.label :condition_eq, class: 'uk-text-small'
+  %div
+    = f.select :condition_eq, options_from_collection_for_select(Item.translated_conditions, :third, :first, @q.condition_eq),
+      {include_blank: true}, {class: 'uk-select uk-form-small'}
+  %div
+    = f.label :status_eq, class: 'uk-text-small'
+  %div
+    = f.select :status_eq, options_from_collection_for_select(Item.translated_statuses, :third, :first, @q.status_eq),
+      {include_blank: true}, {class: 'uk-select uk-form-small'}
+  %div
+    = f.label :accountancy_state_eq, class: 'uk-text-small'
+  %div
+    = f.select :accountancy_state_eq, options_from_collection_for_select(Item.translated_accountancy_states, :third, :first, @q.accountancy_state_eq),
+      {include_blank: true}, {class: 'uk-select uk-form-small'}
+  %div
+    = f.label :location_cont, class: 'uk-text-small'
+  %div
+    = f.search_field :location_cont, class: 'uk-input uk-form-small'
+  %div
+    = f.label :organization_eq, class: 'uk-text-small'
+  %div
+    = f.select :organization_eq, Item.organizations.keys.map { |k| [k.humanize, k] },
+      {include_blank: true}, {class: 'uk-select uk-form-small'}
+  %div
+    = f.label :entry_date_lteq, class: 'uk-text-small'
+  %div
+    = f.search_field :entry_date_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+  %div
+    = f.label :entry_date_gteq, class: 'uk-text-small'
+  %div
+    = f.search_field :entry_date_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+  %div
+    = f.label :purchase_date_lteq, class: 'uk-text-small'
+  %div
+    = f.search_field :purchase_date_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+  %div
+    = f.label :purchase_date_gteq, class: 'uk-text-small'
+  %div
+    = f.search_field :purchase_date_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+  %div
+    = f.label :last_check_lteq, class: 'uk-text-small'
+  %div
+    = f.search_field :last_check_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+  %div
+    = f.label :last_check_gteq, class: 'uk-text-small'
+  %div
+    = f.search_field :last_check_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+  %div
+    = f.label :entry_price_lteq, class: 'uk-text-small'
+  %div
+    = f.search_field :entry_price_lteq, class: 'uk-input uk-form-small'
+  %div
+    = f.label :entry_price_gteq, class: 'uk-text-small'
+  %div
+    = f.search_field :entry_price_gteq, class: 'uk-input uk-form-small'
+  %div
+    = f.label :warranty_lteq, class: 'uk-text-small'
+  %div
+    = f.search_field :warranty_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+  %div
+    = f.label :warranty_gteq, class: 'uk-text-small'
+  %div
+    = f.search_field :warranty_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+  .uk-align-center.uk-clearfix
+    .uk-float-left
+      = f.submit class: 'uk-button uk-button-primary uk-align-center uk-width-auto'
+    .uk-float-right
+      = submit_tag 'Export', name: :export_button, class: 'uk-button uk-button-secondary uk-align-center uk-width-auto'

@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %title= t(:title)
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = render 'favicon'
+    -# Chrome, Firefox OS and Opera
+    %meta{:content => "#2452a2", :name => "theme-color"}
+    -# Windows Phone
+    %meta{:content => "#2452a2", :name => "msapplication-navbutton-color"}
+    -# iOS Safari
+    %meta{:content => "#2452a2", :name => "apple-mobile-web-app-status-bar-style"}
+    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}
+  %body.uk-margin-remove
+    = render 'navbar'
+    #main-container.container
+      = yield
+    - if flash.alert
+      :javascript
+        UIkit.notification("#{flash.alert}", {status:'danger'});
+    - if flash.notice
+      :javascript
+        UIkit.notification("#{flash.notice}", {status:'success'});

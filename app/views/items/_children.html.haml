@@ -1,0 +1,24 @@
+%ul.uk-padding-small{"uk-accordion" => ""}
+  - item.children.each do |children|
+    %li
+      %a.uk-accordion-title{:href => "#"}= children.name
+      .uk-accordion-content{"uk-grid" => ""}
+        - children = ItemDecorator.decorate(children)
+        .uk-width-expand
+          .uk-width-1-1.uk-clearfix
+            .uk-float-left
+              %h3.uk-margin-remove= children.compact_name
+            .uk-float-right.uk-margin-right
+              = children.organization&.humanize
+          .uk-width-1-1.uk-text-muted.uk-text-small
+            = children.translated_status
+          .uk-width-1-1.uk-grid-collapse{"uk-grid" => ""}
+            .uk-width-expand
+              = children.description
+            %div{:style => "width: 200px"}
+              %div
+                = t(:checked)
+                \: #{children.purchase_date}
+              %div
+                = t(:bought)
+                \: #{children.last_check}

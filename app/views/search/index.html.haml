@@ -1,0 +1,15 @@
+.uk-container
+  %h1 Keresés
+  %ul{"uk-accordion" => ""}
+    %li
+      %a.uk-accordion-title{:href => "#"} Keresési mezők
+      .uk-accordion-content
+        .uk-align-center
+          = render 'search_form'
+        %h2 Keresés eredmények
+        .uk-clearfix
+          .uk-float-right
+            = paginate @items
+        %ul.uk-list.uk-list-divider
+          - @items.each do |item|
+            = render 'item', item: item

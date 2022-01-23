@@ -1,0 +1,62 @@
+%div{"uk-sticky" => "sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar"}
+  %nav.uk-navbar-container.main-navbar.uk-light.uk-sticky.uk-box-shadow-medium{:class => "uk-visible@m", "uk-navbar" => ""}
+    .uk-navbar-left
+      = link_to :items, class: 'uk-navbar-item uk-logo' do
+        = t(:title)
+      %ul.uk-navbar-nav
+        %li
+          = link_to 'Körök', groups_path
+        - if current_user.admin
+          %li
+            %a{:href => "#", "uk-icon" => "chevron-down"} Admin
+            .uk-navbar-dropdown{"uk-dropdown" => "mode: click; offset: -15"}
+              %ul.uk-nav.uk-navbar-dropdown-nav
+                %li
+                  = link_to 'Felhasználók', users_path
+                %li
+                  = link_to 'Import', new_import_path
+                %li
+                  = link_to 'Összetett keresés', search_index_path
+                %li
+                  = link_to 'Státusz', status_index_path
+    = render 'search'
+    .uk-navbar-right
+      %ul.uk-navbar-nav
+        %li
+          = link_to 'Profilom', edit_user_path(current_user)
+        %li
+          = link_to 'Kijelentkezés', destroy_session_path, method: :post
+  %nav.uk-navbar-container.main-navbar.uk-light.uk-sticky{:class => "uk-hidden@m", "uk-navbar" => ""}
+    .uk-navbar-left.nav-overlay
+      %a.uk-navbar-toggle{"uk-navbar-toggle-icon" => "", "uk-toggle" => "target: #offcanvas-nav-primary"}
+    = render 'mobile_search'
+    .nav-overlay.uk-navbar-left.uk-flex-1{:hidden => ""}
+      = render 'search'
+      %a.uk-navbar-toggle{:href => "#", "uk-close" => "", "uk-toggle" => "target: .nav-overlay; animation: uk-animation-fade"}
+.uk-offcanvas-content{:class => "uk-hidden@m"}
+  #offcanvas-nav-primary{"uk-offcanvas" => "mode: push; overlay: true"}
+    .uk-offcanvas-bar.uk-flex.uk-flex-column
+      %button.uk-offcanvas-close{:type => "button", "uk-close" => ""}
+      %ul.uk-nav.uk-nav-primary.uk-nav-center.uk-margin-auto-vertical
+        %li.uk-nav-header
+          = link_to :items do
+            = image_tag 'favicon.png', class: 'uk-width-1-3'
+        %h2= t(:title)
+        %li.uk-nav-divider
+        %li
+          = link_to 'Körök', groups_path
+        - if current_user.admin
+          %li.uk-nav-divider
+          %li
+            = link_to 'Felhasznalók', users_path
+          %li
+            = link_to 'Import', new_import_path
+          %li
+            = link_to 'Összetett keresés', search_index_path
+          %li
+            = link_to 'Státusz', status_index_path
+        %li.uk-nav-divider
+        %li
+          = link_to 'Profilom', edit_user_path(current_user)
+        %li
+          = link_to 'Kijelentkezés', destroy_session_path, method: :post

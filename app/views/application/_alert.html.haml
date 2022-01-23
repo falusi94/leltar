@@ -1,0 +1,9 @@
+- if errors.any?
+  .uk-alert-danger{"uk-alert" => ""}
+    %a.uk-alert-close{"uk-close" => ""}
+    %h2.uk-margin-remove
+      = errors.count
+      hiba történt mentés során
+    %ul.uk-list.uk-list-bullet.uk-margin-remove
+      - errors.full_messages.each do |message|
+        %li= message

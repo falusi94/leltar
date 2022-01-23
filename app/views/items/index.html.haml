@@ -1,0 +1,12 @@
+.uk-container
+  .uk-clearfix
+    .uk-float-left
+      %h1= items_page_title
+    .uk-float-right.uk-padding-small
+      = new_item_button
+  .uk-clearfix
+    .uk-float-right
+      = paginate @items
+  %ul.uk-list.uk-list-divider
+    - @items.each do |item|
+      = render 'item', item: item

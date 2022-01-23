@@ -1,0 +1,18 @@
+.uk-container
+  .uk-clearfix
+    .uk-float-left
+      %h1= t 'activerecord.models.group.other'
+    .uk-float-right.uk-padding-small
+      = new_group_button
+  .uk-clearfix
+    .uk-float-right
+      = paginate @groups
+  %ul.uk-list.uk-list-divider
+    - @groups.each do |group|
+      %li.uk-clearfix.uk-margin-remove-top
+        .uk-float-left
+          %h3
+            = link_to group.name, group_items_path(group_id: group.id)
+        .uk-float-right
+          = group.edit_group_button
+          = group.delete_group_button

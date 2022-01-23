@@ -1,0 +1,20 @@
+- if @item.photos.attached?
+  %ul.uk-list
+    - @item.photos.each do |photo|
+      %li
+        .uk-inline
+          = image_tag photo.variant(resize: '1000x1000')
+          .uk-overlay.uk-position-top
+            .uk-position-right
+              = form_tag item_photo_path(@item, photo.id), method: :delete do
+                %a.uk-icon-link.photo-delete.uk-overlay-default.uk-padding-small{:href => "javascript:{}", :onclick => "this.parentElement.submit();", "uk-icon" => "trash"}
+- else
+  .uk-text-center.uk-margin
+    Nincs még kép
+= form_tag item_photos_path(@item), method: :post, multipart: true, class: 'uk-form-horizontal' do |f|
+  .uk-margin
+    = label_tag :photo, 'Új kép feltöltése', class: 'uk-form-label'
+    .uk-form-controls
+      = file_field_tag :photo, accept: :'image/*'
+  .uk-width-1-1
+    = submit_tag t(:upload), class: 'uk-button uk-button-primary uk-align-center'

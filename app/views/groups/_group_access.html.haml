@@ -1,0 +1,28 @@
+%h3 Kör hozzáférések
+%ul.uk-list.uk-list-divider
+  - group.rights.each do |right|
+    %li.uk-clearfix.uk-margin-remove-top
+      .uk-float-left
+        = link_to right.user.name, user_path(right.user), class: 'uk-link-muted'
+      .uk-float-right
+        = right.type_icon
+        = link_to(edit_label, right, method: :patch,
+          class: 'uk-button uk-button-small uk-button-secondary uk-margin-left')
+        = link_to(delete_label, right, method: :delete,
+          data: { confirm: t(:are_you_sure_to_delete) },
+          class: 'uk-button uk-button-small uk-button-danger')
+%h3 Hozzáadás
+= form_for :right, url: rights_path, class: 'uk-form uk-margin-small-top' do |f|
+  %div{"uk-grid" => ""}
+    = f.hidden_field :group_id, value: group.id
+    %div{:class => "uk-width-1-2@m"}
+      = f.select :user_id,
+        options_for_select(users_with_no_access_to_group(group).map { |u| [u.name, u.id] }),
+        {},
+        { class: 'uk-select uk-form-small uk-width-1-1' }
+    %div{:class => "uk-width-expand@m"}
+      %label
+        szerkesztési jog
+        \#{f.check_box :write, class: 'uk-checkbox'}
+    .uk-width-auto.uk-align-center
+      = f.submit 'Hozzáadás', class: 'uk-button uk-button-small uk-button-primary uk-align-right'

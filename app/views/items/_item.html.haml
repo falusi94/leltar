@@ -1,0 +1,26 @@
+%li.uk-margin-remove.uk-grid-collapse{:style => "min-height:110px", "uk-grid" => ""}
+  .uk-width-1-1{:class => "uk-hidden@m"}
+    = item.photo
+  .uk-width-expand
+    .uk-width-1-1.uk-clearfix
+      .uk-float-left
+        %h3.uk-margin-remove= item.compact_name
+      .uk-float-right.uk-margin-right
+        = item.organization&.humanize
+    .uk-width-1-1.uk-text-muted.uk-text-small
+      = item.translated_status
+    .uk-width-1-1.uk-grid-collapse{"uk-grid" => ""}
+      .uk-width-expand
+        = item.description
+      %div{:style => "width: 200px"}
+        %div
+          Vásárolva: #{item.purchase_date}
+        %div
+          Ellenőrizve: #{item.last_check}
+  %div{:class => "uk-visible@m", :style => "width: 110px"}
+    = item.photo
+  - if item.parent?
+    .uk-width-1-1
+      .uk-text-bold
+        Gyerekek:
+      = render 'children', item: item

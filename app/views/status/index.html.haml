@@ -1,0 +1,22 @@
+.uk-container
+  .uk-clearfix
+    .uk-float-left
+      %h1 Státusz
+    .uk-float-right.uk-padding-small
+      = link_to edit_label, edit_system_attributes_path(nil), class: 'uk-button uk-button-default uk-button-small'
+  %h3 Teljes haladás
+  .uk-text-muted
+    = @status.session_start
+    óta ellenőrzött eszközök.
+  %progress.uk-progress{:max => "#{@status.existing_item_count}", :value => "#{@status.finished_item_count}"}
+  .uk-child-width-1-2{:class => "uk-width-2-3@m", "uk-grid" => ""}
+    %div Összes eszköz:
+    %div= @status.all_item_count
+    %div Létező eszközök:
+    %div= @status.existing_item_count
+    .uk-width-1-1.uk-text-muted.uk-margin-remove-top
+      Azok az eszközök, melyek nincsennek leselejtezve, nem várnak selejtezésre és nem tűntek el.
+    %div Leltárazott eszközök:
+    %div= @status.finished_item_count
+    %div Körtagnál levő eszközök:
+    %div= @status.at_member_item_count

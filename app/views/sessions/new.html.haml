@@ -1,0 +1,16 @@
+.uk-container
+  %h1 Bejelentkezés
+  .uk-align-center{:class => "uk-width-2-3@m"}
+    = form_for :session, url: session_path, html: {class: 'uk-form-horizontal'} do |f|
+      - if @redirect
+        = f.hidden_field :redirect, value: @redirect
+      .uk-margin
+        = f.label :email, 'Email', class: 'uk-form-label'
+        .uk-form-controls
+          = f.email_field :email, class: 'uk-input uk-form-small'
+      .uk-margin
+        = f.label :password, 'Jelszó', class: 'uk-form-label'
+        .uk-form-controls
+          = f.password_field :password, class: 'uk-input uk-form-small'
+      .uk-width-1-1
+        = f.submit 'Bejelentkezés', class: 'uk-button uk-button-primary uk-align-center'

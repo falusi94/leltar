@@ -1,0 +1,105 @@
+= form_for item, html: {class: 'uk-form-horizontal', multipart: true} do |f|
+  = render 'alert', errors: item.errors
+  .uk-margin
+    = f.label :name, 'Név', class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :name, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :specific_name, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :specific_name, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :number, 'Darabszám', class: 'uk-form-label'
+    .uk-form-controls
+      = f.number_field :number, class: 'uk-input uk-form-small'
+  - unless @item.parent?
+    .uk-margin
+      = f.label :parent_id, 'Szülő eszköz', class: 'uk-form-label'
+      .uk-form-controls
+        - options = options_from_collection_for_select(@possible_parents, :id, :compact_name, @item.parent&.id)
+        = f.select :parent_id, options, {include_blank: true}, {class: 'uk-select uk-form-small'}
+    - if @item.new_record?
+      .uk-text-muted.uk-text-small
+        Figyelem! Mivel létrehozás során nem ismert az eszköz köre, így itt minden kör lehetséges szülőeszköze listázásra kerül. Amennyiben a kettő eszköz köre eltér, validációs hiba lép fel.
+  .uk-margin
+    = f.label :group_id, class: 'uk-form-label'
+    .uk-form-controls
+      - options = options_from_collection_for_select(@write_groups, :id, :name, @item.group.id)
+      = f.select :group_id, options, {}, {class: 'uk-select uk-form-small'}
+  .uk-margin
+    = f.label :location, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :location, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :at_who, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :at_who, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :purchase_date, class: 'uk-form-label'
+    .uk-form-controls.uk-text-right
+      = f.date_select :purchase_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'}
+  .uk-margin
+    = f.label :entry_date, class: 'uk-form-label'
+    .uk-form-controls.uk-text-right
+      = f.date_select :entry_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'}
+  .uk-margin
+    = f.label :accountancy_state, class: 'uk-form-label'
+    .uk-form-controls
+      = f.select :accountancy_state, Item.translated_accountancy_states.map { |t, k| [t, k] },
+        {}, {class: 'uk-select uk-form-small'}
+  .uk-margin
+    = f.label :warranty, class: 'uk-form-label'
+    .uk-form-controls.uk-text-right
+      = f.date_select :warranty, {}, {class: 'uk-select uk-width-1-4 uk-form-small'}
+  .uk-margin
+    = f.label :entry_price, class: 'uk-form-label'
+    .uk-form-controls
+      = f.number_field :entry_price, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :serial, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :serial, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :inventory_number, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :inventory_number, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :organization, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :organization, class: 'uk-select uk-form-small'
+  .uk-margin
+    = f.label :description, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :description, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :comment, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :comment, class: 'uk-input uk-form-small'
+  %h3 Státusz frissítése
+  .uk-text-muted.uk-text-small.uk-text-justify
+    Amennyiben ez az opció be van pipálva, az eszköz státusza és az utolsó ellenőrzés dátuma is módosulni fog a mentés során, méghozzá a jelenlegi időbélyeggel.
+  .uk-margin
+    = f.label :status, class: 'uk-form-label uk-h3'
+    .uk-form-controls
+      = f.select :status, Item.translated_statuses.map { |t, k| [t, k] },
+        {}, {class: 'uk-select uk-form-small'}
+  .uk-margin
+    = f.label :condition, class: 'uk-form-label'
+    .uk-form-controls
+      = f.select :condition, Item.conditions.map { |t, k| [t, k] },
+        {}, {class: 'uk-select uk-form-small'}
+  .uk-margin
+    = f.label :update, class: 'uk-form-label'
+    .uk-form-controls
+      = check_box_tag :update, 0, false, class: 'uk-checkbox'
+  - if image_uploader
+    .uk-margin
+      = f.label :photo, class: 'uk-form-label'
+      .uk-form-controls
+        = f.file_field :photo, accept: :'image/*'
+    .uk-margin
+      = f.label :invoice, class: 'uk-form-label'
+      .uk-form-controls
+        = f.file_field :invoice, accept: :'image/*'
+  .uk-width-1-1
+    = f.submit t(:save), class: 'uk-button uk-button-primary uk-align-center'

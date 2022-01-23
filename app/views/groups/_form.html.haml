@@ -1,0 +1,8 @@
+= form_for group, html: {class: 'uk-form-horizontal', multipart: true} do |f|
+  = render 'alert', errors: group.errors
+  .uk-margin
+    = f.label :name, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :name, class: 'uk-input uk-form-small'
+  .uk-width-1-1
+    = f.submit t(:save), class: 'uk-button uk-button-primary uk-align-center'

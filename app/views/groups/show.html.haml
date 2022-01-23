@@ -1,0 +1,7 @@
+%p#notice= notice
+%p
+  %strong Név:
+  = @group.name
+= link_to edit_label, edit_group_path(@group)
+|
+= link_to back_label, groups_path
