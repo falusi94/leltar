@@ -5,20 +5,10 @@ class ItemsController < ApplicationController
   before_action -> { authorize(@item) }, only: %i[show edit update destroy]
 
   def index
-    if params[:query]
-      query = params[:query]
-      match = query.include?('!') ? :word : :word_middle
-      query = query.tr('!', '')
-    else
-      query = '*'
-    end
     @search_path = request.path
-    items_for_group = params[:group_id]
-    items_for_group ||= current_user.read_groups.ids
-    @group = Group.find(params[:group_id]) if params[:group_id]
-    @items = Item.search(query, match: match, page: params[:page], per_page: 25, order: :name,
-                                where: { group_id: items_for_group })
-    @items = ItemDecorator.decorate_collection(@items)
+    @group       = Group.find(params[:group_id]) if params[:group_id]
+
+    @items       = ItemDecorator.decorate_collection(items.page)
   end
 
   def show
@@ -68,6 +58,15 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def items
+    fields = %i[name description status serial specific_name location at_who condition inventory_number]
+
+    scope = policy_scope(Item)
+    scope = scope.where(group_id: params[:group_id]) if params[:group_id]
+    scope = scope.includes(:group).search(params[:query], fields: fields, count: -1) if params[:query]
+    scope
   end
 
   def set_possible_parents

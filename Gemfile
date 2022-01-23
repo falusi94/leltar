@@ -31,8 +31,6 @@ gem 'json', '>= 2.0.0'
 gem 'kaminari'
 # paper_trail for versioning
 gem 'paper_trail'
-# searchkick for easy elastic search integration
-gem 'searchkick'
 # Ransack for advanced search
 gem 'ransack'
 # Draper for decorating models

@@ -2,14 +2,13 @@
 
 # README
 
-Simple inventory management system built on Ruby on Rails. It can easily manage separated faculties (called groups), search using elastic search, export using ransack, import from google sheets, and has some basic status report.
+Simple inventory management system built on Ruby on Rails. It can easily manage separated faculties (called groups), export using ransack, import from google sheets, and has some basic status report.
 
 **Disclaimer**: this is an abandoned project w/o any vision, so I decided to get it into shape & convert it to a playground.
 
 ## System requirements
 * Ruby 2.5.7 ([asdf-vm](https://asdf-vm.com/#/core-manage-asdf-vm) and [asdf-ruby](https://github.com/asdf-vm/asdf-ruby))
 * PostgreSQL
-* Elasticsearch for searchkick
 
 OR
 
@@ -17,12 +16,6 @@ OR
 
 ## Configuration
 For local development or any non dockerized running just .env.example to .env and add parametes. If you want to use .env in production, update the Gemfile according to, and move the dotenv gem to all environment. For development check or update config/database.yml too.
-
-For the first time (and after every related modification) run elastic's reindexing:
-```ruby
-rails runner 'Item.reindex'
-rails runner 'Group.reindex'
-```
 
 ## Database creation and initialization
 After proper set database just run the seeder. It gives an admin user with admin@example.org/foobar login.
@@ -56,7 +49,4 @@ After the creating, while the containers are runing run the following commands:
 docker-compose run web bash -c "RAILS_ENV=production bundle exec rake db:setup"
 # This is only necessary after pending migrations
 docker-compose run web bash -c "RAILS_ENV=production bundle exec rake db:migrate"
-# These are requires after changing searchkick settings
-docker-compose run web bash -c "RAILS_ENV=production rails runner 'Item.reindex'"
-docker-compose run web bash -c "RAILS_ENV=production rails runner 'Group.reindex'"
 ```

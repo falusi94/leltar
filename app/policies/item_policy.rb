@@ -10,4 +10,14 @@ class ItemPolicy < ApplicationPolicy
   end
   alias update?  edit?
   alias destory? edit?
+
+  class Scope < Scope
+    def resolve
+      if user.admin || user.read_all_group
+        scope.all
+      else
+        scope.where(group: user.groups)
+      end
+    end
+  end
 end

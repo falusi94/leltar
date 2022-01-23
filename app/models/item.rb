@@ -37,10 +37,7 @@
 class Item < ApplicationRecord
   include TranslateEnum
   include Exportable
-
-  searchkick word_middle: %i[name description status specific_name serial
-                             location at_who condition inventory_number]
-  scope :search_import, -> { includes(:group) }
+  extend SearchQuery::Mixin
 
   enum status: {
     ok:                    'ok',
@@ -79,13 +76,6 @@ class Item < ApplicationRecord
   validates :group, presence: true, allow_nil: false
   validate :children_from_the_same_group, :parent_from_the_same_group, :purchase_date_not_in_the_future,
            :has_no_grandparent, :has_no_grandchild
-
-  def search_data
-    { name: name, description: description, status: status, serial: serial,
-      specific_name: specific_name, location: location, at_who: at_who,
-      condition: condition, inventory_number: inventory_number,
-      group_name: group.name, group_id: group_id }
-  end
 
   def initialize(params = {})
     # save picture to create new Photo after initializing with super

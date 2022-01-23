@@ -1,6 +1,46 @@
 # frozen_string_literal: true
 
 describe 'Items' do
+  describe 'GET #index' do
+    subject(:show_items) { get '/items' }
+
+    let!(:item) { create(:item) }
+
+    include_examples 'without user redirects to login'
+
+    context 'when the user is logged in' do
+      before { login_admin }
+
+      it 'returns the list of items' do
+        show_items
+
+        expect(response).to have_http_status(:ok)
+        expect(body).to include(item.name)
+      end
+
+      context 'and a query param is passed' do
+        it 'filters the items' do
+          get '/items', params: { query: 'NOT_MATCHING' }
+
+          expect(response).to have_http_status(:ok)
+          expect(body).not_to include(item.name)
+        end
+      end
+
+      context 'and a group id is passed' do
+        it 'filters the items' do
+          item_of_other_group = create(:item)
+
+          get "/groups/#{item.group_id}/items"
+
+          expect(response).to have_http_status(:ok)
+          expect(body).to include(item.name)
+          expect(body).not_to include(item_of_other_group.name)
+        end
+      end
+    end
+  end
+
   describe 'GET #show' do
     subject(:show_item) { get "/items/#{item.id}" }
 
