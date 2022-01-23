@@ -23,7 +23,7 @@
         %li
           = link_to 'Profilom', edit_user_path(current_user)
         %li
-          = link_to 'Kijelentkezés', destroy_session_path, method: :post
+          = link_to 'Kijelentkezés', destroy_session_path, method: :get
   %nav.uk-navbar-container.main-navbar.uk-light.uk-sticky{:class => "uk-hidden@m", "uk-navbar" => ""}
     .uk-navbar-left.nav-overlay
       %a.uk-navbar-toggle{"uk-navbar-toggle-icon" => "", "uk-toggle" => "target: #offcanvas-nav-primary"}
@@ -55,4 +55,4 @@
         %li
           = link_to 'Profilom', edit_user_path(current_user)
         %li
-          = link_to 'Kijelentkezés', destroy_session_path, method: :post
+          = link_to 'Kijelentkezés', destroy_session_path, method: :get
