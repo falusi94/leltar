@@ -13,4 +13,5 @@ class Group < ApplicationRecord
 
   has_many :items
   has_many :rights
+  has_many :users, through: :rights
 end
