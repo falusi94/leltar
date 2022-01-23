@@ -3,6 +3,8 @@ class GroupDecorator < ApplicationDecorator
   delegate_all
   include Draper::LazyHelpers
 
+  decorates_association :rights
+
   def edit_group_button
     return unless current_user.admin
 

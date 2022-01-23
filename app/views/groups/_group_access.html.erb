@@ -1,7 +1,7 @@
 <h3>Kör hozzáférések</h3>
 
 <ul class="uk-list uk-list-divider">
-  <% group.rights.decorate.each do |right| %>
+  <% group.rights.each do |right| %>
     <li class="uk-clearfix uk-margin-remove-top">
       <div class="uk-float-left">
         <%= link_to right.user.name, user_path(right.user), class: 'uk-link-muted' %>

@@ -1,7 +1,7 @@
 <h3>Felhasználó hozzáférései</h3>
 
 <ul class="uk-list uk-list-divider">
-  <% user.rights.decorate.each do |right| %>
+  <% user.rights.each do |right| %>
     <li class="uk-clearfix uk-margin-remove-top">
       <div class="uk-float-left">
         <%= link_to right.group.name, edit_group_path(right.group), class: 'uk-link-muted' %>
