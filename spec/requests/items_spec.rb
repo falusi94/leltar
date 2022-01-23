@@ -153,14 +153,22 @@ describe 'Items' do
     include_examples 'without user redirects to login'
 
     context 'when the user has access to the group' do
-      it 'update it' do
-        login_admin
+      before { login_admin }
 
+      it 'updates it' do
         update_item
 
         item = Item.last
         expect(response).to redirect_to(item)
         expect(item).to have_attributes(name: 'New name')
+      end
+
+      context 'and the update param is set' do
+        it 'updates the status of the item' do
+          put "/items/#{item.id}", params: { item: { update: true, condition: 'end_of_life' } }
+
+          expect(Item.last).to be_condition_end_of_life.and have_attributes(last_check: be_present)
+        end
       end
     end
 

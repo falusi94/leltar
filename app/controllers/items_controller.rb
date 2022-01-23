@@ -41,9 +41,11 @@ class ItemsController < ApplicationController
     end
 
     ip = item_params
-    ip[:last_check] = DateTime.now if params[:update]
-    ip[:status] = params[:status] if params[:update]
-    ip[:condition] = params[:condition] if params[:update]
+    if params[:item][:update]
+      ip[:last_check] = DateTime.now
+      ip[:status]     = params[:item][:status]
+      ip[:condition]  = params[:item][:condition]
+    end
     return redirect_to @item, notice: t('success.edit') if @item.update(ip)
 
     render :edit
