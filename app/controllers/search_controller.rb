@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SearchController < ApplicationController
   before_action :require_admin
   before_action :set_groups
@@ -5,7 +7,7 @@ class SearchController < ApplicationController
   def index
     return redirect_to search_export_path(search_params) if params[:export_button]
 
-    @q = Item.ransack(search_params)
+    @q     = Item.ransack(search_params)
     @items = @q.result(distinct: true)
     @items = ItemDecorator.decorate_collection(@items.page(params[:page]))
   end
