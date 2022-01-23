@@ -9,8 +9,6 @@ class GroupsController < ApplicationController
     @groups = GroupDecorator.decorate_collection(@groups)
   end
 
-  def show; end
-
   def new
     @group = Group.new
   end
