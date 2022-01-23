@@ -1,38 +1,41 @@
+# frozen_string_literal: true
+
 class ItemDecorator < ApplicationDecorator
-  delegate_all
-  include Draper::LazyHelpers
   decorates_finders
 
   def photo
-    return image_tag('no_photo.gif', class: 'uk-align-right') unless item.photos.attached?
+    photo = if photos.attached?
+              photos.last.variant(resize: '600x600')
+            else
+              'no_photo.gif'
+            end
 
-    last_photo = photos.last.variant(resize: '600x600')
-    image_tag(last_photo, class: 'uk-align-right')
+    h.image_tag(photo, class: 'uk-align-right')
   end
 
   def compact_name
-    group_name = "(#{item.group.name})"
-    group_tag = content_tag(:span, group_name, class: 'uk-text-muted')
-    link_to "#{item.name} #{group_tag}".html_safe, item_path(item)
+    group_tag = h.content_tag(:span, class: 'uk-text-muted') { "(#{group.name})" }
+
+    h.link_to("#{item.name} #{group_tag}".html_safe, h.item_path(object))
   end
 
   def edit_button
-    return unless policy(group).write_items?
+    return unless h.policy(group).write_items?
 
-    link_to(edit_label, edit_item_path(item),
-            class: 'uk-button uk-button-secondary uk-button-small')
+    h.link_to(h.edit_label, h.edit_item_path(item),
+              class: 'uk-button uk-button-secondary uk-button-small')
   end
 
   def check_form
-    return unless policy(group).write_items?
+    return unless h.policy(object).update?
 
-    render 'items/check_form'
+    h.render 'items/check_form'
   end
 
   def parent_link
     return 'nincs' unless child?
 
-    link_to(parent.name, item_path(parent))
+    h.link_to(parent.name, h.item_path(parent))
   end
 
   def truncated_description
