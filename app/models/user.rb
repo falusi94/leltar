@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :rights
   has_many :groups, through: :rights
+  has_many :write_rights, -> { write }, class_name: 'Right'
 
   def read_groups
     return Group.all if admin || read_all_group
@@ -31,9 +32,7 @@ class User < ApplicationRecord
   def write_groups
     return Group.all if admin || write_all_group
 
-    Group.select do |group|
-      rights.any? { |right| right.group_id == group.id && right.write }
-    end
+    groups.where(id: write_rights.pluck(:group_id))
   end
 
   def self.digest(string)
