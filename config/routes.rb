@@ -26,9 +26,6 @@ Rails.application.routes.draw do
     resources :versions, only: :show, module: :items
   end
 
-  # Import routes
-  resources :import, only: %i[new edit create update]
-
   # Search routes
   resources :search, only: %i[index]
 

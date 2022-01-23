@@ -35,10 +35,6 @@ gem 'paper_trail'
 gem 'ransack'
 # Draper for decorating models
 gem 'draper'
-# Roo for importing from Google sheets
-gem 'roo', '~> 2.7.0'
-# For better date parsing
-gem 'chronic'
 # translate_enum for translating enums
 gem 'translate_enum'
 # Minimagick for ActiveStorage picture resizes
