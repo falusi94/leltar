@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def back_label
     create_label('arrow-left', t(:back))

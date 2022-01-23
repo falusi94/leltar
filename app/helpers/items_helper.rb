@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ItemsHelper
   def new_item_button
     if @group && policy(@group).write_items?
@@ -13,17 +15,7 @@ module ItemsHelper
     'Eszközök'
   end
 
-  def picture_new_url(item)
-    "/items/#{item.id}/photos"
-  end
-
   def version_link(id, ver)
     link_to(ver.created_at, item_version_path(id, ver.index))
-  end
-
-  def csv_link
-    return "/groups/#{@group}.csv" if @group
-
-    '/items.csv'
   end
 end
