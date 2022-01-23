@@ -12,6 +12,10 @@ class ItemPolicy < ApplicationPolicy
   alias destroy? edit?
   alias create?  edit?
 
+  def new?
+    user.admin || user.write_all_group || user.rights.any?(&:write)
+  end
+
   class Scope < Scope
     def resolve
       if user.admin || user.read_all_group

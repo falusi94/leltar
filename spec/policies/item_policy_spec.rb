@@ -35,6 +35,36 @@ describe ItemPolicy do
     it { is_expected.not_to permit_action(:create)  }
   end
 
+  describe '#new?' do
+    let(:item) { Item }
+
+    context 'when the user is admin' do
+      let(:user) { create(:admin) }
+
+      it { is_expected.to permit_action(:new) }
+    end
+
+    context 'when the user has access to all groups' do
+      let(:user) { create(:user, :write_all_group) }
+
+      it { is_expected.to permit_action(:new) }
+    end
+
+    context 'when the user has access to at least one group' do
+      let(:user) { create(:user) }
+
+      before { create(:write_right, user: user) }
+
+      it { is_expected.to permit_action(:new) }
+    end
+
+    context 'when the user has no access to any group' do
+      let(:user) { create(:user) }
+
+      it { is_expected.not_to permit_action(:new) }
+    end
+  end
+
   describe 'scope' do
     subject(:scope) { described_class::Scope.new(user, Item.all).resolve }
 

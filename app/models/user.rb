@@ -22,10 +22,6 @@ class User < ApplicationRecord
   has_many :rights
   has_many :groups, through: :rights
 
-  def can_edit_groups?
-    admin || write_all_group || rights.any?(&:write)
-  end
-
   def read_groups
     return Group.all if admin || read_all_group
 

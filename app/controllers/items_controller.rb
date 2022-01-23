@@ -16,6 +16,7 @@ class ItemsController < ApplicationController
   end
 
   def new
+    authorize(Item)
     return unauthorized_page if @groups.empty?
 
     @item = Item.new(group_id: params[:group_id] || @groups.first.id)
