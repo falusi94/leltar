@@ -1,6 +1,6 @@
 module ItemsHelper
   def new_item_button
-    if @group && current_user.can_write?(@group.id)
+    if @group && policy(@group).write_items?
       link_to(new_label, new_group_item_path, class: 'uk-button uk-button-primary uk-button-small')
     elsif current_user.can_edit_groups?
       link_to(new_label, new_item_path, class: 'uk-button uk-button-primary uk-button-small')

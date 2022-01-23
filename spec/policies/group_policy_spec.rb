@@ -56,4 +56,34 @@ describe GroupPolicy do
       it { is_expected.not_to permit_action(:read_items) }
     end
   end
+
+  describe '#write_items?' do
+    let(:group) { create(:group) }
+
+    context 'when the user is admin' do
+      let(:user) { create(:admin) }
+
+      it { is_expected.to permit_action(:write_items) }
+    end
+
+    context 'when the user has access to all groups' do
+      let(:user) { create(:user, :write_all_group) }
+
+      it { is_expected.to permit_action(:write_items) }
+    end
+
+    context 'when the user has access to the group' do
+      let(:user) { create(:user) }
+
+      before { create(:write_right, group: group, user: user) }
+
+      it { is_expected.to permit_action(:write_items) }
+    end
+
+    context 'when the user has no access to the group' do
+      let(:user) { create(:user) }
+
+      it { is_expected.not_to permit_action(:write_items) }
+    end
+  end
 end

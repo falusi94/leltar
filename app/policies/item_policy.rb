@@ -6,7 +6,7 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.can_write?(record.group_id)
+    Pundit.policy(user, record.group).write_items?
   end
   alias update?  edit?
   alias destory? edit?

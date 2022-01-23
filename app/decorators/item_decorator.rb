@@ -17,14 +17,14 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def edit_button
-    return unless current_user.can_write?(group.id)
+    return unless policy(group).write_items?
 
     link_to(edit_label, edit_item_path(item),
             class: 'uk-button uk-button-secondary uk-button-small')
   end
 
   def check_form
-    return unless current_user.can_write?(group.id)
+    return unless policy(group).write_items?
 
     render 'items/check_form'
   end

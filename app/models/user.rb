@@ -22,10 +22,6 @@ class User < ApplicationRecord
   has_many :rights
   has_many :groups, through: :rights
 
-  def can_write?(group_id)
-    admin || write_all_group || rights.write.exists?(group_id: group_id)
-  end
-
   def can_edit_groups?
     admin || write_all_group || rights.any?(&:write)
   end

@@ -24,4 +24,8 @@ class GroupPolicy < ApplicationPolicy
   def read_items?
     user.admin || user.read_all_group || user.rights.exists?(group: record)
   end
+
+  def write_items?
+    user.admin || user.write_all_group || user.rights.write.exists?(group: record)
+  end
 end
