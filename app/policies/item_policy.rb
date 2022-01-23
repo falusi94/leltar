@@ -9,7 +9,8 @@ class ItemPolicy < ApplicationPolicy
     Pundit.policy(user, record.group).write_items?
   end
   alias update?  edit?
-  alias destory? edit?
+  alias destroy? edit?
+  alias create?  edit?
 
   class Scope < Scope
     def resolve

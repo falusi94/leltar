@@ -18,37 +18,38 @@ class ItemsController < ApplicationController
   def new
     return unauthorized_page if @groups.empty?
 
-    @item = Item.new
-    @item.group = params[:group_id] ? Group.find(params[:group_id]) : @groups[0]
+    @item = Item.new(group_id: params[:group_id] || @groups.first.id)
   end
 
   def edit; end
 
   def create
     @item = Item.new(item_params)
-    unless current_user.can_write?(item_params[:group_id].to_i)
-      return redirect_back fallback_location: root_path, alert: t(:no_permission)
+
+    authorize(@item)
+
+    if @item.save
+      redirect_to @item, notice: t('success.create')
+    else
+      render :new
     end
-
-    return redirect_to @item, notice: t('success.create') if @item.save
-
-    render :new
   end
 
   def update
-    unless current_user.can_write?(item_params[:group_id].to_i)
-      return redirect_back fallback_location: root_path, alert: t(:no_permission)
-    end
+    @item.attributes = item_params
 
-    ip = item_params
+    authorize(@item) # Check if the new group is also accessible by the user
+
     if params[:item][:update]
-      ip[:last_check] = DateTime.now
-      ip[:status]     = params[:item][:status]
-      ip[:condition]  = params[:item][:condition]
+      @item.attributes = params.require(:item).permit(:status, :condition)
+      @item.last_check = Time.zone.today
     end
-    return redirect_to @item, notice: t('success.edit') if @item.update(ip)
 
-    render :edit
+    if @item.save
+      redirect_to @item, notice: t('success.edit')
+    else
+      render :edit
+    end
   end
 
   def destroy

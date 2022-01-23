@@ -5,16 +5,34 @@ describe ItemPolicy do
 
   let(:item) { build_stubbed(:item) }
 
-  context 'when the user is admin' do
-    let(:user) { build_stubbed(:admin) }
+  context 'when the user has write access to the group' do
+    let(:user) { build_stubbed(:user, :write_all_group) }
 
-    it { is_expected.to permit_action(:edit) }
+    it { is_expected.to permit_action(:show)    }
+    it { is_expected.to permit_action(:edit)    }
+    it { is_expected.to permit_action(:update)  }
+    it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:create)  }
   end
 
-  context 'when the user is not admin' do
+  context 'when the user has read access to the group' do
+    let(:user) { build_stubbed(:user, :read_all_group) }
+
+    it { is_expected.to permit_action(:show)        }
+    it { is_expected.not_to permit_action(:edit)    }
+    it { is_expected.not_to permit_action(:update)  }
+    it { is_expected.not_to permit_action(:destroy) }
+    it { is_expected.not_to permit_action(:create)  }
+  end
+
+  context 'when the user has no access to the group' do
     let(:user) { build_stubbed(:user) }
 
-    it { is_expected.to forbid_action(:edit) }
+    it { is_expected.not_to permit_action(:show)    }
+    it { is_expected.not_to permit_action(:edit)    }
+    it { is_expected.not_to permit_action(:update)  }
+    it { is_expected.not_to permit_action(:destroy) }
+    it { is_expected.not_to permit_action(:create)  }
   end
 
   describe 'scope' do

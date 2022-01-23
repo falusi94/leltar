@@ -140,7 +140,7 @@ describe 'Items' do
 
         expect { create_item }.not_to change(Item, :count)
 
-        expect(response).to redirect_to('/')
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end
