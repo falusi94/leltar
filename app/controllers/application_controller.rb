@@ -14,10 +14,6 @@ class ApplicationController < ActionController::Base
     @write_groups = current_user.write_groups
   end
 
-  def require_admin
-    return unauthorized_page unless current_user.admin
-  end
-
   def current_user
     @current_user ||= session[:user_id] && User.find(session[:user_id])
   end
