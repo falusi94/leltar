@@ -9,7 +9,7 @@ gem 'rails', '~> 6.1.4.4'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pg'
-gem 'puma', '~> 3.12'
+gem 'puma'
 
 gem 'mini_racer', platforms: :ruby
 gem 'sass-rails'
