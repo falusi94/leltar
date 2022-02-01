@@ -4,7 +4,7 @@ describe 'Invoices' do
   describe 'create invoice' do
     subject(:create_invoice) { post "/items/#{item.id}/invoice", params: { photo: photo } }
 
-    let(:photo) { fixture_file_upload('files/dot.jpg', 'image/jpg') }
+    let(:photo) { fixture_file_upload('dot.jpg', 'image/jpg') }
     let(:item)  { create(:item) }
 
     include_examples 'without user redirects to login'
