@@ -7,7 +7,7 @@ ruby '~> 2.6.8'
 
 gem 'rails', '~> 6.1.4.4'
 
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', require: false
 gem 'pg'
 gem 'puma'
 
