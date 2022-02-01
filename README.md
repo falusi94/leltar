@@ -7,7 +7,7 @@ Simple inventory management system built on Ruby on Rails. It can easily manage 
 **Disclaimer**: this is an abandoned project w/o any vision, so I decided to get it into shape & convert it to a playground.
 
 ## System requirements
-* Ruby 2.6.8 ([asdf-vm](https://asdf-vm.com/#/core-manage-asdf-vm) and [asdf-ruby](https://github.com/asdf-vm/asdf-ruby))
+* Ruby 2.7.4 ([asdf-vm](https://asdf-vm.com/#/core-manage-asdf-vm) and [asdf-ruby](https://github.com/asdf-vm/asdf-ruby))
 * PostgreSQL
 
 OR
