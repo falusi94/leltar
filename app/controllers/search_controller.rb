@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SearchController < ApplicationController
-  before_action :require_admin
+  before_action -> { authorize(Item, :search?) }
   before_action :set_groups
 
   def index

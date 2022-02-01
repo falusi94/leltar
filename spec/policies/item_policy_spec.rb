@@ -65,6 +65,22 @@ describe ItemPolicy do
     end
   end
 
+  describe '#search?' do
+    let(:item) { Item }
+
+    context 'when the user is admin' do
+      let(:user) { build_stubbed(:admin) }
+
+      it { is_expected.to permit_action(:search) }
+    end
+
+    context 'when the user has access to all groups' do
+      let(:user) { build_stubbed(:user) }
+
+      it { is_expected.to forbid_action(:search) }
+    end
+  end
+
   describe 'scope' do
     subject(:scope) { described_class::Scope.new(user, Item.all).resolve }
 

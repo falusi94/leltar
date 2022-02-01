@@ -16,6 +16,10 @@ class ItemPolicy < ApplicationPolicy
     user.admin || user.write_all_group || user.rights.any?(&:write)
   end
 
+  def search?
+    user.admin
+  end
+
   class Scope < Scope
     def resolve
       if user.admin || user.read_all_group
