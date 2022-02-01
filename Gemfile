@@ -64,8 +64,6 @@ group :development do
   # Read more: https://github.com/rails/spring
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
