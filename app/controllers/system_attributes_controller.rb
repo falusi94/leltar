@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SystemAttributesController < ApplicationController
-  before_action :require_admin
+  before_action -> { authorize(SystemAttribute) }
 
   def edit
     set_system_attributes
