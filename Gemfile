@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '~> 2.7.4'
 
-gem 'rails', '~> 6.1.4.4'
+gem 'rails', '~> 7.0.1'
 
 gem 'bootsnap', require: false
 gem 'pg'
@@ -33,7 +33,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
+  gem 'annotate', github: 'dabit/annotate_models', ref: '4582f874790d44a26286a06e052950e15eefddeb'
 
   gem 'better_errors'
   gem 'binding_of_caller'
