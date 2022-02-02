@@ -4,7 +4,7 @@ describe 'Photos' do
   describe 'create photo' do
     subject(:create_photo) { post "/items/#{item.id}/photos", params: { photo: photo } }
 
-    let(:photo) { fixture_file_upload('dot.jpg', 'image/jpg') }
+    let(:photo) { fixture_file_upload('dot.jpg', 'image/jpeg') }
     let(:item) { create(:item) }
 
     include_examples 'without user redirects to login'
