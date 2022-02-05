@@ -18,12 +18,15 @@
 }
 
 @media only screen and (max-width : 960px) {
-  nav {
+  .main-navbar {
     height: 50px !important;
+
+    .uk-navbar-toggle {
+      min-height: 50px;
+    }
   }
 }
 
 .uk-accordion-title {
   border-bottom: 2px #eee solid;
-  //box-shadow: 0 1px rgba(0, 0, 0, 0.1), 0 3px rgba(0, 0, 0, 0.09) !important;
 }
