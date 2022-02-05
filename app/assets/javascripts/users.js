@@ -28,4 +28,4 @@ var user = (function () {
   return module;
 }());
 
-document.addEventListener('DOMContentLoaded', user.init)
+document.documentElement.addEventListener('turbo:load', user.init)

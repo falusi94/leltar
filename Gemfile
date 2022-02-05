@@ -25,8 +25,10 @@ gem 'json', '>= 2.0.0'
 gem 'kaminari'
 gem 'paper_trail'
 gem 'pundit'
+gem 'redis'
 gem 'ransack'
 gem 'translate_enum'
+gem 'turbo-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri

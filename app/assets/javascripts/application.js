@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require rails-ujs
+//= require @hotwired/turbo/dist/turbo.es2017-umd.js
 //= require uikit/dist/js/uikit.min
 //= require uikit/dist/js/uikit-icons.min
 //= require_tree .
