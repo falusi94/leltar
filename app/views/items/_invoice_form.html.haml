@@ -1,6 +1,6 @@
 - if @item.invoice.attached?
   .uk-inline
-    = image_tag @item.invoice.variant(resize: '1000x1000')
+    = image_tag @item.invoice.variant(resize_to_limit: [1000, 1000])
     .uk-overlay.uk-position-top
       .uk-position-right
         = form_tag item_invoice_path(@item), method: :delete do

@@ -37,8 +37,8 @@ gem 'ransack'
 gem 'draper'
 # translate_enum for translating enums
 gem 'translate_enum'
-# Minimagick for ActiveStorage picture resizes
-gem 'mini_magick'
+# Image processing for ActiveStorage picture resizes
+gem 'image_processing'
 
 gem 'pundit'
 

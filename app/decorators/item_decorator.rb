@@ -5,7 +5,7 @@ class ItemDecorator < ApplicationDecorator
 
   def photo
     photo = if photos.attached?
-              photos.last.variant(resize: '600x600')
+              photos.last.variant(resize_to_fit: [600, 600])
             else
               'no_photo.gif'
             end

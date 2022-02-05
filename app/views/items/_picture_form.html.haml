@@ -3,7 +3,7 @@
     - @item.photos.each do |photo|
       %li
         .uk-inline
-          = image_tag photo.variant(resize: '1000x1000')
+          = image_tag photo.variant(resize_to_fit: [1000, 1000])
           .uk-overlay.uk-position-top
             .uk-position-right
               = form_tag item_photo_path(@item, photo.id), method: :delete do
