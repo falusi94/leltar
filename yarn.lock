@@ -8,6 +8,6 @@ jquery@^3.5.0:
   integrity sha512-Xb7SVYMvygPxbFMpTFQiHh1J7HClEaThguL15N/Gg37Lri/qKyhRGZYzHRyLH8Stq3Aow0LsHO2O2ci86fCrNQ==
 
 uikit@^3.0.0-rc.20:
-  version "3.0.0-rc.20"
-  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.0.0-rc.20.tgz#28623e939ec301ccef0a5d4d5f14ead3aa1ea8c0"
-  integrity sha512-LJvZkAHa0xM8JbrRDBUR3EiAYquqjIe638XSNisVvpnBamrJkj67TFOrSLUJbHFj3akMX4F28EJp5vV5MDEdPA==
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.10.1.tgz#8862555d8e2e4faf9d4de834d37cab1c41ffe2a4"
+  integrity sha512-aUSO+NIb9EVLoWWWYRDlthB0om6jLTWJ/Qhx3mbXKCW2TKGtWGsrdZdlQKAWRHsz/eeog9Eg89DOPtg5ZuMwoA==
