@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "jquery": "^3.5.0",
     "uikit": "^3.0.0-rc.20"
   }
 }

@@ -28,4 +28,4 @@ var user = (function () {
   return module;
 }());
 
-$(document).ready(user.init);
+document.addEventListener('DOMContentLoaded', user.init)
