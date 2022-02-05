@@ -4,10 +4,9 @@ class ItemsController < ApplicationController
   before_action -> { authorize(@item) }, only: %i[show edit update destroy]
 
   def index
-    @search_path = request.path
-    @group       = Group.find(params[:group_id]) if params[:group_id]
+    @group = Group.find(params[:group_id]) if params[:group_id]
 
-    @items       = ItemDecorator.decorate_collection(items.page)
+    @items = ItemDecorator.decorate_collection(items.page)
   end
 
   def show

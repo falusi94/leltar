@@ -1,6 +1,7 @@
+- search_path = params[:group_id] ? group_items_path(group_id: params[:group_id]) : items_path
 .uk-navbar-center
   .uk-navbar-item
-    = form_tag @search_path, method: :get, class: 'uk-form uk-width-1-1', id: 'search-form' do
+    = form_tag search_path, method: :get, class: 'uk-form uk-width-1-1', id: 'search-form' do
       = text_field_tag :query, params[:query], placeholder: 'Keresés (írj be !-et teljes egyezés kereséséhez)',
         class: 'uk-input uk-width-1-1', autofocus: ''
       = button_tag class: 'uk-button uk-button-secondary' do
