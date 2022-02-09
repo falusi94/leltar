@@ -4,5 +4,7 @@ import "@hotwired/turbo"
 import UIkit from "uikit"
 import UIkitIcons from 'uikit/dist/js/uikit-icons'
 
+import './controllers'
+
 window.UIkit = UIkit
 UIkit.use(UIkitIcons)
