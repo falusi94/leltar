@@ -1,6 +1,11 @@
 {
   "dependencies": {
     "@hotwired/turbo-rails": "^7.1.1",
+    "esbuild": "^0.14.20",
     "uikit": "^3.0.0-rc.20"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds '--define:process.env.NODE_ENV=\"production\"' --minify",
+    "build-dev": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds"
   }
 }

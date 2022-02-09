@@ -11,6 +11,7 @@ gem 'bootsnap', require: false
 gem 'pg'
 gem 'puma'
 
+gem 'jsbundling-rails'
 gem 'mini_racer', platforms: :ruby
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
