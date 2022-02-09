@@ -14,6 +14,7 @@ gem 'puma'
 gem 'jsbundling-rails'
 gem 'mini_racer', platforms: :ruby
 gem 'sass-rails'
+gem 'stimulus-rails'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'bcrypt', '~> 3.1.7'
