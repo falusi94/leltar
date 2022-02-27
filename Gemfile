@@ -37,7 +37,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate', github: 'dabit/annotate_models', ref: '4582f874790d44a26286a06e052950e15eefddeb'
+  gem 'annotate'
 
   gem 'better_errors'
   gem 'binding_of_caller'
