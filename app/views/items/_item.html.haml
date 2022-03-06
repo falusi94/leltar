@@ -13,14 +13,12 @@
       .uk-width-expand
         = item.description
       %div{:style => "width: 200px"}
-        %div
-          Vásárolva: #{item.purchase_date}
-        %div
-          Ellenőrizve: #{item.last_check}
+        %div.uk-text-nowrap="#{Item.human_attribute_name(:purchase_date)}: #{item.purchase_date}"
+        %div.uk-text-nowrap="#{Item.human_attribute_name(:last_check)}: #{item.last_check}"
   %div{:class => "uk-visible@m", :style => "width: 110px"}
     = item.photo
   - if item.parent?
     .uk-width-1-1
       .uk-text-bold
-        Gyerekek:
+        =Item.human_attribute_name(:children)
       = render 'children', item: item

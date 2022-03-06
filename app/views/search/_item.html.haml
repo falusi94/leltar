@@ -11,5 +11,5 @@
   - if item.parent?
     .uk-width-1-1
       .uk-text-bold
-        Gyerekek:
+        =Item.human_attribute_name(:children)
       = render 'items/children', item: item

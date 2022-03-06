@@ -33,7 +33,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def parent_link
-    return 'nincs' unless child?
+    return h.t('form.item.parent_missing') unless child?
 
     h.link_to(parent.name, h.item_path(parent))
   end

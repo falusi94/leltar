@@ -18,7 +18,7 @@ describe 'Sessions' do
         expect(response).to have_http_status(:found).and redirect_to('/session/new')
         follow_redirect!
 
-        expect(response.body).to include('Hibás bejelentkezési adatok')
+        expect(flash[:alert]).to include(I18n.t(:invalid_credentials))
       end
     end
 

@@ -2,23 +2,23 @@
 
 module ApplicationHelper
   def back_label
-    create_label('arrow-left', t(:back))
+    create_label('arrow-left', t('form.actions.back'))
   end
 
   def list_label
-    create_label('menu', t(:list_all))
+    create_label('menu', t('form.actions.list_all'))
   end
 
   def edit_label
-    create_label('pencil', t(:edit))
+    create_label('pencil', t('form.actions.edit'))
   end
 
   def new_label
-    create_label('plus', t(:add))
+    create_label('plus', t('form.actions.add'))
   end
 
   def delete_label
-    create_label('trash', t(:delete))
+    create_label('trash', t('form.actions.delete'))
   end
 
   private

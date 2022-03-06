@@ -10,9 +10,11 @@ module ItemsHelper
   end
 
   def items_page_title
-    return "#{@group.name} eszközei" if @group
-
-    'Eszközök'
+    if @group
+      "Item(s) of #{@group.name}"
+    else
+      "Item(s)"
+    end
   end
 
   def version_link(id, ver)

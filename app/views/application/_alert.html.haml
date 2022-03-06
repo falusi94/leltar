@@ -2,8 +2,7 @@
   .uk-alert-danger{"uk-alert" => ""}
     %a.uk-alert-close{"uk-close" => ""}
     %h2.uk-margin-remove
-      = errors.count
-      hiba történt mentés során
+      = t(:error_count, count: errors.count)
     %ul.uk-list.uk-list-bullet.uk-margin-remove
       - errors.full_messages.each do |message|
         %li= message

@@ -13,7 +13,7 @@ class GroupDecorator < ApplicationDecorator
   def delete_group_button
     return unless h.policy(object).destroy?
 
-    h.link_to(h.delete_label, object, method: :delete, data: { confirm: h.t(:are_you_sure_to_delete) },
+    h.link_to(h.delete_label, object, method: :delete, data: { confirm: h.t('form.actions.are_you_sure') },
                                       class: 'uk-button uk-button-danger')
   end
 end

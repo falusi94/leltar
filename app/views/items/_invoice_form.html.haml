@@ -6,12 +6,11 @@
         = form_tag item_invoice_path(@item), method: :delete do
           %a.uk-icon-link.photo-delete.uk-overlay-default.uk-padding-small{:href => "javascript:{}", :onclick => "this.parentElement.submit();", "uk-icon" => "trash"}
 - else
-  .uk-text-center.uk-margin
-    Nincs még számla
+  .uk-text-center.uk-margin=t('form.invoice.missing')
   = form_tag item_invoice_path(@item), method: :post, multipart: true, class: 'uk-form-horizontal' do |f|
     .uk-margin
-      = label_tag :photo, 'Számla feltöltése', class: 'uk-form-label'
+      = label_tag :photo, Item.human_attribute_name('invoice.photo'), class: 'uk-form-label'
       .uk-form-controls
-        = file_field_tag :photo, accept: :'image/*'
+        = file_field_tag :photo, accept: 'image/*'
     .uk-width-1-1
-      = submit_tag t(:upload), class: 'uk-button uk-button-primary uk-align-center'
+      = submit_tag t('form.actions.upload'), class: 'uk-button uk-button-primary uk-align-center'

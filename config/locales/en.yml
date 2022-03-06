@@ -1,33 +1,91 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  title: 'Inventory system'
+  unauthorized: 'You are not authorized for this action!'
+  invalid_credentials: 'Invalid credentials'
+  error_count: '%{count} error(s) happened during save'
+  navigation:
+    groups: Groups
+    users: Users
+    search: Advanced search
+    status: Status
+    my_profile: Profile
+    logout: Logout
+    login: Login
+  success:
+    edit: Successfully edited!
+    created: Successfully created!
+    deleted: Successfully deleted!
+  form:
+    title:
+      edit: 'Edit %{thing}'
+      new: 'New %{thing}'
+    actions:
+      add: Add
+      edit: Edit
+      back: Back
+      list_all: List all
+      delete: Delete
+      upload: Upload
+      save: Save
+      sign_in: Sign in
+      are_you_sure: Are you sure?
+    group:
+      rights:
+        title: User accesses
+    right:
+      edit: Edit access
+      read: Read access
+    item:
+      update_status: Update status
+      update_status_info: By ticking this option, the status will be updated along with the last check timestamp
+      photo_missing: No photo
+      search: Search
+      upload: Upload
+      parent_missing: No parent
+    invoice:
+      missing: No invoice is attached
+    search:
+      fields: Search fields
+      results: Search results
+  papertrail:
+    versions: Version(s)
+    current: Current
+  status:
+    overall_progress: Overall progress
+    checked_since: 'Checked items since %{since}'
+    no_items: Number of items
+    no_available_items: Number of available items
+    no_available_items_description: Number of items that are not scrapped nor waiting for scrapping and not lost.
+    no_checked_items: Number of checked items
+    no_items_outside_of_inventory: Number of items outside of inventory
+  activerecord:
+    attributes:
+      user:
+        rights: User accesses
+      right:
+        write: Write access
+      item:
+        number: Count
+        at_who: Responsible
+        serial: Serial number
+        status_list:
+          ok: OK
+          waiting_for_repair: Waiting for repair
+          waiting_for_scrapping: Waiting for scrapping
+          scrapped: Scrapped
+          not_found: Missing
+          at_group_member: At someone
+          other: Other
+        condition_list:
+          ok: In good condition
+          used: Used
+          end_of_life: EOL
+          not_working: Not functioning
+        accountancy_state_list:
+          new: New
+          invoice_turned: Invoice turned
+          in_register: In register
+      item/group:
+        name: Group name
+      item/invoice:
+        photo: Invoice image

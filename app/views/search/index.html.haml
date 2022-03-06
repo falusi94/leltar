@@ -1,12 +1,12 @@
 .uk-container
-  %h1 Keresés
+  %h1= t('navigation.search')
   %ul{"uk-accordion" => ""}
     %li
-      %a.uk-accordion-title{:href => "#"} Keresési mezők
+      %a.uk-accordion-title{:href => "#"}= t('form.search.fields')
       .uk-accordion-content
         .uk-align-center
           = render 'search_form'
-      %h2 Keresés eredmények
+      %h2= t('form.search.results')
       .uk-clearfix
         .uk-float-right
           = paginate @items

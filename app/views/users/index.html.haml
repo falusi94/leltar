@@ -1,7 +1,7 @@
 .uk-container
   .uk-clearfix
     .uk-float-left
-      %h1= t 'activerecord.models.user.other'
+      %h1= t('navigation.users')
     .uk-float-right.uk-padding-small
       = link_to new_label, new_user_path, class: 'uk-button uk-button-primary uk-button-small'
   .uk-clearfix
@@ -16,5 +16,5 @@
         .uk-float-right
           = link_to edit_label, edit_user_path(user), class: 'uk-button uk-button-secondary'
           = link_to delete_label, user, method: :delete,
-            data: { confirm: t(:are_you_sure_to_delete) },
+            data: { confirm: t('form.actions.are_you_sure') },
             class: 'uk-button uk-button-danger '

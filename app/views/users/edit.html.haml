@@ -1,7 +1,7 @@
 .uk-container
   .uk-clearfix
     .uk-float-left
-      %h1= t :edit_thing, thing: @user.name
+      %h1.uk-margin-small-top=t('form.title.edit', thing: @user.name)
     .uk-float-right.uk-padding-small
       - if current_user.admin
         = link_to back_label, users_path, class: 'uk-button uk-button-default uk-button-small'

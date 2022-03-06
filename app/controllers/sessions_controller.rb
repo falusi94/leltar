@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       return redirect_to redirect_url
     end
-    redirect_to new_session_path, redirect: redirect_url, alert: 'Hibás bejelentkezési adatok'
+    redirect_to new_session_path, redirect: redirect_url, alert: t(:invalid_credentials)
   end
 
   def destroy

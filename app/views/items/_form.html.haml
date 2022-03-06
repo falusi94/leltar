@@ -1,7 +1,7 @@
 = form_for item, html: {class: 'uk-form-horizontal', multipart: true} do |f|
   = render 'alert', errors: item.errors
   .uk-margin
-    = f.label :name, 'Név', class: 'uk-form-label'
+    = f.label :name, class: 'uk-form-label'
     .uk-form-controls
       = f.text_field :name, class: 'uk-input uk-form-small'
   .uk-margin
@@ -9,18 +9,15 @@
     .uk-form-controls
       = f.text_field :specific_name, class: 'uk-input uk-form-small'
   .uk-margin
-    = f.label :number, 'Darabszám', class: 'uk-form-label'
+    = f.label :number, class: 'uk-form-label'
     .uk-form-controls
       = f.number_field :number, class: 'uk-input uk-form-small'
   - unless @item.parent?
     .uk-margin
-      = f.label :parent_id, 'Szülő eszköz', class: 'uk-form-label'
+      = f.label :parent_id, class: 'uk-form-label'
       .uk-form-controls
         - options = options_from_collection_for_select(parent_item_candidates, :id, :compact_name, @item.parent&.id)
         = f.select :parent_id, options, {include_blank: true}, {class: 'uk-select uk-form-small'}
-    - if @item.new_record?
-      .uk-text-muted.uk-text-small
-        Figyelem! Mivel létrehozás során nem ismert az eszköz köre, így itt minden kör lehetséges szülőeszköze listázásra kerül. Amennyiben a kettő eszköz köre eltér, validációs hiba lép fel.
   .uk-margin
     = f.label :group_id, class: 'uk-form-label'
     .uk-form-controls
@@ -75,9 +72,9 @@
     = f.label :comment, class: 'uk-form-label'
     .uk-form-controls
       = f.text_field :comment, class: 'uk-input uk-form-small'
-  %h3 Státusz frissítése
+  %h3=t('form.item.update_status')
   .uk-text-muted.uk-text-small.uk-text-justify
-    Amennyiben ez az opció be van pipálva, az eszköz státusza és az utolsó ellenőrzés dátuma is módosulni fog a mentés során, méghozzá a jelenlegi időbélyeggel.
+    =t('form.item.update_status_info')
   .uk-margin
     = f.label :status, class: 'uk-form-label uk-h3'
     .uk-form-controls
@@ -96,10 +93,10 @@
     .uk-margin
       = f.label :photo, class: 'uk-form-label'
       .uk-form-controls
-        = f.file_field :photo, accept: :'image/*'
+        = f.file_field :photo, accept: 'image/*'
     .uk-margin
       = f.label :invoice, class: 'uk-form-label'
       .uk-form-controls
-        = f.file_field :invoice, accept: :'image/*'
+        = f.file_field :invoice, accept: 'image/*'
   .uk-width-1-1
-    = f.submit t(:save), class: 'uk-button uk-button-primary uk-align-center'
+    = f.submit class: 'uk-button uk-button-primary uk-align-center'

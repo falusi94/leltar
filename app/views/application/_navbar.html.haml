@@ -5,25 +5,25 @@
         = t(:title)
       %ul.uk-navbar-nav
         %li
-          = link_to 'Körök', groups_path
+          = link_to t('navigation.groups'), groups_path
         - if current_user.admin
           %li
             %a{:href => "#", "uk-icon" => "chevron-down"} Admin
             .uk-navbar-dropdown{"uk-dropdown" => "mode: click; offset: -15"}
               %ul.uk-nav.uk-navbar-dropdown-nav
                 %li
-                  = link_to 'Felhasználók', users_path
+                  = link_to t('navigation.users'), users_path
                 %li
-                  = link_to 'Összetett keresés', search_index_path
+                  = link_to t('navigation.search'), search_index_path
                 %li
-                  = link_to 'Státusz', status_index_path
+                  = link_to t('navigation.status'), status_index_path
     = render 'search'
     .uk-navbar-right
       %ul.uk-navbar-nav
         %li
-          = link_to 'Profilom', edit_user_path(current_user)
+          = link_to t('navigation.my_profile'), edit_user_path(current_user)
         %li
-          = link_to 'Kijelentkezés', destroy_session_path, method: :get
+          = link_to t('navigation.logout'), destroy_session_path, method: :get
   %nav.uk-navbar-container.main-navbar.uk-light.uk-sticky{:class => "uk-hidden@m", "uk-navbar" => ""}
     .uk-navbar-left.nav-overlay
       %a.uk-navbar-toggle{"uk-navbar-toggle-icon" => "", "uk-toggle" => "target: #offcanvas-nav-primary"}
@@ -42,17 +42,17 @@
         %h2= t(:title)
         %li.uk-nav-divider
         %li
-          = link_to 'Körök', groups_path
+          = link_to t('navigation.groups'), groups_path
         - if current_user.admin
           %li.uk-nav-divider
           %li
-            = link_to 'Felhasznalók', users_path
+            = link_to t('navigation.users'), users_path
           %li
-            = link_to 'Összetett keresés', search_index_path
+            = link_to t('navigation.search'), search_index_path
           %li
-            = link_to 'Státusz', status_index_path
+            = link_to t('navigation.status'), status_index_path
         %li.uk-nav-divider
         %li
-          = link_to 'Profilom', edit_user_path(current_user)
+          = link_to t('navigation.my_profile'), edit_user_path(current_user)
         %li
-          = link_to 'Kijelentkezés', destroy_session_path, method: :get
+          = link_to t('navigation.logout'), destroy_session_path, method: :get

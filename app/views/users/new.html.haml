@@ -1,7 +1,7 @@
 .uk-container
   .uk-clearfix
     .uk-float-left
-      %h1= t :new, thing: t('activerecord.models.user.one')
+      %h1.uk-margin-small-top=t('form.title.new', thing: User.model_name.human)
     .uk-float-right.uk-padding-small
       = link_to back_label, users_path, class: 'uk-button uk-button-default uk-button-small'
   .uk-align-center{:class => "uk-width-2-3@m"}
