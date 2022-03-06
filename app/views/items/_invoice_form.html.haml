@@ -3,8 +3,9 @@
     = image_tag @item.invoice.variant(resize_to_limit: [1000, 1000])
     .uk-overlay.uk-position-top
       .uk-position-right
-        = form_tag item_invoice_path(@item), method: :delete do
-          %a.uk-icon-link.photo-delete.uk-overlay-default.uk-padding-small{:href => "javascript:{}", :onclick => "this.parentElement.submit();", "uk-icon" => "trash"}
+        = link_to '', item_invoice_path(@item), method: :delete, 'uk-icon' => 'trash',
+          class: 'uk-icon-link photo-delete uk-overlay-default uk-padding-small uk-text-danger',
+          data: { confirm: t('form.actions.are_you_sure') }
 - else
   .uk-text-center.uk-margin=t('form.invoice.missing')
   = form_tag item_invoice_path(@item), method: :post, multipart: true, class: 'uk-form-horizontal' do |f|

@@ -6,8 +6,9 @@
           = image_tag photo.variant(resize_to_fit: [1000, 1000])
           .uk-overlay.uk-position-top
             .uk-position-right
-              = form_tag item_photo_path(@item, photo.id), method: :delete do
-                %a.uk-icon-link.photo-delete.uk-overlay-default.uk-padding-small{:href => "javascript:{}", :onclick => "this.parentElement.submit();", "uk-icon" => "trash"}
+              = link_to '', item_photo_path(@item, photo.id), method: :delete, 'uk-icon' => 'trash',
+                class: 'uk-icon-link photo-delete uk-overlay-default uk-padding-small uk-text-danger',
+                data: { confirm: t('form.actions.are_you_sure') }
 - else
   .uk-text-center.uk-margin
     =t('form.item.photo_missing')
