@@ -29,6 +29,26 @@ describe Item do
     end
   end
 
+  describe '.not_a_child' do
+    subject(:items) { described_class.not_a_child }
+
+    context 'when the item has a parent' do
+      it 'does not include it' do
+        item = create(:item, :with_parent)
+
+        expect(items).not_to include(item)
+      end
+    end
+
+    context 'when the item has a child' do
+      it 'includes it' do
+        item = create(:item, :with_child)
+
+        expect(items).to include(item)
+      end
+    end
+  end
+
   describe 'validation of purchase_date' do
     context 'when it is in the future' do
       subject { build(:item, purchase_date: 1.day.from_now) }

@@ -84,6 +84,7 @@ class Item < ApplicationRecord
     photos.attach(photo) if photo
   end
 
+  scope :not_a_child, -> { where(parent_id: nil) }
   scope :existing, lambda {
     where('items.status in (?) or items.status is null', %i[ok waiting_for_repair at_group_member other])
   }
