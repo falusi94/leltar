@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import AccessCheckboxController from "./access_checkbox_controller.js"
 application.register("access-checkbox", AccessCheckboxController)
+
+import FilterController from "./filter_controller.js"
+application.register("filter", FilterController)

@@ -18,7 +18,7 @@
   %div{:class => "uk-visible@m", :style => "width: 110px"}
     = item.photo
   - if item.parent?
-    .uk-width-1-1
+    .uk-width-1-1{'data-filter-target': 'filterable'}
       .uk-text-bold
         =Item.human_attribute_name(:children)
       = render 'children', item: item
