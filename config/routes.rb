@@ -19,8 +19,8 @@ Rails.application.routes.draw do
 
   # Items routes
   resources :items do
-    resources :photos, only: %i[create destroy]
-    resource :invoice, only: %i[create destroy]
+    resources :photos, only: %i[create destroy], module: :items
+    resource :invoice, only: %i[create destroy], module: :items
 
     resource :status_check, only: :create, module: :items
     resources :versions, only: :show, module: :items
