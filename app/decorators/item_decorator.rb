@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ItemDecorator < ApplicationDecorator
+  decorates_association :children, with: ItemDecorator
+
   decorates_finders
 
   def photo

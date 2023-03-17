@@ -3,7 +3,6 @@
     %li
       %a.uk-accordion-title{:href => "#"}= child.name
       .uk-accordion-content{"uk-grid" => ""}
-        - child = ItemDecorator.decorate(child)
         .uk-width-expand
           .uk-width-1-1.uk-clearfix
             .uk-float-left
