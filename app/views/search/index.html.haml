@@ -11,5 +11,4 @@
         .uk-float-right
           = paginate @items
       %ul.uk-list.uk-list-divider
-        - @items.each do |item|
-          = render 'item', item: item
+        = render partial: 'item', collection: @items
