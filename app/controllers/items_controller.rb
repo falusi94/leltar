@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
   before_action :set_item, except: %i[index new create]
   before_action :set_groups, only: %i[new edit create update]

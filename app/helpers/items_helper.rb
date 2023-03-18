@@ -13,7 +13,7 @@ module ItemsHelper
     if @group
       "Item(s) of #{@group.name}"
     else
-      "Item(s)"
+      'Item(s)'
     end
   end
 
