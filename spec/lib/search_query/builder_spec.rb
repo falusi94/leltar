@@ -10,7 +10,7 @@ describe SearchQuery::Builder do
 
         result = described_class.run('TEST', fields: [:name], scope: scope)
 
-        expect(result).to include user
+        expect(result).to include(user)
       end
     end
 
@@ -20,7 +20,7 @@ describe SearchQuery::Builder do
 
         result = described_class.run('ES', fields: [:name], scope: scope)
 
-        expect(result).to include user
+        expect(result).to include(user)
       end
     end
   end
@@ -33,7 +33,7 @@ describe SearchQuery::Builder do
 
           result = described_class.run('test', fields: [:name], scope: scope)
 
-          expect(result).to include user
+          expect(result).to include(user)
         end
       end
 
@@ -43,7 +43,7 @@ describe SearchQuery::Builder do
 
           result = described_class.run('TEST', fields: [:name], scope: scope)
 
-          expect(result).to include user
+          expect(result).to include(user)
         end
       end
     end
@@ -56,7 +56,7 @@ describe SearchQuery::Builder do
 
         result = described_class.run('TEST', fields: [:name], scope: scope)
 
-        expect(result).to include user
+        expect(result).to include(user)
       end
     end
 
@@ -66,7 +66,7 @@ describe SearchQuery::Builder do
 
         result = described_class.run('TEST', fields: [:name], scope: scope)
 
-        expect(result).not_to include user
+        expect(result).not_to include(user)
       end
     end
   end
@@ -78,7 +78,7 @@ describe SearchQuery::Builder do
 
         result = described_class.run('TÉŠT', fields: [:name], scope: scope)
 
-        expect(result).to include user
+        expect(result).to include(user)
       end
     end
   end
@@ -88,50 +88,42 @@ describe SearchQuery::Builder do
 
     describe 'by offset param' do
       context 'when no offset provided' do
-        it 'returns the first elements' do
+        it 'returns the first two elements' do
           result = described_class.run('TEST', fields: [:name], scope: scope, count: 2)
 
-          expect(result.count).to eq 2
-          expect(result).to include scope.first
-          expect(result).to include scope.second
+          expect(result).to match([scope.first, scope.second])
         end
       end
 
       context 'when offset is provided' do
-        it 'returns the elements shifted by the offser' do
+        it 'returns the elements shifted by the offset' do
           result = described_class.run('TEST', fields: [:name], scope: scope, offset: 1, count: 2)
 
-          expect(result.count).to eq 2
-          expect(result).to include scope.second
-          expect(result).to include scope.third
+          expect(result).to match([scope.second, scope.third])
         end
       end
     end
 
     describe 'by page param' do
       context 'when no page provided' do
-        it 'returns the first elements' do
+        it 'returns the first two elements' do
           result = described_class.run('TEST', fields: [:name], scope: scope, count: 2)
 
-          expect(result.count).to eq 2
-          expect(result).to include scope.first
-          expect(result).to include scope.second
+          expect(result).to match([scope.first, scope.second])
         end
       end
 
       context 'when page is provided' do
-        it 'returns the elements shifted by the offser' do
+        it 'returns the elements of the given page' do
           result = described_class.run('TEST', fields: [:name], scope: scope, page: 2, count: 2)
 
-          expect(result.count).to eq 2
-          expect(result).to include scope.third
-          expect(result).to include scope.fourth
+          expect(result).to match([scope.third, scope.fourth])
         end
       end
     end
 
     context 'when the count is set to -1' do
-      it 'returns all element' do
+      it 'returns all elements' do
         result = described_class.run('TEST', fields: [:name], scope: scope, count: -1)
 
         expect(result.count).to eq 4
