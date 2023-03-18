@@ -45,6 +45,8 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 
   gem 'dotenv-rails'
+
+  gem 'rails_stats', require: false
 end
 
 group :test do

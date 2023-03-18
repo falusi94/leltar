@@ -5,4 +5,6 @@
 
 require_relative 'config/application'
 
+require 'rails_stats' if Rails.env.development?
+
 Rails.application.load_tasks
