@@ -5,9 +5,13 @@ class RedirectController < ApplicationController
     return redirect_to items_path if current_user.admin
 
     groups = current_user.read_groups
-    return unauthorized_page if groups.size.zero?
-    return redirect_to items_path if groups.size > 1
 
-    redirect_to items_path, group_id: groups[0].id
+    if groups.none?
+      unauthorized_page
+    elsif groups.count > 1
+      redirect_to items_path
+    else
+      redirect_to group_items_path(groups.first.id)
+    end
   end
 end
