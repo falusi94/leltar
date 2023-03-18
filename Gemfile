@@ -55,6 +55,8 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+
+  gem 'turnip'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
