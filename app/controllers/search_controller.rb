@@ -9,7 +9,7 @@ class SearchController < ApplicationController
     @items = @q.result(distinct: true)
 
     if params[:export_button]
-      send_data @items.to_csv, filename: "export-#{Date.today}.csv"
+      send_data @items.to_csv, filename: "export-#{Time.zone.today}.csv"
     else
       @items = ItemDecorator.decorate_collection(@items.page(params[:page]))
     end

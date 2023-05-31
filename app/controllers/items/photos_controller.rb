@@ -11,7 +11,7 @@ module Items
     end
 
     def destroy
-      item.photos.find_by_id(params[:id].to_i).purge
+      item.photos.find_by(id: params[:id].to_i).purge
 
       redirect_to edit_item_path(item)
     end

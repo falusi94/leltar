@@ -70,8 +70,8 @@ class Item < ApplicationRecord
   belongs_to :group
   has_many_attached :photos
   has_one_attached :invoice
-  belongs_to :parent, class_name: 'Item', foreign_key: :parent_id, optional: true
-  has_many :children, class_name: 'Item', foreign_key: :parent_id, inverse_of: :parent
+  belongs_to :parent, class_name: 'Item', optional: true
+  has_many :children, class_name: 'Item', foreign_key: :parent_id, inverse_of: :parent, dependent: :nullify
 
   validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
   validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }

@@ -13,7 +13,7 @@
 class Group < ApplicationRecord
   validates :name, uniqueness: true
 
-  has_many :items
-  has_many :rights
+  has_many :items, dependent: :nullify
+  has_many :rights, dependent: :destroy
   has_many :users, through: :rights
 end

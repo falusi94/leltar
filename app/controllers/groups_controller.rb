@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[show edit update destroy]
+  before_action :set_group, only: %i[edit update destroy]
   before_action -> { authorize(Group) }, only: %i[index new create]
   before_action -> { authorize(@group) }, except: %i[index new create]
 

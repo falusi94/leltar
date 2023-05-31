@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe 'Search' do
-  context 'GET #index' do
+  describe 'GET #index' do
     subject(:search) { get '/search' }
 
     let!(:item) { create(:item) }

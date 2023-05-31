@@ -41,10 +41,7 @@ class ItemsController < ApplicationController
 
     authorize(@item) # Check if the new group is also accessible by the user
 
-    if params[:item][:update]
-      @item.attributes = params.require(:item).permit(:status, :condition)
-      @item.last_check = Time.zone.today
-    end
+    @item.attributes = status_update_params if params[:item][:update]
 
     if @item.save
       redirect_to @item, notice: t('success.edit')
@@ -79,5 +76,9 @@ class ItemsController < ApplicationController
                   :organization, :number, :parent_id, :specific_name, :serial,
                   :location, :at_who, :warranty, :comment, :inventory_number,
                   :entry_price, :accountancy_state, :photo, :invoice)
+  end
+
+  def status_update_params
+    params.require(:item).permit(:status, :condition).merge(last_check: Time.zone.today)
   end
 end
