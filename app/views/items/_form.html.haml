@@ -16,7 +16,7 @@
     .uk-margin
       = f.label :parent_id, class: 'uk-form-label'
       .uk-form-controls
-        - options = options_from_collection_for_select(parent_item_candidates, :id, :compact_name, @item.parent&.id)
+        - options = options_from_collection_for_select(parent_item_candidates(@item), :id, :compact_name, @item.parent&.id)
         = f.select :parent_id, options, {include_blank: true}, {class: 'uk-select uk-form-small'}
   .uk-margin
     = f.label :group_id, class: 'uk-form-label'

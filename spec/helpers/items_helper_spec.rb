@@ -4,16 +4,11 @@ describe ItemsHelper do
   let(:test_class) do
     Class.new do
       include ItemsHelper
-
-      def initialize(item: nil, group: nil)
-        @item  = item
-        @group = group
-      end
     end
   end
 
   describe '#parent_item_candidates' do
-    subject(:parent_item_candidates) { test_class.new(item: item).parent_item_candidates }
+    subject(:parent_item_candidates) { test_class.new.parent_item_candidates(item) }
 
     context 'when there is no item' do
       let(:item) { nil }
@@ -39,7 +34,7 @@ describe ItemsHelper do
   end
 
   describe '#items_page_title' do
-    subject(:items_page_title) { test_class.new(group: group).items_page_title }
+    subject(:items_page_title) { test_class.new.items_page_title(group) }
 
     context 'when there is a group' do
       let(:group) { build(:group, name: 'Group') }
