@@ -1,3 +1,10 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-capybara
+  - rubocop-factory_bot
+
 Layout/LineLength:
   AutoCorrect: false
   Max: 120
@@ -36,3 +43,19 @@ AllCops:
     - 'tmp/**/*'
     - 'node_modules/**/*'
     - 'vendor/**/*'
+
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/ContextWording:
+  Prefixes:
+    - when
+    - with
+    - without
+    - and
+RSpec/FilePath:
+  Exclude:
+    - spec/requests/**/*
+RSpec/NestedGroups:
+  Max: 4
