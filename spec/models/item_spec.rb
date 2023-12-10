@@ -62,6 +62,12 @@ describe Item do
       include_examples 'the record is valid'
     end
 
+    context 'when it is in the today' do
+      subject { build(:item, purchase_date: Time.zone.today) }
+
+      include_examples 'the record is valid'
+    end
+
     context 'when it is in the past' do
       subject { build(:item, purchase_date: 1.day.ago) }
 

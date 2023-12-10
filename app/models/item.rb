@@ -114,7 +114,7 @@ class Item < ApplicationRecord
   end
 
   def purchase_date_not_in_the_future
-    return if purchase_date.blank? || purchase_date < Time.zone.today
+    return if purchase_date.blank? || purchase_date <= Time.zone.today
 
     errors.add(:purchase_date, 'cannot be in the future')
   end
