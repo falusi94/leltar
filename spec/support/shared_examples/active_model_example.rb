@@ -8,6 +8,6 @@ end
 
 shared_examples 'the record is invalid' do
   it 'is invalid' do
-    expect(subject).to be_invalid
+    expect(subject).not_to be_valid
   end
 end

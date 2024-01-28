@@ -31,6 +31,7 @@ Metrics/ModuleLength:
   CountAsOne: ['array', 'hash', 'heredoc']
 
 AllCops:
+  NewCops: enable
   Exclude:
     - '.git/**/*'
     - '.github/**/*'
@@ -59,3 +60,5 @@ RSpec/FilePath:
     - spec/requests/**/*
 RSpec/NestedGroups:
   Max: 4
+RSpec/BeNil:
+  EnforcedStyle: be

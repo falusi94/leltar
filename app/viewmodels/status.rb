@@ -8,7 +8,7 @@ class Status
   end
 
   def all_item_count
-    Item.all.count
+    Item.count
   end
 
   def existing_item_count

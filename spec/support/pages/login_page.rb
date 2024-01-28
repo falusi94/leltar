@@ -11,6 +11,6 @@ class LoginPage < TestPage
   end
 
   def click_login_button
-    click_button 'Sign in'
+    click_link_or_button 'Sign in'
   end
 end

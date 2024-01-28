@@ -18,7 +18,7 @@ class ItemDecorator < ApplicationDecorator
   def compact_name
     group_tag = h.content_tag(:span, class: 'uk-text-muted') { "(#{group.name})" }
 
-    h.link_to("#{item.name} #{group_tag}".html_safe, h.item_path(object))
+    h.link_to("#{item.name} #{group_tag}".html_safe, h.item_path(object)) # rubocop:disable Rails/OutputSafety
   end
 
   def edit_button

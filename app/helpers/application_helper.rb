@@ -26,6 +26,6 @@ module ApplicationHelper
   def create_label(icon_name, label_text)
     to_medium_tag = content_tag(:span, '', class: 'uk-hidden@m', 'uk-icon': icon_name)
     from_medium_tag = content_tag(:span, label_text, class: 'uk-visible@m')
-    "#{to_medium_tag}#{from_medium_tag}".html_safe
+    "#{to_medium_tag}#{from_medium_tag}".html_safe # rubocop:disable Rails/OutputSafety
   end
 end

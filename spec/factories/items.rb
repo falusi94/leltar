@@ -4,14 +4,15 @@ FactoryBot.define do
   factory :item do
     sequence(:name) { |i| "Item #{i}" }
     description { 'Item description' }
-    group { build(:group) }
     purchase_date { 3.days.ago }
     entry_date { 2.days.ago }
     last_check { 1.day.ago }
     status { :ok }
 
+    group
+
     trait :with_parent do
-      parent { build(:item, group: group) }
+      parent { association(:item, group: group) }
     end
 
     trait :with_child do

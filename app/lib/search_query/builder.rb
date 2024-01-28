@@ -8,7 +8,7 @@ module SearchQuery
       new(...).perform
     end
 
-    def initialize(query_string, scope:, fields:, transliterate: true, **options)
+    def initialize(query_string, scope:, fields:, transliterate: true, **options) # rubocop:disable Metrics/MethodLength
       @query_string = if transliterate
                         I18n.transliterate(query_string)
                       else

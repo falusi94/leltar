@@ -75,7 +75,6 @@ class Item < ApplicationRecord
 
   validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
   validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }
-  validates :group, presence: true, allow_nil: false
   validate :children_from_the_same_group, :parent_from_the_same_group, :purchase_date_not_in_the_future,
            :has_no_grandparent, :has_no_grandchild
 
