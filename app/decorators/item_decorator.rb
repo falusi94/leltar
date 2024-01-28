@@ -31,7 +31,7 @@ class ItemDecorator < ApplicationDecorator
   def check_form
     return unless h.policy(object).update?
 
-    h.render 'items/check_form'
+    h.render 'web/items/check_form'
   end
 
   def parent_link

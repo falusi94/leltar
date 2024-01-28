@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe ApplicationController do # rubocop:disable RSpec/SpecFilePathFormat
+describe Web::BaseController do # rubocop:disable RSpec/SpecFilePathFormat
   before do
     stub_const('ErrorController', Class.new(described_class) do
       skip_before_action :require_login
