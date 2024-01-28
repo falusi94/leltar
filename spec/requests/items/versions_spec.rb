@@ -11,11 +11,21 @@ describe 'Item versions' do
     it 'returns the version' do
       login_admin
 
-      item.update!(name: 'New item name') # TODO: imrpove version creation in test
+      item.update!(name: 'New item name') # TODO: improve version creation in test
 
       get_version
 
       expect(response).to have_http_status(:ok)
+    end
+
+    context 'when the initial version is requested (nil version)' do
+      it 'returns not found' do
+        login_admin
+
+        get "/items/#{item.id}/versions/0"
+
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 end

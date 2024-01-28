@@ -6,6 +6,8 @@ module Items
 
     def show
       @item = item.versions[version_id].reify
+      return not_found_page if @item.blank?
+
       @item = ItemDecorator.decorate(@item)
 
       render 'items/show'
