@@ -19,6 +19,9 @@ module Leltar
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.active_record.yaml_column_permitted_classes ||= []
+    config.active_record.yaml_column_permitted_classes  += [Date, ActiveSupport::TimeWithZone, Time, ActiveSupport::TimeZone]
+
     config.generators do |g|
       g.test_framework :rspec
       g.factory_bot dir: 'spec/factories'
