@@ -1,6 +1,7 @@
 en:
   title: 'Inventory system'
   unauthorized: 'You are not authorized for this action!'
+  not_found: 'The requested resource is not found!'
   invalid_credentials: 'Invalid credentials'
   error_count: '%{count} error(s) happened during save'
   navigation:

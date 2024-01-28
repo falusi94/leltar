@@ -3,12 +3,17 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :unauthorized_page
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found_page
 
   protect_from_forgery with: :exception
   before_action :require_login
 
   def unauthorized_page
     render 'application/401', status: :unauthorized
+  end
+
+  def not_found_page
+    render 'application/404', status: :not_found
   end
 
   def set_groups
