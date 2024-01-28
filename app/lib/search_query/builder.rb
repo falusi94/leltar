@@ -4,8 +4,8 @@ module SearchQuery
   class Builder
     attr_reader :query_string, :scope, :fields, :offset, :count
 
-    def self.run(*args)
-      new(*args).perform
+    def self.run(...)
+      new(...).perform
     end
 
     def initialize(query_string, scope:, fields:, transliterate: true, **options)
