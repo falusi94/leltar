@@ -98,6 +98,11 @@ class Item < ApplicationRecord
     children.any?
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[accountancy_state at_who comment condition description entry_date entry_price group_id inventory_number
+       last_check location name organization purchase_date serial specific_name status warranty]
+  end
+
   private
 
   def children_from_the_same_group
