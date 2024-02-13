@@ -21,7 +21,8 @@
 #
 
 class User < ApplicationRecord
-  has_secure_password
+  include Authentication::ModelMixin
+
   has_many :rights, dependent: :nullify
   has_many :groups, through: :rights
   has_many :write_rights, -> { write }, class_name: 'Right', dependent: false, inverse_of: :user

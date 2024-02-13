@@ -20,6 +20,10 @@ FactoryBot.define do
     trait :read_all_group do
       read_all_group { true }
     end
+
+    trait :with_session do
+      sessions { build_list(:user_session, 1) }
+    end
   end
 
   factory :admin, parent: :user, traits: [:admin]
