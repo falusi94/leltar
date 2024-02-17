@@ -8,8 +8,18 @@ module ApiHelpers
     }
   end
 
+  def auth_headers(user)
+    jwt = user.generate_jwt(user.sessions.first.try(:client_id))
+
+    api_headers('access-token': jwt)
+  end
+
   def json
     JSON.parse(body, symbolize_names: true)
+  end
+
+  def api_user_hash(user)
+    { email: user.email, name: user.name }
   end
 end
 
