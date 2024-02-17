@@ -20,6 +20,11 @@ class ItemPolicy < ApplicationPolicy
     user.admin
   end
 
+  def permitted_attributes
+    %i[name description purchase_date entry_date group_id organization number parent_id specific_name serial location
+       at_who warranty comment inventory_number entry_price accountancy_state photo invoice]
+  end
+
   class Scope < Scope
     def resolve
       if user.admin || user.read_all_group

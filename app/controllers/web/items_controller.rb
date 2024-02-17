@@ -67,11 +67,7 @@ module Web
     end
 
     def item_params
-      params.require(:item)
-            .permit(:name, :description, :purchase_date, :entry_date, :group_id,
-                    :organization, :number, :parent_id, :specific_name, :serial,
-                    :location, :at_who, :warranty, :comment, :inventory_number,
-                    :entry_price, :accountancy_state, :photo, :invoice)
+      params.require(:item).permit(policy(Item).permitted_attributes)
     end
 
     def status_update_params
