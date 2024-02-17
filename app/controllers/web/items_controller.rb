@@ -63,12 +63,7 @@ module Web
     end
 
     def items
-      fields = %i[name description status serial specific_name location at_who condition inventory_number]
-
-      scope = policy_scope(Item).not_a_child
-      scope = scope.where(group_id: params[:group_id]) if params[:group_id]
-      scope = scope.includes(:group).search(params[:query], fields: fields, count: -1) if params[:query]
-      scope
+      ItemsQuery.fetch(params, scope: policy_scope(Item).not_a_child)
     end
 
     def item_params

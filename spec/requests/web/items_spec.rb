@@ -18,25 +18,12 @@ describe 'Items' do
         expect(body).to include(item.name)
       end
 
-      context 'and a query param is passed' do
-        it 'filters the items' do
-          get '/items', params: { query: 'NOT_MATCHING' }
+      it 'uses ItemsQuery for result' do
+        allow(ItemsQuery).to receive(:fetch).and_call_original
 
-          expect(response).to have_http_status(:ok)
-          expect(body).not_to include(item.name)
-        end
-      end
+        show_items
 
-      context 'and a group id is passed' do
-        it 'filters the items' do
-          item_of_other_group = create(:item)
-
-          get "/groups/#{item.group_id}/items"
-
-          expect(response).to have_http_status(:ok)
-          expect(body).to include(item.name)
-          expect(body).not_to include(item_of_other_group.name)
-        end
+        expect(ItemsQuery).to have_received(:fetch).with(ActionController::Parameters, scope: ActiveRecord::Relation)
       end
     end
   end
