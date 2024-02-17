@@ -155,6 +155,7 @@ GEM
     irb (1.11.1)
       rdoc
       reline (>= 0.4.2)
+    jb (0.8.2)
     jsbundling-rails (1.0.0)
       railties (>= 6.0.0)
     json (2.7.1)
@@ -418,6 +419,7 @@ DEPENDENCIES
   factory_bot_rails
   haml
   image_processing
+  jb
   jsbundling-rails
   json (>= 2.0.0)
   jwt
