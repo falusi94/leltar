@@ -7,6 +7,7 @@
 #  id              :integer          not null, primary key
 #  admin           :boolean
 #  email           :string
+#  last_sign_in_at :datetime
 #  name            :string
 #  password_digest :string
 #  read_all_group  :boolean          default(FALSE)
