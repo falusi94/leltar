@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :api do
+    scope module: :v1, constraints: RoutesConstraint::ApiVersion.new(version: 1, default: true) do
+    end
+  end
+
   scope module: :web do
     get '/', to: 'redirect#show'
     root to: 'redirect#show'
