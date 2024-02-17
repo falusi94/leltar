@@ -35,6 +35,7 @@ gem 'turbo-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -56,7 +57,6 @@ group :development do
 end
 
 group :test do
-  gem 'factory_bot_rails'
   gem 'pundit-matchers'
   gem 'rspec-rails'
 
