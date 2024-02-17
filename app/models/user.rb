@@ -24,6 +24,7 @@ class User < ApplicationRecord
   has_many :rights, dependent: :nullify
   has_many :groups, through: :rights
   has_many :write_rights, -> { write }, class_name: 'Right', dependent: false, inverse_of: :user
+  has_many :sessions, class_name: 'UserSession', dependent: :destroy
 
   def read_groups
     return Group.all if admin || read_all_group
