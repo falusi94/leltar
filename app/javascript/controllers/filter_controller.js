@@ -7,7 +7,7 @@ export default class extends Controller {
   initialize() {
     this.active = !!this.sourceTarget.dataset['filterActive']
     this.name = this.sourceTarget.dataset['filterName']
-    debugger
+
     this.update()
   }
 

@@ -1,15 +1,6 @@
-%li.uk-margin-remove.uk-grid-collapse{:style => "min-height:60px", "uk-grid" => ""}
-  .uk-width-expand
-    .uk-width-1-1.uk-clearfix
-      .uk-float-left
-        %h3.uk-margin-remove= item.compact_name
-      .uk-float-right.uk-margin-right
-        = item.translated_status
-        = item.organization&.humanize
-    .uk-width-1-1.uk-grid-collapse{"uk-grid" => ""}
-      = item.truncated_description
-  - if item.parent?
-    .uk-width-1-1
-      .uk-text-bold
-        =Item.human_attribute_name(:children)
-      = render 'items/children', item: item
+%tr{ **(item.child? ? {'data-filter-target': 'filterable'} : {}) }
+  %td= item.id
+  %td= link_to item.name, item_path(item)
+  %td= link_to item.group.name, group_path(item.group)
+  %td= item.translated_status
+  %td= item.organization

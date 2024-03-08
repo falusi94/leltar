@@ -1,14 +1,26 @@
 .uk-container
   %h1= t('navigation.search')
   %ul{"uk-accordion" => ""}
-    %li
+    %li{ data: { controller: 'filter' } }
       %a.uk-accordion-title{:href => "#"}= t('form.search.fields')
       .uk-accordion-content
         .uk-align-center
           = render 'search_form'
-      %h2= t('form.search.results')
-      .uk-clearfix
+      .uk-clearfix.uk-margin-small-top
+        .uk-float-left
+          %h2= t('form.search.results')
         .uk-float-right
-          != pagy_uikit_nav @pagy
-      %ul.uk-list.uk-list-divider
-        = render partial: 'item', collection: @items
+          = button_tag :filter, class: 'uk-button uk-button-link',
+            data: { action: 'filter#toggle', 'filter-target': 'source', 'filter-name': 'children' }
+      .uk-overflow-auto
+        %table.uk-table.uk-table-divider.uk-table-small
+          %thead
+            %tr
+              - %i[id name group.name status organization].each do |header|
+                %th= Item.human_attribute_name(header)
+          %tbody
+            = render partial: 'item', collection: @items
+          %tfoot
+            %tr
+              %td{colspan: 5}
+                != pagy_uikit_nav @pagy
