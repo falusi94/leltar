@@ -7,7 +7,7 @@ module Web
     before_action -> { authorize(@user) }, except: %i[index new create]
 
     def index
-      @users = User.all.page(params[:page])
+      @pagy, @users = pagy(User.all)
     end
 
     def show; end

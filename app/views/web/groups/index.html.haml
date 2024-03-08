@@ -6,7 +6,7 @@
       = new_group_button
   .uk-clearfix
     .uk-float-right
-      = paginate @groups
+      != pagy_uikit_nav @pagy
   %ul.uk-list.uk-list-divider
     - @groups.each do |group|
       %li.uk-clearfix.uk-margin-remove-top

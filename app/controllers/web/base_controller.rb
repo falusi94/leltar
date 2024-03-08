@@ -5,6 +5,8 @@ module Web
     rescue_from Pundit::NotAuthorizedError, with: :unauthorized_page
     rescue_from ActiveRecord::RecordNotFound, with: :not_found_page
 
+    include Pagy::Backend
+
     before_action :require_login
 
     def unauthorized_page

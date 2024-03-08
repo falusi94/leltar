@@ -6,7 +6,7 @@
       = new_item_button(@group)
   .uk-clearfix
     .uk-float-right
-      = paginate @items
+      != pagy_uikit_nav @pagy
   %div{ data: { controller: 'filter' } }
     %div.uk-padding
       = button_tag :filter, class: 'uk-button uk-button-link uk-align-right',

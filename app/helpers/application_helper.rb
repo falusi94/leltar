@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  include Pagy::Frontend
+
   def back_label
     create_label('arrow-left', t('form.actions.back'))
   end

@@ -1,6 +1,0 @@
-%li{:class => "page#{' uk-active' if page.current?}"}
-  - if page.current?
-    %span
-      = page
-  - else
-    = link_to page, url, {remote: remote, rel: page.rel}

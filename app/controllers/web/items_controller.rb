@@ -9,7 +9,8 @@ module Web
     def index
       @group = Group.find(params[:group_id]) if params[:group_id]
 
-      @items = ItemDecorator.decorate_collection(items.page)
+      @pagy, @items = pagy(items)
+      @items = ItemDecorator.decorate_collection(@items)
     end
 
     def show

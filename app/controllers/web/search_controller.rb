@@ -6,13 +6,14 @@ module Web
     before_action :set_groups
 
     def index
-      @q     = Item.ransack(search_params)
-      @items = @q.result(distinct: true)
+      @q    = Item.ransack(search_params)
+      items = @q.result(distinct: true)
 
       if params[:export_button]
-        send_data @items.to_csv, filename: "export-#{Time.zone.today}.csv"
+        send_data items.to_csv, filename: "export-#{Time.zone.today}.csv"
       else
-        @items = ItemDecorator.decorate_collection(@items.page(params[:page]))
+        @pagy, items = pagy(items)
+        @items = ItemDecorator.decorate_collection(items)
       end
     end
 

@@ -8,7 +8,7 @@ module Web
 
     def index
       set_groups
-      @groups = Kaminari.paginate_array(@groups).page(params[:page])
+      @pagy, @groups = pagy(@groups)
       @groups = GroupDecorator.decorate_collection(@groups)
     end
 

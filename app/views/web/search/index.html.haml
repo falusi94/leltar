@@ -9,6 +9,6 @@
       %h2= t('form.search.results')
       .uk-clearfix
         .uk-float-right
-          = paginate @items
+          != pagy_uikit_nav @pagy
       %ul.uk-list.uk-list-divider
         = render partial: 'item', collection: @items

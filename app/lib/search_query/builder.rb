@@ -2,6 +2,8 @@
 
 module SearchQuery
   class Builder
+    DEFAULT_COUNT = Pagy::DEFAULT[:items]
+
     attr_reader :query_string, :scope, :fields, :offset, :count
 
     def self.run(...)
@@ -16,7 +18,7 @@ module SearchQuery
                       end
       @scope        = scope
       @fields       = fields
-      @count        = options[:count] || Kaminari.config.default_per_page
+      @count        = options[:count] || DEFAULT_COUNT
       @offset       = if options[:offset]
                         options[:offset]
                       elsif options[:page]
