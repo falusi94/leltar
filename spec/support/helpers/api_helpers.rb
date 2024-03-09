@@ -22,6 +22,10 @@ module ApiHelpers
     { email: user.email, name: user.name }
   end
 
+  def api_group_hash(group)
+    { id: group.id, name: group.name }
+  end
+
   def api_item_hash(item)
     attributes = %i[id accountancy_state at_who comment condition description entry_price inventory_number location name
                     number organization serial specific_name status group_id parent_id]
