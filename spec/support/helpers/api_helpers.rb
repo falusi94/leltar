@@ -21,6 +21,23 @@ module ApiHelpers
   def api_user_hash(user)
     { email: user.email, name: user.name }
   end
+
+  def api_item_hash(item)
+    attributes = %i[id accountancy_state at_who comment condition description entry_price inventory_number location name
+                    number organization serial specific_name status group_id parent_id]
+
+    item.slice(*attributes).merge(
+      entry_date:    item.entry_date ? I18n.l(item.entry_date) : nil,
+      last_check:    item.last_check ? I18n.l(item.last_check) : nil,
+      purchase_date: item.purchase_date ? I18n.l(item.purchase_date) : nil,
+      warranty:      item.warranty ? I18n.l(item.warranty) : nil
+    ).symbolize_keys
+  end
+
+  def api_array_hash(array)
+    method_name = :"api_#{array.first.class.to_s.underscore}_hash"
+    array.map { |entry| public_send(method_name, entry) }
+  end
 end
 
 RSpec.configure do |config|

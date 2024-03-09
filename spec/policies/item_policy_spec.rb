@@ -5,6 +5,12 @@ describe ItemPolicy do
 
   let(:item) { build_stubbed(:item) }
 
+  describe '#index?' do
+    let(:user) { build_stubbed(:user) }
+
+    it { is_expected.to permit_action(:index) }
+  end
+
   context 'when the user has write access to the group' do
     let(:user) { build_stubbed(:user, :write_all_group) }
 

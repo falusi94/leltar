@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+attributes = %i[id accountancy_state at_who comment condition description entry_price inventory_number location name
+                number organization serial specific_name status group_id parent_id]
+
+item.slice(*attributes).merge(
+  entry_date:    item.entry_date ? l(item.entry_date) : nil,
+  last_check:    item.last_check ? l(item.last_check) : nil,
+  purchase_date: item.purchase_date ? l(item.purchase_date) : nil,
+  warranty:      item.warranty ? l(item.warranty) : nil
+)

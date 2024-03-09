@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+{
+  errors: errors.map do |error|
+    { code: error.try(:code), message: error.try(:message) || error.to_s }
+  end
+}

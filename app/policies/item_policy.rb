@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class ItemPolicy < ApplicationPolicy
+  def index?
+    true
+  end
+
   def show?
     Pundit.policy(user, record.group).read_items?
   end
