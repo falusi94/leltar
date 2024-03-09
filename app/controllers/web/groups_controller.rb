@@ -43,7 +43,7 @@ module Web
     end
 
     def group_params
-      params.require(:group).permit(:name)
+      params.require(:group).permit(policy(Group).permitted_attributes)
     end
   end
 end

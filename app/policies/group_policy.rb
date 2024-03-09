@@ -28,4 +28,8 @@ class GroupPolicy < ApplicationPolicy
   def write_items?
     user.admin || user.write_all_group || user.rights.write.exists?(group: record)
   end
+
+  def permitted_attributes
+    %i[name]
+  end
 end
