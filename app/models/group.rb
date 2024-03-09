@@ -5,7 +5,7 @@
 # Table name: groups
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -15,7 +15,7 @@
 #
 
 class Group < ApplicationRecord
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
 
   has_many :items, dependent: :nullify
   has_many :rights, dependent: :destroy
