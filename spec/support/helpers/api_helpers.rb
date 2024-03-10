@@ -19,7 +19,7 @@ module ApiHelpers
   end
 
   def api_user_hash(user)
-    { email: user.email, name: user.name }
+    { id: user.id, email: user.email, name: user.name }
   end
 
   def api_group_hash(group)
@@ -39,9 +39,10 @@ module ApiHelpers
   end
 
   def api_array_hash(array)
-    method_name = :"api_#{array.first.class.to_s.underscore}_hash"
+    method_name = :"api_#{array.first.class.to_s.demodulize.underscore}_hash"
     array.map { |entry| public_send(method_name, entry) }
   end
+  alias api_active_record_relation_hash api_array_hash
 end
 
 RSpec.configure do |config|

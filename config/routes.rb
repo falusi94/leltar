@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       resources :groups, only: %i[index show create update destroy] do
         resources :items, only: %i[index create]
       end
+
+      resources :users, only: %i[index show create update destroy]
     end
   end
 

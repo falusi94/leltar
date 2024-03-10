@@ -18,7 +18,7 @@ shared_examples 'API lists resources' do
 
       expect(response).to have_http_status(:ok)
       expect(response.headers).to include('access-token')
-      expect(json).to match_api_response(resources)
+      expect(json).to match_api_response(resources.try(:reload) || resources)
     end
   end
 
