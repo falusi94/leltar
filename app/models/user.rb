@@ -5,10 +5,10 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  admin           :boolean
-#  email           :string
+#  admin           :boolean          default(FALSE)
+#  email           :string           not null
 #  last_sign_in_at :datetime
-#  name            :string
+#  name            :string           not null
 #  password_digest :string
 #  read_all_group  :boolean          default(FALSE)
 #  write_all_group :boolean          default(FALSE)
@@ -22,6 +22,9 @@
 
 class User < ApplicationRecord
   include Authentication::ModelMixin
+
+  validates :email, :name, presence: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   has_many :rights, dependent: :nullify
   has_many :groups, through: :rights
