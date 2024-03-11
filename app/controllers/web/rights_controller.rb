@@ -37,7 +37,7 @@ module Web
     end
 
     def right_params
-      params.require(:right).permit(:group_id, :user_id, :write)
+      params.require(:right).permit(policy(Right).permitted_attributes)
     end
   end
 end

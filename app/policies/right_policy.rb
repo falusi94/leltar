@@ -7,4 +7,8 @@ class RightPolicy < ApplicationPolicy
 
   alias update? create?
   alias destroy? create?
+
+  def permitted_attributes
+    %i[group_id user_id write]
+  end
 end
