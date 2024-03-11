@@ -38,6 +38,10 @@ module ApiHelpers
     ).symbolize_keys
   end
 
+  def api_right_hash(right)
+    { id: right.id, write: right.write, group_id: right.group_id, user_id: right.user_id }
+  end
+
   def api_array_hash(array)
     method_name = :"api_#{array.first.class.to_s.demodulize.underscore}_hash"
     array.map { |entry| public_send(method_name, entry) }

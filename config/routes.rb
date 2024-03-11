@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       end
 
       resources :users, only: %i[index show create update destroy]
+      resources :rights, only: %i[create update destroy]
     end
   end
 

@@ -1,0 +1,3 @@
+# frozen_string_literal: true
+
+right.slice(:id, :write, :group_id, :user_id)
