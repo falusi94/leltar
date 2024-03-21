@@ -8,6 +8,10 @@
 #  name  :string
 #  value :string
 #
+# Indexes
+#
+#  index_system_attributes_on_name  (name) UNIQUE
+#
 
 class SystemAttribute < ApplicationRecord
   def self.new_session_start

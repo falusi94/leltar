@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_09_234806) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_21_212340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_09_234806) do
   create_table "system_attributes", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "value"
+    t.index ["name"], name: "index_system_attributes_on_name", unique: true
   end
 
   create_table "user_sessions", force: :cascade do |t|
