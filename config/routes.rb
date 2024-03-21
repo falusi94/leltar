@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resource :session, only: %i[create destroy]
       resources :items, only: %i[index show update destroy] do
         resources :photos, only: %i[index create destroy], module: :items
+        resource :invoice, only: %i[show create destroy], module: :items
       end
 
       resources :groups, only: %i[index show create update destroy] do
