@@ -12,13 +12,13 @@ FactoryBot.define do
       admin { true }
     end
 
-    trait :write_all_group do
-      write_all_group { true }
-      read_all_group { true }
+    trait :write_all_department do
+      write_all_department { true }
+      read_all_department { true }
     end
 
-    trait :read_all_group do
-      read_all_group { true }
+    trait :read_all_department do
+      read_all_department { true }
     end
 
     trait :with_session do

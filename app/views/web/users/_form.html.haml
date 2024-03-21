@@ -24,14 +24,14 @@
           data: { action: 'change->access-checkbox#update',
                 'access-checkbox-target': 'admin' }
     .uk-margin
-      = f.label :read_all_group, class: 'uk-form-label'
+      = f.label :read_all_department, class: 'uk-form-label'
       .uk-form-controls
-        = f.check_box :read_all_group, class: 'uk-checkbox',
+        = f.check_box :read_all_department, class: 'uk-checkbox',
           data: { 'access-checkbox-target': 'readAll' }
     .uk-margin
-      = f.label :write_all_group, class: 'uk-form-label'
+      = f.label :write_all_department, class: 'uk-form-label'
       .uk-form-controls
-        = f.check_box :write_all_group, class: 'uk-checkbox',
+        = f.check_box :write_all_department, class: 'uk-checkbox',
           data: { 'access-checkbox-target': 'writeAll' }
   .uk-width-1-1
     = f.submit class: 'uk-button uk-button-primary uk-align-center'

@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-describe UsersHelper do
+describe DepartmentsHelper do
   let(:test_class) do
     Class.new do
-      include UsersHelper
+      include DepartmentsHelper
     end
   end
 
-  describe '#departments_without_access' do
-    subject(:departments_without_access) { test_class.new.departments_without_access(user) }
+  describe '#users_with_no_access_to_department' do
+    subject(:users_with_no_access_to_department) { test_class.new.users_with_no_access_to_department(department) }
 
-    let!(:department) { create(:department) }
-    let(:user) { create(:user) }
+    let!(:user) { create(:user) }
+    let(:department) { create(:department) }
 
     context 'when the user has no access to the department' do
-      it { is_expected.to match([department]) }
+      it { is_expected.to match([user]) }
     end
 
     context 'when the user has already access to the department' do
@@ -29,8 +29,8 @@ describe UsersHelper do
       it { is_expected.to match([]) }
     end
 
-    context 'when the user has write access' do
-      let(:user) { create(:user, :write_all_department) }
+    context 'when the user has read access' do
+      let(:user) { create(:user, :read_all_department) }
 
       it { is_expected.to match([]) }
     end

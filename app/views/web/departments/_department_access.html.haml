@@ -1,6 +1,6 @@
-%h3= t('form.group.rights.title')
+%h3= t('form.department.rights.title')
 %ul.uk-list.uk-list-divider
-  - group.rights.each do |right|
+  - department.rights.each do |right|
     %li.uk-clearfix.uk-margin-remove-top
       .uk-float-left
         = link_to right.user.name, user_path(right.user), class: 'uk-link-muted'
@@ -14,10 +14,10 @@
 %h3= t('form.actions.add')
 = form_for :right, url: rights_path, class: 'uk-form uk-margin-small-top' do |f|
   %div{"uk-grid" => ""}
-    = f.hidden_field :group_id, value: group.id
+    = f.hidden_field :department_id, value: department.id
     %div{:class => "uk-width-1-2@m"}
       = f.select :user_id,
-        options_for_select(users_with_no_access_to_group(group).map { |u| [u.name, u.id] }),
+        options_for_select(users_with_no_access_to_department(department).map { |u| [u.name, u.id] }),
         {},
         { class: 'uk-select uk-form-small uk-width-1-1' }
     %div{:class => "uk-width-expand@m"}

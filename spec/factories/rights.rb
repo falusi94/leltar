@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :right do
-    group
+    department
     user
 
     trait :write do

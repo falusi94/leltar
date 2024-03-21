@@ -9,15 +9,15 @@ FactoryBot.define do
     last_check { 1.day.ago }
     status { :ok }
 
-    group
+    department
 
     trait :with_parent do
-      parent { association(:item, group: group) }
+      parent { association(:item, department: department) }
     end
 
     trait :with_child do
       after(:create) do |item|
-        create(:item, parent: item, group: item.group)
+        create(:item, parent: item, department: item.department)
       end
     end
 

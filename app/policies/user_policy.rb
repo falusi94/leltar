@@ -23,7 +23,7 @@ class UserPolicy < ApplicationPolicy
 
   def permitted_attributes
     if user.admin
-      %i[name email password password_confirmation admin write_all_group read_all_group]
+      %i[name email password password_confirmation admin write_all_department read_all_department]
     else
       %i[email password password_confirmation]
     end

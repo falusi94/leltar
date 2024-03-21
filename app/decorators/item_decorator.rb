@@ -16,13 +16,13 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def compact_name
-    group_tag = h.content_tag(:span, class: 'uk-text-muted') { "(#{group.name})" }
+    department_tag = h.content_tag(:span, class: 'uk-text-muted') { "(#{department.name})" }
 
-    h.link_to("#{item.name} #{group_tag}".html_safe, h.item_path(object)) # rubocop:disable Rails/OutputSafety
+    h.link_to("#{item.name} #{department_tag}".html_safe, h.item_path(object)) # rubocop:disable Rails/OutputSafety
   end
 
   def edit_button
-    return unless h.policy(group).write_items?
+    return unless h.policy(department).write_items?
 
     h.link_to(h.edit_label, h.edit_item_path(item),
               class: 'uk-button uk-button-secondary uk-button-small')

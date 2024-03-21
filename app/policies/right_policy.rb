@@ -9,6 +9,6 @@ class RightPolicy < ApplicationPolicy
   alias destroy? create?
 
   def permitted_attributes
-    %i[group_id user_id write]
+    %i[department_id user_id write]
   end
 end

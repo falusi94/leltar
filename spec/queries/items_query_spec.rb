@@ -9,8 +9,8 @@ describe ItemsQuery do
 
   it { is_expected.to match_array(items) }
 
-  context 'when a group_id is set' do
-    let(:filters) { { group_id: items.first.group_id } }
+  context 'when a department_id is set' do
+    let(:filters) { { department_id: items.first.department_id } }
 
     it { is_expected.to contain_exactly(items.first) }
   end

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         resource :invoice, only: %i[show create destroy], module: :items
       end
 
-      resources :groups, only: %i[index show create update destroy] do
+      resources :departments, only: %i[index show create update destroy] do
         resources :items, only: %i[index create]
       end
 
@@ -36,8 +36,8 @@ Rails.application.routes.draw do
     # Right routes
     resources :rights, only: %i[create update destroy]
 
-    # Groups routes
-    resources :groups, except: :show do
+    # Departments routes
+    resources :departments, except: :show do
       resources :items, only: %i[index new]
     end
 

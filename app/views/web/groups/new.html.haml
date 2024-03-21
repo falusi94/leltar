@@ -1,8 +1,0 @@
-.uk-container
-  .uk-clearfix
-    .uk-float-left
-      %h1= t('form.title.new', thing: Group.model_name.human)
-    .uk-float-right.uk-padding-small
-      = link_to back_label, groups_path, class: 'uk-button uk-button-default uk-button-small'
-  .uk-align-center{:class => "uk-width-2-3@m"}
-    = render 'form', group: @group

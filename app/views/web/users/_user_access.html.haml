@@ -3,7 +3,7 @@
   - user.rights.each do |right|
     %li.uk-clearfix.uk-margin-remove-top
       .uk-float-left
-        = link_to right.group.name, edit_group_path(right.group), class: 'uk-link-muted'
+        = link_to right.department.name, edit_department_path(right.department), class: 'uk-link-muted'
       .uk-float-right
         = right.type_icon
         = link_to(edit_label, right, method: :patch,
@@ -15,8 +15,8 @@
   %div{"uk-grid" => ""}
     = f.hidden_field :user_id, value: user.id
     %div{:class => "uk-width-1-2@m"}
-      = f.select :group_id,
-        options_for_select(groups_without_access(user).map { |g| [g.name, g.id] }),
+      = f.select :department_id,
+        options_for_select(departments_without_access(user).map { |g| [g.name, g.id] }),
         {},
         { class: 'uk-select uk-form-small uk-width-1-1' }
     %div{:class => "uk-width-expand@m"}

@@ -2,9 +2,9 @@
 
 describe 'Rights' do
   describe 'POST #create' do
-    subject(:create_right) { post '/rights', params: { right: { user_id: user.id, group_id: group.id } } }
+    subject(:create_right) { post '/rights', params: { right: { user_id: user.id, department_id: department.id } } }
 
-    let(:group) { create(:group) }
+    let(:department) { create(:department) }
     let(:user) { create(:user) }
 
     include_examples 'without user redirects to login'
@@ -15,7 +15,7 @@ describe 'Rights' do
 
         expect { create_right }.to change(Right, :count).by(1)
 
-        expect(Right.last).to have_attributes(user: user, group: group)
+        expect(Right.last).to have_attributes(user: user, department: department)
       end
     end
   end

@@ -11,7 +11,7 @@ describe '/api/items' do
     include_examples 'API lists resources'
 
     describe 'nested path' do
-      let(:url) { "/api/groups/#{resources.first.group_id}/items" }
+      let(:url) { "/api/departments/#{resources.first.department_id}/items" }
 
       include_examples 'API lists resources'
     end
@@ -24,14 +24,14 @@ describe '/api/items' do
   end
 
   describe 'POST #create' do
-    let(:url)      { "/api/groups/#{create(:group).id}/items" }
+    let(:url)      { "/api/departments/#{create(:department).id}/items" }
     let(:params)   { attributes_for(:item) }
     let(:resource) { Item.first }
 
     include_examples 'API creates resource'
 
-    context 'when the group does not exist' do
-      subject(:create_item) { post '/api/groups/non-existing/items', headers: auth_headers(user) }
+    context 'when the department does not exist' do
+      subject(:create_item) { post '/api/departments/non-existing/items', headers: auth_headers(user) }
 
       let(:user) { create(:admin, :with_session) }
 

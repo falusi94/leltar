@@ -18,9 +18,9 @@ SystemAttribute.create!(
   value: DateTime.now - 1.year
 ) unless SystemAttribute.exists?(name: 'check_from')
 
-unless Group.exists?(name: 'Management')
+unless Department.exists?(name: 'Management')
   ActiveRecord::Base.transaction do
-    group = Group.create!(name: 'Management')
+    department = Department.create!(name: 'Management')
 
     printer = Item.create!(
       accountancy_state: :in_register,
@@ -36,7 +36,7 @@ unless Group.exists?(name: 'Management')
       serial:            'printer-serial',
       status:            :ok,
       warranty:          2.years.from_now,
-      group:             group,
+      department:             department,
     )
     photo = File.open(Rails.root.join('db/fixtures/printer.jpg'))
     printer.photos.attach(io: photo, filename: 'printer.jpg', content_type: 'image/jpeg')
@@ -55,16 +55,16 @@ unless Group.exists?(name: 'Management')
       serial:            'old-printer-serial',
       status:            :scrapped,
       warranty:          3.years.ago,
-      group:             group
+      department:             department
     )
     photo = File.open(Rails.root.join('db/fixtures/broken-printer.jpg'))
     broken_printer.photos.attach(io: photo, filename: 'broken-printer.jpg', content_type: 'image/jpeg')
   end
 end
 
-unless Group.exists?(name: 'Development')
+unless Department.exists?(name: 'Development')
   ActiveRecord::Base.transaction do
-    group = Group.create!(name: 'Development')
+    department = Department.create!(name: 'Development')
 
     pc = Item.create!(
       accountancy_state: :new,
@@ -79,7 +79,7 @@ unless Group.exists?(name: 'Development')
       purchase_date:     Time.zone.today,
       serial:            'pc-serial',
       status:            :ok,
-      group:             group
+      department:             department
     )
     photo = File.open(Rails.root.join('db/fixtures/barbone.jpg'))
     pc.photos.attach(io: photo, filename: 'barbone.jpg', content_type: 'image/jpeg')
@@ -99,7 +99,7 @@ unless Group.exists?(name: 'Development')
         serial:            "#{part}-serial",
         status:            :ok,
         warranty:          3.years.from_now,
-        group:             group,
+        department:             department,
         parent:            pc
       )
     end

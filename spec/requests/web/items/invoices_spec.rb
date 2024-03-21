@@ -9,7 +9,7 @@ describe 'Invoices' do
 
     include_examples 'without user redirects to login'
 
-    context 'when the user can write group' do
+    context 'when the user can write department' do
       it 'attaches the invoice' do
         login_admin
 
@@ -28,7 +28,7 @@ describe 'Invoices' do
 
     include_examples 'without user redirects to login'
 
-    context 'when the user can write group' do
+    context 'when the user can write department' do
       it 'deletes the invoice' do
         login_admin
 

@@ -79,7 +79,7 @@ describe Item do
     context 'when parent has parent' do
       subject do
         item_with_parent = create(:item, :with_parent)
-        build(:item, parent: item_with_parent, group: item_with_parent.group)
+        build(:item, parent: item_with_parent, department: item_with_parent.department)
       end
 
       include_examples 'the record is invalid'
@@ -88,7 +88,7 @@ describe Item do
     context 'when parent has no parent' do
       subject do
         item_without_parent = create(:item)
-        build(:item, parent: item_without_parent, group: item_without_parent.group)
+        build(:item, parent: item_without_parent, department: item_without_parent.department)
       end
 
       include_examples 'the record is valid'
@@ -99,7 +99,7 @@ describe Item do
     context 'when a child has child' do
       subject do
         item_with_child = create(:item, :with_child)
-        build(:item, children: [item_with_child], group: item_with_child.group)
+        build(:item, children: [item_with_child], department: item_with_child.department)
       end
 
       include_examples 'the record is invalid'
@@ -108,40 +108,40 @@ describe Item do
     context 'when none of the children has child' do
       subject do
         item_without_child = create(:item)
-        build(:item, children: [item_without_child], group: item_without_child.group)
+        build(:item, children: [item_without_child], department: item_without_child.department)
       end
 
       include_examples 'the record is valid'
     end
   end
 
-  describe 'validation of group of parent' do
+  describe 'validation of department of parent' do
     let(:parent) { create(:item) }
 
-    context 'when parent belongs to a different group' do
+    context 'when parent belongs to a different department' do
       subject { build(:item, parent: parent) }
 
       include_examples 'the record is invalid'
     end
 
-    context 'when parent belongs to the same group' do
-      subject { build(:item, parent: parent, group: parent.group) }
+    context 'when parent belongs to the same department' do
+      subject { build(:item, parent: parent, department: parent.department) }
 
       include_examples 'the record is valid'
     end
   end
 
-  describe 'validation of group of children' do
+  describe 'validation of department of children' do
     let(:child) { create(:item) }
 
-    context 'when a child belongs to a different group' do
+    context 'when a child belongs to a different department' do
       subject { build(:item, children: [child]) }
 
       include_examples 'the record is invalid'
     end
 
-    context 'when child belongs to the same group' do
-      subject { build(:item, children: [child], group: child.group) }
+    context 'when child belongs to the same department' do
+      subject { build(:item, children: [child], department: child.department) }
 
       include_examples 'the record is valid'
     end

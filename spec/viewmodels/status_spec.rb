@@ -30,8 +30,8 @@ describe Status do
   end
 
   describe '#at_member_item_count' do
-    it 'returns count of existing items at group member' do
-      create(:item, status: :at_group_member)
+    it 'returns count of existing items at department member' do
+      create(:item, status: :at_member)
 
       expect(status.at_member_item_count).to eq(1)
     end

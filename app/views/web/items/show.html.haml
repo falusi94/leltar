@@ -16,8 +16,8 @@
               %div{:class => "uk-width-2-3@s"}= @item.specific_name
               .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:number)}:"
               %div{:class => "uk-width-2-3@s"}= @item.number
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name('group.name')}:"
-              %div{:class => "uk-width-2-3@s"}= @item.group.name
+              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name('department.name')}:"
+              %div{:class => "uk-width-2-3@s"}= @item.department.name
               .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:last_check)}:"
               %div{:class => "uk-width-2-3@s"}= @item.last_check
               .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:parent)}:"

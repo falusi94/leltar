@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-describe GroupPolicy do
-  subject { described_class.new(user, group) }
+describe DepartmentPolicy do
+  subject { described_class.new(user, department) }
 
-  let(:group) { build_stubbed(:group) }
+  let(:department) { build_stubbed(:department) }
 
   context 'when the user is admin' do
     let(:user) { build_stubbed(:admin) }
@@ -28,7 +28,7 @@ describe GroupPolicy do
   end
 
   describe '#read_items?' do
-    let(:group) { create(:group) }
+    let(:department) { create(:department) }
 
     context 'when the user is admin' do
       let(:user) { create(:admin) }
@@ -36,21 +36,21 @@ describe GroupPolicy do
       it { is_expected.to permit_action(:read_items) }
     end
 
-    context 'when the user has access to all groups' do
-      let(:user) { create(:user, :read_all_group) }
+    context 'when the user has access to all departments' do
+      let(:user) { create(:user, :read_all_department) }
 
       it { is_expected.to permit_action(:read_items) }
     end
 
-    context 'when the user has access to the group' do
+    context 'when the user has access to the department' do
       let(:user) { create(:user) }
 
-      before { create(:read_right, group: group, user: user) }
+      before { create(:read_right, department: department, user: user) }
 
       it { is_expected.to permit_action(:read_items) }
     end
 
-    context 'when the user has no access to the group' do
+    context 'when the user has no access to the department' do
       let(:user) { create(:user) }
 
       it { is_expected.not_to permit_action(:read_items) }
@@ -58,7 +58,7 @@ describe GroupPolicy do
   end
 
   describe '#write_items?' do
-    let(:group) { create(:group) }
+    let(:department) { create(:department) }
 
     context 'when the user is admin' do
       let(:user) { create(:admin) }
@@ -66,21 +66,21 @@ describe GroupPolicy do
       it { is_expected.to permit_action(:write_items) }
     end
 
-    context 'when the user has access to all groups' do
-      let(:user) { create(:user, :write_all_group) }
+    context 'when the user has access to all departments' do
+      let(:user) { create(:user, :write_all_department) }
 
       it { is_expected.to permit_action(:write_items) }
     end
 
-    context 'when the user has access to the group' do
+    context 'when the user has access to the department' do
       let(:user) { create(:user) }
 
-      before { create(:write_right, group: group, user: user) }
+      before { create(:write_right, department: department, user: user) }
 
       it { is_expected.to permit_action(:write_items) }
     end
 
-    context 'when the user has no access to the group' do
+    context 'when the user has no access to the department' do
       let(:user) { create(:user) }
 
       it { is_expected.not_to permit_action(:write_items) }

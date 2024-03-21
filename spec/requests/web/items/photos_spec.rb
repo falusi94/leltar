@@ -9,7 +9,7 @@ describe 'Photos' do
 
     include_examples 'without user redirects to login'
 
-    context 'when the user can write group' do
+    context 'when the user can write department' do
       it 'attaches the photo' do
         login_admin
 
@@ -28,7 +28,7 @@ describe 'Photos' do
 
     include_examples 'without user redirects to login'
 
-    context 'when the user can write group' do
+    context 'when the user can write department' do
       it 'deletes the photo' do
         login_admin
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GroupPolicy < ApplicationPolicy
+class DepartmentPolicy < ApplicationPolicy
   def index?
     true
   end
@@ -22,11 +22,11 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def read_items?
-    user.admin || user.read_all_group || user.rights.exists?(group: record)
+    user.admin || user.read_all_department || user.rights.exists?(department: record)
   end
 
   def write_items?
-    user.admin || user.write_all_group || user.rights.write.exists?(group: record)
+    user.admin || user.write_all_department || user.rights.write.exists?(department: record)
   end
 
   def permitted_attributes

@@ -24,26 +24,26 @@ describe ItemsHelper do
     context 'when there is an item' do
       let(:item) { create(:item) }
 
-      it 'returns items without parent in the same group' do
-        item_of_the_same_group = create(:item, group: item.group)
-        _item_of_another_group = create(:item)
+      it 'returns items without parent in the same department' do
+        item_of_the_same_department = create(:item, department: item.department)
+        _item_of_another_department = create(:item)
 
-        expect(parent_item_candidates).to match([item, item_of_the_same_group])
+        expect(parent_item_candidates).to match([item, item_of_the_same_department])
       end
     end
   end
 
   describe '#items_page_title' do
-    subject(:items_page_title) { test_class.new.items_page_title(group) }
+    subject(:items_page_title) { test_class.new.items_page_title(department) }
 
-    context 'when there is a group' do
-      let(:group) { build(:group, name: 'Group') }
+    context 'when there is a department' do
+      let(:department) { build(:department, name: 'Department') }
 
-      it { is_expected.to eq('Item(s) of Group') }
+      it { is_expected.to eq('Item(s) of Department') }
     end
 
-    context 'when there is no group' do
-      let(:group) { nil }
+    context 'when there is no department' do
+      let(:department) { nil }
 
       it { is_expected.to eq('Item(s)') }
     end

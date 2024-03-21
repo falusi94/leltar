@@ -4,7 +4,7 @@ describe '/api/rights' do
   let(:url) { '/api/rights' }
 
   describe 'POST #create' do
-    let(:params)   { { group_id: create(:group).id, user_id: create(:user).id } }
+    let(:params)   { { department_id: create(:department).id, user_id: create(:user).id } }
     let(:resource) { Right.last }
 
     include_examples 'API creates resource'
@@ -12,7 +12,7 @@ describe '/api/rights' do
 
   describe 'PUT #update' do
     let(:params)           { { write: true } }
-    let(:incorrect_params) { { group_id: nil } }
+    let(:incorrect_params) { { department_id: nil } }
     let(:resource)         { create(:right) }
 
     include_examples 'API updates resource'

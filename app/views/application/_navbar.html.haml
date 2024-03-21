@@ -5,7 +5,7 @@
         = t(:title)
       %ul.uk-navbar-nav
         %li
-          = link_to t('navigation.groups'), groups_path
+          = link_to t('navigation.departments'), departments_path
         - if current_user.admin
           %li
             %a{:href => "#", "uk-icon" => "chevron-down"} Admin
@@ -42,7 +42,7 @@
         %h2= t(:title)
         %li.uk-nav-divider
         %li
-          = link_to t('navigation.groups'), groups_path
+          = link_to t('navigation.departments'), departments_path
         - if current_user.admin
           %li.uk-nav-divider
           %li

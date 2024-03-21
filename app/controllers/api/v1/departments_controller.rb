@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class GroupsController < ResourcesController
+    class DepartmentsController < ResourcesController
     end
   end
 end

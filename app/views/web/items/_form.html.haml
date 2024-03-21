@@ -19,10 +19,10 @@
         - options = options_from_collection_for_select(parent_item_candidates(@item), :id, :compact_name, @item.parent&.id)
         = f.select :parent_id, options, {include_blank: true}, {class: 'uk-select uk-form-small'}
   .uk-margin
-    = f.label :group_id, class: 'uk-form-label'
+    = f.label :department_id, class: 'uk-form-label'
     .uk-form-controls
-      - options = options_from_collection_for_select(@write_groups, :id, :name, @item.group.id)
-      = f.select :group_id, options, {}, {class: 'uk-select uk-form-small'}
+      - options = options_from_collection_for_select(@write_departments, :id, :name, @item.department.id)
+      = f.select :department_id, options, {}, {class: 'uk-select uk-form-small'}
   .uk-margin
     = f.label :location, class: 'uk-form-label'
     .uk-form-controls

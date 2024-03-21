@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module UsersHelper
-  def groups_without_access(user)
-    return [] if user.admin || user.write_all_group
+  def departments_without_access(user)
+    return [] if user.admin || user.write_all_department
 
-    Group.where_assoc_not_exists(:users, id: user.id)
+    Department.where_assoc_not_exists(:users, id: user.id)
   end
 end

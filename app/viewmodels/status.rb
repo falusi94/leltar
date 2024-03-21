@@ -20,6 +20,6 @@ class Status
   end
 
   def at_member_item_count
-    Item.existing.status_at_group_member.count
+    Item.existing.status_at_member.count
   end
 end

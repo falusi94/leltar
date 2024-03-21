@@ -25,14 +25,14 @@
 #  warranty          :date
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  group_id          :integer
+#  department_id     :integer
 #  parent_id         :integer
 #
 # Indexes
 #
 #  index_items_on_accountancy_state  (accountancy_state)
 #  index_items_on_condition          (condition)
-#  index_items_on_group_id           (group_id)
+#  index_items_on_department_id      (department_id)
 #  index_items_on_status             (status)
 #
 
@@ -47,7 +47,7 @@ class Item < ApplicationRecord
     waiting_for_scrapping: 'waiting_for_scrapping',
     scrapped:              'scrapped',
     not_found:             'not_found',
-    at_group_member:       'at_group_member',
+    at_member:             'at_member',
     other:                 'other'
   }, _prefix: :status
   enum condition: {
@@ -67,7 +67,7 @@ class Item < ApplicationRecord
   translate_enum :accountancy_state
 
   has_paper_trail
-  belongs_to :group
+  belongs_to :department
   has_many_attached :photos
   has_one_attached :invoice
   belongs_to :parent, class_name: 'Item', optional: true
@@ -75,7 +75,7 @@ class Item < ApplicationRecord
 
   validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
   validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }
-  validate :children_from_the_same_group, :parent_from_the_same_group, :purchase_date_not_in_the_future,
+  validate :children_from_the_same_department, :parent_from_the_same_department, :purchase_date_not_in_the_future,
            :has_no_grandparent, :has_no_grandchild
 
   def initialize(params = {})
@@ -87,7 +87,7 @@ class Item < ApplicationRecord
 
   scope :not_a_child, -> { where(parent_id: nil) }
   scope :existing, lambda {
-    where('items.status in (?) or items.status is null', %i[ok waiting_for_repair at_group_member other])
+    where('items.status in (?) or items.status is null', %i[ok waiting_for_repair at_member other])
   }
 
   def child?
@@ -99,22 +99,22 @@ class Item < ApplicationRecord
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[accountancy_state at_who comment condition description entry_date entry_price group_id inventory_number
+    %w[accountancy_state at_who comment condition description entry_date entry_price department_id inventory_number
        last_check location name organization purchase_date serial specific_name status warranty]
   end
 
   private
 
-  def children_from_the_same_group
-    return unless children.where.not(group_id: group_id).exists?
+  def children_from_the_same_department
+    return unless children.where.not(department_id: department_id).exists?
 
-    errors.add(:children, 'has to be in the same group')
+    errors.add(:children, 'has to be in the same department')
   end
 
-  def parent_from_the_same_group
-    return if parent.blank? || parent.group_id == group_id
+  def parent_from_the_same_department
+    return if parent.blank? || parent.department_id == department_id
 
-    errors.add(:parent, 'has to be in the same group')
+    errors.add(:parent, 'has to be in the same department')
   end
 
   def purchase_date_not_in_the_future

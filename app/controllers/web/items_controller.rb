@@ -3,11 +3,11 @@
 module Web
   class ItemsController < BaseController
     before_action :set_item, except: %i[index new create]
-    before_action :set_groups, only: %i[new edit create update]
+    before_action :set_departments, only: %i[new edit create update]
     before_action -> { authorize(@item) }, only: %i[show edit update destroy]
 
     def index
-      @group = Group.find(params[:group_id]) if params[:group_id]
+      @department = Department.find(params[:department_id]) if params[:department_id]
 
       @pagy, @items = pagy(items)
       @items = ItemDecorator.decorate_collection(@items)
@@ -19,9 +19,9 @@ module Web
 
     def new
       authorize(Item)
-      return unauthorized_page if @groups.empty?
+      return unauthorized_page if @departments.empty?
 
-      @item = Item.new(group_id: params[:group_id] || @groups.first.id)
+      @item = Item.new(department_id: params[:department_id] || @departments.first.id)
     end
 
     def edit; end
@@ -41,7 +41,7 @@ module Web
     def update
       @item.attributes = item_params
 
-      authorize(@item) # Check if the new group is also accessible by the user
+      authorize(@item) # Check if the new department is also accessible by the user
 
       @item.attributes = status_update_params if params[:item][:update]
 

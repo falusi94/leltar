@@ -52,10 +52,10 @@ describe 'Items' do
 
     include_examples 'without user redirects to login'
 
-    context 'when the user has access to any group' do
+    context 'when the user has access to any department' do
       it 'shows it' do
         login_admin
-        create(:group)
+        create(:department)
 
         new_item
 
@@ -63,7 +63,7 @@ describe 'Items' do
       end
     end
 
-    context 'when the user does not have access to any groups' do
+    context 'when the user does not have access to any departments' do
       it 'returns unauthorized' do
         login_admin
 
@@ -81,7 +81,7 @@ describe 'Items' do
 
     include_examples 'without user redirects to login'
 
-    context 'when the user has access to the group of the item' do
+    context 'when the user has access to the department of the item' do
       it 'shows it' do
         login_admin
 
@@ -91,7 +91,7 @@ describe 'Items' do
       end
     end
 
-    context 'when the user does not have to the group of the item' do
+    context 'when the user does not have to the department of the item' do
       it 'returns unauthorized' do
         login
 
@@ -103,13 +103,13 @@ describe 'Items' do
   end
 
   describe 'POST #create' do
-    subject(:create_item) { post '/items', params: { item: { group_id: group.id, name: 'Item' } } }
+    subject(:create_item) { post '/items', params: { item: { department_id: department.id, name: 'Item' } } }
 
-    let(:group) { create(:group) }
+    let(:department) { create(:department) }
 
     include_examples 'without user redirects to login'
 
-    context 'when the user has access to the group' do
+    context 'when the user has access to the department' do
       it 'creates it' do
         login_admin
 
@@ -117,11 +117,11 @@ describe 'Items' do
 
         item = Item.last
         expect(response).to redirect_to(item)
-        expect(item).to have_attributes(group: group, name: 'Item')
+        expect(item).to have_attributes(department: department, name: 'Item')
       end
     end
 
-    context 'when the user does not have to the group' do
+    context 'when the user does not have to the department' do
       it 'does not create it' do
         login
 
@@ -139,7 +139,7 @@ describe 'Items' do
 
     include_examples 'without user redirects to login'
 
-    context 'when the user has access to the group' do
+    context 'when the user has access to the department' do
       before { login_admin }
 
       it 'updates it' do
@@ -159,7 +159,7 @@ describe 'Items' do
       end
     end
 
-    context 'when the user does not have to the group' do
+    context 'when the user does not have to the department' do
       it 'does not update it' do
         login
 

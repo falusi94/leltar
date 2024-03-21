@@ -10,11 +10,11 @@ module Api
       end
 
       def create_resource_params
-        update_resource_params.except(:group_id).merge(group: group)
+        update_resource_params.except(:department_id).merge(department: department)
       end
 
-      def group
-        Group.find(params[:group_id])
+      def department
+        Department.find(params[:department_id])
       end
     end
   end

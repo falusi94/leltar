@@ -1,6 +1,6 @@
 %tr{ **(item.child? ? {'data-filter-target': 'filterable'} : {}) }
   %td= item.id
   %td= link_to item.name, item_path(item)
-  %td= link_to item.group.name, group_path(item.group)
+  %td= link_to item.department.name, department_path(item.department)
   %td= item.translated_status
   %td= item.organization

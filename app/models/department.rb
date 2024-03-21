@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: groups
+# Table name: departments
 #
 #  id         :integer          not null, primary key
 #  name       :string           not null
@@ -11,10 +11,10 @@
 #
 # Indexes
 #
-#  index_groups_on_name  (name) UNIQUE
+#  index_departments_on_name  (name) UNIQUE
 #
 
-class Group < ApplicationRecord
+class Department < ApplicationRecord
   validates :name, uniqueness: true, presence: true
 
   has_many :items, dependent: :nullify

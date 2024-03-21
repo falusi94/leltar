@@ -1,9 +1,9 @@
 .uk-container
   .uk-clearfix
     .uk-float-left
-      %h1= items_page_title(@group)
+      %h1= items_page_title(@department)
     .uk-float-right.uk-padding-small
-      = new_item_button(@group)
+      = new_item_button(@department)
   .uk-clearfix
     .uk-float-right
       != pagy_uikit_nav @pagy

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_21_212340) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_21_213624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,11 +42,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_212340) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "groups", id: :serial, force: :cascade do |t|
+  create_table "departments", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_groups_on_name", unique: true
+    t.index ["name"], name: "index_departments_on_name", unique: true
   end
 
   create_table "items", id: :serial, force: :cascade do |t|
@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_212340) do
     t.date "purchase_date"
     t.date "entry_date"
     t.date "last_check"
-    t.integer "group_id"
+    t.integer "department_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "number", default: 1
@@ -74,13 +74,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_212340) do
     t.string "organization"
     t.index ["accountancy_state"], name: "index_items_on_accountancy_state"
     t.index ["condition"], name: "index_items_on_condition"
-    t.index ["group_id"], name: "index_items_on_group_id"
+    t.index ["department_id"], name: "index_items_on_department_id"
     t.index ["status"], name: "index_items_on_status"
   end
 
   create_table "rights", id: :serial, force: :cascade do |t|
     t.integer "user_id"
-    t.integer "group_id"
+    t.integer "department_id"
     t.boolean "write"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -111,8 +111,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_212340) do
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "read_all_group", default: false
-    t.boolean "write_all_group", default: false
+    t.boolean "read_all_department", default: false
+    t.boolean "write_all_department", default: false
     t.datetime "last_sign_in_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
@@ -129,7 +129,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_212340) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "rights", "groups"
+  add_foreign_key "rights", "departments"
   add_foreign_key "rights", "users"
   add_foreign_key "user_sessions", "users"
 end

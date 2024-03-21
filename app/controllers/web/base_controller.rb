@@ -17,9 +17,9 @@ module Web
       render 'application/404', status: :not_found
     end
 
-    def set_groups
-      @groups = current_user.read_groups.order(:name)
-      @write_groups = current_user.write_groups
+    def set_departments
+      @departments = current_user.read_departments.order(:name)
+      @write_departments = current_user.write_departments
     end
 
     def current_user

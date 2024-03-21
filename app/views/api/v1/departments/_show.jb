@@ -2,4 +2,4 @@
 
 attributes = %i[id name]
 
-group.slice(*attributes)
+department.slice(*attributes)

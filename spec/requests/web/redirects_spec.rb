@@ -14,7 +14,7 @@ describe 'Redirects' do
       end
     end
 
-    context 'when the has no access to any group' do
+    context 'when the has no access to any department' do
       it 'shows unauthorized' do
         login
 
@@ -24,22 +24,22 @@ describe 'Redirects' do
       end
     end
 
-    context 'when the has access to one group' do
-      it "redirects to the group's items" do
-        group = create(:group)
-        user  = create(:user, groups: [group])
+    context 'when the has access to one department' do
+      it "redirects to the department's items" do
+        department = create(:department)
+        user       = create(:user, departments: [department])
         login(user)
 
         redirect
 
-        expect(response).to redirect_to("/groups/#{group.id}/items")
+        expect(response).to redirect_to("/departments/#{department.id}/items")
       end
     end
 
-    context 'when the has access to more than one group' do
+    context 'when the has access to more than one department' do
       it 'redirects to the items page' do
-        groups = create_list(:group, 2)
-        user   = create(:user, groups: groups)
+        departments = create_list(:department, 2)
+        user        = create(:user, departments: departments)
         login(user)
 
         redirect

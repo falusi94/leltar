@@ -16,7 +16,7 @@
         %table.uk-table.uk-table-divider.uk-table-small
           %thead
             %tr
-              - %i[id name group.name status organization].each do |header|
+              - %i[id name department.name status organization].each do |header|
                 %th= Item.human_attribute_name(header)
           %tbody
             = render partial: 'item', collection: @items

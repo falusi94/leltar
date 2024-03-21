@@ -3,7 +3,7 @@
 module Web
   class SearchController < BaseController
     before_action -> { authorize(Item, :search?) }
-    before_action :set_groups
+    before_action :set_departments
 
     def index
       @q    = Item.ransack(search_params)
@@ -23,7 +23,7 @@ module Web
       return unless params.key? :q
 
       params.require(:q)
-            .permit(:name_cont, :specific_name_cont, :description_cont, :group_id_eq, :serial_cont,
+            .permit(:name_cont, :specific_name_cont, :description_cont, :department_id_eq, :serial_cont,
                     :at_who_cont, :comment_cont, :inventory_number_cont, :condition_eq, :status_eq,
                     :accountancy_state_eq, :location_cont, :organization_eq, :entry_date_lteq,
                     :entry_date_gteq, :purchase_date_lteq, :purchase_date_gteq, :last_check_lteq,

@@ -22,13 +22,13 @@ module ApiHelpers
     { id: user.id, email: user.email, name: user.name }
   end
 
-  def api_group_hash(group)
-    { id: group.id, name: group.name }
+  def api_department_hash(department)
+    { id: department.id, name: department.name }
   end
 
   def api_item_hash(item)
     attributes = %i[id accountancy_state at_who comment condition description entry_price inventory_number location name
-                    number organization serial specific_name status group_id parent_id]
+                    number organization serial specific_name status department_id parent_id]
 
     item.slice(*attributes).merge(
       entry_date:    item.entry_date ? I18n.l(item.entry_date) : nil,
@@ -39,7 +39,7 @@ module ApiHelpers
   end
 
   def api_right_hash(right)
-    { id: right.id, write: right.write, group_id: right.group_id, user_id: right.user_id }
+    { id: right.id, write: right.write, department_id: right.department_id, user_id: right.user_id }
   end
 
   def api_system_attribute_hash(system_attribute)

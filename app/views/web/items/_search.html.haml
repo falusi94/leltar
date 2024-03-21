@@ -1,4 +1,4 @@
-- search_path = params[:group_id] ? group_items_path(group_id: params[:group_id]) : items_path
+- search_path = params[:department_id] ? department_items_path(department_id: params[:department_id]) : items_path
 .uk-navbar-center
   .uk-navbar-item
     = form_tag search_path, method: :get, class: 'uk-form uk-flex uk-width-1-1', id: 'search-form' do
