@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+
+{
+  data: render(partial: 'api/v1/system_attributes/show', collection: @resources, as: :system_attribute)
+}

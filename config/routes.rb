@@ -15,6 +15,10 @@ Rails.application.routes.draw do
 
       resources :users, only: %i[index show create update destroy]
       resources :rights, only: %i[create update destroy]
+
+      resources :system_attributes, only: [:index] do
+        put :update, on: :collection
+      end
     end
   end
 

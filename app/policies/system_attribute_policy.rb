@@ -6,4 +6,5 @@ class SystemAttributePolicy < ApplicationPolicy
   end
 
   alias update? edit?
+  alias index? edit?
 end

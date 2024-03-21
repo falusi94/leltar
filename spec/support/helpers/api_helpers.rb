@@ -42,6 +42,10 @@ module ApiHelpers
     { id: right.id, write: right.write, group_id: right.group_id, user_id: right.user_id }
   end
 
+  def api_system_attribute_hash(system_attribute)
+    { name: system_attribute.name, value: system_attribute.value }
+  end
+
   def api_attachment_hash(attachment)
     {
       record_type: attachment.record_type,
