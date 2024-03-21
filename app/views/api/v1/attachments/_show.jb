@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+{
+  url: rails_blob_url(attachment),
+  **attachment.slice(:record_id, :record_type)
+}

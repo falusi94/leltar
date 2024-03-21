@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   namespace :api do
     scope module: :v1, constraints: RoutesConstraint::ApiVersion.new(version: 1, default: true) do
       resource :session, only: %i[create destroy]
-      resources :items, only: %i[index show update destroy]
+      resources :items, only: %i[index show update destroy] do
+        resources :photos, only: %i[index create destroy], module: :items
+      end
 
       resources :groups, only: %i[index show create update destroy] do
         resources :items, only: %i[index create]

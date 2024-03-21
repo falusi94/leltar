@@ -42,6 +42,14 @@ module ApiHelpers
     { id: right.id, write: right.write, group_id: right.group_id, user_id: right.user_id }
   end
 
+  def api_attachment_hash(attachment)
+    {
+      record_type: attachment.record_type,
+      record_id:   attachment.record_id,
+      url:         include('http://www.example.com/rails/active_storage/blobs/redirect/')
+    }
+  end
+
   def api_array_hash(array)
     method_name = :"api_#{array.first.class.to_s.demodulize.underscore}_hash"
     array.map { |entry| public_send(method_name, entry) }
