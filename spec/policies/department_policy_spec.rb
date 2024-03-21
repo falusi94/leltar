@@ -45,7 +45,7 @@ describe DepartmentPolicy do
     context 'when the user has access to the department' do
       let(:user) { create(:user) }
 
-      before { create(:read_right, department: department, user: user) }
+      before { create(:read_department_user, department: department, user: user) }
 
       it { is_expected.to permit_action(:read_items) }
     end
@@ -75,7 +75,7 @@ describe DepartmentPolicy do
     context 'when the user has access to the department' do
       let(:user) { create(:user) }
 
-      before { create(:write_right, department: department, user: user) }
+      before { create(:write_department_user, department: department, user: user) }
 
       it { is_expected.to permit_action(:write_items) }
     end

@@ -59,7 +59,7 @@ describe ItemPolicy do
     context 'when the user has access to at least one department' do
       let(:user) { create(:user) }
 
-      before { create(:write_right, user: user) }
+      before { create(:write_department_user, user: user) }
 
       it { is_expected.to permit_action(:new) }
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RightPolicy < ApplicationPolicy
+class DepartmentUserPolicy < ApplicationPolicy
   def create?
     user.admin
   end

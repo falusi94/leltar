@@ -18,6 +18,6 @@ class Department < ApplicationRecord
   validates :name, uniqueness: true, presence: true
 
   has_many :items, dependent: :nullify
-  has_many :rights, dependent: :destroy
-  has_many :users, through: :rights
+  has_many :department_users, dependent: :destroy
+  has_many :users, through: :department_users
 end

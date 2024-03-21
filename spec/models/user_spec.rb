@@ -26,7 +26,7 @@ describe User do
       let(:user) { create(:user) }
 
       it 'returns that' do
-        create(:read_right, user: user, department: departments.first)
+        create(:read_department_user, user: user, department: departments.first)
 
         expect(read_departments).to match([departments.first])
       end
@@ -58,7 +58,7 @@ describe User do
       let(:user) { create(:user) }
 
       it 'returns that' do
-        create(:write_right, user: user, department: departments.first)
+        create(:write_department_user, user: user, department: departments.first)
 
         expect(write_departments).to match([departments.first])
       end

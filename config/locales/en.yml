@@ -31,9 +31,9 @@ en:
       sign_in: Sign in
       are_you_sure: Are you sure?
     department:
-      rights:
+      department_users:
         title: User accesses
-    right:
+    department_user:
       edit: Edit access
       read: Read access
     item:
@@ -62,8 +62,8 @@ en:
   activerecord:
     attributes:
       user:
-        rights: User accesses
-      right:
+        department_users: User accesses
+      department_user:
         write: Write access
       item:
         number: Count

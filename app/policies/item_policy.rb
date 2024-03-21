@@ -17,7 +17,7 @@ class ItemPolicy < ApplicationPolicy
   alias create?  edit?
 
   def new?
-    user.admin || user.write_all_department || user.rights.any?(&:write)
+    user.admin || user.write_all_department || user.department_users.any?(&:write)
   end
 
   def search?

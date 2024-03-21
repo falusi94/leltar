@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class RightsController < ResourcesController
+    class DepartmentUsersController < ResourcesController
     end
   end
 end

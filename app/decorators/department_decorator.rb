@@ -2,7 +2,7 @@
 
 class DepartmentDecorator < ApplicationDecorator
   decorates_finders
-  decorates_association :rights
+  decorates_association :department_users
 
   def edit_department_button
     return unless h.policy(object).edit?

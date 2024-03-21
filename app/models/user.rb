@@ -26,9 +26,9 @@ class User < ApplicationRecord
   validates :email, :name, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  has_many :rights, dependent: :nullify
-  has_many :departments, through: :rights
-  has_many :write_rights, -> { write }, class_name: 'Right', dependent: false, inverse_of: :user
+  has_many :department_users, dependent: :nullify
+  has_many :departments, through: :department_users
+  has_many :write_department_users, -> { write }, class_name: 'DepartmentUser', dependent: false, inverse_of: :user
   has_many :sessions, class_name: 'UserSession', dependent: :destroy
 
   def read_departments
@@ -40,7 +40,7 @@ class User < ApplicationRecord
   def write_departments
     return Department.all if admin || write_all_department
 
-    departments.where(id: write_rights.pluck(:department_id))
+    departments.where(id: write_department_users.pluck(:department_id))
   end
 
   def self.digest(string)

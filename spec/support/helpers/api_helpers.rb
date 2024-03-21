@@ -38,8 +38,13 @@ module ApiHelpers
     ).symbolize_keys
   end
 
-  def api_right_hash(right)
-    { id: right.id, write: right.write, department_id: right.department_id, user_id: right.user_id }
+  def api_department_user_hash(department_user)
+    {
+      id:            department_user.id,
+      write:         department_user.write,
+      department_id: department_user.department_id,
+      user_id:       department_user.user_id
+    }
   end
 
   def api_system_attribute_hash(system_attribute)

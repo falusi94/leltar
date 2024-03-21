@@ -2,5 +2,5 @@
 
 class UserDecorator < ApplicationDecorator
   decorates_finders
-  decorates_association :rights
+  decorates_association :department_users
 end

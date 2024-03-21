@@ -22,11 +22,11 @@ class DepartmentPolicy < ApplicationPolicy
   end
 
   def read_items?
-    user.admin || user.read_all_department || user.rights.exists?(department: record)
+    user.admin || user.read_all_department || user.department_users.exists?(department: record)
   end
 
   def write_items?
-    user.admin || user.write_all_department || user.rights.write.exists?(department: record)
+    user.admin || user.write_all_department || user.department_users.write.exists?(department: record)
   end
 
   def permitted_attributes

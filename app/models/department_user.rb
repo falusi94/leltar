@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: rights
+# Table name: department_users
 #
 #  id            :integer          not null, primary key
 #  write         :boolean
@@ -17,7 +17,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class Right < ApplicationRecord
+class DepartmentUser < ApplicationRecord
   belongs_to :user
   belongs_to :department
 

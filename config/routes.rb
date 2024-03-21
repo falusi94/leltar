@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       end
 
       resources :users, only: %i[index show create update destroy]
-      resources :rights, only: %i[create update destroy]
+      resources :department_users, only: %i[create update destroy]
 
       resources :system_attributes, only: [:index] do
         put :update, on: :collection
@@ -33,8 +33,8 @@ Rails.application.routes.draw do
     # User routes
     resources :users
 
-    # Right routes
-    resources :rights, only: %i[create update destroy]
+    # DepartmentUser routes
+    resources :department_users, only: %i[create update destroy]
 
     # Departments routes
     resources :departments, except: :show do

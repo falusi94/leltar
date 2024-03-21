@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module Web
-  class RightsController < BaseController
-    before_action -> { authorize(Right) }
+  class DepartmentUsersController < BaseController
+    before_action -> { authorize(DepartmentUser) }
 
     def create
-      right = Right.new(right_params)
+      department_user = DepartmentUser.new(department_user_params)
 
-      if right.save
+      if department_user.save
         redirect_back fallback_location: root_path, notice: t('success.create')
       else
         redirect_back fallback_location: root_path, alert: t(:error_during_save)
@@ -15,9 +15,9 @@ module Web
     end
 
     def update
-      right.write = !right.write
+      department_user.write = !department_user.write
 
-      if right.save
+      if department_user.save
         redirect_back fallback_location: root_path, notice: t('success.edit')
       else
         redirect_back fallback_location: root_path, alert: t(:error_during_save)
@@ -25,19 +25,19 @@ module Web
     end
 
     def destroy
-      right.destroy
+      department_user.destroy
 
       redirect_back fallback_location: root_path, notice: t('success.delete')
     end
 
     private
 
-    def right
-      @right ||= Right.find(params[:id])
+    def department_user
+      @department_user ||= DepartmentUser.find(params[:id])
     end
 
-    def right_params
-      params.require(:right).permit(policy(Right).permitted_attributes)
+    def department_user_params
+      params.require(:department_user).permit(policy(DepartmentUser).permitted_attributes)
     end
   end
 end
