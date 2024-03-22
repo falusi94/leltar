@@ -29,26 +29,17 @@ describe 'SystemAttributes' do
     context 'when the user is logged in' do
       before { login_admin }
 
-      context 'and the attribute exists' do
-        let(:system_attribute) { create(:system_attribute) }
-        let(:params) { { system_attribute.name => 'value' } }
+      let(:system_attribute) { create(:system_attribute) }
+      let(:params) { { system_attribute.name => 'value' } }
 
-        it 'updates it' do
-          update_system_attributes
+      it 'updates it' do
+        allow(SystemAttribute).to receive(:update!).and_call_original
 
-          expect(response).to redirect_to(edit_system_attributes_path)
-          expect(system_attribute.reload).to have_attributes(value: 'value')
-        end
-      end
+        update_system_attributes
 
-      context 'and the attribute does not exist' do
-        let(:params) { { name: 'non-existing', value: 'value' } }
-
-        it 'does nothing' do
-          expect { update_system_attributes }.not_to change(SystemAttribute, :count)
-
-          expect(response).to redirect_to(edit_system_attributes_path)
-        end
+        expect(response).to redirect_to(edit_system_attributes_path)
+        expect(system_attribute.reload).to have_attributes(value: 'value')
+        expect(SystemAttribute).to have_received(:update!)
       end
     end
   end

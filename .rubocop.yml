@@ -63,6 +63,6 @@ RSpec/FilePath:
   Exclude:
     - spec/requests/**/*
 RSpec/NestedGroups:
-  Max: 4
+  Max: 5
 RSpec/BeNil:
   EnforcedStyle: be

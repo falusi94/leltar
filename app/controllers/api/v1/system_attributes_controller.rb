@@ -8,19 +8,9 @@ module Api
       def update
         authorize SystemAttribute
 
-        ActiveRecord::Base.transaction do
-          system_params.each do |key, param|
-            SystemAttribute.find_or_initialize_by(name: key).update!(value: param)
-          end
-        end
+        SystemAttribute.update!(params)
 
         head :ok
-      end
-
-      private
-
-      def system_params
-        params.permit(*SystemAttribute::ATTRIBUTES)
       end
     end
   end

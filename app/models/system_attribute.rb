@@ -29,4 +29,14 @@ class SystemAttribute < ApplicationRecord
       end
     end
   end
+
+  def self.update!(attributes)
+    ActiveRecord::Base.transaction do
+      attributes.each do |key, value|
+        next if ATTRIBUTES.exclude?(key.to_sym) || value.blank?
+
+        SystemAttribute.find_or_initialize_by(name: key).update!(value: value)
+      end
+    end
+  end
 end

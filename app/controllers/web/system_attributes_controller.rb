@@ -9,11 +9,7 @@ module Web
     end
 
     def update
-      ActiveRecord::Base.transaction do
-        system_params.each do |key, param|
-          SystemAttribute.find_or_initialize_by(name: key).update!(value: param)
-        end
-      end
+      SystemAttribute.update!(params)
 
       redirect_to edit_system_attributes_path, notice: t('success.edit')
     rescue ActiveRecord::RecordInvalid
@@ -29,10 +25,6 @@ module Web
       @system_attributes +=
         (SystemAttribute::ATTRIBUTES - @system_attributes.pluck(:name).map(&:to_sym))
         .map { |name| SystemAttribute.new(name: name) }
-    end
-
-    def system_params
-      params.permit(*SystemAttribute::ATTRIBUTES)
     end
   end
 end

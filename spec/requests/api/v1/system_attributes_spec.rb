@@ -13,26 +13,18 @@ describe '/api/system_attributes' do
     subject(:update_system_attributes) { put '/api/system_attributes', headers: auth_headers(user), params: params }
 
     let(:user) { create(:admin, :with_session) }
+    let(:system_attribute) { create(:system_attribute) }
+    let(:params) { { system_attribute.name => 'value' } }
 
-    context 'when the attribute exists' do
-      let(:system_attribute) { create(:system_attribute) }
-      let(:params) { { system_attribute.name => 'value' } }
+    it 'updates it' do
+      allow(SystemAttribute).to receive(:update!).and_call_original
 
-      it 'updates it' do
-        update_system_attributes
+      update_system_attributes
 
-        expect(response).to have_http_status(:ok)
-        expect(response.headers).to include('access-token')
-        expect(system_attribute.reload).to have_attributes(value: 'value')
-      end
-    end
-
-    context 'when the attribute does exist' do
-      let(:params) { { name: 'non-existing', value: 'value' } }
-
-      it 'does not create it' do
-        expect { update_system_attributes }.not_to change(SystemAttribute, :count)
-      end
+      expect(response).to have_http_status(:ok)
+      expect(response.headers).to include('access-token')
+      expect(system_attribute.reload).to have_attributes(value: 'value')
+      expect(SystemAttribute).to have_received(:update!)
     end
 
     context 'when the user is not authorized' do

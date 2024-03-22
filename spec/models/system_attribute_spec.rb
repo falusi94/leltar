@@ -22,4 +22,62 @@ describe SystemAttribute do
       end
     end
   end
+
+  describe '.update!' do
+    subject(:update) { described_class.update!(params) }
+
+    context 'when the attribute exists' do
+      context 'and value is provided' do
+        let(:params) { { system_attribute.name => 'new value' } }
+        let!(:system_attribute) { create(:system_attribute) }
+
+        it 'updates it' do
+          expect { update }.not_to change(described_class, :count)
+
+          expect(system_attribute.reload).to have_attributes(value: 'new value')
+        end
+      end
+
+      context 'and empty value is provided' do
+        let(:params) { { system_attribute.name => '' } }
+        let!(:system_attribute) { create(:system_attribute, value: 'value') }
+
+        it 'does nothing it' do
+          expect { update }.not_to change(described_class, :count)
+
+          expect(system_attribute.reload).to have_attributes(value: 'value')
+        end
+      end
+    end
+
+    context 'when the attribute does not exist' do
+      context 'and the attribute is valid' do
+        context 'and value is provided' do
+          let(:params) { { described_class::ATTRIBUTES.first => 'new value' } }
+
+          it 'creates it' do
+            expect { update }.to change(described_class, :count).by(1)
+
+            expect(described_class.last).to have_attributes(value: 'new value')
+          end
+        end
+
+        context 'and empty value is provided' do
+          let(:params) { { described_class::ATTRIBUTES.first => '' } }
+
+          it 'does nothing it' do
+            expect { update }.not_to change(described_class, :count)
+          end
+        end
+      end
+
+      context 'and the attribute is invalid' do
+        let(:params) { { invalid: 'new value' } }
+
+        it 'does nothing' do
+          expect { update }.not_to change(described_class, :count)
+        end
+      end
+    end
+  end
 end
