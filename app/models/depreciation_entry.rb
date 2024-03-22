@@ -28,4 +28,6 @@ class DepreciationEntry < ApplicationRecord
 
   validates :accumulated_depreciation, :book_value, :depreciation_expense, :period_end_date, :period_start_date,
             presence: true
+
+  scope :by_calculation_desc, -> { order(period_end_date: :desc) }
 end

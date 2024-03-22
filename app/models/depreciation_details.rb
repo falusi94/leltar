@@ -36,8 +36,14 @@ class DepreciationDetails < ApplicationRecord
   validates :depreciation_method, inclusion: { in: %w[straight_line_depreciation] }
 
   has_many :depreciation_entries, dependent: :destroy
+  has_one :last_depreciation_entry, -> { by_calculation_desc },
+          class_name: 'DepreciationEntry', dependent: false, inverse_of: false
 
   def depreciation_frequency
     depreciation_frequency_value.public_send(depreciation_frequency_unit)
+  end
+
+  def end_of_life?
+    depreciation_entries.count == useful_life
   end
 end
