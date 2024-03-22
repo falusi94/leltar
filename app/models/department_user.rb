@@ -5,11 +5,11 @@
 # Table name: department_users
 #
 #  id            :integer          not null, primary key
-#  write         :boolean
+#  write         :boolean          default(FALSE)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  department_id :integer
-#  user_id       :integer
+#  department_id :integer          not null
+#  user_id       :integer          not null
 #
 # Foreign Keys
 #
