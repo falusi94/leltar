@@ -15,7 +15,10 @@
 
 class SystemAttribute < ApplicationRecord
   MAPPING = {
-    new_session_start: :to_date
+    new_session_start:            :to_date,
+    depreciation_method:          :to_sym,
+    depreciation_frequency_value: :to_i,
+    depreciation_frequency_unit:  :to_sym
   }.freeze
 
   ATTRIBUTES = MAPPING.keys

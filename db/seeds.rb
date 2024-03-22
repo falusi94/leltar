@@ -13,10 +13,14 @@ User.create!(
   admin: true
 ) unless User.exists?(email: 'admin@example.org')
 
-SystemAttribute.create!(
-  name: 'check_from',
-  value: DateTime.now - 1.year
-) unless SystemAttribute.exists?(name: 'check_from')
+{
+  new_session_start:            1.year.ago,
+  depreciation_method:          :straight_line_depreciation,
+  depreciation_frequency_unit:  :year,
+  depreciation_frequency_value: 1
+}.each do |name, value|
+  SystemAttribute.create!(name: name, value: value) unless SystemAttribute.exists?(name: name)
+end
 
 unless Department.exists?(name: 'Management')
   ActiveRecord::Base.transaction do
