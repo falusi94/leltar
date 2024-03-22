@@ -14,10 +14,19 @@
 #
 
 class SystemAttribute < ApplicationRecord
-  def self.new_session_start
-    value = find_by!(name: 'new_session_start').value
-    Date.parse(value)
-  rescue ActiveRecord::RecordNotFound
-    nil
+  MAPPING = {
+    new_session_start: :to_date
+  }.freeze
+
+  ATTRIBUTES = MAPPING.keys
+
+  class << self
+    MAPPING.each do |name, transformer|
+      define_method name do
+        find_by!(name: name).value.public_send(transformer)
+      rescue ActiveRecord::RecordNotFound
+        nil
+      end
+    end
   end
 end

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :system_attribute do
-    sequence(:name) { |i| "attribute name #{i}" }
+    sequence(:name) { SystemAttribute::ATTRIBUTES.first }
     sequence(:value) { |i| "attribute value #{i}" }
   end
 

@@ -10,7 +10,7 @@ module Api
 
         ActiveRecord::Base.transaction do
           system_params.each do |key, param|
-            SystemAttribute.find_by(name: key).update!(value: param)
+            SystemAttribute.find_or_initialize_by(name: key).update!(value: param)
           end
         end
 
@@ -20,9 +20,7 @@ module Api
       private
 
       def system_params
-        system_attribute_keys = SystemAttribute.pluck(:name)
-
-        params.permit(system_attribute_keys)
+        params.permit(*SystemAttribute::ATTRIBUTES)
       end
     end
   end
