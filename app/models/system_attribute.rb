@@ -5,8 +5,8 @@
 # Table name: system_attributes
 #
 #  id    :integer          not null, primary key
-#  name  :string
-#  value :string
+#  name  :string           not null
+#  value :string           not null
 #
 # Indexes
 #
@@ -14,6 +14,8 @@
 #
 
 class SystemAttribute < ApplicationRecord
+  validates :name, :value, presence: true
+
   MAPPING = {
     new_session_start:            :to_date,
     depreciation_method:          :to_sym,
