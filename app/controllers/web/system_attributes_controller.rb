@@ -15,7 +15,7 @@ module Web
         end
       end
 
-      redirect_to status_index_path
+      redirect_to edit_system_attributes_path, notice: t('success.edit')
     rescue ActiveRecord::RecordInvalid
       set_system_attributes
 
@@ -26,6 +26,9 @@ module Web
 
     def set_system_attributes
       @system_attributes = SystemAttribute.all
+      @system_attributes +=
+        (SystemAttribute::ATTRIBUTES - @system_attributes.pluck(:name).map(&:to_sym))
+        .map { |name| SystemAttribute.new(name: name) }
     end
 
     def system_params

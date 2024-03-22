@@ -36,7 +36,7 @@ describe 'SystemAttributes' do
         it 'updates it' do
           update_system_attributes
 
-          expect(response).to redirect_to(status_index_path)
+          expect(response).to redirect_to(edit_system_attributes_path)
           expect(system_attribute.reload).to have_attributes(value: 'value')
         end
       end
@@ -47,7 +47,7 @@ describe 'SystemAttributes' do
         it 'does nothing' do
           expect { update_system_attributes }.not_to change(SystemAttribute, :count)
 
-          expect(response).to redirect_to(status_index_path)
+          expect(response).to redirect_to(edit_system_attributes_path)
         end
       end
     end

@@ -2,8 +2,6 @@
   .uk-clearfix
     .uk-float-left
       %h1= t('navigation.status')
-    .uk-float-right.uk-padding-small
-      = link_to edit_label, edit_system_attributes_path(nil), class: 'uk-button uk-button-default uk-button-small'
   %h3=t('status.overall_progress')
   .uk-text-muted
     =t('status.checked_items', since: @status.session_start)
