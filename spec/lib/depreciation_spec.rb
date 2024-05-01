@@ -22,4 +22,32 @@ RSpec.describe Depreciation do
       expect(Depreciation::CalculateDepreciation).to have_received(:call).with('depreciation_details')
     end
   end
+
+  describe '.calculate_due_depreciation' do
+    subject(:calculate_due_depreciation) { described_class.calculate_due_depreciation }
+
+    before { allow(described_class).to receive(:calculate).and_call_original }
+
+    let!(:depreciation_details) { create(:depreciation_details, entry_date: entry_date) }
+
+    context 'when there is no items' do
+      let(:entry_date) { Time.current }
+
+      it 'does nothing' do
+        calculate_due_depreciation
+
+        expect(described_class).not_to have_received(:calculate)
+      end
+    end
+
+    context 'when there is nothing to calculate' do
+      let(:entry_date) { 1.year.ago }
+
+      it 'does nothing' do
+        calculate_due_depreciation
+
+        expect(described_class).to have_received(:calculate).with(depreciation_details)
+      end
+    end
+  end
 end

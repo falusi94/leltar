@@ -60,6 +60,7 @@ end
 group :test do
   gem 'pundit-matchers'
   gem 'rspec-rails'
+  gem 'rspec-rake'
 
   gem 'capybara'
   gem 'selenium-webdriver'

@@ -296,6 +296,9 @@ GEM
       rspec-expectations (~> 3.12)
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
+    rspec-rake (0.0.4)
+      rake
+      rspec-core
     rspec-support (3.12.1)
     rubocop (1.60.2)
       json (~> 2.3)
@@ -425,6 +428,7 @@ DEPENDENCIES
   ransack
   redis
   rspec-rails
+  rspec-rake
   rubocop
   rubocop-performance
   rubocop-rails
