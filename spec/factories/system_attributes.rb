@@ -25,4 +25,19 @@ FactoryBot.define do
     name { :depreciation_frequency_value }
     value { 1 }
   end
+
+  factory :automatic_depreciation_attribute, parent: :system_attribute do
+    name { :automatic_depreciation }
+    value { true }
+  end
+
+  factory :automatic_depreciation_useful_life_attribute, parent: :system_attribute do
+    name { :automatic_depreciation_useful_life }
+    value { 10 }
+  end
+
+  factory :automatic_depreciation_salvage_value_attribute, parent: :system_attribute do
+    name { :automatic_depreciation_salvage_value }
+    value { 0 }
+  end
 end

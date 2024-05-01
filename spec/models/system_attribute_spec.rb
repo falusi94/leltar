@@ -17,6 +17,7 @@ describe SystemAttribute do
           when :to_date then Time.zone.today
           when :to_i then 1
           when :to_sym then :sym
+          when :to_boolean then false
           end
         end
 

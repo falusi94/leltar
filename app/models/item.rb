@@ -80,6 +80,8 @@ class Item < ApplicationRecord
   validate :children_from_the_same_department, :parent_from_the_same_department, :purchase_date_not_in_the_future,
            :has_no_grandparent, :has_no_grandchild
 
+  after_create :init_depreciation, if: -> { SystemAttribute.automatic_depreciation }
+
   def initialize(params = {})
     # save picture to create new Photo after initializing with super
     photo = params&.delete(:photo)
@@ -140,5 +142,14 @@ class Item < ApplicationRecord
     return if children.none? || !self.class.exists?(parent_id: children_ids)
 
     errors.add(:children, 'have child, multi level relation is not allowed')
+  end
+
+  def init_depreciation
+    params = {
+      salvage_value: SystemAttribute.automatic_depreciation_salvage_value,
+      useful_life:   SystemAttribute.automatic_depreciation_useful_life
+    }
+
+    Depreciation.init(self, params: params)
   end
 end

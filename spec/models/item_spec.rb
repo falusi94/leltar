@@ -147,6 +147,27 @@ describe Item do
     end
   end
 
+  describe '#init_depreciation callback' do
+    context 'when automatic depreciation is enabled' do
+      include_context 'automatic depreciation enabled'
+
+      it 'initializes depreciation' do
+        item = create(:item)
+
+        expect(item.depreciation_details).to be_present.and have_attributes(
+          useful_life:   SystemAttribute.automatic_depreciation_useful_life,
+          salvage_value: SystemAttribute.automatic_depreciation_salvage_value
+        )
+      end
+    end
+
+    context 'when automatic depreciation is disabled' do
+      it 'does not initialize depreciation' do
+        expect { create(:item) }.not_to change(DepreciationDetails, :count)
+      end
+    end
+  end
+
   describe '#parent?' do
     context 'when it has any child' do
       it 'returns true' do

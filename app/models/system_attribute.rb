@@ -14,13 +14,18 @@
 #
 
 class SystemAttribute < ApplicationRecord
+  using StringRefinements
+
   validates :name, :value, presence: true
 
   MAPPING = {
-    new_session_start:            :to_date,
-    depreciation_method:          :to_sym,
-    depreciation_frequency_value: :to_i,
-    depreciation_frequency_unit:  :to_sym
+    new_session_start:                    :to_date,
+    depreciation_method:                  :to_sym,
+    depreciation_frequency_value:         :to_i,
+    depreciation_frequency_unit:          :to_sym,
+    automatic_depreciation:               :to_boolean,
+    automatic_depreciation_useful_life:   :to_i,
+    automatic_depreciation_salvage_value: :to_i
   }.freeze
 
   ATTRIBUTES = MAPPING.keys
