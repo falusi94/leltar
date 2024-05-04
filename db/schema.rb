@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_22_163638) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_22_164131) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_22_163638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_depreciation_details_on_item_id"
+  end
+
+  create_table "depreciation_entries", force: :cascade do |t|
+    t.bigint "depreciation_details_id", null: false
+    t.date "period_start_date", null: false
+    t.date "period_end_date", null: false
+    t.integer "depreciation_expense", null: false
+    t.integer "accumulated_depreciation", null: false
+    t.integer "book_value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["depreciation_details_id"], name: "index_depreciation_entries_on_depreciation_details_id"
   end
 
   create_table "items", id: :serial, force: :cascade do |t|
@@ -147,5 +159,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_22_163638) do
   add_foreign_key "department_users", "departments"
   add_foreign_key "department_users", "users"
   add_foreign_key "depreciation_details", "items"
+  add_foreign_key "depreciation_entries", "depreciation_details", column: "depreciation_details_id"
   add_foreign_key "user_sessions", "users"
 end

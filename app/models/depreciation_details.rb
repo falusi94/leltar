@@ -35,6 +35,8 @@ class DepreciationDetails < ApplicationRecord
   validates :depreciation_frequency_unit, inclusion: { in: %w[day week month year] }
   validates :depreciation_method, inclusion: { in: %w[straight_line_depreciation] }
 
+  has_many :depreciation_entries, dependent: :destroy
+
   def depreciation_frequency
     depreciation_frequency_value.public_send(depreciation_frequency_unit)
   end
