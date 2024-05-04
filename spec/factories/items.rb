@@ -6,6 +6,7 @@ FactoryBot.define do
     description { 'Item description' }
     purchase_date { 3.days.ago }
     entry_date { 2.days.ago }
+    entry_price { 100 }
     last_check { 1.day.ago }
     status { :ok }
 

@@ -73,6 +73,8 @@ class Item < ApplicationRecord
   belongs_to :parent, class_name: 'Item', optional: true
   has_many :children, class_name: 'Item', foreign_key: :parent_id, inverse_of: :parent, dependent: :nullify
 
+  has_one :depreciation_details, dependent: :destroy
+
   validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
   validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }
   validate :children_from_the_same_department, :parent_from_the_same_department, :purchase_date_not_in_the_future,
