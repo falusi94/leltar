@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+{
+  data:  render(partial: 'api/v1/organizations/show', collection: @resources, as: :organization),
+  links: pagy_jsonapi_links(@pagy)
+}

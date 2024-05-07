@@ -22,6 +22,15 @@ module ApiHelpers
     { id: user.id, email: user.email, name: user.name }
   end
 
+  def api_organization_hash(organization)
+    {
+      id:                      organization.id,
+      name:                    organization.name,
+      fiscal_period_starts_at: (I18n.l(organization.fiscal_period_starts_at) if organization.fiscal_period_starts_at),
+      fiscal_period_unit:      organization.fiscal_period_unit
+    }
+  end
+
   def api_department_hash(department)
     { id: department.id, name: department.name }
   end
