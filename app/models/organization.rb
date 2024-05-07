@@ -21,4 +21,6 @@
 
 class Organization < ApplicationRecord
   validates :name, :slug, :currency_code, presence: true
+
+  has_many :departments, dependent: :nullify
 end
