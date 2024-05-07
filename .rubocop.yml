@@ -61,7 +61,7 @@ RSpec/ContextWording:
     - and
 RSpec/FilePath:
   Exclude:
-    - spec/requests/**/*
+    - 'spec/requests/**/*'
 RSpec/NestedGroups:
   Max: 5
 RSpec/BeNil:
@@ -69,3 +69,4 @@ RSpec/BeNil:
 RSpec/DescribeClass:
   Exclude:
     - 'spec/tasks/**/*'
+    - 'spec/requests/**/*'
