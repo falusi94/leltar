@@ -42,6 +42,8 @@ Rails.application.routes.draw do
       resources :items, only: %i[index new]
     end
 
+    resources :organizations, except: :show
+
     # Items routes
     resources :items do
       resources :photos, only: %i[create destroy], module: :items

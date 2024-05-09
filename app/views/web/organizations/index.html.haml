@@ -1,0 +1,18 @@
+.uk-container
+  .uk-clearfix
+    .uk-float-left
+      %h1= t('navigation.organizations')
+    .uk-float-right.uk-padding-small
+      = new_organization_button
+  .uk-clearfix
+    .uk-float-right
+      != pagy_uikit_nav @pagy
+  %ul.uk-list.uk-list-divider
+    - @organizations.each do |organization|
+      %li.uk-clearfix.uk-margin-remove-top
+        .uk-float-left
+          %h3
+            = organization.name
+        .uk-float-right
+          = organization.edit_button
+          = organization.delete_button
