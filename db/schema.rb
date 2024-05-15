@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_03_195929) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_212612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,6 +115,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_195929) do
     t.index ["status"], name: "index_items_on_status"
   end
 
+  create_table "organization_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "organization_id", null: false
+    t.string "role_name", default: "user", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_organization_users_on_organization_id"
+    t.index ["role_name"], name: "index_organization_users_on_role_name"
+    t.index ["user_id"], name: "index_organization_users_on_user_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
     t.string "currency_code", null: false
@@ -174,5 +185,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_195929) do
   add_foreign_key "department_users", "users"
   add_foreign_key "depreciation_details", "items"
   add_foreign_key "depreciation_entries", "depreciation_details", column: "depreciation_details_id"
+  add_foreign_key "organization_users", "organizations"
+  add_foreign_key "organization_users", "users"
   add_foreign_key "user_sessions", "users"
 end

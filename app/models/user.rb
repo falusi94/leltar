@@ -26,9 +26,13 @@ class User < ApplicationRecord
   validates :email, :name, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
+  has_many :organization_users, dependent: :nullify
+  has_many :organizations, through: :organization_users
+
   has_many :department_users, dependent: :nullify
   has_many :departments, through: :department_users
   has_many :write_department_users, -> { write }, class_name: 'DepartmentUser', dependent: false, inverse_of: :user
+
   has_many :sessions, class_name: 'UserSession', dependent: :destroy
 
   def read_departments
