@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 describe OrganizationPolicy do
-  subject { described_class.new(current_user, user) }
+  subject { described_class.new(current_user, organization) }
 
-  let(:user) { build_stubbed(:user) }
+  let(:organization) { build_stubbed(:organization) }
 
   context 'when the user is admin' do
     let(:current_user) { build_stubbed(:admin) }
@@ -16,7 +16,21 @@ describe OrganizationPolicy do
     it { is_expected.to permit_action(:destroy) }
   end
 
-  context 'when the user is not admin' do
+  context 'when the has an organization user' do
+    let(:current_user) { create(:user) }
+    let(:organization) { create(:organization) }
+
+    before { create(:organization_user, :admin, user: current_user, organization: organization) }
+
+    it { is_expected.to permit_action(:index)   }
+    it { is_expected.to permit_action(:show)    }
+    it { is_expected.to permit_action(:edit)    }
+    it { is_expected.to forbid_action(:create)  }
+    it { is_expected.to permit_action(:update)  }
+    it { is_expected.to permit_action(:destroy) }
+  end
+
+  context 'when the has no organization user' do
     let(:current_user) { build_stubbed(:user) }
 
     it { is_expected.to permit_action(:index)   }
