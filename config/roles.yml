@@ -1,0 +1,40 @@
+shared:
+  organization_roles:
+    - name: user
+      show_organization: true
+      update_organization: false
+      destroy_organization: false
+      create_department: false
+      show_department: false
+      update_department: false
+      destroy_department: false
+      show_item: false
+      create_item: false
+      update_item: false
+      destroy_item: false
+
+    - name: observer
+      show_organization: true
+      update_organization: false
+      destroy_organization: false
+      create_department: false
+      show_department: true
+      update_department: false
+      destroy_department: false
+      show_item: true
+      create_item: false
+      update_item: false
+      destroy_item: false
+
+    - name: admin
+      show_organization: true
+      update_organization: true
+      destroy_organization: true
+      create_department: true
+      show_department: true
+      update_department: true
+      destroy_department: true
+      show_item: true
+      create_item: true
+      update_item: true
+      destroy_item: true

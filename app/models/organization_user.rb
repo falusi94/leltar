@@ -26,4 +26,16 @@
 class OrganizationUser < ApplicationRecord
   belongs_to :user
   belongs_to :organization
+
+  scope :with_access, ->(access) { where(role_name: OrganizationRole.roles_with_access(access)) }
+
+  validates :role_name, inclusion: { in: OrganizationRole.all.map(&:name) }
+
+  delegate(*ORGANIZATION_ROLE_ACCESSES, to: :role)
+
+  private
+
+  def role
+    @role ||= OrganizationRole.find_by_name(role_name) # rubocop:disable Rails/DynamicFindBy
+  end
 end
