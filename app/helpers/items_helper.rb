@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 module ItemsHelper
-  def new_item_button(department)
-    if department && policy(department).write_items?
-      link_to(new_label, new_department_item_path, class: 'uk-button uk-button-primary uk-button-small')
-    elsif policy(Item).new?
-      link_to(new_label, new_item_path, class: 'uk-button uk-button-primary uk-button-small')
-    end
+  def new_item_button(department:)
+    url = if department && policy(department).write_items?
+            new_department_item_path(department: department)
+          elsif policy(Item).new?
+            new_item_path
+          end
+    link_to(new_label, url, class: 'uk-button uk-button-primary uk-button-small')
   end
 
   def items_page_title(department)
