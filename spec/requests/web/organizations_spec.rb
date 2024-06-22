@@ -32,7 +32,7 @@ describe 'Organizations' do
   end
 
   describe 'GET #edit' do
-    subject(:get_edit_organization) { get "/organizations/#{organization.id}/edit" }
+    subject(:get_edit_organization) { get "/organizations/#{organization.slug}/edit" }
 
     let(:organization) { create(:organization) }
 
@@ -64,7 +64,7 @@ describe 'Organizations' do
 
   describe 'PUT #update' do
     subject(:update_organization) do
-      put "/organizations/#{organization.id}", params: { organization: { name: 'new name' } }
+      put "/organizations/#{organization.slug}", params: { organization: { name: 'new name' } }
     end
 
     let(:organization) { create(:organization) }
@@ -82,7 +82,7 @@ describe 'Organizations' do
   end
 
   describe 'DELETE #destroy' do
-    subject(:delete_organization) { delete "/organizations/#{organization.id}" }
+    subject(:delete_organization) { delete "/organizations/#{organization.slug}" }
 
     let!(:organization) { create(:organization) }
 

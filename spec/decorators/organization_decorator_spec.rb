@@ -24,7 +24,7 @@ RSpec.describe OrganizationDecorator do
       let(:user) { build_stubbed(:admin) }
 
       it 'returns the button' do
-        expect(edit_button).to be_present.and include("organizations/#{organization.id}/edit")
+        expect(edit_button).to be_present.and include("organizations/#{organization.slug}/edit")
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe OrganizationDecorator do
 
       it 'returns the button' do
         expect(delete_button)
-          .to be_present.and include("organizations/#{organization.id}").and include('data-method="delete"')
+          .to be_present.and include("organizations/#{organization.slug}").and include('data-method="delete"')
       end
     end
 

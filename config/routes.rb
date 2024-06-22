@@ -42,7 +42,7 @@ Rails.application.routes.draw do
       resources :items, only: %i[index new]
     end
 
-    resources :organizations, except: :show
+    resources :organizations, except: :show, param: :slug
 
     # Items routes
     resources :items do
