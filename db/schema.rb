@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_212612) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_23_194425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -166,7 +166,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_212612) do
     t.boolean "read_all_department", default: false
     t.boolean "write_all_department", default: false
     t.datetime "last_sign_in_at"
+    t.bigint "last_organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["last_organization_id"], name: "index_users_on_last_organization_id"
   end
 
   create_table "versions", id: :serial, force: :cascade do |t|
@@ -188,4 +190,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_212612) do
   add_foreign_key "organization_users", "organizations"
   add_foreign_key "organization_users", "users"
   add_foreign_key "user_sessions", "users"
+  add_foreign_key "users", "organizations", column: "last_organization_id"
 end

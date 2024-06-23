@@ -14,10 +14,16 @@
 #  write_all_department :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  last_organization_id :bigint
 #
 # Indexes
 #
-#  index_users_on_email  (email) UNIQUE
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_last_organization_id  (last_organization_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (last_organization_id => organizations.id)
 #
 
 class User < ApplicationRecord
@@ -34,6 +40,8 @@ class User < ApplicationRecord
   has_many :write_department_users, -> { write }, class_name: 'DepartmentUser', dependent: false, inverse_of: :user
 
   has_many :sessions, class_name: 'UserSession', dependent: :destroy
+
+  belongs_to :last_organization, class_name: 'Organization', optional: true
 
   def read_departments
     return Department.all if admin || read_all_department
