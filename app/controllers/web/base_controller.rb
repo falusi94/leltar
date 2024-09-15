@@ -28,7 +28,10 @@ module Web
     helper_method :current_user
 
     def require_login
-      redirect_to new_session_path, redirect: request.original_fullpath unless session[:user_id]
+      return if session[:user_id]
+
+      redirect_url = Organization.any? ? new_session_path : new_setup_user_path
+      redirect_to redirect_url, redirect: request.original_fullpath
     end
   end
 end

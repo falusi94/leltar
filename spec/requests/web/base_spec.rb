@@ -2,18 +2,27 @@
 
 describe Web::BaseController do # rubocop:disable RSpec/SpecFilePathFormat
   before do
-    stub_const('ErrorController', Class.new(described_class) do
+    stub_const('TestController', Class.new(described_class) do
       skip_before_action :require_login
 
       layout false
 
-      def show
+      def error
         raise params[:error].constantize
+      end
+
+      def requires_login
+        require_login
       end
     end)
 
     Rails.application.routes.draw do
-      get '/error' => 'error#show'
+      get '/error' => 'test#error'
+      get '/requires_login' => 'test#requires_login'
+
+      namespace :setup do
+        resources :users, only: %i[new]
+      end
     end
   end
 
@@ -34,6 +43,14 @@ describe Web::BaseController do # rubocop:disable RSpec/SpecFilePathFormat
 
       expect(response).to have_http_status(:unauthorized)
       expect(body).to include(I18n.t(:unauthorized))
+    end
+  end
+
+  context 'when no user exists' do
+    it 'redirects to the setup page' do
+      get '/requires_login'
+
+      expect(response).to redirect_to('/setup/users/new')
     end
   end
 end

@@ -20,6 +20,7 @@ en:
     title:
       edit: 'Edit %{thing}'
       new: 'New %{thing}'
+      setup: 'Create your first %{thing}'
     actions:
       add: Add
       edit: Edit
@@ -30,6 +31,7 @@ en:
       save: Save
       sign_in: Sign in
       are_you_sure: Are you sure?
+      continue: Continue
     department:
       department_users:
         title: User accesses

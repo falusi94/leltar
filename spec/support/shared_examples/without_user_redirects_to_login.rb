@@ -5,7 +5,9 @@ shared_examples 'without user redirects to login' do
     it 'redirects to login' do
       subject
 
-      expect(response).to have_http_status(:found).and redirect_to(new_session_path)
+      redirect_url = Organization.any? ? new_session_path : new_setup_user_path
+
+      expect(response).to have_http_status(:found).and redirect_to(redirect_url)
     end
   end
 end

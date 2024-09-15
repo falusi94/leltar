@@ -23,6 +23,11 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :setup do
+    resources :users, only: %i[new create]
+    resources :organizations, only: %i[new create]
+  end
+
   scope module: :web do
     get '/', to: 'redirect#show'
     root to: 'redirect#show'

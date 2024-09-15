@@ -1,0 +1,30 @@
+.uk-container
+  .uk-clearfix
+    .uk-float-left
+      %h1.uk-margin-small-top=t('form.title.setup', thing: Organization.model_name.human)
+  .uk-align-center{:class => "uk-width-2-3@m"}
+    = form_for @organization, url: setup_organizations_path, html: {class: 'uk-form-horizontal', data: { controller: 'text' }} do |f|
+      = render 'alert', errors: @organization.errors
+      .uk-margin
+        = f.label :name, class: 'uk-form-label'
+        .uk-form-controls
+          = f.text_field :name, class: 'uk-input uk-form-small', data: { action: 'keyup->text#copyLowerWords',
+                                                                        'text-target': 'source' }
+      .uk-margin
+        = f.label :slug, class: 'uk-form-label'
+        .uk-form-controls
+          = f.text_field :slug, class: 'uk-input uk-form-small', data: { 'text-target': 'mutable' }
+      .uk-margin
+        = f.label :currency_code, class: 'uk-form-label'
+        .uk-form-controls
+          = f.text_field :currency_code, class: 'uk-input uk-form-small'
+      .uk-margin
+        = f.label :fiscal_period_starts_at, class: 'uk-form-label'
+        .uk-form-controls
+          = f.date_field :fiscal_period_starts_at, class: 'uk-input uk-form-small'
+      .uk-margin
+        = f.label :fiscal_period_unit, class: 'uk-form-label'
+        .uk-form-controls
+          = f.text_field :fiscal_period_unit, class: 'uk-input uk-form-small'
+      .uk-width-1-1
+        = f.submit t('form.actions.continue'), class: 'uk-button uk-button-primary uk-align-center'
