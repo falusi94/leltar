@@ -10,8 +10,6 @@
 #  last_sign_in_at      :datetime
 #  name                 :string           not null
 #  password_digest      :string
-#  read_all_department  :boolean          default(FALSE)
-#  write_all_department :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  last_organization_id :bigint
