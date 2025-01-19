@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe SystemAttributePolicy do
-  subject { described_class.new(user, SystemAttribute) }
+  subject { described_class.new(Authorization::Scope.new(user: user), SystemAttribute) }
 
   context 'when the user is admin' do
     let(:user) { build_stubbed(:admin) }

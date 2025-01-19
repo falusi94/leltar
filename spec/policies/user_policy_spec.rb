@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe UserPolicy do
-  subject { described_class.new(current_user, user) }
+  subject { described_class.new(Authorization::Scope.new(user: current_user), user) }
 
   let(:user) { build_stubbed(:user) }
 
@@ -35,7 +35,9 @@ describe UserPolicy do
   end
 
   describe 'permitted attributes' do
-    subject(:permitted_attributes) { described_class.new(current_user, 'WHATEVER').permitted_attributes }
+    subject(:permitted_attributes) do
+      described_class.new(Authorization::Scope.new(user: current_user), 'WHATEVER').permitted_attributes
+    end
 
     context 'when the user is admin' do
       let(:current_user) { build_stubbed(:admin) }

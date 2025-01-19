@@ -6,6 +6,7 @@ module Web
     rescue_from ActiveRecord::RecordNotFound, with: :not_found_page
 
     include Pagy::Backend
+    include Authorization::ControllerMixin
 
     before_action :require_login
 

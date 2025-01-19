@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe ItemPolicy do
-  subject { described_class.new(user, item) }
+  subject { described_class.new(Authorization::Scope.new(user: user), item) }
 
   let(:item) { build_stubbed(:item) }
 
@@ -88,7 +88,7 @@ describe ItemPolicy do
   end
 
   describe 'scope' do
-    subject(:scope) { described_class::Scope.new(user, Item.all).resolve }
+    subject(:scope) { described_class::Scope.new(Authorization::Scope.new(user: user), Item.all).resolve }
 
     let!(:item) { create(:item) }
 

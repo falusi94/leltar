@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe StatusPolicy do
-  subject { described_class.new(user, Status) }
+  subject { described_class.new(Authorization::Scope.new(user: user), Status) }
 
   context 'when the user is admin' do
     let(:user) { build_stubbed(:admin) }

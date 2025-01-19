@@ -6,11 +6,11 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def show?
-    Pundit.policy(user, record.department).read_items?
+    Pundit.policy(auth_scope, record.department).read_items?
   end
 
   def edit?
-    Pundit.policy(user, record.department).write_items?
+    Pundit.policy(auth_scope, record.department).write_items?
   end
   alias update?  edit?
   alias destroy? edit?

@@ -9,11 +9,14 @@ module Api
       include Pagy::Backend
       include Pundit::Authorization
       include Authentication::ControllerMixin
+      include Authorization::ControllerMixin
 
       helper_method :pagy_jsonapi_links
 
       after_action :verify_authorized
       before_action :authenticate_user!
+
+      def current_organization; end
 
       def authenticate_user!
         authenticate!(User.includes(:sessions))

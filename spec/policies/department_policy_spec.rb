@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe DepartmentPolicy do
-  subject { described_class.new(user, department) }
+  subject { described_class.new(Authorization::Scope.new(user: user), department) }
 
   let(:department) { build_stubbed(:department) }
 

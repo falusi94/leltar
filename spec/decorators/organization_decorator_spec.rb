@@ -7,7 +7,9 @@ RSpec.describe OrganizationDecorator do
 
   before do
     test_controller = Class.new(ApplicationController) do
-      attr_reader :current_user
+      include Authorization::ControllerMixin
+
+      attr_reader :current_user, :current_organization
 
       def initialize(current_user)
         super()

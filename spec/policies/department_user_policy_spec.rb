@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe DepartmentUserPolicy do
-  subject { described_class.new(user, DepartmentUser) }
+  subject { described_class.new(Authorization::Scope.new(user: user), DepartmentUser) }
 
   context 'when the user is admin' do
     let(:user) { build_stubbed(:admin) }

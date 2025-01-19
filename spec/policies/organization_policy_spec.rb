@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe OrganizationPolicy do
-  subject { described_class.new(current_user, organization) }
+  subject { described_class.new(Authorization::Scope.new(user: current_user), organization) }
 
   let(:organization) { build_stubbed(:organization) }
 
@@ -42,7 +42,7 @@ describe OrganizationPolicy do
   end
 
   describe 'permitted attributes' do
-    subject(:permitted_attributes) { described_class.new('user', 'WHATEVER').permitted_attributes }
+    subject(:permitted_attributes) { described_class.new(Authorization::Scope.new, 'WHATEVER').permitted_attributes }
 
     it 'excludes admin params' do
       expect(permitted_attributes).to match(%i[name slug currency_code fiscal_period_starts_at fiscal_period_unit])

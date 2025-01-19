@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationPolicy
-  attr_reader :user, :record
+  attr_reader :auth_scope, :record
 
-  def initialize(user, record)
-    @user = user
-    @record = record
+  def initialize(auth_scope, record)
+    @auth_scope = auth_scope
+    @record     = record
   end
 
   def index?
@@ -36,12 +36,15 @@ class ApplicationPolicy
     false
   end
 
-  class Scope
-    attr_reader :user, :scope
+  delegate :user, :organization, to: :auth_scope
 
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
+  class Scope
+    attr_reader :user, :organization, :scope
+
+    def initialize(auth_scope, scope)
+      @user         = auth_scope.user
+      @organization = auth_scope.organization
+      @scope        = scope
     end
 
     def resolve
