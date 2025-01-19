@@ -4,37 +4,55 @@ shared:
       show_organization: true
       update_organization: false
       destroy_organization: false
+      show_status: false
+      index_department: false
       create_department: false
       show_department: false
       update_department: false
       destroy_department: false
+      create_department_user: false
+      update_department_user: false
+      destroy_department_user: false
       show_item: false
       create_item: false
       update_item: false
       destroy_item: false
+      search_item: false
 
     - name: observer
       show_organization: true
       update_organization: false
       destroy_organization: false
+      show_status: true
+      index_department: true
       create_department: false
       show_department: true
       update_department: false
       destroy_department: false
+      create_department_user: false
+      update_department_user: false
+      destroy_department_user: false
       show_item: true
       create_item: false
       update_item: false
       destroy_item: false
+      search_item: true
 
     - name: admin
       show_organization: true
       update_organization: true
       destroy_organization: true
+      show_status: true
+      index_department: true
       create_department: true
       show_department: true
       update_department: true
       destroy_department: true
+      create_department_user: true
+      update_department_user: true
+      destroy_department_user: true
       show_item: true
       create_item: true
       update_item: true
       destroy_item: true
+      search_item: true

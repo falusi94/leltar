@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 ORGANIZATION_ROLE_ACCESSES =
-  %i[show_organization update_organization destroy_organization create_department show_department update_department
-     destroy_department show_item create_item update_item destroy_item].freeze
+  %i[show_organization update_organization destroy_organization show_status
+     index_department create_department show_department update_department destroy_department
+     create_department_user update_department_user destroy_department_user
+     show_item create_item update_item destroy_item search_item].freeze
 
 OrganizationRole = Struct.new(*([:name] + ORGANIZATION_ROLE_ACCESSES), keyword_init: true) do
   ORGANIZATION_ROLE_ACCESSES.each do |access|
