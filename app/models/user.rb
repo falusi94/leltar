@@ -36,24 +36,26 @@ class User < ApplicationRecord
   has_many :organizations, through: :organization_users
 
   has_many :department_users, dependent: :nullify
-  has_many :departments, through: :department_users
   has_many :write_department_users, -> { write }, class_name: 'DepartmentUser', dependent: false, inverse_of: :user
+  has_many :departments, through: :department_users do
+    def with_read_access
+      user = proxy_association.owner
+      return Department.all if user.admin || user.read_all_department
+
+      where(id: user.department_users.pluck(:department_id))
+    end
+
+    def with_write_access
+      user = proxy_association.owner
+      return Department.all if user.admin || user.write_all_department
+
+      where(id: user.write_department_users.pluck(:department_id))
+    end
+  end
 
   has_many :sessions, class_name: 'UserSession', dependent: :destroy
 
   belongs_to :last_organization, class_name: 'Organization', optional: true
-
-  def read_departments
-    return Department.all if admin || read_all_department
-
-    departments
-  end
-
-  def write_departments
-    return Department.all if admin || write_all_department
-
-    departments.where(id: write_department_users.pluck(:department_id))
-  end
 
   def self.digest(string)
     cost = BCrypt::Engine::MIN_COST if ActiveModel::SecurePassword.min_cost

@@ -5,7 +5,7 @@ module Web
     def show
       return redirect_to items_path if current_user.admin
 
-      departments = current_user.read_departments
+      departments = current_user.departments.with_read_access
 
       if departments.none?
         unauthorized_page

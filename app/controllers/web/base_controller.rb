@@ -18,8 +18,8 @@ module Web
     end
 
     def set_departments
-      @departments = current_user.read_departments.order(:name)
-      @write_departments = current_user.write_departments
+      @departments = current_user.departments.with_read_access.order(:name)
+      @write_departments = current_user.departments.with_write_access
     end
 
     def current_user
