@@ -39,16 +39,16 @@ class User < ApplicationRecord
   has_many :department_users, dependent: :nullify
   has_many :write_department_users, -> { write }, class_name: 'DepartmentUser', dependent: false, inverse_of: :user
   has_many :departments, through: :department_users do
-    def with_read_access
+    def with_read_access(organization: nil)
       user = proxy_association.owner
-      return Department.all if user.admin || user.read_all_department
+      return Department.all if user.authorized_to?(:index_department, organization: organization)
 
       where(id: user.department_users.pluck(:department_id))
     end
 
-    def with_write_access
+    def with_write_access(organization: nil)
       user = proxy_association.owner
-      return Department.all if user.admin || user.write_all_department
+      return Department.all if user.authorized_to?(:create_department, organization: organization)
 
       where(id: user.write_department_users.pluck(:department_id))
     end

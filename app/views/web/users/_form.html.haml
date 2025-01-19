@@ -1,4 +1,4 @@
-= form_for user, html: {class: 'uk-form-horizontal', data: { controller: 'access-checkbox' }} do |f|
+= form_for user, html: {class: 'uk-form-horizontal'} do |f|
   = render 'alert', errors: user.errors
   .uk-margin
     = f.label :name, class: 'uk-form-label'
@@ -20,18 +20,6 @@
     .uk-margin
       = f.label :admin, class: 'uk-form-label'
       .uk-form-controls
-        = f.check_box :admin, class: 'uk-checkbox',
-          data: { action: 'change->access-checkbox#update',
-                'access-checkbox-target': 'admin' }
-    .uk-margin
-      = f.label :read_all_department, class: 'uk-form-label'
-      .uk-form-controls
-        = f.check_box :read_all_department, class: 'uk-checkbox',
-          data: { 'access-checkbox-target': 'readAll' }
-    .uk-margin
-      = f.label :write_all_department, class: 'uk-form-label'
-      .uk-form-controls
-        = f.check_box :write_all_department, class: 'uk-checkbox',
-          data: { 'access-checkbox-target': 'writeAll' }
+        = f.check_box :admin, class: 'uk-checkbox'
   .uk-width-1-1
     = f.submit class: 'uk-button uk-button-primary uk-align-center'

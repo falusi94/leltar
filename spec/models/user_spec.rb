@@ -15,7 +15,12 @@ describe User do
     end
 
     context 'when the user has read access to all department' do
-      let(:user) { create(:user, :read_all_department) }
+      subject(:departmets_with_read_access) do
+        user.departments.with_read_access(organization: organization_user.organization)
+      end
+
+      let(:organization_user) { create(:organization_user, :admin) }
+      let(:user)              { organization_user.user }
 
       it 'returns all' do
         expect(departmets_with_read_access).to match(departments)
@@ -47,7 +52,12 @@ describe User do
     end
 
     context 'when the user has write access to all department' do
-      let(:user) { create(:user, :write_all_department) }
+      subject(:departmets_with_write_access) do
+        user.departments.with_write_access(organization: organization_user.organization)
+      end
+
+      let(:organization_user) { create(:organization_user, :admin) }
+      let(:user)              { organization_user.user }
 
       it 'returns all' do
         expect(departmets_with_write_access).to match(departments)

@@ -34,7 +34,7 @@ class ItemPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.admin || user.read_all_department
+      if user.authorized_to?(:index_department, organization: organization)
         scope.all
       else
         scope.where(department: user.departments)

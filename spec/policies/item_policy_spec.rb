@@ -71,7 +71,12 @@ describe ItemPolicy do
   end
 
   describe 'scope' do
-    subject(:scope) { described_class::Scope.new(Authorization::Scope.new(user: user), Item.all).resolve }
+    subject(:scope) do
+      described_class::Scope.new(
+        Authorization::Scope.new(user: user, organization: try(:organization)),
+        Item.all
+      ).resolve
+    end
 
     let!(:item) { create(:item) }
 
@@ -83,11 +88,13 @@ describe ItemPolicy do
       end
     end
 
-    context 'when the user can read all department' do
-      let(:user) { build_stubbed(:user, :read_all_department) }
+    context 'when the user has access to the organization' do
+      let(:organization_user) { create(:organization_user, :admin) }
+      let(:organization)      { organization_user.organization }
+      let(:user)              { organization_user.user }
 
       it 'returns every item' do
-        expect(scope).to include(item)
+        expect(scope).to contain_exactly(item)
       end
     end
 

@@ -4,8 +4,8 @@ module UserAuthorization
   extend ActiveSupport::Concern
 
   included do
-    def authorized_to?(permission, organization:)
-      admin? || strictly_authorized_to?(permission, organization: organization)
+    def authorized_to?(permission, organization_arg = nil, organization: nil)
+      admin? || strictly_authorized_to?(permission, organization: organization_arg || organization)
     end
 
     def strictly_authorized_to?(permission, organization:)

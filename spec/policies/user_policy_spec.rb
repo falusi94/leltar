@@ -44,7 +44,7 @@ describe UserPolicy do
 
       it 'includes all params' do
         expect(permitted_attributes)
-          .to match(%i[name email password password_confirmation admin write_all_department read_all_department])
+          .to match(%i[name email password password_confirmation admin])
       end
     end
 

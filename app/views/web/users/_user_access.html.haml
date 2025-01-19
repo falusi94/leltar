@@ -16,7 +16,7 @@
     = f.hidden_field :user_id, value: user.id
     %div{:class => "uk-width-1-2@m"}
       = f.select :department_id,
-        options_for_select(departments_without_access(user).map { |g| [g.name, g.id] }),
+        options_for_select(departments_without_access(user, current_organization).map { |g| [g.name, g.id] }),
         {},
         { class: 'uk-select uk-form-small uk-width-1-1' }
     %div{:class => "uk-width-expand@m"}

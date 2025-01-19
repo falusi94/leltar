@@ -115,14 +115,29 @@ describe DepartmentPolicy do
   end
 
   describe 'scope' do
-    subject(:scope) { described_class::Scope.new(Authorization::Scope.new(user: user), Department.all).resolve }
+    subject(:scope) do
+      described_class::Scope.new(
+        Authorization::Scope.new(user: user, organization: try(:organization)),
+        Department.all
+      ).resolve
+    end
 
     let!(:department) { create(:department) }
 
     context 'when the user is admin' do
       let(:user) { build_stubbed(:admin) }
 
-      it 'returns every item' do
+      it 'returns every department' do
+        expect(scope).to contain_exactly(department)
+      end
+    end
+
+    context 'when the user has access to the organization' do
+      let(:organization_user) { create(:organization_user, :admin) }
+      let(:organization)      { organization_user.organization }
+      let(:user)              { organization_user.user }
+
+      it 'returns every department' do
         expect(scope).to contain_exactly(department)
       end
     end
@@ -130,7 +145,7 @@ describe DepartmentPolicy do
     context 'when the user has access to the department' do
       let(:user) { create(:user, departments: [department]) }
 
-      it 'returns every item' do
+      it 'returns every department' do
         expect(scope).to contain_exactly(department)
       end
     end
@@ -138,7 +153,7 @@ describe DepartmentPolicy do
     context 'when the user has no access to the department' do
       let(:user) { create(:user) }
 
-      it 'does not return the item' do
+      it 'does not return the department' do
         expect(scope).to be_empty
       end
     end

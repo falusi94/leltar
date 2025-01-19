@@ -47,7 +47,7 @@ class DepartmentPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.admin? # TODO: || user.authorized_to?(:index_departments, organization: record)
+      if user.authorized_to?(:index_department, organization: organization)
         scope.all
       else
         scope.where_assoc_exists(:department_users, user_id: user.id)
