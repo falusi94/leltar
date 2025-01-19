@@ -2,7 +2,9 @@
 
 describe 'Invoices' do
   describe 'create invoice' do
-    subject(:create_invoice) { post "/items/#{item.id}/invoice", params: { photo: photo } }
+    subject(:create_invoice) do
+      post "/org/#{item.organization.slug}/items/#{item.id}/invoice", params: { photo: photo }
+    end
 
     let(:photo) { fixture_file_upload('dot.jpg', 'image/jpeg') }
     let(:item)  { create(:item) }
@@ -22,7 +24,7 @@ describe 'Invoices' do
   end
 
   describe 'delete invoice' do
-    subject(:delete_invoice) { delete "/items/#{item.id}/invoice" }
+    subject(:delete_invoice) { delete "/org/#{item.organization.slug}/items/#{item.id}/invoice" }
 
     let(:item) { create(:item, :with_invoice) }
 

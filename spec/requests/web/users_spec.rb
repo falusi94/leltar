@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 describe 'Users' do
+  let(:organization) { create(:organization) }
+
   describe 'GET #index' do
-    subject(:get_users) { get '/users' }
+    subject(:get_users) { get "/org/#{organization.slug}/users" }
 
     include_examples 'without user redirects to login'
 
@@ -18,7 +20,7 @@ describe 'Users' do
   end
 
   describe 'GET #show' do
-    subject(:get_user) { get "/users/#{user.id}" }
+    subject(:get_user) { get "/org/#{organization.slug}/users/#{user.id}" }
 
     let(:user) { create(:admin) }
 
@@ -35,7 +37,7 @@ describe 'Users' do
   end
 
   describe 'GET #new' do
-    subject(:get_new_user) { get '/users/new' }
+    subject(:get_new_user) { get "/org/#{organization.slug}/users/new" }
 
     let(:user) { create(:admin) }
 
@@ -51,7 +53,7 @@ describe 'Users' do
   end
 
   describe 'GET #edit' do
-    subject(:get_edit_user) { get "/users/#{user.id}/edit" }
+    subject(:get_edit_user) { get "/org/#{organization.slug}/users/#{user.id}/edit" }
 
     let(:user) { create(:admin) }
 
@@ -68,7 +70,7 @@ describe 'Users' do
   end
 
   describe 'POST #create' do
-    subject(:create_user) { post '/users', params: { user: attributes_for(:user) } }
+    subject(:create_user) { post "/org/#{organization.slug}/users", params: { user: attributes_for(:user) } }
 
     let(:user) { create(:admin) }
 
@@ -84,7 +86,7 @@ describe 'Users' do
   end
 
   describe 'PUT #update' do
-    subject(:update_user) { put "/users/#{user.id}", params: { user: { name: 'new name' } } }
+    subject(:update_user) { put "/org/#{organization.slug}/users/#{user.id}", params: { user: { name: 'new name' } } }
 
     let(:user) { create(:admin) }
 
@@ -101,7 +103,7 @@ describe 'Users' do
   end
 
   describe 'DELETE #destroy' do
-    subject(:delete_user) { delete "/users/#{user.id}" }
+    subject(:delete_user) { delete "/org/#{organization.slug}/users/#{user.id}" }
 
     let(:user) { create(:admin) }
 

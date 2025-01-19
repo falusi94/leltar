@@ -3,16 +3,12 @@
 module Web
   class RedirectController < BaseController
     def show
-      return redirect_to items_path if current_user.admin
+      redirect_url = RedirectUrl.generate(current_user)
 
-      departments = current_user.departments.with_read_access
-
-      if departments.none?
-        unauthorized_page
-      elsif departments.count > 1
-        redirect_to items_path
+      if redirect_url
+        redirect_to redirect_url
       else
-        redirect_to department_items_path(departments.first.id)
+        unauthorized_page
       end
     end
   end

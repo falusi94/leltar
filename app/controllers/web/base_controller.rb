@@ -20,8 +20,8 @@ module Web
     end
 
     def set_departments
-      @departments = current_user.departments.with_read_access.order(:name)
-      @write_departments = current_user.departments.with_write_access
+      @departments = policy_scope(current_organization.departments).order(:name)
+      @write_departments = current_user.departments.with_write_access.where(organization: current_organization)
     end
 
     def current_user
@@ -30,7 +30,7 @@ module Web
     helper_method :current_user
 
     def current_organization
-      # @current_organization ||= organizations.find_by!(slug: params[:organization_slug])
+      @current_organization ||= organizations.find_by!(slug: params[:organization_slug])
     end
     helper_method :current_organization
 

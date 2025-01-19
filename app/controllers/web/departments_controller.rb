@@ -2,24 +2,27 @@
 
 module Web
   class DepartmentsController < BaseController
-    before_action :set_department, only: %i[edit update destroy]
-    before_action -> { authorize(Department) }, only: %i[index new create]
-    before_action -> { authorize(@department) }, except: %i[index new create]
+    before_action :set_department, -> { authorize(@department) }, only: %i[edit update destroy]
 
     def index
+      authorize(current_organization, :index_department?)
+
       set_departments
       @pagy, @departments = pagy(@departments)
       @departments = DepartmentDecorator.decorate_collection(@departments)
     end
 
     def new
-      @department = Department.new
+      @department = Department.new(organization: current_organization)
+      authorize(@department)
     end
 
     def edit; end
 
     def create
       @department = Department.new(department_params)
+      authorize(@department)
+
       return redirect_to department_items_path(@department), notice: t('success.create') if @department.save
 
       render :new
@@ -43,7 +46,10 @@ module Web
     end
 
     def department_params
-      params.require(:department).permit(policy(Department).permitted_attributes)
+      params
+        .require(:department)
+        .permit(policy(Department).permitted_attributes)
+        .merge(organization: current_organization)
     end
   end
 end

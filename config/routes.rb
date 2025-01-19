@@ -36,37 +36,34 @@ Rails.application.routes.draw do
       get 'destroy', on: :collection, as: :destroy
     end
 
-    # User routes
-    resources :users
 
-    # DepartmentUser routes
-    resources :department_users, only: %i[create update destroy]
+    scope 'org/:organization_slug' do
+      resources :organizations, except: :show, param: :slug
 
-    # Departments routes
-    resources :departments, except: :show do
-      resources :items, only: %i[index new]
-    end
+      resources :users
 
-    resources :organizations, except: :show, param: :slug
+      resources :department_users, only: %i[create update destroy]
 
-    # Items routes
-    resources :items do
-      resources :photos, only: %i[create destroy], module: :items
-      resource :invoice, only: %i[create destroy], module: :items
+      resources :departments, except: :show do
+        resources :items, only: %i[index new]
+      end
 
-      resource :status_check, only: :create, module: :items
-      resources :versions, only: :show, module: :items
-    end
+      resources :items do
+        resources :photos, only: %i[create destroy], module: :items
+        resource :invoice, only: %i[create destroy], module: :items
 
-    # Search routes
-    resources :search, only: %i[index]
+        resource :status_check, only: :create, module: :items
+        resources :versions, only: :show, module: :items
+      end
 
-    # Status routes
-    resources :status, only: :index
+      resources :search, only: %i[index]
 
-    resources :system_attributes, only: [] do
-      get :edit, on: :collection
-      put :update, on: :collection
+      resources :status, only: :index
+
+      resources :system_attributes, only: [] do
+        get :edit, on: :collection
+        put :update, on: :collection
+      end
     end
   end
 end

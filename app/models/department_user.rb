@@ -21,5 +21,7 @@ class DepartmentUser < ApplicationRecord
   belongs_to :user
   belongs_to :department
 
+  has_one :organization, through: :department
+
   scope :write, -> { where(write: true) }
 end

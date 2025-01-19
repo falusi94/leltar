@@ -1,7 +1,17 @@
 # frozen_string_literal: true
 
 module ItemsQuery
-  SEARCH_FIELDS = %i[name description status serial specific_name location at_who condition inventory_number].freeze
+  SEARCH_FIELDS = %i[
+    items.name
+    items.description
+    items.status
+    items.serial
+    items.specific_name
+    items.location
+    items.at_who
+    items.condition
+    items.inventory_number
+  ].freeze
 
   module Scopes
     def by_department(department_id)

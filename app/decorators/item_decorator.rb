@@ -22,7 +22,7 @@ class ItemDecorator < ApplicationDecorator
   end
 
   def edit_button
-    return unless h.policy(department).write_items?
+    return unless h.policy(department).update_item?
 
     h.link_to(h.edit_label, h.edit_item_path(item),
               class: 'uk-button uk-button-secondary uk-button-small')

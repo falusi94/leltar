@@ -4,48 +4,14 @@ describe 'Redirects' do
   describe 'GET #show' do
     subject(:redirect) { get '/' }
 
-    context 'when the user is admin' do
-      it 'redirects to the items page' do
-        login(create(:admin))
+    it 'redirects using the RedirectUrl' do
+      allow(RedirectUrl).to receive(:generate).and_call_original
+      login_admin
 
-        redirect
+      redirect
 
-        expect(response).to redirect_to('/items')
-      end
-    end
-
-    context 'when the has no access to any department' do
-      it 'shows unauthorized' do
-        login
-
-        redirect
-
-        expect(response).to have_http_status(:unauthorized)
-      end
-    end
-
-    context 'when the has access to one department' do
-      it "redirects to the department's items" do
-        department = create(:department)
-        user       = create(:user, departments: [department])
-        login(user)
-
-        redirect
-
-        expect(response).to redirect_to("/departments/#{department.id}/items")
-      end
-    end
-
-    context 'when the has access to more than one department' do
-      it 'redirects to the items page' do
-        departments = create_list(:department, 2)
-        user        = create(:user, departments: departments)
-        login(user)
-
-        redirect
-
-        expect(response).to redirect_to('/items')
-      end
+      expect(response).to redirect_to('/setup/users/new')
+      expect(RedirectUrl).to have_received(:generate)
     end
   end
 end

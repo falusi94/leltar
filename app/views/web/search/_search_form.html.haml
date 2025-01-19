@@ -53,11 +53,6 @@
   %div
     = f.search_field :location_cont, class: 'uk-input uk-form-small'
   %div
-    = f.label :organization_eq, class: 'uk-text-small'
-  %div
-    = f.select :organization_eq, Item.pluck(:organization).uniq,
-      {include_blank: true}, {class: 'uk-select uk-form-small'}
-  %div
     = f.label :entry_date_lteq, class: 'uk-text-small'
   %div
     = f.search_field :entry_date_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'

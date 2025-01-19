@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 describe 'SystemAttributes' do
+  let(:organization) { create(:organization) }
+
   describe 'GET #edit' do
-    subject(:edit_system_attributes) { get '/system_attributes/edit' }
+    subject(:edit_system_attributes) { get "/org/#{organization.slug}/system_attributes/edit" }
 
     include_examples 'without user redirects to login'
 
@@ -18,11 +20,9 @@ describe 'SystemAttributes' do
   end
 
   describe 'PUT #update' do
-    subject(:update_system_attributes) { put '/system_attributes', params: params }
+    subject(:update_system_attributes) { put "/org/#{organization.slug}/system_attributes", params: try(:params) }
 
     context 'when the user is not authorized' do
-      subject(:update_system_attributes) { put '/system_attributes' }
-
       include_examples 'without user redirects to login'
     end
 

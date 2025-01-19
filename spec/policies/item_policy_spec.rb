@@ -1,89 +1,72 @@
 # frozen_string_literal: true
 
 describe ItemPolicy do
-  subject { described_class.new(Authorization::Scope.new(user: user), item) }
+  subject { described_class.new(auth_scope, item) }
 
-  let(:item) { build_stubbed(:item) }
+  let(:auth_scope) { Authorization::Scope.new(user: user) }
+  let(:item)       { build_stubbed(:item) }
+  let(:user)       { build_stubbed(:user) }
 
   describe '#index?' do
-    let(:user) { build_stubbed(:user) }
-
     it { is_expected.to permit_action(:index) }
   end
 
-  context 'when the user has write access to the department' do
-    let(:user) { build_stubbed(:user, :write_all_department) }
+  %i[show create update destroy].each do |action|
+    describe "##{action}?" do
+      let(:department_policy) { DepartmentPolicy.new(auth_scope, item.department) }
 
-    it { is_expected.to permit_action(:show)    }
-    it { is_expected.to permit_action(:edit)    }
-    it { is_expected.to permit_action(:update)  }
-    it { is_expected.to permit_action(:destroy) }
-    it { is_expected.to permit_action(:create)  }
-  end
+      before do
+        allow(Pundit).to receive(:policy).with(auth_scope, item.department).and_return(department_policy)
+        allow(department_policy).to receive(:"#{action}_item?").and_return(result)
+      end
 
-  context 'when the user has read access to the department' do
-    let(:user) { build_stubbed(:user, :read_all_department) }
+      context "when the user access to #{action}_item on the department" do
+        let(:result) { true }
 
-    it { is_expected.to permit_action(:show)        }
-    it { is_expected.not_to permit_action(:edit)    }
-    it { is_expected.not_to permit_action(:update)  }
-    it { is_expected.not_to permit_action(:destroy) }
-    it { is_expected.not_to permit_action(:create)  }
-  end
+        it { is_expected.to permit_action(action) }
+      end
 
-  context 'when the user has no access to the department' do
-    let(:user) { build_stubbed(:user) }
+      context "when the user no access to #{action}_item on the department" do
+        let(:result) { false }
 
-    it { is_expected.not_to permit_action(:show)    }
-    it { is_expected.not_to permit_action(:edit)    }
-    it { is_expected.not_to permit_action(:update)  }
-    it { is_expected.not_to permit_action(:destroy) }
-    it { is_expected.not_to permit_action(:create)  }
+        it { is_expected.to forbid_action(action) }
+      end
+    end
   end
 
   describe '#new?' do
-    let(:item) { Item }
+    let(:organization_policy) { OrganizationPolicy.new(auth_scope, item.organization) }
 
-    context 'when the user is admin' do
-      let(:user) { create(:admin) }
+    before do
+      allow(Pundit).to receive(:policy).with(auth_scope, item.organization).and_return(organization_policy)
+      allow(organization_policy).to receive(:create_item?).and_return(result)
+    end
+
+    context 'when the user access to create_item on the department' do
+      let(:result) { true }
 
       it { is_expected.to permit_action(:new) }
     end
 
-    context 'when the user has access to all departments' do
-      let(:user) { create(:user, :write_all_department) }
+    context 'when the user no access to create_item on the department' do
+      let(:auth_scope) { Authorization::Scope.new(user: user, organization: item.organization) }
+      let(:item)       { create(:item) }
+      let(:user)       { create(:user) }
+      let(:result)     { false }
 
-      it { is_expected.to permit_action(:new) }
-    end
+      it { is_expected.to forbid_action(:new) }
 
-    context 'when the user has access to at least one department' do
-      let(:user) { create(:user) }
+      context 'and the user has write access to any departments of the organization' do
+        before { create(:department_user, :write, user: user, department: item.department) }
 
-      before { create(:write_department_user, user: user) }
+        it { is_expected.to permit_action(:new) }
+      end
 
-      it { is_expected.to permit_action(:new) }
-    end
+      context 'and the user has read access to any departments of the organization' do
+        before { create(:department_user, user: user, department: item.department) }
 
-    context 'when the user has no access to any department' do
-      let(:user) { create(:user) }
-
-      it { is_expected.not_to permit_action(:new) }
-    end
-  end
-
-  describe '#search?' do
-    let(:item) { Item }
-
-    context 'when the user is admin' do
-      let(:user) { build_stubbed(:admin) }
-
-      it { is_expected.to permit_action(:search) }
-    end
-
-    context 'when the user has access to all departments' do
-      let(:user) { build_stubbed(:user) }
-
-      it { is_expected.to forbid_action(:search) }
+        it { is_expected.to forbid_action(:new) }
+      end
     end
   end
 

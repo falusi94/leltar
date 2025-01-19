@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 describe 'Organizations' do
+  let!(:organization) { create(:organization) }
+
   describe 'GET #index' do
-    subject(:get_organizations) { get '/organizations' }
+    subject(:get_organizations) { get "/org/#{organization.slug}/organizations" }
 
     include_examples 'without user redirects to login'
 
@@ -18,7 +20,7 @@ describe 'Organizations' do
   end
 
   describe 'GET #new' do
-    subject(:get_new_organization) { get '/organizations/new' }
+    subject(:get_new_organization) { get "/org/#{organization.slug}/organizations/new" }
 
     include_examples 'without user redirects to login'
 
@@ -32,9 +34,7 @@ describe 'Organizations' do
   end
 
   describe 'GET #edit' do
-    subject(:get_edit_organization) { get "/organizations/#{organization.slug}/edit" }
-
-    let(:organization) { create(:organization) }
+    subject(:get_edit_organization) { get "/org/#{organization.slug}/organizations/#{organization.slug}/edit" }
 
     include_examples 'without user redirects to login'
 
@@ -49,7 +49,9 @@ describe 'Organizations' do
   end
 
   describe 'POST #create' do
-    subject(:create_organization) { post '/organizations', params: { organization: attributes_for(:organization) } }
+    subject(:create_organization) do
+      post "/org/#{organization.slug}/organizations", params: { organization: attributes_for(:organization) }
+    end
 
     include_examples 'without user redirects to login'
 
@@ -64,10 +66,8 @@ describe 'Organizations' do
 
   describe 'PUT #update' do
     subject(:update_organization) do
-      put "/organizations/#{organization.slug}", params: { organization: { name: 'new name' } }
+      put "/org/#{organization.slug}/organizations/#{organization.slug}", params: { organization: { name: 'new name' } }
     end
-
-    let(:organization) { create(:organization) }
 
     include_examples 'without user redirects to login'
 
@@ -82,9 +82,9 @@ describe 'Organizations' do
   end
 
   describe 'DELETE #destroy' do
-    subject(:delete_organization) { delete "/organizations/#{organization.slug}" }
+    subject(:delete_organization) { delete "/org/#{organization.slug}/organizations/#{other_organization.slug}" }
 
-    let!(:organization) { create(:organization) }
+    let!(:other_organization) { create(:organization) }
 
     include_examples 'without user redirects to login'
 

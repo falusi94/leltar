@@ -2,7 +2,7 @@
 
 describe 'Photos' do
   describe 'create photo' do
-    subject(:create_photo) { post "/items/#{item.id}/photos", params: { photo: photo } }
+    subject(:create_photo) { post "/org/#{item.organization.slug}/items/#{item.id}/photos", params: { photo: photo } }
 
     let(:photo) { fixture_file_upload('dot.jpg', 'image/jpeg') }
     let(:item) { create(:item) }
@@ -22,7 +22,7 @@ describe 'Photos' do
   end
 
   describe 'delete photo' do
-    subject(:delete_photo) { delete "/items/#{item.id}/photos/#{item.photos.first.id}" }
+    subject(:delete_photo) { delete "/org/#{item.organization.slug}/items/#{item.id}/photos/#{item.photos.first.id}" }
 
     let(:item) { create(:item, :with_photo) }
 

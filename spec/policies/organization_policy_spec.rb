@@ -41,10 +41,56 @@ describe OrganizationPolicy do
     it { is_expected.to forbid_action(:destroy) }
   end
 
+  %i[create_department index_department search_item show_status].each do |action|
+    describe "#{action}?" do
+      let(:current_user) { create(:user) }
+      let(:organization) { create(:organization) }
+
+      context 'when the user has access' do
+        before { create(:organization_user, :admin, user: current_user, organization: organization) }
+
+        it { is_expected.to permit_action(action) }
+      end
+
+      context 'when the user has no access' do
+        it { is_expected.to forbid_action(action) }
+      end
+    end
+  end
+
+  describe '#create_item?' do
+    let(:current_user) { create(:user) }
+    let(:organization) { create(:organization) }
+
+    context 'when the user has access' do
+      before { create(:organization_user, :admin, user: current_user, organization: organization) }
+
+      it { is_expected.to permit_action(:create_item) }
+    end
+
+    context 'when the user has no access' do
+      let(:department) { create(:department, organization: organization) }
+
+      it { is_expected.to forbid_action(:create_item) }
+
+      context 'and has write access to a department' do
+        before { create(:department_user, :write, user: current_user, department: department) }
+
+        it { is_expected.to permit_action(:create_item) }
+      end
+
+      context 'and has read access to a department' do
+        before { create(:department_user, user: current_user, department: department) }
+
+        it { is_expected.to forbid_action(:create_item) }
+      end
+    end
+  end
+
   describe 'permitted attributes' do
     subject(:permitted_attributes) { described_class.new(Authorization::Scope.new, 'WHATEVER').permitted_attributes }
 
-    it 'excludes admin params' do
+    it 'returns permitted attributes' do
       expect(permitted_attributes).to match(%i[name slug currency_code fiscal_period_starts_at fiscal_period_unit])
     end
   end

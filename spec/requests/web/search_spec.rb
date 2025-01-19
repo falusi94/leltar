@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 describe 'Search' do
-  describe 'GET #index' do
-    subject(:search) { get '/search' }
+  let!(:organization) { create(:organization) }
 
-    let!(:item) { create(:item) }
+  describe 'GET #index' do
+    subject(:search) { get "/org/#{organization.slug}/search", params: try(:params) }
+
+    let!(:item) { create(:item, organization: organization) }
 
     include_examples 'without user redirects to login'
 
@@ -19,16 +21,20 @@ describe 'Search' do
       end
 
       context 'and a search condition is passed' do
+        let(:params) { { q: { name_cont: 'NOT_MATCHING' } } }
+
         it 'returns the matching results' do
-          get '/search', params: { q: { name_cont: 'NOT_MATCHING' } }
+          search
 
           expect(body).not_to include(item.name)
         end
       end
 
       context 'and export flag is set' do
+        let(:params) { { export_button: 'Export' } }
+
         it 'returns the csv' do
-          get '/search', params: { export_button: 'Export' }
+          search
 
           expect(body).to eq(Item.to_csv)
         end

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 describe 'Status' do
+  let(:organization) { create(:organization) }
+
   describe 'GET #index' do
-    subject(:get_status) { get '/status' }
+    subject(:get_status) { get "/org/#{organization.slug}/status" }
 
     include_examples 'without user redirects to login'
 

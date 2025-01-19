@@ -3,7 +3,7 @@
 describe 'Item status check' do
   describe 'POST #create' do
     subject(:status_check) do
-      post "/items/#{item.id}/status_check",
+      post "/org/#{item.organization.slug}/items/#{item.id}/status_check",
            params: { item: { status: 'not_found', condition: 'end_of_life' } }
     end
 

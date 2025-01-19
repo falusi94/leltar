@@ -6,8 +6,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin ||
-      user.organization_users.with_access(:show_organization).exists?(organization: record)
+    user.authorized_to?(:show_organization, organization: record)
   end
 
   def create?
@@ -15,13 +14,32 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin ||
-      user.organization_users.with_access(:update_organization).exists?(organization: record)
+    user.authorized_to?(:update_organization, organization: record)
   end
 
   def destroy?
-    user.admin ||
-      user.organization_users.with_access(:destroy_organization).exists?(organization: record)
+    user.authorized_to?(:destroy_organization, organization: record)
+  end
+
+  def create_department?
+    user.authorized_to?(:create_department, organization: record)
+  end
+
+  def index_department?
+    user.authorized_to?(:show_department, organization: record)
+  end
+
+  def create_item?
+    user.authorized_to?(:create_item, organization: record) ||
+      user.departments.with_write_access.exists?(organization: record)
+  end
+
+  def search_item?
+    user.authorized_to?(:search_item, organization: record)
+  end
+
+  def show_status?
+    user.authorized_to?(:show_status, organization: record)
   end
 
   def permitted_attributes

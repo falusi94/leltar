@@ -15,6 +15,10 @@ RSpec.describe OrganizationDecorator do
         super()
         @current_user = current_user
       end
+
+      def default_url_options
+        { organization_slug: 'organization_slug' }.merge(super)
+      end
     end
     Draper::ViewContext.controller = test_controller.new(user)
   end

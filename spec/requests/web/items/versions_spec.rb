@@ -2,7 +2,7 @@
 
 describe 'Item versions' do
   describe 'GET #show' do
-    subject(:get_version) { get "/items/#{item.id}/versions/1" }
+    subject(:get_version) { get "/org/#{item.organization.slug}/items/#{item.id}/versions/1" }
 
     let(:item) { create(:item) }
 
@@ -22,7 +22,7 @@ describe 'Item versions' do
       it 'returns not found' do
         login_admin
 
-        get "/items/#{item.id}/versions/0"
+        get "/org/#{item.organization.slug}/items/#{item.id}/versions/0"
 
         expect(response).to have_http_status(:not_found)
       end

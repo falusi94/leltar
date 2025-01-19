@@ -37,7 +37,7 @@ module ApiHelpers
 
   def api_item_hash(item)
     attributes = %i[id accountancy_state at_who comment condition description entry_price inventory_number location name
-                    number organization serial specific_name status department_id parent_id]
+                    number serial specific_name status department_id parent_id]
 
     item.slice(*attributes).merge(
       entry_date:    item.entry_date ? I18n.l(item.entry_date) : nil,

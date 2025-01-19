@@ -2,11 +2,16 @@
 
 class DepartmentUserPolicy < ApplicationPolicy
   def create?
-    user.admin
+    user.authorized_to?(:create_department_user?, organization: record.department&.organization)
   end
 
-  alias update? create?
-  alias destroy? create?
+  def update?
+    user.authorized_to?(:update_department_user?, organization: record.department&.organization)
+  end
+
+  def destroy?
+    user.authorized_to?(:destroy_department_user?, organization: record.department&.organization)
+  end
 
   def permitted_attributes
     %i[department_id user_id write]

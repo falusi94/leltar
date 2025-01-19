@@ -2,7 +2,7 @@
 
 module Web
   class StatusController < BaseController
-    before_action -> { authorize(Status) }
+    before_action -> { authorize(current_organization, :show_status?) }
 
     def index
       @status = Status.new

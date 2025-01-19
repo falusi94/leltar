@@ -64,11 +64,11 @@ module Web
     end
 
     def items
-      ItemsQuery.fetch(params, scope: policy_scope(Item).not_a_child)
+      ItemsQuery.fetch(params, scope: policy_scope(current_organization.items).not_a_child)
     end
 
     def item_params
-      params.require(:item).permit(policy(Item).permitted_attributes)
+      params.require(:item).permit(policy(Item).permitted_attributes).merge(organization: current_organization)
     end
 
     def status_update_params

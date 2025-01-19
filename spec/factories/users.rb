@@ -24,6 +24,10 @@ FactoryBot.define do
     trait :with_session do
       sessions { build_list(:user_session, 1) }
     end
+
+    trait :with_last_organization do
+      last_organization { association(:organization) }
+    end
   end
 
   factory :admin, parent: :user, traits: [:admin]

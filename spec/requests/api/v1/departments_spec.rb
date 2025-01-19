@@ -16,8 +16,10 @@ describe '/api/departments' do
   end
 
   describe 'POST #create' do
-    let(:params)   { attributes_for(:department) }
-    let(:resource) { Department.first }
+    let(:organization)     { create(:organization) }
+    let(:params)           { { **attributes_for(:department), organization_id: organization.id } }
+    let(:incorrect_params) { { organization_id: organization.id } }
+    let(:resource)         { Department.first }
 
     include_examples 'API creates resource'
   end

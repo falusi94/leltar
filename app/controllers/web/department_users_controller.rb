@@ -2,10 +2,10 @@
 
 module Web
   class DepartmentUsersController < BaseController
-    before_action -> { authorize(DepartmentUser) }
-
     def create
       department_user = DepartmentUser.new(department_user_params)
+
+      authorize(department_user)
 
       if department_user.save
         redirect_back fallback_location: root_path, notice: t('success.create')
@@ -15,6 +15,8 @@ module Web
     end
 
     def update
+      authorize(department_user)
+
       department_user.write = !department_user.write
 
       if department_user.save
@@ -25,6 +27,8 @@ module Web
     end
 
     def destroy
+      authorize(department_user)
+
       department_user.destroy
 
       redirect_back fallback_location: root_path, notice: t('success.delete')

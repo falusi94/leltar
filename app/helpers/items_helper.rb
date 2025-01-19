@@ -2,9 +2,9 @@
 
 module ItemsHelper
   def new_item_button(department:)
-    url = if department && policy(department).write_items?
+    url = if department && policy(department).create_item?
             new_department_item_path(department: department)
-          elsif policy(Item).new?
+          elsif policy(current_organization).create_item?
             new_item_path
           end
     link_to(new_label, url, class: 'uk-button uk-button-primary uk-button-small')

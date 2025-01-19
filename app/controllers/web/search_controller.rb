@@ -2,11 +2,11 @@
 
 module Web
   class SearchController < BaseController
-    before_action -> { authorize(Item, :search?) }
+    before_action -> { authorize(current_organization, :search_item?) }
     before_action :set_departments
 
     def index
-      @q    = Item.ransack(search_params)
+      @q    = current_organization.items.ransack(search_params)
       items = @q.result(distinct: true)
 
       if params[:export_button]

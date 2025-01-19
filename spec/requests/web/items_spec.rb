@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 describe 'Items' do
+  let(:organization) { item.organization }
+
   describe 'GET #index' do
-    subject(:show_items) { get '/items' }
+    subject(:show_items) { get "/org/#{organization.slug}/items" }
 
     let!(:item) { create(:item) }
 
@@ -25,11 +27,18 @@ describe 'Items' do
 
         expect(ItemsQuery).to have_received(:fetch).with(ActionController::Parameters, scope: ActiveRecord::Relation)
       end
+
+      it 'does not break on search' do
+        get "/org/#{organization.slug}/items", params: { query: item.name }
+
+        expect(response).to have_http_status(:ok)
+        expect(body).to include(item.name)
+      end
     end
   end
 
   describe 'GET #show' do
-    subject(:show_item) { get "/items/#{item.id}" }
+    subject(:show_item) { get "/org/#{organization.slug}/items/#{item.id}" }
 
     let(:item) { create(:item) }
 
@@ -48,14 +57,16 @@ describe 'Items' do
   end
 
   describe 'GET #new' do
-    subject(:new_item) { get '/items/new' }
+    subject(:new_item) { get "/org/#{organization.slug}/items/new" }
+
+    let(:organization) { create(:organization) }
 
     include_examples 'without user redirects to login'
 
     context 'when the user has access to any department' do
       it 'shows it' do
         login_admin
-        create(:department)
+        create(:department, organization: organization)
 
         new_item
 
@@ -75,7 +86,7 @@ describe 'Items' do
   end
 
   describe 'GET #edit' do
-    subject(:edit_item) { get "/items/#{item.id}/edit" }
+    subject(:edit_item) { get "/org/#{organization.slug}/items/#{item.id}/edit" }
 
     let(:item) { create(:item) }
 
@@ -93,7 +104,9 @@ describe 'Items' do
 
     context 'when the user does not have to the department of the item' do
       it 'returns unauthorized' do
-        login
+        user = create(:user)
+        organization.users << user
+        login(user)
 
         edit_item
 
@@ -103,9 +116,13 @@ describe 'Items' do
   end
 
   describe 'POST #create' do
-    subject(:create_item) { post '/items', params: { item: { department_id: department.id, name: 'Item' } } }
+    subject(:create_item) do
+      post "/org/#{organization.slug}/items/",
+           params: { item: { department_id: department.id, name: 'Item' } }
+    end
 
     let(:department) { create(:department) }
+    let(:organization) { department.organization }
 
     include_examples 'without user redirects to login'
 
@@ -123,7 +140,9 @@ describe 'Items' do
 
     context 'when the user does not have to the department' do
       it 'does not create it' do
-        login
+        user = create(:user)
+        organization.users << user
+        login(user)
 
         expect { create_item }.not_to change(Item, :count)
 
@@ -133,7 +152,7 @@ describe 'Items' do
   end
 
   describe 'PUT #edit' do
-    subject(:update_item) { put "/items/#{item.id}", params: { item: { name: 'New name' } } }
+    subject(:update_item) { put "/org/#{organization.slug}/items/#{item.id}", params: { item: { name: 'New name' } } }
 
     let(:item) { create(:item) }
 
@@ -152,7 +171,7 @@ describe 'Items' do
 
       context 'and the update param is set' do
         it 'updates the status of the item' do
-          put "/items/#{item.id}", params: { item: { update: true, condition: 'end_of_life' } }
+          put "/org/#{organization.slug}/items/#{item.id}", params: { item: { update: true, condition: 'end_of_life' } }
 
           expect(Item.last).to be_condition_end_of_life.and have_attributes(last_check: be_present)
         end
@@ -161,7 +180,9 @@ describe 'Items' do
 
     context 'when the user does not have to the department' do
       it 'does not update it' do
-        login
+        user = create(:user)
+        organization.users << user
+        login(user)
 
         update_item
 

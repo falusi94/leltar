@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 describe 'Departments' do
+  let(:organization) { create(:organization) }
+
   describe 'GET #index' do
-    subject(:get_departments) { get '/departments' }
+    subject(:get_departments) { get "/org/#{organization.slug}/departments" }
 
     include_examples 'without user redirects to login'
 
     it 'returns the departments' do
-      department = create(:department)
+      department = create(:department, organization: organization)
       login_admin
 
       get_departments
@@ -18,7 +20,7 @@ describe 'Departments' do
   end
 
   describe 'GET #new' do
-    subject(:get_new_department) { get '/departments/new' }
+    subject(:get_new_department) { get "/org/#{organization.slug}/departments/new" }
 
     include_examples 'without user redirects to login'
 
@@ -32,9 +34,9 @@ describe 'Departments' do
   end
 
   describe 'GET #edit' do
-    subject(:get_edit_department) { get "/departments/#{department.id}/edit" }
+    subject(:get_edit_department) { get "/org/#{organization.slug}/departments/#{department.id}/edit" }
 
-    let(:department) { create(:department) }
+    let(:department) { create(:department, organization: organization) }
 
     include_examples 'without user redirects to login'
 
@@ -49,7 +51,9 @@ describe 'Departments' do
   end
 
   describe 'POST #create' do
-    subject(:create_department) { post '/departments', params: { department: attributes_for(:department) } }
+    subject(:create_department) do
+      post "/org/#{organization.slug}/departments", params: { department: attributes_for(:department) }
+    end
 
     include_examples 'without user redirects to login'
 
@@ -58,14 +62,17 @@ describe 'Departments' do
 
       expect { create_department }.to change(Department, :count).by(1)
 
-      expect(response).to have_http_status(:found).and redirect_to("/departments/#{Department.last.id}/items")
+      expect(response).to have_http_status(:found)
+        .and redirect_to("/org/#{organization.slug}/departments/#{Department.last.id}/items")
     end
   end
 
   describe 'PUT #update' do
-    subject(:update_department) { put "/departments/#{department.id}", params: { department: { name: 'new name' } } }
+    subject(:update_department) do
+      put "/org/#{organization.slug}/departments/#{department.id}", params: { department: { name: 'new name' } }
+    end
 
-    let(:department) { create(:department) }
+    let(:department) { create(:department, organization: organization) }
 
     include_examples 'without user redirects to login'
 
@@ -80,9 +87,9 @@ describe 'Departments' do
   end
 
   describe 'DELETE #destroy' do
-    subject(:delete_department) { delete "/departments/#{department.id}" }
+    subject(:delete_department) { delete "/org/#{organization.slug}/departments/#{department.id}" }
 
-    let!(:department) { create(:department) }
+    let!(:department) { create(:department, organization: organization) }
 
     include_examples 'without user redirects to login'
 

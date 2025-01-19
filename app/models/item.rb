@@ -72,6 +72,7 @@ class Item < ApplicationRecord
   has_one_attached :invoice
   belongs_to :parent, class_name: 'Item', optional: true
   has_many :children, class_name: 'Item', foreign_key: :parent_id, inverse_of: :parent, dependent: :nullify
+  has_one :organization, through: :department
 
   has_one :depreciation_details, dependent: :destroy
 
@@ -104,7 +105,7 @@ class Item < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[accountancy_state at_who comment condition description entry_date entry_price department_id inventory_number
-       last_check location name organization purchase_date serial specific_name status warranty]
+       last_check location name purchase_date serial specific_name status warranty]
   end
 
   private

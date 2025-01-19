@@ -2,7 +2,7 @@
 
 module DepartmentsHelper
   def new_department_button
-    return unless policy(Department).new?
+    return unless policy(current_organization).create_department?
 
     link_to(new_label, new_department_path, class: 'uk-button uk-button-primary uk-button-small')
   end

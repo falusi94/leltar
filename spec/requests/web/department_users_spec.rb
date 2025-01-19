@@ -3,7 +3,8 @@
 describe 'DepartmentUsers' do
   describe 'POST #create' do
     subject(:create_department_user) do
-      post '/department_users', params: { department_user: { user_id: user.id, department_id: department.id } }
+      post "/org/#{department.organization.slug}/department_users",
+           params: { department_user: { user_id: user.id, department_id: department.id } }
     end
 
     let(:department) { create(:department) }
@@ -23,7 +24,9 @@ describe 'DepartmentUsers' do
   end
 
   describe 'PUT #update' do
-    subject(:update_department_user) { put "/department_users/#{department_user.id}" }
+    subject(:update_department_user) do
+      put "/org/#{department_user.organization.slug}/department_users/#{department_user.id}"
+    end
 
     let(:department_user) { create(:read_department_user) }
 
@@ -41,7 +44,9 @@ describe 'DepartmentUsers' do
   end
 
   describe 'DELETE #destroy' do
-    subject(:delete_department_user) { delete "/department_users/#{department_user.id}" }
+    subject(:delete_department_user) do
+      delete "/org/#{department_user.organization.slug}/department_users/#{department_user.id}"
+    end
 
     let!(:department_user) { create(:read_department_user) }
 

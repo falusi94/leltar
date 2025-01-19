@@ -6,26 +6,29 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def show?
-    Pundit.policy(auth_scope, record.department).read_items?
+    Pundit.policy(auth_scope, record.department).show_item?
+  end
+
+  def new?
+    Pundit.policy(auth_scope, organization).create_item? ||
+      user.departments.with_write_access.exists?(organization: organization)
+  end
+
+  def create?
+    Pundit.policy(auth_scope, record.department).create_item?
   end
 
   def edit?
-    Pundit.policy(auth_scope, record.department).write_items?
+    Pundit.policy(auth_scope, record.department).update_item?
   end
-  alias update?  edit?
-  alias destroy? edit?
-  alias create?  edit?
+  alias update? edit?
 
-  def new?
-    user.admin || user.write_all_department || user.department_users.any?(&:write)
-  end
-
-  def search?
-    user.admin
+  def destroy?
+    Pundit.policy(auth_scope, record.department).destroy_item?
   end
 
   def permitted_attributes
-    %i[name description purchase_date entry_date department_id organization number parent_id specific_name serial
+    %i[name description purchase_date entry_date department_id number parent_id specific_name serial
        location at_who warranty comment inventory_number entry_price accountancy_state photo invoice]
   end
 

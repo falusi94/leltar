@@ -28,15 +28,21 @@
           = link_to t('navigation.my_profile'), edit_user_path(current_user)
         %li
           = link_to t('navigation.logout'), destroy_session_path, method: :get
+        %li
+          %a.uk-navbar-toggle{"uk-icon" => "thumbnails", "uk-toggle" => "target: #organization-offcanvas-nav", 'title' => 'Change organization'}
+
   %nav.uk-navbar-container.main-navbar.uk-light.uk-sticky{:class => "uk-hidden@m", "uk-navbar" => ""}
-    .uk-navbar-left.nav-overlay
-      %a.uk-navbar-toggle{"uk-navbar-toggle-icon" => "", "uk-toggle" => "target: #offcanvas-nav-primary"}
-    = render 'mobile_search'
-    .nav-overlay.uk-navbar-left.uk-flex-1{:hidden => ""}
+    .uk-navbar-left.nav-overlay.mobile-search-bar
+      %a.uk-navbar-toggle{"uk-navbar-toggle-icon" => "", "uk-toggle" => "target: #mobile-offcanvas-nav"}
+    .uk-navbar-right.nav-overlay.mobile-search-bar
+      = render 'mobile_search'
+      %a.uk-navbar-toggle{"uk-icon" => "thumbnails", "uk-toggle" => "target: #organization-offcanvas-nav"}
+    .nav-overlay.uk-navbar-left.uk-flex-1.mobile-search-bar{:hidden => ""}
       = render 'search'
-      %a.uk-navbar-toggle{:href => "#", "uk-close" => "", "uk-toggle" => "target: .nav-overlay; animation: uk-animation-fade"}
+      %a.uk-navbar-toggle{:href => "#", "uk-close" => "", "uk-toggle" => "target: .mobile-search-bar; animation: uk-animation-fade"}
+
 .uk-offcanvas-content{:class => "uk-hidden@m"}
-  #offcanvas-nav-primary{"uk-offcanvas" => "mode: push; overlay: true"}
+  #mobile-offcanvas-nav{"uk-offcanvas" => "mode: push; overlay: true"}
     .uk-offcanvas-bar.uk-flex.uk-flex-column
       %button.uk-offcanvas-close{:type => "button", "uk-close" => ""}
       %ul.uk-nav.uk-nav-primary.uk-nav-center.uk-margin-auto-vertical
@@ -62,3 +68,14 @@
           = link_to t('navigation.my_profile'), edit_user_path(current_user)
         %li
           = link_to t('navigation.logout'), destroy_session_path, method: :get
+
+.uk-offcanvas-content
+  #organization-offcanvas-nav{"uk-offcanvas" => "flip: true; mode: push; overlay: true"}
+    .uk-offcanvas-bar.uk-flex.uk-flex-column
+      %button.uk-offcanvas-close{:type => "button", "uk-close" => ""}
+      %ul.uk-nav.uk-nav-primary.uk-nav-center.uk-margin-auto-vertical
+        %h2 My Organizations
+        %li.uk-nav-divider
+        - organizations.each do |organization|
+          %li
+            = link_to organization.name, items_path(organization_slug: organization.slug)

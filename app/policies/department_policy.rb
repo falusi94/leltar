@@ -6,30 +6,52 @@ class DepartmentPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin
+    user.authorized_to?(:show_department, organization: record.organization)
   end
 
   def create?
-    user.admin
+    Pundit.policy(auth_scope, record.organization).create_department?
   end
 
   def update?
-    user.admin
+    user.authorized_to?(:update_department, organization: record.organization)
   end
 
   def destroy?
-    user.admin
+    user.authorized_to?(:destroy_department, organization: record.organization)
   end
 
-  def read_items?
-    user.admin || user.read_all_department || user.department_users.exists?(department: record)
+  def show_item?
+    user.authorized_to?(:show_item, organization: record.organization) ||
+      user.department_users.exists?(department: record)
   end
 
-  def write_items?
-    user.admin || user.write_all_department || user.department_users.write.exists?(department: record)
+  def update_item?
+    user.authorized_to?(:update_item, organization: record.organization) ||
+      user.write_department_users.exists?(department: record)
+  end
+
+  def create_item?
+    user.authorized_to?(:create_item, organization: record.organization) ||
+      user.write_department_users.exists?(department: record)
+  end
+
+  def destroy_item?
+    user.authorized_to?(:destroy_item, organization: record.organization) ||
+      user.write_department_users.exists?(department: record)
   end
 
   def permitted_attributes
-    %i[name]
+    %i[name organization_id]
+  end
+
+  class Scope < Scope
+    def resolve
+      if user.admin? # TODO: || user.authorized_to?(:index_departments, organization: record)
+        scope.all
+      else
+        scope.where_assoc_exists(:department_users, user_id: user.id)
+      end
+    end
   end
 end
