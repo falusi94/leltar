@@ -7,6 +7,7 @@ module Web
 
     include Pagy::Backend
     include Authorization::ControllerMixin
+    include DefaultOrganizationUrlOptions
 
     before_action :require_login
 
@@ -28,9 +29,20 @@ module Web
     end
     helper_method :current_user
 
+    def current_organization
+      # @current_organization ||= organizations.find_by!(slug: params[:organization_slug])
+    end
+    helper_method :current_organization
+
+    def organizations
+      OrganizationPolicy::Scope.new(Authorization::Scope.new(user: current_user), Organization).resolve
+    end
+    helper_method :organizations
+
     def require_login
       return if session[:user_id]
 
+      params[:organization_slug] = nil
       redirect_url = Organization.any? ? new_session_path : new_setup_user_path
       redirect_to redirect_url, redirect: request.original_fullpath
     end

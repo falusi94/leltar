@@ -27,4 +27,14 @@ class OrganizationPolicy < ApplicationPolicy
   def permitted_attributes
     %i[name slug currency_code fiscal_period_starts_at fiscal_period_unit]
   end
+
+  class Scope < Scope
+    def resolve
+      if user.admin?
+        scope.all
+      else
+        scope.where_assoc_exists(:organization_users, user_id: user.id)
+      end
+    end
+  end
 end

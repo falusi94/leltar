@@ -28,6 +28,7 @@
 
 class User < ApplicationRecord
   include Authentication::ModelMixin
+  include UserAuthorization
 
   validates :email, :name, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
