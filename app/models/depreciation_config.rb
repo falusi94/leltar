@@ -41,4 +41,16 @@ class DepreciationConfig < ApplicationRecord
     month: 'month',
     year:  'year'
   }
+
+  def self.default(organization)
+    new(
+      automatic_depreciation:               false,
+      automatic_depreciation_salvage_value: 0,
+      automatic_depreciation_useful_life:   10,
+      depreciation_frequency_unit:          'year',
+      depreciation_frequency_value:         1,
+      depreciation_method:                  'straight_line_depreciation',
+      organization:                         organization
+    )
+  end
 end

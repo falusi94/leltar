@@ -28,5 +28,9 @@ class Organization < ApplicationRecord
 
   has_one :depreciation_config, dependent: :destroy
 
+  def safe_depreciation_config
+    depreciation_config || DepreciationConfig.default(self)
+  end
+
   def to_param = slug
 end

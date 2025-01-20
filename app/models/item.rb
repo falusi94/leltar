@@ -81,7 +81,7 @@ class Item < ApplicationRecord
   validate :children_from_the_same_department, :parent_from_the_same_department, :purchase_date_not_in_the_future,
            :has_no_grandparent, :has_no_grandchild
 
-  after_create :init_depreciation, if: -> { SystemAttribute.automatic_depreciation }
+  after_create :init_depreciation, if: -> { organization.safe_depreciation_config.automatic_depreciation }
 
   def initialize(params = {})
     # save picture to create new Photo after initializing with super
@@ -147,8 +147,8 @@ class Item < ApplicationRecord
 
   def init_depreciation
     params = {
-      salvage_value: SystemAttribute.automatic_depreciation_salvage_value,
-      useful_life:   SystemAttribute.automatic_depreciation_useful_life
+      salvage_value: organization.safe_depreciation_config.automatic_depreciation_salvage_value,
+      useful_life:   organization.safe_depreciation_config.automatic_depreciation_useful_life
     }
 
     Depreciation.init(self, params: params)

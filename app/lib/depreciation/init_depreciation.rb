@@ -37,7 +37,11 @@ module Depreciation
       Depreciation.calculate(depreciation_details)
     end
 
-    delegate :depreciation_method, :depreciation_frequency_unit, :depreciation_frequency_value, to: :SystemAttribute
+    delegate :depreciation_method, :depreciation_frequency_unit, :depreciation_frequency_value, to: :depreciation_config
+
+    def depreciation_config
+      item.organization.safe_depreciation_config
+    end
 
     attr_reader :item, :params, :depreciation_details
   end

@@ -149,14 +149,13 @@ describe Item do
 
   describe '#init_depreciation callback' do
     context 'when automatic depreciation is enabled' do
-      include_context 'automatic depreciation enabled'
-
       it 'initializes depreciation' do
-        item = create(:item)
+        depreciation_config = create(:depreciation_config, :with_automatic_depreciation)
+        item = create(:item, organization: depreciation_config.organization)
 
         expect(item.depreciation_details).to be_present.and have_attributes(
-          useful_life:   SystemAttribute.automatic_depreciation_useful_life,
-          salvage_value: SystemAttribute.automatic_depreciation_salvage_value
+          useful_life:   depreciation_config.automatic_depreciation_useful_life,
+          salvage_value: depreciation_config.automatic_depreciation_salvage_value
         )
       end
     end
