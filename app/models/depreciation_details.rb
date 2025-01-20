@@ -32,8 +32,8 @@ class DepreciationDetails < ApplicationRecord
   validates :book_value, :depreciation_frequency_unit, :depreciation_frequency_value, :depreciation_method, :entry_date,
             :entry_value, :salvage_value, :useful_life, presence: true
 
-  validates :depreciation_frequency_unit, inclusion: { in: %w[day week month year] }
-  validates :depreciation_method, inclusion: { in: %w[straight_line_depreciation] }
+  validates :depreciation_frequency_unit, inclusion: { in: DepreciationConfig.depreciation_frequency_units.values }
+  validates :depreciation_method, inclusion: { in: DepreciationConfig.depreciation_methods.values }
 
   has_many :depreciation_entries, dependent: :destroy
   has_one :last_depreciation_entry, -> { by_calculation_desc },

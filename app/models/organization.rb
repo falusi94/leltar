@@ -26,5 +26,7 @@ class Organization < ApplicationRecord
   has_many :departments, dependent: :nullify
   has_many :items, through: :departments
 
+  has_one :depreciation_config, dependent: :destroy
+
   def to_param = slug
 end

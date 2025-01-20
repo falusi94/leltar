@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_19_215136) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_19_215542) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_215136) do
     t.bigint "organization_id"
     t.index ["name"], name: "index_departments_on_name", unique: true
     t.index ["organization_id"], name: "index_departments_on_organization_id"
+  end
+
+  create_table "depreciation_configs", force: :cascade do |t|
+    t.string "depreciation_method", null: false
+    t.integer "depreciation_frequency_value", null: false
+    t.string "depreciation_frequency_unit", null: false
+    t.boolean "automatic_depreciation", null: false
+    t.integer "automatic_depreciation_useful_life", null: false
+    t.integer "automatic_depreciation_salvage_value", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_depreciation_configs_on_organization_id", unique: true
   end
 
   create_table "depreciation_details", force: :cascade do |t|
@@ -182,6 +195,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_215136) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "department_users", "departments"
   add_foreign_key "department_users", "users"
+  add_foreign_key "depreciation_configs", "organizations"
   add_foreign_key "depreciation_details", "items"
   add_foreign_key "depreciation_entries", "depreciation_details", column: "depreciation_details_id"
   add_foreign_key "organization_users", "organizations"
