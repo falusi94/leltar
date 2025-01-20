@@ -41,7 +41,8 @@ describe OrganizationPolicy do
     it { is_expected.to forbid_action(:destroy) }
   end
 
-  %i[create_department index_department search_item show_status].each do |action|
+  %i[create_department index_department search_item show_status show_depreciation_config update_depreciation_config]
+    .each do |action|
     describe "#{action}?" do
       let(:current_user) { create(:user) }
       let(:organization) { create(:organization) }

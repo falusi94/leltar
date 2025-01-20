@@ -1,0 +1,34 @@
+= form_for depreciation_config, url: depreciation_config_path, method: :put, html: {class: 'uk-form-horizontal', multipart: true} do |f|
+  = render 'alert', errors: depreciation_config.errors
+  .uk-margin
+    = f.label :automatic_depreciation, class: 'uk-form-label'
+    .uk-form-controls
+      = f.check_box :automatic_depreciation, class: 'uk-checkbox'
+  .uk-margin
+    = f.label :automatic_depreciation_salvage_value, class: 'uk-form-label'
+    .uk-form-controls
+      = f.number_field :automatic_depreciation_salvage_value, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :automatic_depreciation_useful_life, class: 'uk-form-label'
+    .uk-form-controls
+      = f.number_field :automatic_depreciation_useful_life, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :depreciation_frequency_unit, class: 'uk-form-label'
+    .uk-form-controls
+      = f.select :depreciation_frequency_unit,
+        options_for_select(DepreciationConfig.translated_depreciation_frequency_units.to_a, depreciation_config.depreciation_frequency_unit),
+        {},
+        { class: 'uk-select uk-form-small' }
+  .uk-margin
+    = f.label :depreciation_frequency_value, class: 'uk-form-label'
+    .uk-form-controls
+      = f.number_field :depreciation_frequency_value, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :depreciation_method, class: 'uk-form-label'
+    .uk-form-controls
+      = f.select :depreciation_method,
+        options_for_select(DepreciationConfig.translated_depreciation_methods.to_a, depreciation_config.depreciation_method),
+        {},
+        { class: 'uk-select uk-form-small' }
+  .uk-width-1-1
+    = f.submit class: 'uk-button uk-button-primary uk-align-center'

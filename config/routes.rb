@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     scope 'org/:organization_slug' do
       resources :organizations, except: :show, param: :slug
 
+      resource :depreciation_config, only: %i[show edit update]
+
       resources :users
 
       resources :department_users, only: %i[create update destroy]

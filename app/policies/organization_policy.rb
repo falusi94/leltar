@@ -21,6 +21,14 @@ class OrganizationPolicy < ApplicationPolicy
     user.authorized_to?(:destroy_organization, organization: record)
   end
 
+  def show_depreciation_config?
+    user.authorized_to?(:show_depreciation_config, organization: record)
+  end
+
+  def update_depreciation_config?
+    user.authorized_to?(:update_depreciation_config, organization: record)
+  end
+
   def create_department?
     user.authorized_to?(:create_department, organization: record)
   end

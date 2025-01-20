@@ -25,6 +25,8 @@
 #
 
 class DepreciationConfig < ApplicationRecord
+  include TranslateEnum
+
   belongs_to :organization
 
   validates :depreciation_method, :depreciation_frequency_value, :depreciation_frequency_unit,
@@ -41,6 +43,9 @@ class DepreciationConfig < ApplicationRecord
     month: 'month',
     year:  'year'
   }
+
+  translate_enum :depreciation_method
+  translate_enum :depreciation_frequency_unit
 
   def self.default(organization)
     new(

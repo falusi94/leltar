@@ -9,6 +9,8 @@ module ApplicationHelper
     @admin_navigation_links ||= [
       Link.new('navigation.users', users_path, policy(User).index?),
       Link.new('navigation.organizations', organizations_path, policy(Organization).index?),
+      Link.new('navigation.depreciation_config', depreciation_config_path,
+               policy(current_organization).show_depreciation_config?),
       Link.new('navigation.search', search_index_path, policy(current_organization).search_item?),
       Link.new('navigation.status', status_index_path, policy(current_organization).show_status?),
       Link.new('navigation.system_attributes', edit_system_attributes_path, policy(SystemAttribute).edit?)

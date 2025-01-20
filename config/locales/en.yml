@@ -6,6 +6,7 @@ en:
   error_count: '%{count} error(s) happened during save'
   navigation:
     departments: Departments
+    depreciation_config: Depreciation config
     users: Users
     search: Advanced search
     status: Status
@@ -67,6 +68,14 @@ en:
         department_users: User accesses
       department_user:
         write: Write access
+      depreciation_config:
+        depreciation_method_list:
+          straight_line_depreciation: straight line depreciation
+        depreciation_frequency_unit_list:
+          day: day
+          week: week
+          month: month
+          year: year
       item:
         number: Count
         at_who: Responsible

@@ -1,0 +1,20 @@
+.uk-container
+  .uk-clearfix
+    .uk-float-left
+      %h1= t('navigation.depreciation_config')
+    .uk-float-right.uk-padding-small
+      = edit_depreciation_config_button
+  .uk-align-center{:class => "uk-width-2-3@s"}
+    .uk-grid-small{"uk-grid" => ""}
+      .uk-text-bold{:class => "uk-width-1-2@s"}="#{DepreciationConfig.human_attribute_name(:automatic_depreciation)}:"
+      %div{:class => "uk-width-1-2@s"}= @depreciation_config.automatic_depreciation
+      .uk-text-bold{:class => "uk-width-1-2@s"}="#{DepreciationConfig.human_attribute_name(:automatic_depreciation_salvage_value)}:"
+      %div{:class => "uk-width-1-2@s"}= @depreciation_config.automatic_depreciation_salvage_value
+      .uk-text-bold{:class => "uk-width-1-2@s"}="#{DepreciationConfig.human_attribute_name(:automatic_depreciation_useful_life)}:"
+      %div{:class => "uk-width-1-2@s"}= @depreciation_config.automatic_depreciation_useful_life
+      .uk-text-bold{:class => "uk-width-1-2@s"}="#{DepreciationConfig.human_attribute_name(:depreciation_frequency_unit)}:"
+      %div{:class => "uk-width-1-2@s"}= @depreciation_config.translated_depreciation_frequency_unit
+      .uk-text-bold{:class => "uk-width-1-2@s"}="#{DepreciationConfig.human_attribute_name(:depreciation_frequency_value)}:"
+      %div{:class => "uk-width-1-2@s"}= @depreciation_config.depreciation_frequency_value
+      .uk-text-bold{:class => "uk-width-1-2@s"}="#{DepreciationConfig.human_attribute_name(:depreciation_method)}:"
+      %div{:class => "uk-width-1-2@s"}= @depreciation_config.translated_depreciation_method
