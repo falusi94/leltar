@@ -6,21 +6,14 @@
       %ul.uk-navbar-nav
         %li
           = link_to t('navigation.departments'), departments_path
-        - if current_user.admin
+        - if admin_navigation_links.any?(&:accessible?)
           %li
             %a{:href => "#", "uk-icon" => "chevron-down"} Admin
             .uk-navbar-dropdown{"uk-dropdown" => "mode: click; offset: -15"}
               %ul.uk-nav.uk-navbar-dropdown-nav
-                %li
-                  = link_to t('navigation.users'), users_path
-                %li
-                  = link_to t('navigation.organizations'), organizations_path
-                %li
-                  = link_to t('navigation.search'), search_index_path
-                %li
-                  = link_to t('navigation.status'), status_index_path
-                %li
-                  = link_to t('navigation.system_attributes'), edit_system_attributes_path
+                - admin_navigation_links.select(&:accessible?).each do |link|
+                  %li
+                    = link_to t(link.translation_key), link.href
     = render 'search'
     .uk-navbar-right
       %ul.uk-navbar-nav
@@ -53,16 +46,11 @@
         %li.uk-nav-divider
         %li
           = link_to t('navigation.departments'), departments_path
-        - if current_user.admin
+        - if admin_navigation_links.any?(&:accessible?)
           %li.uk-nav-divider
-          %li
-            = link_to t('navigation.users'), users_path
-          %li
-            = link_to t('navigation.organizations'), organizations_path
-          %li
-            = link_to t('navigation.search'), search_index_path
-          %li
-            = link_to t('navigation.status'), status_index_path
+            - admin_navigation_links.select(&:accessible?).each do |link|
+              %li
+                = link_to t(link.translation_key), link.href
         %li.uk-nav-divider
         %li
           = link_to t('navigation.my_profile'), edit_user_path(current_user)

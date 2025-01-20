@@ -3,6 +3,18 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  Link = Struct.new(:translation_key, :href, :accessible?)
+
+  def admin_navigation_links # rubocop:disable Metrics/AbcSize
+    @admin_navigation_links ||= [
+      Link.new('navigation.users', users_path, policy(User).index?),
+      Link.new('navigation.organizations', organizations_path, policy(Organization).index?),
+      Link.new('navigation.search', search_index_path, policy(current_organization).search_item?),
+      Link.new('navigation.status', status_index_path, policy(current_organization).show_status?),
+      Link.new('navigation.system_attributes', edit_system_attributes_path, policy(SystemAttribute).edit?)
+    ]
+  end
+
   def back_label
     create_label('arrow-left', t('form.actions.back'))
   end
