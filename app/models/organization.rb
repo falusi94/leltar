@@ -6,7 +6,6 @@
 #
 #  id                      :bigint           not null, primary key
 #  currency_code           :string           not null
-#  depreciation_config     :jsonb
 #  fiscal_period_starts_at :date
 #  fiscal_period_unit      :string
 #  name                    :string           not null

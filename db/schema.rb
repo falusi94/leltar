@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_19_214944) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_19_215136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -132,7 +132,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_214944) do
     t.string "slug", null: false
     t.date "fiscal_period_starts_at"
     t.string "fiscal_period_unit"
-    t.jsonb "depreciation_config", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_organizations_on_slug"
