@@ -11,10 +11,12 @@ describe 'Status' do
     context 'when the user is logged in' do
       it 'returns the status' do
         login_admin
+        allow(Status).to receive(:new).and_call_original
 
         get_status
 
         expect(response).to have_http_status(:ok)
+        expect(Status).to have_received(:new).with(organization)
       end
     end
   end

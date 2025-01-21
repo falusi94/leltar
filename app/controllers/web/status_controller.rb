@@ -5,7 +5,7 @@ module Web
     before_action -> { authorize(current_organization, :show_status?) }
 
     def index
-      @status = Status.new
+      @status = Status.new(current_organization)
     end
   end
 end

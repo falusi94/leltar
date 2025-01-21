@@ -1,25 +1,26 @@
 # frozen_string_literal: true
 
 class Status
-  attr_reader :session_start
+  attr_reader :session_start, :organization
 
-  def initialize
+  def initialize(organization)
+    @organization  = organization
     @session_start = SystemAttribute.new_session_start
   end
 
   def all_item_count
-    Item.count
+    organization.items.count
   end
 
   def existing_item_count
-    Item.existing.where.not(last_check: nil).count
+    organization.items.existing.where.not(last_check: nil).count
   end
 
   def finished_item_count
-    Item.existing.where('last_check > ?', session_start).count
+    organization.items.existing.where('last_check > ?', session_start).count
   end
 
   def at_member_item_count
-    Item.existing.status_at_member.count
+    organization.items.existing.status_at_member.count
   end
 end
