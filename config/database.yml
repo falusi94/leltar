@@ -8,8 +8,8 @@ default: &default
   adapter: postgresql
   pool: 5
   timeout: 5000
-  user: leltar
-  password: leltar
+  user: <%= ENV.fetch('DB_USER', 'leltar') %>
+  password: <%= ENV.fetch('DB_PASSWORD', 'leltar') %>
 
 development:
   <<: *default
@@ -24,7 +24,7 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV["DATABASE"] %>
-  user: <%= ENV["USER"] %>
-  password: <%= ENV["PASSWORD"] %>
-  host: <%= ENV["HOST"] %>
+  database: <%= ENV['DB_NAME'] %>
+  user: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>

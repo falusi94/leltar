@@ -1,52 +1,44 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/afb57353632e7743da3f/maintainability)](https://codeclimate.com/github/falusi94/leltar/maintainability)
-
 # README
 
-Simple inventory management system built on Ruby on Rails. It can easily manage separated faculties (called groups), export using ransack, import from google sheets, and has some basic status report.
+A simple inventory management system built on Ruby on Rails, providing a full web interface and a WIP API. Feature list:
 
-**Disclaimer**: this is an abandoned project w/o any vision, so I decided to get it into shape & convert it to a playground.
+- Managing separate organisations, departments and items
+- Mixed RBAC (organisation level) and ReBAC (department level)
+- Advanced search and export with ransack
+- Depreciation
+- Basic status report
 
-## System requirements
-* Ruby - check .tool-versions ([asdf-vm](https://asdf-vm.com/#/core-manage-asdf-vm) and [asdf-ruby](https://github.com/asdf-vm/asdf-ruby))
+**Disclaimer**: this was an abandoned project w/o any vision, so I decided to get it into shape and convert it into a playground.
+
+## Requirements
+* Ruby - check `.tool-versions` ([asdf-vm](https://asdf-vm.com/#/core-manage-asdf-vm) and [asdf-ruby](https://github.com/asdf-vm/asdf-ruby))
+* yarn - [instructions](https://classic.yarnpkg.com/lang/en/docs/install/)
 * PostgreSQL
 
-OR
+## Initialisation
+#### Database
+First-time users should create a database user defined in the `config/database.yml` or override the DB user/password in the env (using `.env` or env vars), then do the usual Rails setup.
 
-* docker with compose
-
-## Configuration
-For local development or any non dockerized running just .env.example to .env and add parametes. If you want to use .env in production, update the Gemfile according to, and move the dotenv gem to all environment. For development check or update config/database.yml too.
-
-## Database creation and initialization
-After proper set database just run the seeder. It gives an admin user with admin@example.org/foobar login.
-
-
-## Deployment instructions
-Easy deployment could be achieved with Docker and Docker-compose. I suggest to create two volumes for db data and public data, to easily find later these volumes. Then you need to set some variables, so open `docker-compose.yml`, then modify the following lines:
-
-```yaml
-# Add your volumes
-public_folder:
-  external:
-    name: your_public_volume
-database_folder:
-  external:
-    name: your_db_volume
+```sh
+bin/rails db:create db:schema:load db:seed
 ```
 
-Just run the following:
+This creates some test data along with an admin user `admin@example.org`/`foobar`. Also, if there is no organisation when starting the app, the web URL exposes a wizard to set up the first organisation and user.
 
-```shell
-# Generate secret keybase if necessary
-bundle exec rake secret
-docker-compose up --build --build-arg SECRET_KEYBASE=you_key_base
+#### Node modules
+```sh
+yarn install
 ```
 
-After the creating, while the containers are runing run the following commands:
+## Running
+Either use the procfile or run the commands defined there in separate consoles.
 
-```shell
-# This is only necessary at new setups
-docker-compose run web bash -c "RAILS_ENV=production bundle exec rake db:setup"
-# This is only necessary after pending migrations
-docker-compose run web bash -c "RAILS_ENV=production bundle exec rake db:migrate"
+## Testing
+The app is tested via RSpec, though some tests use Capybara and require a browser.
+
+```sh
+bundle exec rspec
 ```
+
+## Docker
+The application can be run via Docker. Everything is defined in the `Dockerfile` and `docker-compose.yml` but not actively maintained.
