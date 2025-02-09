@@ -5,13 +5,22 @@
     .uk-form-controls
       = f.text_field :name, class: 'uk-input uk-form-small'
   .uk-margin
-    = f.label :specific_name, class: 'uk-form-label'
+    = f.label :department_id, class: 'uk-form-label'
     .uk-form-controls
-      = f.text_field :specific_name, class: 'uk-input uk-form-small'
+      - options = options_from_collection_for_select(@write_departments, :id, :name, @item.department.id)
+      = f.select :department_id, options, {}, {class: 'uk-select uk-form-small'}
   .uk-margin
-    = f.label :number, class: 'uk-form-label'
+    = f.label :inventory_number, class: 'uk-form-label'
     .uk-form-controls
-      = f.number_field :number, class: 'uk-input uk-form-small'
+      = f.text_field :inventory_number, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :serial_number, class: 'uk-form-label'
+    .uk-form-controls
+      = f.text_field :serial_number, class: 'uk-input uk-form-small'
+  .uk-margin
+    = f.label :count, class: 'uk-form-label'
+    .uk-form-controls
+      = f.number_field :count, class: 'uk-input uk-form-small'
   - unless @item.parent?
     .uk-margin
       = f.label :parent_id, class: 'uk-form-label'
@@ -19,56 +28,44 @@
         - options = options_from_collection_for_select(parent_item_candidates(@item), :id, :compact_name, @item.parent&.id)
         = f.select :parent_id, options, {include_blank: true}, {class: 'uk-select uk-form-small'}
   .uk-margin
-    = f.label :department_id, class: 'uk-form-label'
+    = f.label :description, class: 'uk-form-label'
     .uk-form-controls
-      - options = options_from_collection_for_select(@write_departments, :id, :name, @item.department.id)
-      = f.select :department_id, options, {}, {class: 'uk-select uk-form-small'}
+      = f.text_field :description, class: 'uk-input uk-form-small'
+
+  %hr
   .uk-margin
     = f.label :location_id, class: 'uk-form-label'
     .uk-form-controls
       - options = options_from_collection_for_select(current_organization.locations, :id, :name, @item.location_id)
       = f.select :location_id, options, { include_blank: true }, {class: 'uk-select uk-form-small'}
-  .uk-margin
-    = f.label :at_who, class: 'uk-form-label'
-    .uk-form-controls
-      = f.text_field :at_who, class: 'uk-input uk-form-small'
-  .uk-margin
-    = f.label :purchase_date, class: 'uk-form-label'
-    .uk-form-controls.uk-text-right
-      = f.date_select :purchase_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'}
-  .uk-margin
-    = f.label :entry_date, class: 'uk-form-label'
-    .uk-form-controls.uk-text-right
-      = f.date_select :entry_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'}
+
+  %hr
   .uk-margin
     = f.label :accountancy_state, class: 'uk-form-label'
     .uk-form-controls
       = f.select :accountancy_state, Item.translated_accountancy_states.map { |t, k| [t, k] },
         {}, {class: 'uk-select uk-form-small'}
   .uk-margin
-    = f.label :warranty, class: 'uk-form-label'
+    = f.label :acquisition_type, class: 'uk-form-label'
+    .uk-form-controls
+      = f.select :acquisition_type, Item.translated_acquisition_types.map { |t, k| [t, k] },
+        {include_blank: true}, {class: 'uk-select uk-form-small'}
+  .uk-margin
+    = f.label :acquisition_date, class: 'uk-form-label'
     .uk-form-controls.uk-text-right
-      = f.date_select :warranty, {}, {class: 'uk-select uk-width-1-4 uk-form-small'}
+      = f.date_select :acquisition_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'}
+  .uk-margin
+    = f.label :entry_date, class: 'uk-form-label'
+    .uk-form-controls.uk-text-right
+      = f.date_select :entry_date, {}, {class: 'uk-select uk-width-1-4 uk-form-small'}
   .uk-margin
     = f.label :entry_price, class: 'uk-form-label'
     .uk-form-controls
       = f.number_field :entry_price, class: 'uk-input uk-form-small'
   .uk-margin
-    = f.label :serial, class: 'uk-form-label'
-    .uk-form-controls
-      = f.text_field :serial, class: 'uk-input uk-form-small'
-  .uk-margin
-    = f.label :inventory_number, class: 'uk-form-label'
-    .uk-form-controls
-      = f.text_field :inventory_number, class: 'uk-input uk-form-small'
-  .uk-margin
-    = f.label :description, class: 'uk-form-label'
-    .uk-form-controls
-      = f.text_field :description, class: 'uk-input uk-form-small'
-  .uk-margin
-    = f.label :comment, class: 'uk-form-label'
-    .uk-form-controls
-      = f.text_field :comment, class: 'uk-input uk-form-small'
+    = f.label :warranty_end_at, class: 'uk-form-label'
+    .uk-form-controls.uk-text-right
+      = f.date_select :warranty_end_at, {}, {class: 'uk-select uk-width-1-4 uk-form-small'}
   %h3=t('form.item.update_status')
   .uk-text-muted.uk-text-small.uk-text-justify
     =t('form.item.update_status_info')

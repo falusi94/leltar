@@ -62,7 +62,7 @@ describe SearchQuery::Builder do
 
     context 'when the query string matches a not provided field' do
       it 'does not return the object' do
-        user = create(:item, specific_name: 'TEST')
+        user = create(:item, description: 'TEST')
 
         result = described_class.run('TEST', fields: [:name], scope: scope)
 

@@ -6,21 +6,19 @@
 #
 #  id                :integer          not null, primary key
 #  accountancy_state :string
-#  at_who            :string
-#  comment           :string
+#  acquisition_date  :date
+#  acquisition_type  :string
 #  condition         :string
+#  count             :integer          default(1)
 #  description       :string
 #  entry_date        :date
 #  entry_price       :integer
 #  inventory_number  :string
 #  last_check        :date
-#  name              :string
-#  number            :integer          default(1)
-#  purchase_date     :date
-#  serial            :string
-#  specific_name     :string
+#  name              :string           not null
+#  serial_number     :string
 #  status            :string
-#  warranty          :date
+#  warranty_end_at   :date
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  department_id     :integer
@@ -32,7 +30,11 @@
 #  index_items_on_accountancy_state  (accountancy_state)
 #  index_items_on_condition          (condition)
 #  index_items_on_department_id      (department_id)
+#  index_items_on_description        (description)
+#  index_items_on_inventory_number   (inventory_number)
 #  index_items_on_location_id        (location_id)
+#  index_items_on_name               (name)
+#  index_items_on_serial_number      (serial_number)
 #  index_items_on_status             (status)
 #
 
@@ -60,10 +62,17 @@ class Item < ApplicationRecord
     invoice_turned: 'invoice_turned',
     in_register:    'in_register'
   }, _prefix: :accountancy_state
+  enum acquisition_type: {
+    purchased:   'purchased',
+    leased:      'leased',
+    donated:     'donated',
+    transferred: 'transferred'
+  }, _prefix: :acquisition_type
 
   translate_enum :status
   translate_enum :condition
   translate_enum :accountancy_state
+  translate_enum :acquisition_type
 
   has_paper_trail
   belongs_to :department
@@ -78,7 +87,7 @@ class Item < ApplicationRecord
 
   validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
   validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }
-  validate :children_from_the_same_department, :parent_from_the_same_department, :purchase_date_not_in_the_future,
+  validate :children_from_the_same_department, :parent_from_the_same_department, :acquisition_date_not_in_the_future,
            :has_no_grandparent, :has_no_grandchild
 
   after_create :init_depreciation, if: -> { organization.safe_depreciation_config.automatic_depreciation }
@@ -104,8 +113,8 @@ class Item < ApplicationRecord
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[accountancy_state at_who comment condition description entry_date entry_price department_id inventory_number
-       last_check name purchase_date serial specific_name status warranty]
+    %w[accountancy_state condition description entry_date entry_price department_id inventory_number
+       last_check name acquisition_date serial_number status warranty_end_at]
   end
 
   def self.ransackable_associations(_auth_object = nil)
@@ -126,10 +135,10 @@ class Item < ApplicationRecord
     errors.add(:parent, 'has to be in the same department')
   end
 
-  def purchase_date_not_in_the_future
-    return if purchase_date.blank? || purchase_date <= Time.zone.today
+  def acquisition_date_not_in_the_future
+    return if acquisition_date.blank? || acquisition_date <= Time.zone.today
 
-    errors.add(:purchase_date, 'cannot be in the future')
+    errors.add(:acquisition_date, 'cannot be in the future')
   end
 
   def has_no_grandparent # rubocop:disable Naming/PredicateName

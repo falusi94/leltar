@@ -35,12 +35,12 @@ unless Department.exists?(name: 'Management')
       last_check:        Time.zone.today,
       location:          'Office 1',
       name:              'Printer',
-      number:            1,
-      purchase_date:     1.year.ago,
-      serial:            'printer-serial',
+      count:             1,
+      acquisition_date:  1.year.ago,
+      serial_number:     'printer-serial',
       status:            :ok,
-      warranty:          2.years.from_now,
-      department:             department,
+      warranty_end_at:   2.years.from_now,
+      department:        department,
     )
     photo = File.open(Rails.root.join('db/fixtures/printer.jpg'))
     printer.photos.attach(io: photo, filename: 'printer.jpg', content_type: 'image/jpeg')
@@ -54,12 +54,12 @@ unless Department.exists?(name: 'Management')
       last_check:        1.year.ago,
       location:          'Office 1',
       name:              'Printer',
-      number:            1,
-      purchase_date:     5.years.ago,
-      serial:            'old-printer-serial',
+      count:             1,
+      acquisition_date:  5.years.ago,
+      serial_number:     'old-printer-serial',
       status:            :scrapped,
-      warranty:          3.years.ago,
-      department:             department
+      warranty_end_at:   3.years.ago,
+      department:        department
     )
     photo = File.open(Rails.root.join('db/fixtures/broken-printer.jpg'))
     broken_printer.photos.attach(io: photo, filename: 'broken-printer.jpg', content_type: 'image/jpeg')
@@ -79,11 +79,11 @@ unless Department.exists?(name: 'Development')
       last_check:        Time.zone.today,
       location:          'Office 2',
       name:              'PC',
-      number:            1,
-      purchase_date:     Time.zone.today,
-      serial:            'pc-serial',
+      count:             1,
+      acquisition_date:  Time.zone.today,
+      serial_number:     'pc-serial',
       status:            :ok,
-      department:             department
+      department:        department
     )
     photo = File.open(Rails.root.join('db/fixtures/barbone.jpg'))
     pc.photos.attach(io: photo, filename: 'barbone.jpg', content_type: 'image/jpeg')
@@ -98,12 +98,12 @@ unless Department.exists?(name: 'Development')
         last_check:        Time.zone.today,
         location:          'Office 2',
         name:              part.to_s.humanize,
-        number:            1,
-        purchase_date:     Time.zone.today,
-        serial:            "#{part}-serial",
+        count:             1,
+        acquisition_date:  Time.zone.today,
+        serial_number:     "#{part}-serial",
         status:            :ok,
-        warranty:          3.years.from_now,
-        department:             department,
+        warranty_end_at:   3.years.from_now,
+        department:        department,
         parent:            pc
       )
     end

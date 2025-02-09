@@ -53,8 +53,16 @@ en:
       fields: Search fields
       results: Search results
   papertrail:
-    versions: Version(s)
+    versions:
+      one: Version
+      other: 'Versions (%{count})'
     current: Current
+  item_page:
+    tabs:
+      common: Common details
+      status: Status
+      accounting: Accounting info
+      children: Children
   status:
     overall_progress: Overall progress
     checked_since: 'Checked items since %{since}'
@@ -77,9 +85,6 @@ en:
           month: month
           year: year
       item:
-        number: Count
-        at_who: Responsible
-        serial: Serial number
         status_list:
           ok: OK
           waiting_for_repair: Waiting for repair
@@ -96,6 +101,11 @@ en:
           new: New
           invoice_turned: Invoice turned
           in_register: In register
+        acquisition_type_list:
+          purchased: Purchased
+          leased: Leased
+          donated: Donated
+          transferred: Transferred
       item/department:
         name: Department name
       item/invoice:

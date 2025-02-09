@@ -10,7 +10,7 @@
       .uk-width-expand
         = item.description
       %div{:style => "width: 200px"}
-        %div.uk-text-nowrap="#{Item.human_attribute_name(:purchase_date)}: #{item.purchase_date}"
+        %div.uk-text-nowrap="#{Item.human_attribute_name(:acquisition_date)}: #{item.acquisition_date}"
         %div.uk-text-nowrap="#{Item.human_attribute_name(:last_check)}: #{item.last_check}"
   %div{:class => "uk-visible@m", :style => "width: 110px"}
     = item.photo

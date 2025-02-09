@@ -28,8 +28,8 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    %i[name description purchase_date entry_date department_id number parent_id specific_name serial
-       location_id at_who warranty comment inventory_number entry_price accountancy_state photo invoice]
+    %i[name description acquisition_date entry_date department_id number parent_id serial_number location_id
+       warranty_end_at inventory_number entry_price accountancy_state photo invoice]
   end
 
   class Scope < Scope

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_09_195002) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_09_211716) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,31 +100,33 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_09_195002) do
   end
 
   create_table "items", id: :serial, force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "description"
-    t.date "purchase_date"
+    t.date "acquisition_date"
     t.date "entry_date"
     t.date "last_check"
     t.integer "department_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "number", default: 1
+    t.integer "count", default: 1
     t.integer "parent_id"
-    t.string "specific_name"
-    t.string "serial"
-    t.string "at_who"
-    t.date "warranty"
-    t.string "comment"
+    t.string "serial_number"
+    t.date "warranty_end_at"
     t.string "inventory_number"
     t.integer "entry_price"
     t.string "status"
     t.string "condition"
     t.string "accountancy_state"
     t.bigint "location_id"
+    t.string "acquisition_type"
     t.index ["accountancy_state"], name: "index_items_on_accountancy_state"
     t.index ["condition"], name: "index_items_on_condition"
     t.index ["department_id"], name: "index_items_on_department_id"
+    t.index ["description"], name: "index_items_on_description"
+    t.index ["inventory_number"], name: "index_items_on_inventory_number"
     t.index ["location_id"], name: "index_items_on_location_id"
+    t.index ["name"], name: "index_items_on_name"
+    t.index ["serial_number"], name: "index_items_on_serial_number"
     t.index ["status"], name: "index_items_on_status"
   end
 

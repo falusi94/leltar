@@ -5,10 +5,8 @@ module ItemsQuery
     items.name
     items.description
     items.status
-    items.serial
-    items.specific_name
+    items.serial_number
     locations.name
-    items.at_who
     items.condition
     items.inventory_number
   ].freeze

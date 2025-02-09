@@ -5,10 +5,6 @@
   %div
     = f.search_field :name_cont, class: 'uk-input uk-form-small'
   %div
-    = f.label :specific_name_cont, class: 'uk-text-small'
-  %div
-    = f.search_field :specific_name_cont, class: 'uk-input uk-form-small'
-  %div
     = f.label :description_cont, class: 'uk-text-small'
   %div
     = f.search_field :description_cont, class: 'uk-input uk-form-small'
@@ -18,17 +14,9 @@
     = f.select :department_id_eq, options_from_collection_for_select(@departments, :id, :name, @q.department_id_eq),
       {include_blank: true}, {class: 'uk-select uk-form-small'}
   %div
-    = f.label :serial_cont, class: 'uk-text-small'
+    = f.label :serial_number_cont, class: 'uk-text-small'
   %div
-    = f.search_field :serial_cont, class: 'uk-input uk-form-small'
-  %div
-    = f.label :at_who_cont, class: 'uk-text-small'
-  %div
-    = f.search_field :at_who_cont, class: 'uk-input uk-form-small'
-  %div
-    = f.label :comment_cont, class: 'uk-text-small'
-  %div
-    = f.search_field :comment_cont, class: 'uk-input uk-form-small'
+    = f.search_field :serial_number_cont, class: 'uk-input uk-form-small'
   %div
     = f.label :inventory_number_cont, class: 'uk-text-small'
   %div
@@ -61,13 +49,13 @@
   %div
     = f.search_field :entry_date_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
   %div
-    = f.label :purchase_date_lteq, class: 'uk-text-small'
+    = f.label :acquisition_date_lteq, class: 'uk-text-small'
   %div
-    = f.search_field :purchase_date_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+    = f.search_field :acquisition_date_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
   %div
-    = f.label :purchase_date_gteq, class: 'uk-text-small'
+    = f.label :acquisition_date_gteq, class: 'uk-text-small'
   %div
-    = f.search_field :purchase_date_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+    = f.search_field :acquisition_date_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
   %div
     = f.label :last_check_lteq, class: 'uk-text-small'
   %div
@@ -85,13 +73,13 @@
   %div
     = f.search_field :entry_price_gteq, class: 'uk-input uk-form-small'
   %div
-    = f.label :warranty_lteq, class: 'uk-text-small'
+    = f.label :warranty_end_at_lteq, class: 'uk-text-small'
   %div
-    = f.search_field :warranty_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+    = f.search_field :warranty_end_at_lteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
   %div
-    = f.label :warranty_gteq, class: 'uk-text-small'
+    = f.label :warranty_end_at_gteq, class: 'uk-text-small'
   %div
-    = f.search_field :warranty_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
+    = f.search_field :warranty_end_at_gteq, class: 'uk-input uk-form-small', placeholder: '2001-08-17'
   .uk-align-center.uk-clearfix
     .uk-float-left
       = f.submit class: 'uk-button uk-button-primary uk-align-center uk-width-auto'

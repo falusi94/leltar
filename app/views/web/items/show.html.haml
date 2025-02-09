@@ -7,59 +7,76 @@
       = @item.edit_button
   .uk-grid-small{"uk-grid" => ""}
     .uk-child-width-1-1.uk-width-1-1{:class => "uk-width-2-3@s"}
-      %ul{"uk-accordion" => ""}
-        %li.uk-open
-          %a.uk-accordion-title.uk-text-bold{:href => "#"} Common details
-          .uk-accordion-content
-            .uk-grid-collapse{"uk-grid" => ""}
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:specific_name)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.specific_name
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:number)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.number
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name('department.name')}:"
-              %div{:class => "uk-width-2-3@s"}= @item.department.name
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:last_check)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.last_check
+      %ul{"uk-tab" => ""}
+        %li
+          %a=t('item_page.tabs.common')
+        %li
+          %a=t('item_page.tabs.status')
+        %li
+          %a=t('item_page.tabs.accounting')
+        - if @item.parent?
+          %li
+            %a=t('item_page.tabs.children')
+        %li
+          %a=t('papertrail.versions', count: @item.versions.count + 1)
+
+      %div.uk-switcher
+        %div
+          .uk-grid
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:department)}:"
+            %div{:class => "uk-width-2-3@s"}= link_to(@item.department.name, @item.department)
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:inventory_number)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.inventory_number
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:serial_number)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.serial_number
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:count)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.count
+            - if @item.child?
               .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:parent)}:"
               %div{:class => "uk-width-2-3@s"}= @item.parent_link
-        %li
-          %a.uk-accordion-title.uk-text-bold{:href => "#"} Status
-          .uk-accordion-content
-            .uk-grid-collapse{"uk-grid" => ""}
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:status)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.translated_status
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:condition)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.translated_condition
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:location)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.location
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:at_who)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.at_who
-        %li
-          %a.uk-accordion-title.uk-text-bold{:href => "#"} Accounting
-          .uk-accordion-content
-            .uk-grid-collapse{"uk-grid" => ""}
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:purchase_date)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.purchase_date
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:entry_date)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.entry_date
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:accountancy_state)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.translated_accountancy_state
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:warranty)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.warranty
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:entry_price)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.entry_price
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:serial)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.serial
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:inventory_number)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.inventory_number
-        %li
-          %a.uk-accordion-title.uk-text-bold{:href => "#"} Other
-          .uk-accordion-content
-            .uk-grid-collapse{"uk-grid" => ""}
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:description)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.description
-              .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:comment)}:"
-              %div{:class => "uk-width-2-3@s"}= @item.comment
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:description)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.description
+        %div
+          .uk-grid
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:last_check)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.last_check
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:status)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.translated_status
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:condition)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.translated_condition
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:location)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.location&.name
+        %div
+          .uk-grid
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:accountancy_state)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.translated_accountancy_state
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:acquisition_type)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.translated_acquisition_type
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:acquisition_date)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.acquisition_date
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:entry_date)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.entry_date
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:entry_price)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.entry_price
+            .uk-text-bold{:class => "uk-width-1-3@s"}="#{Item.human_attribute_name(:warranty_end_at)}:"
+            %div{:class => "uk-width-2-3@s"}= @item.warranty_end_at
+        - if @item.parent?
+          %div
+            %ul.uk-list.uk-list-collapse
+              - @item.children.each do |child|
+                %li
+                  =link_to child do
+                    =child.name
+                    %span.uk-text-muted.uk-text-small
+                      = "(#{child.translated_status})"
+        %div
+          %ul.uk-list.uk-list-divider
+            %li
+              = link_to t('papertrail.current'), item_path(@item)
+            - @item.versions.each do |version|
+              %li
+                = version_link(@item.id, version)
+
       = @item.check_form
     .uk-width-1-1.uk-margin-small-top{:class => "uk-width-1-3@s"}
       - if @item.invoice.attached?
@@ -72,18 +89,3 @@
           - @item.photos.each do |photo|
             = link_to url_for(photo) do
               = image_tag photo.variant(resize_to_limit: [1000, 1000])
-  - if @item.parent?
-    %h2=Item.human_attribute_name(:children)
-    = render 'children', item: @item
-  %ul.uk-margin-large-top{"uk-accordion" => ""}
-    %li
-      %a.uk-accordion-title.uk-text-bold{:href => "#"}
-        =t('papertrail.versions')
-        \(#{@item.versions.count + 1})
-      .uk-accordion-content
-        %ul.uk-list.uk-list-divider
-          %li
-            = link_to t('papertrail.current'), item_path(@item)
-          - @item.versions.each do |version|
-            %li
-              = version_link(@item.id, version)

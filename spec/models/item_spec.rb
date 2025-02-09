@@ -49,27 +49,27 @@ describe Item do
     end
   end
 
-  describe 'validation of purchase_date' do
+  describe 'validation of acquisition_date' do
     context 'when it is in the future' do
-      subject { build(:item, purchase_date: 1.day.from_now) }
+      subject { build(:item, acquisition_date: 1.day.from_now) }
 
       include_examples 'the record is invalid'
     end
 
     context 'when it is not set' do
-      subject { build(:item, purchase_date: nil) }
+      subject { build(:item, acquisition_date: nil) }
 
       include_examples 'the record is valid'
     end
 
     context 'when it is in the today' do
-      subject { build(:item, purchase_date: Time.zone.today) }
+      subject { build(:item, acquisition_date: Time.zone.today) }
 
       include_examples 'the record is valid'
     end
 
     context 'when it is in the past' do
-      subject { build(:item, purchase_date: 1.day.ago) }
+      subject { build(:item, acquisition_date: 1.day.ago) }
 
       include_examples 'the record is valid'
     end

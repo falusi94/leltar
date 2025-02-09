@@ -36,14 +36,14 @@ module ApiHelpers
   end
 
   def api_item_hash(item)
-    attributes = %i[id accountancy_state at_who comment condition description entry_price inventory_number location_id
-                    name number serial specific_name status department_id parent_id]
+    attributes = %i[id accountancy_state condition description entry_price inventory_number location_id
+                    name count serial_number status department_id parent_id]
 
     item.slice(*attributes).merge(
-      entry_date:    item.entry_date ? I18n.l(item.entry_date) : nil,
-      last_check:    item.last_check ? I18n.l(item.last_check) : nil,
-      purchase_date: item.purchase_date ? I18n.l(item.purchase_date) : nil,
-      warranty:      item.warranty ? I18n.l(item.warranty) : nil
+      entry_date:       item.entry_date ? I18n.l(item.entry_date) : nil,
+      last_check:       item.last_check ? I18n.l(item.last_check) : nil,
+      acquisition_date: item.acquisition_date ? I18n.l(item.acquisition_date) : nil,
+      warranty:         item.warranty_end_at ? I18n.l(item.warranty_end_at) : nil
     ).symbolize_keys
   end
 
