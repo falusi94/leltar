@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_09_140421) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_09_190539) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,7 +112,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_09_140421) do
     t.integer "parent_id"
     t.string "specific_name"
     t.string "serial"
-    t.string "location"
     t.string "at_who"
     t.date "warranty"
     t.string "comment"
@@ -122,9 +121,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_09_140421) do
     t.string "condition"
     t.string "accountancy_state"
     t.string "organization"
+    t.bigint "location_id"
     t.index ["accountancy_state"], name: "index_items_on_accountancy_state"
     t.index ["condition"], name: "index_items_on_condition"
     t.index ["department_id"], name: "index_items_on_department_id"
+    t.index ["location_id"], name: "index_items_on_location_id"
     t.index ["status"], name: "index_items_on_status"
   end
 

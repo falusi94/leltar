@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-attributes = %i[id accountancy_state at_who comment condition description entry_price inventory_number location name
+attributes = %i[id accountancy_state at_who comment condition description entry_price inventory_number location_id name
                 number serial specific_name status department_id parent_id]
 
 item.slice(*attributes).merge(

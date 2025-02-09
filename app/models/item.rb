@@ -14,7 +14,6 @@
 #  entry_price       :integer
 #  inventory_number  :string
 #  last_check        :date
-#  location          :string
 #  name              :string
 #  number            :integer          default(1)
 #  organization      :string
@@ -26,6 +25,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  department_id     :integer
+#  location_id       :bigint
 #  parent_id         :integer
 #
 # Indexes
@@ -33,6 +33,7 @@
 #  index_items_on_accountancy_state  (accountancy_state)
 #  index_items_on_condition          (condition)
 #  index_items_on_department_id      (department_id)
+#  index_items_on_location_id        (location_id)
 #  index_items_on_status             (status)
 #
 
@@ -73,6 +74,7 @@ class Item < ApplicationRecord
   belongs_to :parent, class_name: 'Item', optional: true
   has_many :children, class_name: 'Item', foreign_key: :parent_id, inverse_of: :parent, dependent: :nullify
   has_one :organization, through: :department
+  belongs_to :location, optional: true
 
   has_one :depreciation_details, dependent: :destroy
 
@@ -105,7 +107,11 @@ class Item < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[accountancy_state at_who comment condition description entry_date entry_price department_id inventory_number
-       last_check location name purchase_date serial specific_name status warranty]
+       last_check name purchase_date serial specific_name status warranty]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[location]
   end
 
   private

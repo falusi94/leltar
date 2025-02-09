@@ -24,9 +24,10 @@
       - options = options_from_collection_for_select(@write_departments, :id, :name, @item.department.id)
       = f.select :department_id, options, {}, {class: 'uk-select uk-form-small'}
   .uk-margin
-    = f.label :location, class: 'uk-form-label'
+    = f.label :location_id, class: 'uk-form-label'
     .uk-form-controls
-      = f.text_field :location, class: 'uk-input uk-form-small'
+      - options = options_from_collection_for_select(current_organization.locations, :id, :name, @item.location_id)
+      = f.select :location_id, options, { include_blank: true }, {class: 'uk-select uk-form-small'}
   .uk-margin
     = f.label :at_who, class: 'uk-form-label'
     .uk-form-controls

@@ -24,4 +24,8 @@ class Location < ApplicationRecord
   belongs_to :organization
 
   validates :name, presence: true
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name]
+  end
 end

@@ -7,7 +7,7 @@ module ItemsQuery
     items.status
     items.serial
     items.specific_name
-    items.location
+    locations.name
     items.at_who
     items.condition
     items.inventory_number
@@ -26,6 +26,7 @@ module ItemsQuery
   def self.fetch(filters, scope: Item)
     scope
       .extending(Scopes)
+      .joins('LEFT OUTER JOIN locations ON locations.id = items.location_id')
       .by_department(filters[:department_id])
       .by_query(filters[:query])
   end

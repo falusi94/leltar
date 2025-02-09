@@ -49,9 +49,9 @@
     = f.select :accountancy_state_eq, options_from_collection_for_select(Item.translated_accountancy_states, :third, :first, @q.accountancy_state_eq),
       {include_blank: true}, {class: 'uk-select uk-form-small'}
   %div
-    = f.label :location_cont, class: 'uk-text-small'
+    = f.label :location_name_cont, class: 'uk-text-small'
   %div
-    = f.search_field :location_cont, class: 'uk-input uk-form-small'
+    = f.search_field :location_name_cont, class: 'uk-input uk-form-small'
   %div
     = f.label :entry_date_lteq, class: 'uk-text-small'
   %div
