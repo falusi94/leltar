@@ -16,7 +16,6 @@
 #  last_check        :date
 #  name              :string
 #  number            :integer          default(1)
-#  organization      :string
 #  purchase_date     :date
 #  serial            :string
 #  specific_name     :string
