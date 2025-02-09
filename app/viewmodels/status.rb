@@ -19,8 +19,4 @@ class Status
   def finished_item_count
     organization.items.existing.where('last_check > ?', session_start).count
   end
-
-  def at_member_item_count
-    organization.items.existing.status_at_member.count
-  end
 end

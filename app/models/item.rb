@@ -44,11 +44,10 @@ class Item < ApplicationRecord
   enum status: {
     ok:                    'ok',
     waiting_for_repair:    'waiting_for_repair',
+    under_repair:          'under_repair',
     waiting_for_scrapping: 'waiting_for_scrapping',
     scrapped:              'scrapped',
-    not_found:             'not_found',
-    at_member:             'at_member',
-    other:                 'other'
+    not_found:             'not_found'
   }, _prefix: :status
   enum condition: {
     ok:          'ok',
@@ -93,7 +92,7 @@ class Item < ApplicationRecord
 
   scope :not_a_child, -> { where(parent_id: nil) }
   scope :existing, lambda {
-    where('items.status in (?) or items.status is null', %i[ok waiting_for_repair at_member other])
+    where('items.status in (?) or items.status is null', %i[ok waiting_for_repair under_repair])
   }
 
   def child?

@@ -29,12 +29,4 @@ describe Status do
       expect(status.finished_item_count).to eq(1)
     end
   end
-
-  describe '#at_member_item_count' do
-    it 'returns count of existing items at department member' do
-      create(:item, status: :at_member, organization: organization)
-
-      expect(status.at_member_item_count).to eq(1)
-    end
-  end
 end

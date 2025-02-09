@@ -62,7 +62,6 @@ en:
     no_available_items: Number of available items
     no_available_items_description: Number of items that are not scrapped nor waiting for scrapping and not lost.
     no_checked_items: Number of checked items
-    no_items_outside_of_inventory: Number of items outside of inventory
   activerecord:
     attributes:
       user:
@@ -84,11 +83,10 @@ en:
         status_list:
           ok: OK
           waiting_for_repair: Waiting for repair
+          under_repair: Under repair
           waiting_for_scrapping: Waiting for scrapping
           scrapped: Scrapped
-          not_found: Missing
-          at_member: At someone
-          other: Other
+          not_found: Not found
         condition_list:
           ok: In good condition
           used: Used
