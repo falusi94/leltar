@@ -14,17 +14,17 @@ User.create!(
 ) unless User.exists?(email: 'admin@example.org')
 
 {
-  new_session_start:            1.year.ago,
-  depreciation_method:          :straight_line_depreciation,
-  depreciation_frequency_unit:  :year,
-  depreciation_frequency_value: 1
+  new_session_start: 1.year.ago
 }.each do |name, value|
   SystemAttribute.create!(name: name, value: value) unless SystemAttribute.exists?(name: name)
 end
 
+organization = Organization.find_by(name: 'My Org') ||
+  Organization.create!(currency_code: 'EUR', name: 'My Org', slug: 'my-org')
+
 unless Department.exists?(name: 'Management')
   ActiveRecord::Base.transaction do
-    department = Department.create!(name: 'Management')
+    department = Department.create!(name: 'Management', organization: organization)
 
     printer = Item.create!(
       accountancy_state: :in_register,
@@ -68,7 +68,7 @@ end
 
 unless Department.exists?(name: 'Development')
   ActiveRecord::Base.transaction do
-    department = Department.create!(name: 'Development')
+    department = Department.create!(name: 'Development', organization: organization)
 
     pc = Item.create!(
       accountancy_state: :new,
