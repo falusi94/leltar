@@ -13,6 +13,7 @@ module ApplicationHelper
                policy(current_organization).show_depreciation_config?),
       Link.new('navigation.search', search_index_path, policy(current_organization).search_item?),
       Link.new('navigation.status', status_index_path, policy(current_organization).show_status?),
+      Link.new('navigation.locations', locations_path, policy(current_organization).index_location?),
       Link.new('navigation.system_attributes', edit_system_attributes_path, policy(SystemAttribute).edit?)
     ]
   end

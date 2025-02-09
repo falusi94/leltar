@@ -6,6 +6,10 @@ shared:
       destroy_organization: false
       show_depreciation_config: true
       update_depreciation_config: false
+      index_location: true
+      create_location: false
+      update_location: false
+      destroy_location: false
       show_status: false
       index_department: false
       create_department: false
@@ -27,6 +31,10 @@ shared:
       destroy_organization: false
       show_depreciation_config: true
       update_depreciation_config: false
+      index_location: true
+      create_location: false
+      update_location: false
+      destroy_location: false
       show_status: true
       index_department: true
       create_department: false
@@ -48,6 +56,10 @@ shared:
       destroy_organization: true
       show_depreciation_config: true
       update_depreciation_config: true
+      index_location: true
+      create_location: true
+      update_location: true
+      destroy_location: true
       show_status: true
       index_department: true
       create_department: true

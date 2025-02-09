@@ -58,6 +58,8 @@ Rails.application.routes.draw do
         resources :versions, only: :show, module: :items
       end
 
+      resources :locations, only: %i[index new create edit update destroy]
+
       resources :search, only: %i[index]
 
       resources :status, only: :index

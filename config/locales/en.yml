@@ -7,6 +7,7 @@ en:
   navigation:
     departments: Departments
     depreciation_config: Depreciation config
+    locations: Locations
     users: Users
     search: Advanced search
     status: Status

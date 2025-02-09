@@ -50,6 +50,14 @@ class OrganizationPolicy < ApplicationPolicy
     user.authorized_to?(:show_status, organization: record)
   end
 
+  def index_location?
+    user.authorized_to?(:index_location, organization: record)
+  end
+
+  def create_location?
+    user.authorized_to?(:create_location, organization: record)
+  end
+
   def permitted_attributes
     %i[name slug currency_code fiscal_period_starts_at fiscal_period_unit]
   end
