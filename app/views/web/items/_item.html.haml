@@ -1,21 +1,22 @@
-%li.uk-margin-remove.uk-grid-collapse{:style => "min-height:110px", "uk-grid" => ""}
-  .uk-width-1-1{:class => "uk-hidden@m"}
+%li.uk-margin-remove.uk-width-1-1.uk-grid-collapse{style: "min-height:110px", "uk-grid" => ""}
+  .uk-width-1-1{class: "uk-hidden@m"}
+    =item.photo
+  .uk-width-expand.uk-grid-collapse{"uk-grid" => ""}
+    .uk-width-1-1{class: "uk-width-1-2@m"}
+      %h3.uk-margin-remove=item.compact_name
+      =item.translated_status
+    .uk-width-1-1.uk-padding-small.uk-padding-remove-vertical.uk-text-right{class: "uk-width-1-2@m"}
+      %div.uk-text-nowrap="#{Item.human_attribute_name(:acquisition_date)}: #{item.acquisition_date}"
+      %div.uk-text-nowrap="#{Item.human_attribute_name(:last_check)}: #{item.last_check}"
+    - if item.parent?
+      .uk-width-1-1{'data-filter-target': 'filterable'}
+        %h5.uk-margin-remove=Item.human_attribute_name(:children)
+        %ul.uk-list.uk-list-divider.uk-padding-none
+          - item.children.each do |child|
+            %li.uk-grid-collapse{"uk-grid" => ""}
+              = link_to(child, class: 'uk-width-auto') do
+                =child.name
+                %span.uk-text-muted=child.translated_status
+              .uk-width-expand.uk-text-nowrap.uk-text-right="#{Item.human_attribute_name(:last_check)}: #{child.last_check}"
+  %div{class: "uk-visible@m", style: "width: 110px"}
     = item.photo
-  .uk-width-expand
-    .uk-width-1-1
-      %h3.uk-margin-remove= item.compact_name
-    .uk-width-1-1.uk-text-muted.uk-text-small
-      = item.translated_status
-    .uk-width-1-1.uk-grid-collapse{"uk-grid" => ""}
-      .uk-width-expand
-        = item.description
-      %div{:style => "width: 200px"}
-        %div.uk-text-nowrap="#{Item.human_attribute_name(:acquisition_date)}: #{item.acquisition_date}"
-        %div.uk-text-nowrap="#{Item.human_attribute_name(:last_check)}: #{item.last_check}"
-  %div{:class => "uk-visible@m", :style => "width: 110px"}
-    = item.photo
-  - if item.parent?
-    .uk-width-1-1{'data-filter-target': 'filterable'}
-      .uk-text-bold
-        =Item.human_attribute_name(:children)
-      = render 'children', item: item

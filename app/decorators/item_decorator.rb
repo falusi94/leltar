@@ -12,7 +12,7 @@ class ItemDecorator < ApplicationDecorator
               'no_photo.gif'
             end
 
-    h.image_tag(photo, class: 'uk-align-department_user')
+    h.image_tag(photo, class: 'uk-align-center')
   end
 
   def compact_name
