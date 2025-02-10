@@ -21,7 +21,7 @@ module Web
       authorize(Item)
       return unauthorized_page if @departments.empty?
 
-      @item = Item.new(department_id: params[:department_id] || @departments.first.id)
+      @item = Item.new(department_id: params[:department_id])
     end
 
     def edit; end

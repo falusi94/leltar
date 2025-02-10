@@ -7,7 +7,7 @@
   .uk-margin
     = f.label :department_id, class: 'uk-form-label'
     .uk-form-controls
-      - options = options_from_collection_for_select(@write_departments, :id, :name, @item.department.id)
+      - options = options_from_collection_for_select(@write_departments, :id, :name, @item.department_id)
       = f.select :department_id, options, {}, {class: 'uk-select uk-form-small'}
   .uk-margin
     = f.label :inventory_number, class: 'uk-form-label'

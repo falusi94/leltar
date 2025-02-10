@@ -24,7 +24,8 @@ module ItemsHelper
 
   def parent_item_candidates(item)
     @parent_item_candidates ||= begin
-      items = (item&.department&.items || Item.all).not_a_child
+      items = policy_scope(current_organization.items).not_a_child
+      items = items.where(department_id: item.department_id) if item&.department_id
 
       ItemDecorator.decorate_collection(items)
     end
