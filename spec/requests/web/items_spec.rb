@@ -118,7 +118,7 @@ describe 'Items' do
   describe 'POST #create' do
     subject(:create_item) do
       post "/org/#{organization.slug}/items/",
-           params: { item: { department_id: department.id, name: 'Item' } }
+           params: { item: { department_id: department.id, name: 'Item', condition: 'ok', status: 'ok' } }
     end
 
     let(:department) { create(:department) }
@@ -134,7 +134,7 @@ describe 'Items' do
 
         item = Item.last
         expect(response).to redirect_to(item)
-        expect(item).to have_attributes(department: department, name: 'Item')
+        expect(item).to have_attributes(department: department, name: 'Item', condition: 'ok', status: 'ok')
       end
     end
 
@@ -152,7 +152,9 @@ describe 'Items' do
   end
 
   describe 'PUT #edit' do
-    subject(:update_item) { put "/org/#{organization.slug}/items/#{item.id}", params: { item: { name: 'New name' } } }
+    subject(:update_item) do
+      put "/org/#{organization.slug}/items/#{item.id}", params: { item: { name: 'New name', condition: 'end_of_life' } }
+    end
 
     let(:item) { create(:item) }
 
@@ -166,7 +168,7 @@ describe 'Items' do
 
         item = Item.last
         expect(response).to redirect_to(item)
-        expect(item).to have_attributes(name: 'New name')
+        expect(item).to have_attributes(name: 'New name', condition: nil)
       end
 
       context 'and the update param is set' do

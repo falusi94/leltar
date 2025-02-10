@@ -27,7 +27,7 @@ module Web
     def edit; end
 
     def create
-      @item = Item.new(item_params)
+      @item = Item.new(item_params.merge(status_update_params))
 
       authorize(@item)
 
