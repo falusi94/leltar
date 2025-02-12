@@ -10,5 +10,8 @@ application.register("access-checkbox", AccessCheckboxController)
 import FilterController from "./filter_controller.js"
 application.register("filter", FilterController)
 
+import TabStateController from "./tab_state_controller.js"
+application.register("tab-state", TabStateController)
+
 import TextController from "./text_controller.js"
 application.register("text", TextController)

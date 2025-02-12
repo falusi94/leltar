@@ -7,18 +7,18 @@
       = @item.edit_button
   .uk-grid-small{"uk-grid" => ""}
     .uk-child-width-1-1.uk-width-1-1{:class => "uk-width-2-3@s"}
-      %ul{"uk-tab" => ""}
+      %ul{"uk-tab" => "", data: { controller: 'tab-state' }}
         %li
-          %a=t('item_page.tabs.common')
+          %a#common{data: { action: 'click->tab-state#change' }}=t('item_page.tabs.common')
         %li
-          %a=t('item_page.tabs.status')
+          %a#status{data: { action: 'click->tab-state#change' }}=t('item_page.tabs.status')
         %li
-          %a=t('item_page.tabs.accounting')
+          %a#accounting{data: { action: 'click->tab-state#change' }}=t('item_page.tabs.accounting')
         - if @item.parent?
           %li
-            %a=t('item_page.tabs.children')
+            %a#children{data: { action: 'click->tab-state#change' }}=t('item_page.tabs.children')
         %li
-          %a=t('papertrail.versions', count: @item.versions.count + 1)
+          %a#versions{data: { action: 'click->tab-state#change' }}=t('papertrail.versions', count: @item.versions.count + 1)
 
       %div.uk-switcher
         %div
