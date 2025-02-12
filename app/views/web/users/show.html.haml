@@ -3,7 +3,7 @@
     .uk-float-left
       %h1= @user.name
     .uk-float-right.uk-padding-small
-      = link_to back_label, users_path, class: 'uk-button uk-button-small uk-button-default'
+      = back_button class: 'uk-button uk-button-default uk-button-small'
       = link_to edit_label, edit_user_path(@user), class: 'uk-button uk-button-small uk-button-secondary'
   .uk-align-center{:class => "uk-width-2-3@s"}
     .uk-grid-small{"uk-grid" => ""}

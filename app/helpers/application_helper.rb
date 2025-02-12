@@ -38,6 +38,12 @@ module ApplicationHelper
     create_label('trash', t('form.actions.delete'))
   end
 
+  def back_button(**options)
+    content_tag(:span, data: { controller: 'navigation' }) do
+      button_tag(back_label, data: { action: 'navigation#back' }, **options)
+    end
+  end
+
   private
 
   def create_label(icon_name, label_text)

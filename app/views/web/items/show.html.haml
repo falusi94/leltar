@@ -3,7 +3,7 @@
     .uk-float-left
       %h1= @item.name
     .uk-float-right.uk-padding-small
-      = link_to back_label, items_path, class: 'uk-button uk-button-default uk-button-small'
+      = back_button class: 'uk-button uk-button-default uk-button-small'
       = @item.edit_button
   .uk-grid-small{"uk-grid" => ""}
     .uk-child-width-1-1.uk-width-1-1{:class => "uk-width-2-3@s"}
