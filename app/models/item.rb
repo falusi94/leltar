@@ -105,7 +105,7 @@ class Item < ApplicationRecord
   }
 
   def child?
-    parent.present?
+    parent_id.present?
   end
 
   def parent?
