@@ -113,6 +113,8 @@ GEM
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
+    crono (2.1.0)
+      rails (>= 5.2.8)
     cucumber-gherkin (26.2.0)
       cucumber-messages (>= 19.1.4, < 22.1)
     cucumber-messages (22.0.0)
@@ -406,6 +408,7 @@ DEPENDENCIES
   bootsnap
   byebug
   capybara
+  crono
   dotenv-rails
   draper
   factory_bot_rails

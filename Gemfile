@@ -20,6 +20,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'activerecord_where_assoc'
+gem 'crono'
 gem 'draper'
 gem 'haml'
 gem 'image_processing'
