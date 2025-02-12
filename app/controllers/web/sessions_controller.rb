@@ -3,6 +3,7 @@
 module Web
   class SessionsController < BaseController
     skip_before_action :require_login, only: %i[new create]
+    skip_after_action :verify_authorized
 
     def new
       @redirect = params[:redirect]

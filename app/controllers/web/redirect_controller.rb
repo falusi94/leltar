@@ -2,6 +2,8 @@
 
 module Web
   class RedirectController < BaseController
+    skip_after_action :verify_authorized
+
     def show
       redirect_url = RedirectUrl.generate(current_user)
 

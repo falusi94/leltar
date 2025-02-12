@@ -6,7 +6,7 @@ module Web
     before_action :set_departments
 
     def index
-      @q    = current_organization.items.ransack(search_params)
+      @q    = policy_scope(current_organization.items).ransack(search_params)
       items = @q.result(distinct: true)
 
       if params[:export_button]

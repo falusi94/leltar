@@ -10,6 +10,7 @@ module Web
     include DefaultOrganizationUrlOptions
 
     before_action :require_login
+    after_action :verify_authorized
 
     def unauthorized_page
       render 'application/401', status: :unauthorized

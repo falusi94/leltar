@@ -4,6 +4,7 @@ describe Web::BaseController do # rubocop:disable RSpec/SpecFilePathFormat
   before do
     stub_const('TestController', Class.new(described_class) do
       skip_before_action :require_login
+      skip_after_action :verify_authorized
 
       layout false
 

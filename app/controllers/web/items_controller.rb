@@ -7,6 +7,8 @@ module Web
     before_action -> { authorize(@item) }, only: %i[show edit update destroy]
 
     def index
+      authorize(Item)
+
       @department = Department.find(params[:department_id]) if params[:department_id]
 
       @pagy, @items = pagy(items)
