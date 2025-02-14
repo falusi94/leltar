@@ -19,7 +19,7 @@ module Api
       def create
         @resource = resource_class.new(create_resource_params)
 
-        authorize(@resource)
+        authorize_resource
 
         if @resource.save
           render view_base(:show), status: :created
