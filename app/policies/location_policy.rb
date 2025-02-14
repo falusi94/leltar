@@ -4,6 +4,7 @@ class LocationPolicy < ApplicationPolicy
   def index?
     Pundit.policy(auth_scope, organization).index_location?
   end
+  alias show? index?
 
   def new?
     Pundit.policy(auth_scope, organization).create_location?

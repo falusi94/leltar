@@ -31,6 +31,10 @@ module ApiHelpers
     }
   end
 
+  def api_location_hash(location)
+    { id: location.id, name: location.name }
+  end
+
   def api_department_hash(department)
     { id: department.id, name: department.name }
   end
