@@ -44,7 +44,7 @@ class RedirectUrl
   end
 
   def user_organizations
-    OrganizationPolicy::Scope.new(auth_scope, Organization).resolve
+    OrganizationPolicy::Scope.new(Authorization::Scope.new(user: user), Organization).resolve
   end
 
   def user_departments
@@ -52,7 +52,7 @@ class RedirectUrl
   end
 
   def auth_scope
-    Authorization::Scope.new(user: user)
+    Authorization::Scope.new(user: user, organization: organization)
   end
 
   delegate :admin?, to: :user

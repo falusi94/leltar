@@ -34,10 +34,12 @@ class ItemPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
+      items = scope.where_assoc_exists(:department, organization: organization)
+
       if user.authorized_to?(:index_department, organization: organization)
-        scope.all
+        items
       else
-        scope.where(department: user.departments)
+        items.where(department: user.departments)
       end
     end
   end

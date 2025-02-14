@@ -55,4 +55,28 @@ describe LocationPolicy do
       end
     end
   end
+
+  describe 'scope' do
+    subject(:scope) do
+      described_class::Scope.new(
+        Authorization::Scope.new(user: user, organization: organization),
+        Location.all
+      ).resolve
+    end
+
+    let(:organization) { create(:organization) }
+    let(:user)         { 'user' }
+
+    context 'when the location belongs to the organization' do
+      let!(:location) { create(:location, organization: organization) }
+
+      it { is_expected.to contain_exactly(location) }
+    end
+
+    context 'when the location does not belong to the organization' do
+      before { create(:location) }
+
+      it { is_expected.to be_empty }
+    end
+  end
 end

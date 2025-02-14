@@ -30,7 +30,7 @@ module Api
         private
 
         def item
-          @item ||= policy_scope(current_organization.items).find(params[:item_id])
+          @item ||= policy_scope(Item).find(params[:item_id])
         end
       end
     end

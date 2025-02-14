@@ -73,45 +73,60 @@ describe ItemPolicy do
   describe 'scope' do
     subject(:scope) do
       described_class::Scope.new(
-        Authorization::Scope.new(user: user, organization: try(:organization)),
+        Authorization::Scope.new(user: user, organization: organization),
         Item.all
       ).resolve
     end
 
     let!(:item) { create(:item) }
+    let(:organization) { item.organization }
 
     context 'when the user is admin' do
       let(:user) { build_stubbed(:admin) }
 
-      it 'returns every item' do
-        expect(scope).to include(item)
+      context 'and the item belongs to the organization' do
+        it { is_expected.to contain_exactly(item) }
+      end
+
+      context 'and the item does not belong to the organization' do
+        let(:organization) { build_stubbed(:organization) }
+
+        it { is_expected.to be_empty }
       end
     end
 
     context 'when the user has access to the organization' do
-      let(:organization_user) { create(:organization_user, :admin) }
-      let(:organization)      { organization_user.organization }
-      let(:user)              { organization_user.user }
+      let(:user) { create(:organization_user, :admin, organization: organization).user }
 
-      it 'returns every item' do
-        expect(scope).to contain_exactly(item)
+      context 'and the item belongs to the organization' do
+        it { is_expected.to contain_exactly(item) }
+      end
+
+      context 'and the item does not belong to the organization' do
+        let(:organization) { create(:organization) }
+
+        it { is_expected.to be_empty }
       end
     end
 
     context 'when the user has access to the department' do
       let(:user) { create(:user, departments: [item.department]) }
 
-      it 'returns every item' do
-        expect(scope).to include(item)
+      context 'and the item belongs to the organization' do
+        it { is_expected.to contain_exactly(item) }
+      end
+
+      context 'and the item does not belong to the organization' do
+        let(:organization) { create(:organization) }
+
+        it { is_expected.to be_empty }
       end
     end
 
     context 'when the user has no access to the department' do
       let(:user) { create(:user) }
 
-      it 'does not return the item' do
-        expect(scope).not_to include(item)
-      end
+      it { is_expected.to be_empty }
     end
   end
 end

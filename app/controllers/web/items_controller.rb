@@ -67,7 +67,7 @@ module Web
 
     def items
       ItemsQuery
-        .fetch(params, scope: policy_scope(current_organization.items).not_a_child)
+        .fetch(params, scope: policy_scope(Item).not_a_child)
         .includes(:department, :children)
     end
 

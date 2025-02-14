@@ -47,10 +47,12 @@ class DepartmentPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
+      departments = scope.where(organization: organization)
+
       if user.authorized_to?(:index_department, organization: organization)
-        scope.all
+        departments
       else
-        scope.where_assoc_exists(:department_users, user_id: user.id)
+        departments.where_assoc_exists(:department_users, user_id: user.id)
       end
     end
   end

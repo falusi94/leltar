@@ -38,7 +38,7 @@ module Web
     private
 
     def locations
-      policy_scope(current_organization.locations)
+      policy_scope(Location)
     end
 
     def set_location

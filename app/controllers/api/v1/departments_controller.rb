@@ -5,10 +5,6 @@ module Api
     class DepartmentsController < ResourcesController
       private
 
-      def resources
-        policy_scope(current_organization.departments)
-      end
-
       def create_resource_params
         super.merge(organization: current_organization)
       end

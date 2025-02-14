@@ -7,7 +7,7 @@ module Web
     before_action -> { authorize(@organization) }, except: %i[index new create]
 
     def index
-      @pagy, @organizations = pagy(Organization.all)
+      @pagy, @organizations = pagy(policy_scope(Organization))
       @organizations = OrganizationDecorator.decorate_collection(@organizations)
     end
 

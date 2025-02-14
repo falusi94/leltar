@@ -22,4 +22,10 @@ class LocationPolicy < ApplicationPolicy
   def permitted_attributes
     %i[name]
   end
+
+  class Scope < Scope
+    def resolve
+      scope.where(organization: organization)
+    end
+  end
 end

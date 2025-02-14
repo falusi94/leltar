@@ -21,7 +21,7 @@ module Web
     end
 
     def set_departments
-      @departments = policy_scope(current_organization.departments).order(:name)
+      @departments = policy_scope(Department).order(:name)
       @write_departments = current_user.departments.with_write_access.where(organization: current_organization)
     end
 

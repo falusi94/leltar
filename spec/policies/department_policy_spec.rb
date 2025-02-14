@@ -117,45 +117,60 @@ describe DepartmentPolicy do
   describe 'scope' do
     subject(:scope) do
       described_class::Scope.new(
-        Authorization::Scope.new(user: user, organization: try(:organization)),
+        Authorization::Scope.new(user: user, organization: organization),
         Department.all
       ).resolve
     end
 
-    let!(:department) { create(:department) }
+    let(:organization) { department.organization }
+    let(:department)   { create(:department) }
 
     context 'when the user is admin' do
       let(:user) { build_stubbed(:admin) }
 
-      it 'returns every department' do
-        expect(scope).to contain_exactly(department)
+      context 'and the department belongs to the organization' do
+        it { is_expected.to contain_exactly(department) }
+      end
+
+      context 'and the department not belong to the organization' do
+        let(:organization) { build_stubbed(:organization) }
+
+        it { is_expected.to be_empty }
       end
     end
 
     context 'when the user has access to the organization' do
-      let(:organization_user) { create(:organization_user, :admin) }
-      let(:organization)      { organization_user.organization }
-      let(:user)              { organization_user.user }
+      let(:user) { create(:organization_user, :admin, organization: organization).user }
 
-      it 'returns every department' do
-        expect(scope).to contain_exactly(department)
+      context 'and the department belongs to the organization' do
+        it { is_expected.to contain_exactly(department) }
+      end
+
+      context 'and the department not belong to the organization' do
+        let(:organization) { create(:organization) }
+
+        it { is_expected.to be_empty }
       end
     end
 
     context 'when the user has access to the department' do
-      let(:user) { create(:user, departments: [department]) }
+      let(:user) { create(:department_user, department: department).user }
 
-      it 'returns every department' do
-        expect(scope).to contain_exactly(department)
+      context 'and the department belongs to the organization' do
+        it { is_expected.to contain_exactly(department) }
+      end
+
+      context 'and the department not belong to the organization' do
+        let(:organization) { create(:organization) }
+
+        it { is_expected.to be_empty }
       end
     end
 
     context 'when the user has no access to the department' do
       let(:user) { create(:user) }
 
-      it 'does not return the department' do
-        expect(scope).to be_empty
-      end
+      it { is_expected.to be_empty }
     end
   end
 end

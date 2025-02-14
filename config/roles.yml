@@ -16,6 +16,7 @@ shared:
       show_department: false
       update_department: false
       destroy_department: false
+      index_department_user: false
       create_department_user: false
       update_department_user: false
       destroy_department_user: false
@@ -41,6 +42,7 @@ shared:
       show_department: true
       update_department: false
       destroy_department: false
+      index_department_user: false
       create_department_user: false
       update_department_user: false
       destroy_department_user: false
@@ -66,6 +68,7 @@ shared:
       show_department: true
       update_department: true
       destroy_department: true
+      index_department_user: true
       create_department_user: true
       update_department_user: true
       destroy_department_user: true
