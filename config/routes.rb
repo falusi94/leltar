@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount Crono::Engine, at: '/crono', constraints: RoutesConstraint::AdminUser
+
   namespace :api do
     scope module: :v1, constraints: RoutesConstraint::ApiVersion.new(version: 1, default: true) do
       resource :session, only: %i[create destroy]
