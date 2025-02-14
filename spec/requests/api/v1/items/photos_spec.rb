@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-describe '/items/:item_id/photos' do
+describe '/api/organization/:organization_id//items/:item_id/photos' do
   let(:user) { create(:admin, :with_session) }
   let(:item) { create(:item) }
 
   describe 'GET #index' do
-    subject(:list_photos) { get "/api/items/#{item_id}/photos", headers: auth_headers(user) }
+    subject(:list_photos) do
+      get "/api/organizations/#{item.organization.id}/items/#{item_id}/photos", headers: auth_headers(user)
+    end
 
     context 'when the item exists' do
       let(:item_id) { item.id }
@@ -40,7 +42,9 @@ describe '/items/:item_id/photos' do
     end
 
     context 'when the user is not authorized' do
-      subject(:list_photos) { get '/api/items/whatever/photos', headers: api_headers }
+      subject(:list_photos) do
+        get "/api/organizations/#{item.organization.id}/items/whatever/photos", headers: api_headers
+      end
 
       include_examples 'API returns unauthorized'
     end
@@ -48,7 +52,8 @@ describe '/items/:item_id/photos' do
 
   describe 'POST #create' do
     subject(:create_photo) do
-      post "/api/items/#{item_id}/photos", headers: auth_headers(user), params: { photo: photo }
+      post "/api/organizations/#{item.organization.id}/items/#{item_id}/photos",
+           headers: auth_headers(user), params: { photo: photo }
     end
 
     let(:photo) { fixture_file_upload('dot.jpg', 'image/jpeg') }
@@ -68,7 +73,9 @@ describe '/items/:item_id/photos' do
     end
 
     context 'when the user is not authorized' do
-      subject(:create_photos) { post '/api/items/whatever/photos', headers: api_headers }
+      subject(:create_photos) do
+        post "/api/organizations/#{item.organization.id}/items/whatever/photos", headers: api_headers
+      end
 
       include_examples 'API returns unauthorized'
     end
@@ -76,7 +83,8 @@ describe '/items/:item_id/photos' do
 
   describe 'DELETE #destroy' do
     subject(:delete_photo) do
-      delete "/api/items/#{item_id}/photos/#{photo_id}", headers: auth_headers(user)
+      delete "/api/organizations/#{item.organization.id}/items/#{item_id}/photos/#{photo_id}",
+             headers: auth_headers(user)
     end
 
     let!(:item) { create(:item, :with_photo) }
@@ -105,7 +113,9 @@ describe '/items/:item_id/photos' do
     end
 
     context 'when the user is not authorized' do
-      subject(:create_photos) { delete '/api/items/whatever/photos/whatever', headers: api_headers }
+      subject(:delete_photos) do
+        delete "/api/organizations/#{item.organization.id}/items/whatever/photos/whatever", headers: api_headers
+      end
 
       include_examples 'API returns unauthorized'
     end

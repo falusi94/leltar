@@ -6,7 +6,7 @@ module Api
       private
 
       def resources
-        ItemsQuery.fetch(params, scope: super.not_a_child)
+        ItemsQuery.fetch(params, scope: policy_scope(current_organization.items).not_a_child)
       end
 
       def create_resource_params

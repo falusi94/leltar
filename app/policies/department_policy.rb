@@ -42,7 +42,7 @@ class DepartmentPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    %i[name organization_id]
+    %i[name]
   end
 
   class Scope < Scope

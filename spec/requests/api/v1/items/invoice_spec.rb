@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-describe '/items/:item_id/invoice' do
+describe '/api/organization/:organization_id//items/:item_id/invoice' do
   let(:user) { create(:admin, :with_session) }
   let(:item) { create(:item) }
 
   describe 'GET #show' do
-    subject(:show_invoice) { get "/api/items/#{item_id}/invoice", headers: auth_headers(user) }
+    subject(:show_invoice) do
+      get "/api/organizations/#{item.organization.id}/items/#{item_id}/invoice", headers: auth_headers(user)
+    end
 
     context 'when the item exists' do
       let(:item_id) { item.id }
@@ -34,7 +36,9 @@ describe '/items/:item_id/invoice' do
     end
 
     context 'when the user is not authorized' do
-      subject(:list_invoice) { get '/api/items/whatever/invoice', headers: api_headers }
+      subject(:list_invoice) do
+        get "/api/organizations/#{item.organization.id}/items/whatever/invoice", headers: api_headers
+      end
 
       include_examples 'API returns unauthorized'
     end
@@ -42,7 +46,8 @@ describe '/items/:item_id/invoice' do
 
   describe 'POST #create' do
     subject(:create_invoice) do
-      post "/api/items/#{item_id}/invoice", headers: auth_headers(user), params: { photo: photo }
+      post "/api/organizations/#{item.organization.id}/items/#{item_id}/invoice",
+           headers: auth_headers(user), params: { photo: photo }
     end
 
     let(:photo) { fixture_file_upload('dot.jpg', 'image/jpeg') }
@@ -64,7 +69,9 @@ describe '/items/:item_id/invoice' do
     end
 
     context 'when the user is not authorized' do
-      subject(:create_invoice) { post '/api/items/whatever/invoice', headers: api_headers }
+      subject(:create_invoice) do
+        post "/api/organizations/#{item.organization.id}/items/whatever/invoice", headers: api_headers
+      end
 
       include_examples 'API returns unauthorized'
     end
@@ -72,7 +79,7 @@ describe '/items/:item_id/invoice' do
 
   describe 'DELETE #destroy' do
     subject(:delete_invoice) do
-      delete "/api/items/#{item_id}/invoice", headers: auth_headers(user)
+      delete "/api/organizations/#{item.organization.id}/items/#{item_id}/invoice", headers: auth_headers(user)
     end
 
     let(:item) { create(:item, :with_invoice) }
@@ -101,7 +108,9 @@ describe '/items/:item_id/invoice' do
     end
 
     context 'when the user is not authorized' do
-      subject(:create_invoice) { post '/api/items/whatever/invoice', headers: api_headers }
+      subject(:delete_invoice) do
+        delete "/api/organizations/#{item.organization.id}/items/whatever/invoice", headers: api_headers
+      end
 
       include_examples 'API returns unauthorized'
     end

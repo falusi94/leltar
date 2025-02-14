@@ -26,6 +26,7 @@ class Organization < ApplicationRecord
   has_many :departments, dependent: :nullify
   has_many :items, through: :departments
   has_many :locations, dependent: :destroy
+  has_many :department_users, through: :departments
 
   has_one :depreciation_config, dependent: :destroy
 
