@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+attributes = %i[depreciation_method depreciation_frequency_value depreciation_frequency_unit automatic_depreciation
+                automatic_depreciation_useful_life automatic_depreciation_salvage_value]
+
+depreciation_config.slice(*attributes)

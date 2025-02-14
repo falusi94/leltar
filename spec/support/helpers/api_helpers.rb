@@ -31,6 +31,17 @@ module ApiHelpers
     }
   end
 
+  def api_depreciation_config_hash(depreciation_config)
+    {
+      depreciation_method:                  depreciation_config.depreciation_method,
+      depreciation_frequency_value:         depreciation_config.depreciation_frequency_value,
+      depreciation_frequency_unit:          depreciation_config.depreciation_frequency_unit,
+      automatic_depreciation:               depreciation_config.automatic_depreciation,
+      automatic_depreciation_useful_life:   depreciation_config.automatic_depreciation_useful_life,
+      automatic_depreciation_salvage_value: depreciation_config.automatic_depreciation_salvage_value
+    }
+  end
+
   def api_location_hash(location)
     { id: location.id, name: location.name }
   end

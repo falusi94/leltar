@@ -22,6 +22,8 @@ Rails.application.routes.draw do
         resources :department_users, only: %i[index create update destroy]
 
         resources :locations, only: %i[index show create update destroy]
+
+        resource :depreciation_config, only: %i[show update]
       end
 
       resources :system_attributes, only: [:index] do
