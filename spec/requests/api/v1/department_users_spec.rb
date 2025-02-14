@@ -4,6 +4,12 @@ describe '/api/organization/:organization_id/department_users' do
   let(:organization) { create(:organization) }
   let(:url)          { "/api/organizations/#{organization.id}/department_users" }
 
+  describe 'GET #index' do
+    let(:resources) { create_list(:department_user, 1, organization: organization) }
+
+    include_examples 'API lists resources'
+  end
+
   describe 'POST #create' do
     let(:params)   { { department_id: create(:department, organization: organization).id, user_id: create(:user).id } }
     let(:resource) { DepartmentUser.last }

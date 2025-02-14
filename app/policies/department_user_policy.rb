@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class DepartmentUserPolicy < ApplicationPolicy
+  def index?
+    user.authorized_to?(:index_department_user, organization: organization)
+  end
+
   def create?
     user.authorized_to?(:create_department_user?, organization: record.department&.organization)
   end

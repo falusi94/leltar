@@ -19,7 +19,7 @@ Rails.application.routes.draw do
           resources :items, only: %i[index create]
         end
 
-        resources :department_users, only: %i[create update destroy]
+        resources :department_users, only: %i[index create update destroy]
       end
 
       resources :system_attributes, only: [:index] do
