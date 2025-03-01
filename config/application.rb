@@ -23,6 +23,7 @@ module Leltar
     config.active_record.yaml_column_permitted_classes  += [Date, ActiveSupport::TimeWithZone, Time, ActiveSupport::TimeZone]
 
     config.x.roles = config_for(:roles)
+    config.x.routes = config_for(:routes)
 
     config.generators do |g|
       g.test_framework :rspec

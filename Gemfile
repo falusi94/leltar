@@ -10,6 +10,7 @@ gem 'rails', '~> 7.1.3'
 gem 'bootsnap', require: false
 gem 'pg'
 gem 'puma'
+gem 'rack-cors'
 
 gem 'jsbundling-rails'
 gem 'mini_racer', platforms: :ruby

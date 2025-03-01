@@ -1,0 +1,6 @@
+shared:
+  cors_allowed_origins: []
+
+development:
+  cors_allowed_origins:
+    - '*'

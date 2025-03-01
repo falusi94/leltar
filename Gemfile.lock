@@ -221,6 +221,8 @@ GEM
       rspec-support (~> 3.12)
     racc (1.7.3)
     rack (2.2.8)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rack-session (1.0.2)
       rack (< 3)
     rack-test (2.1.0)
@@ -426,6 +428,7 @@ DEPENDENCIES
   puma
   pundit
   pundit-matchers
+  rack-cors
   rails (~> 7.1.3)
   rails_stats
   ransack
