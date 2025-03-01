@@ -85,8 +85,8 @@ class Item < ApplicationRecord
 
   has_one :depreciation_details, dependent: :destroy
 
-  validates :name, length: { minimum: 2, too_short: 'Túl rövid név' }
-  validates :description, length: { maximum: 300, too_long: 'Túl hosszú leírás' }
+  validates :name, length: { minimum: 2 }
+  validates :description, length: { maximum: 300 }
   validate :children_from_the_same_department, :parent_from_the_same_department, :acquisition_date_not_in_the_future,
            :has_no_grandparent, :has_no_grandchild
 
