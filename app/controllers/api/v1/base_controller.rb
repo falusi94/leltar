@@ -3,7 +3,7 @@
 module Api
   module V1
     class BaseController < ActionController::API
-      rescue_from Pundit::NotAuthorizedError, with: -> { head :unauthorized }
+      rescue_from Pundit::NotAuthorizedError, with: -> { head :forbidden }
       rescue_from ActiveRecord::RecordNotFound, with: -> { head :not_found }
 
       include Pagy::Backend
