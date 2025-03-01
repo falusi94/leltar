@@ -10,7 +10,7 @@ module Api
         @user = User.find_by!(email: params[:email])
         token = @user.api_authenticate(params[:password], user_agent: request.user_agent, ip_address: request.ip)
 
-        response.headers['access-token'] = token
+        response.headers['Authorization'] = "Bearer #{token}"
       rescue ActiveRecord::RecordNotFound, Authentication::Error
         head :unauthorized
       end

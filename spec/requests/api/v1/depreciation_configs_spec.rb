@@ -17,7 +17,7 @@ describe '/api/organization/:organization_id/depreciation_config' do
           show_resource
 
           expect(response).to have_http_status(:ok)
-          expect(response.headers).to include('access-token')
+          expect(response.headers).to include('authorization')
           expect(json).to match_api_response(resource)
         end
       end
@@ -45,7 +45,7 @@ describe '/api/organization/:organization_id/depreciation_config' do
           update_resource
 
           expect(response).to have_http_status(:ok)
-          expect(response.headers).to include('access-token')
+          expect(response.headers).to include('authorization')
           expect(json).to match_api_response(resource.reload)
         end
       end

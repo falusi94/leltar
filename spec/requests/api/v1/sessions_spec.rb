@@ -13,7 +13,7 @@ describe '/api/session' do
         session_create
 
         expect(response).to have_http_status(:ok)
-        expect(response.headers).to include('access-token')
+        expect(response.headers).to include('authorization')
         expect(json).to match_api_response(user)
       end
 

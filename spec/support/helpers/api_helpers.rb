@@ -11,7 +11,7 @@ module ApiHelpers
   def auth_headers(user)
     jwt = user.generate_jwt(user.sessions.first.try(:client_id))
 
-    api_headers('access-token': jwt)
+    api_headers(authorization: "Bearer #{jwt}")
   end
 
   def json

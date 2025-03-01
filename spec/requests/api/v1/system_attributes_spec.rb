@@ -22,7 +22,7 @@ describe '/api/system_attributes' do
       update_system_attributes
 
       expect(response).to have_http_status(:ok)
-      expect(response.headers).to include('access-token')
+      expect(response.headers).to include('authorization')
       expect(system_attribute.reload).to have_attributes(value: 'value')
       expect(SystemAttribute).to have_received(:update!)
     end

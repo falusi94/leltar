@@ -19,7 +19,7 @@ describe '/api/organization/:organization_id//items/:item_id/photos' do
           list_photos
 
           expect(response).to have_http_status(:ok)
-          expect(response.headers).to include('access-token')
+          expect(response.headers).to include('authorization')
           expect(json).to match_api_response([item.photos.first])
         end
       end
@@ -29,7 +29,7 @@ describe '/api/organization/:organization_id//items/:item_id/photos' do
           list_photos
 
           expect(response).to have_http_status(:ok)
-          expect(response.headers).to include('access-token')
+          expect(response.headers).to include('authorization')
           expect(json).to match_api_response([])
         end
       end

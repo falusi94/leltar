@@ -17,7 +17,7 @@ shared_examples 'API lists resources' do
       list_resources
 
       expect(response).to have_http_status(:ok)
-      expect(response.headers).to include('access-token')
+      expect(response.headers).to include('authorization')
       expect(json).to match_api_response(resources.try(:reload) || resources)
     end
   end
@@ -42,7 +42,7 @@ shared_examples 'API shows resource' do
         show_resource
 
         expect(response).to have_http_status(:ok)
-        expect(response.headers).to include('access-token')
+        expect(response.headers).to include('authorization')
         expect(json).to match_api_response(resource)
       end
     end
@@ -72,7 +72,7 @@ shared_examples 'API creates resource' do
         create_resource
 
         expect(response).to have_http_status(:created)
-        expect(response.headers).to include('access-token')
+        expect(response.headers).to include('authorization')
         expect(json).to match_api_response(resource)
       end
     end
@@ -104,7 +104,7 @@ shared_examples 'API updates resource' do
         update_resource
 
         expect(response).to have_http_status(:ok)
-        expect(response.headers).to include('access-token')
+        expect(response.headers).to include('authorization')
         expect(json).to match_api_response(resource.reload)
       end
     end
@@ -142,7 +142,7 @@ shared_examples 'API deletes resource' do
         delete_resource
 
         expect(response).to have_http_status(:no_content)
-        expect(response.headers).to include('access-token')
+        expect(response.headers).to include('authorization')
         expect(resource.class).not_to exist(resource.id)
       end
     end

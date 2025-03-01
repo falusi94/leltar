@@ -19,7 +19,7 @@ describe '/api/organization/:organization_id//items/:item_id/invoice' do
           show_invoice
 
           expect(response).to have_http_status(:ok)
-          expect(response.headers).to include('access-token')
+          expect(response.headers).to include('authorization')
           expect(json).to match_api_response(api_attachment_hash(item.invoice))
         end
       end
